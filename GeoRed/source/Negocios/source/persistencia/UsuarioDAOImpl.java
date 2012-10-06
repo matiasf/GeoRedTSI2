@@ -17,7 +17,7 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO{
 	@Override
 	public List<Usuario> obtenerTodos() {
 		TypedQuery<Usuario> ret = em.createQuery(
-				"SELECT u from USUARIOS u", Usuario.class);
+				"SELECT u FROM Usuario u", Usuario.class);
 		return ret.getResultList();
 	}
 	
