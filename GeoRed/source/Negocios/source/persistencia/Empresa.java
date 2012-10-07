@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Empresa
  *
  */
 @Entity
-
+@XmlRootElement
 public class Empresa implements Serializable {
 
 	

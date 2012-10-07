@@ -3,19 +3,22 @@ package negocios;
 
 import java.util.List;
 
-import dataTypes.SitioInteresDTO;
+import persistencia.CheckIn;
+import persistencia.SitioInteres;
 
 public interface GestionSitioInteres {
 	
-	public void agregarSitioInteres(SitioInteresDTO sitioInteres);
+	public void agregarSitioInteres(SitioInteres sitioInteres);
 	
-	public SitioInteresDTO modifciarSitioInteres(SitioInteresDTO sitioInteres);
+	public SitioInteres modifciarSitioInteres(SitioInteres sitioInteres);
 	
-	public SitioInteresDTO obtenerSitioInters(int id);
+	public SitioInteres obtenerSitioInters(int id);
 	
 	public void borrarSitioInteres(int id);
 	
-	public List<SitioInteresDTO> obtenerTodosSitiosInteres();
+	public List<SitioInteres> obtenerTodosSitiosInteres();
+	
+	public void hacerCheckIn(int idUsuario, CheckIn checkIn);
 	
 
 }

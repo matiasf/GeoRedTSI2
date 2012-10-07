@@ -2,32 +2,34 @@ package persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Calendar;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Entity implementation class for Entity: Local
+ * Entity implementation class for Entity: Oferta
  *
  */
 @Entity
-@XmlRootElement
-public class Local implements Serializable, Notificacion {
+
+public class Oferta implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue
 	private int id;
-	@NotNull
 	private String nombre;
 	private String descripcion;
+	private float costo;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar comienzo;
 	
-	private float latitud;
-	private float longitud;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fin;
+	
 	
 	private static final long serialVersionUID = 1L;
 
-	public Local() {
+	public Oferta() {
 		super();
 	}   
 	public int getId() {
@@ -51,19 +53,24 @@ public class Local implements Serializable, Notificacion {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}   
-	public float getLatitud() {
-		return this.latitud;
+	public float getCosto() {
+		return this.costo;
 	}
 
-	public void setLatitud(float latitud) {
-		this.latitud = latitud;
-	}   
-	public float getLongitud() {
-		return this.longitud;
+	public void setCosto(float costo) {
+		this.costo = costo;
 	}
-
-	public void setLongitud(float longitud) {
-		this.longitud = longitud;
+	public Calendar getComienzo() {
+		return comienzo;
+	}
+	public void setComienzo(Calendar comienzo) {
+		this.comienzo = comienzo;
+	}
+	public Calendar getFin() {
+		return fin;
+	}
+	public void setFin(Calendar fin) {
+		this.fin = fin;
 	}
    
 }

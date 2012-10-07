@@ -6,14 +6,15 @@ import java.util.Collection;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Sitio de Interes
  *
  */
 @Entity
-
-public class SitioInteres implements Serializable {
+@XmlRootElement
+public class SitioInteres implements Serializable, Notificacion {
 
 	   
 	@Id

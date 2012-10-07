@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.lang.String;
 import java.util.Calendar;
 
-import javax.ejb.EJB;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: CheckIn
  *
  */
 @Entity
-
-public class CheckIn implements Serializable {
+@XmlRootElement
+public class CheckIn implements Serializable, Notificacion {
 	   
 	@Id
 	@GeneratedValue
