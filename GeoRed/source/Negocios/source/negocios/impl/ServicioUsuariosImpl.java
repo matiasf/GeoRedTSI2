@@ -1,4 +1,4 @@
-package negocios;
+package negocios.impl;
 
 import java.util.List;
 
