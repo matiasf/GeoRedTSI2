@@ -6,13 +6,14 @@ import java.util.Collection;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Sitio de Interes
  *
  */
 @Entity
-
+@XmlRootElement
 public class SitioInteres implements Serializable {
 
 	   

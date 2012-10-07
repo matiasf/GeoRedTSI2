@@ -6,13 +6,14 @@ import java.util.Collection;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Usuario
  *
  */
 @Entity
-
+@XmlRootElement
 public class Usuario implements Serializable {
 
 	   
