@@ -4,25 +4,24 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import dataTypes.EmpresaDTO;
-import dataTypes.LocalDTO;
+import persistencia.Empresa;
 
 @Local
 public interface GestionEmpresas {
 	
 	public boolean chechLogin(String email, String password);
 	
-	public void agregarEmpresa(EmpresaDTO empresa);
+	public void agregarEmpresa(Empresa empresa);
 	
-	public EmpresaDTO modifciarEmpresa(EmpresaDTO empresa);
+	public Empresa modifciarEmpresa(Empresa empresa);
 	
-	public void agregarLocal(int idEmpresa, LocalDTO local);
+	public void agregarLocal(int idEmpresa, Local local);
 	
-	public EmpresaDTO obtenerEmpresa(int id);
+	public Empresa obtenerEmpresa(int id);
 	
-	public List<EmpresaDTO> obtenerTodasLasEmpresas();
+	public List<Empresa> obtenerTodasLasEmpresas();
 	
-	public List<LocalDTO> obtenerLocalesDeEmpresa(int idEmpresa);
+	public List<Local> obtenerLocalesDeEmpresa(int idEmpresa);
 	
 	public void borrarEmpresa(int id);
 	
