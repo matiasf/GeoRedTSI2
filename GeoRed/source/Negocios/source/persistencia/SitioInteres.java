@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-public class SitioInteres implements Serializable {
+public class SitioInteres implements Serializable, Notificacion {
 
 	   
 	@Id

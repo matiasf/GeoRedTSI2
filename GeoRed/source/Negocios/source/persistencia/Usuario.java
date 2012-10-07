@@ -31,6 +31,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private Collection<CheckIn> checkIns;
 	
+	@OneToMany(mappedBy="usuario")
+	private Collection<Invitacion> invitaciones;
+	
 
 	public Usuario() {
 		super();
@@ -60,6 +63,12 @@ public class Usuario implements Serializable {
 	}
 	public void setCheckIns(Collection<CheckIn> checkIns) {
 		this.checkIns = checkIns;
+	}
+	public Collection<Invitacion> getInvitaciones() {
+		return invitaciones;
+	}
+	public void setInvitaciones(Collection<Invitacion> invitaciones) {
+		this.invitaciones = invitaciones;
 	}
    
 }

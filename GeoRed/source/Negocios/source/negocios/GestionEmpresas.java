@@ -1,12 +1,14 @@
 package negocios;
 
 import java.util.List;
+import persistencia.Local;
+import persistencia.Oferta;
+import persistencia.Pago;
 
-import javax.ejb.Local;
 
 import persistencia.Empresa;
 
-@Local
+@javax.ejb.Local
 public interface GestionEmpresas {
 	
 	public boolean chechLogin(String email, String password);
@@ -26,5 +28,11 @@ public interface GestionEmpresas {
 	public void borrarEmpresa(int id);
 	
 	public void borrarLocal(int id);
+	
+	public void comprarOferta(int idUsuario, Pago pago);
+	
+	public void agregarOferta(Oferta oferta);
+	
+	
 
 }

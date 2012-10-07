@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
-public class CheckIn implements Serializable {
+public class CheckIn implements Serializable, Notificacion {
 	   
 	@Id
 	@GeneratedValue
