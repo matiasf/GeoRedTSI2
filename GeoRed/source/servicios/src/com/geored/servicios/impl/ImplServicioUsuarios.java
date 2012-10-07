@@ -3,20 +3,24 @@ package com.geored.servicios.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import persistencia.UsuarioDAO;
+
 import com.geored.servicios.ServicioUsuarios;
 import com.geored.servicios.testdata.Invitacion;
 import com.geored.servicios.testdata.Usuario;
-import com.geored.servicios.testdata.UsuarioJSON;
 
 @Local
 @Stateless
 public class ImplServicioUsuarios implements ServicioUsuarios {
 
+	@EJB(name = "UsuarioDAOImpl")
+	UsuarioDAO usuarioDao;
 	final List<Usuario> contactos;
 	final List<Invitacion> invitaciones;
 	
@@ -38,15 +42,21 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	}
 	
 	public List<Usuario> getContactos() {
-		return contactos;
+		ArrayList<Usuario> usuariosData = new ArrayList<Usuario>();
+		Usuario usuarioTmp;
+		for (persistencia.Usuario usuario : usuarioDao.obtenerTodos()) {
+			usuarioTmp = new Usuario();
+			usuarioTmp.setId(String.valueOf(usuario.getId()));
+			usuarioTmp.setNombre(usuario.getNombre());
+			usuariosData.add(usuarioTmp);
+		}
+		return usuariosData;
 	}
 	
-	public UsuarioJSON getContacto(final String id) {
+	public Usuario getContacto(final String id) {
 		for (Usuario contacto : contactos) {
 			if (contacto.getId().equals(id)) {
-				UsuarioJSON usuarioJson = new UsuarioJSON();
-				usuarioJson.setUsuario(contacto);
-				return usuarioJson;
+				return contacto;
 			}
 		}
 		throw new WebApplicationException(Response.Status.NOT_FOUND);

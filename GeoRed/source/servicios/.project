@@ -3,6 +3,7 @@
 	<name>servicios</name>
 	<comment></comment>
 	<projects>
+		<project>Negocios</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

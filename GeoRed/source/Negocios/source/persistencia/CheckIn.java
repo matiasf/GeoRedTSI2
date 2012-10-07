@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.String;
 import java.util.Calendar;
 
+import javax.ejb.EJB;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 
 public class CheckIn implements Serializable {
-
 	   
 	@Id
 	@GeneratedValue

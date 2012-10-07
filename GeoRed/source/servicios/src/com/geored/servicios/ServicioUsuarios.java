@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 import com.geored.servicios.testdata.Invitacion;
 import com.geored.servicios.testdata.Usuario;
-import com.geored.servicios.testdata.UsuarioJSON;
 
 @Path("usuarios")
 public interface ServicioUsuarios {
@@ -25,7 +24,7 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("contactos/{id}")
 	@Produces("application/json")
-	public UsuarioJSON getContacto(@PathParam("id") final String id);
+	public Usuario getContacto(@PathParam("id") final String id);
 	
 	@POST
 	@Path("contactos/{id}")
