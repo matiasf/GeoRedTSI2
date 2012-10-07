@@ -1,76 +1,44 @@
 package com.geored.servicios.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import persistencia.UsuarioDAO;
+import negocios.GestionUsuarios;
+import persistencia.Invitacion;
+import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
-import com.geored.servicios.testdata.Invitacion;
-import com.geored.servicios.testdata.Usuario;
 
 @Local
 @Stateless
 public class ImplServicioUsuarios implements ServicioUsuarios {
 
-	@EJB(name = "UsuarioDAOImpl")
-	UsuarioDAO usuarioDao;
-	final List<Usuario> contactos;
-	final List<Invitacion> invitaciones;
+	@EJB
+	GestionUsuarios gestionUsuarios;
 	
-	public ImplServicioUsuarios() {
-		contactos = new ArrayList<Usuario>();
-		Usuario tmpContacto = new Usuario();
-		tmpContacto.setId("1");
-		tmpContacto.setNombre("Aragorn");
-		contactos.add(tmpContacto);
-		tmpContacto = new Usuario();
-		tmpContacto.setId("2");
-		tmpContacto.setNombre("Boromir");
-		contactos.add(tmpContacto);
-		invitaciones = new ArrayList<Invitacion>();
-		Invitacion tmpInvitacion = new Invitacion();
-		tmpInvitacion.setId("1");
-		tmpInvitacion.setUsuario(tmpContacto);
-		invitaciones.add(tmpInvitacion);
+	public List<Usuario> getContactos(final int idUsuario) {
+		return gestionUsuarios.getContactos(idUsuario);
 	}
 	
-	public List<Usuario> getContactos() {
-		ArrayList<Usuario> usuariosData = new ArrayList<Usuario>();
-		Usuario usuarioTmp;
-		for (persistencia.Usuario usuario : usuarioDao.obtenerTodos()) {
-			usuarioTmp = new Usuario();
-			usuarioTmp.setId(String.valueOf(usuario.getId()));
-			usuarioTmp.setNombre(usuario.getNombre());
-			usuariosData.add(usuarioTmp);
-		}
-		return usuariosData;
+	public Usuario getContacto(final int idUsuario, final int idContacto) {
+		return gestionUsuarios.getContacto(idUsuario, idContacto);
 	}
 	
-	public Usuario getContacto(final String id) {
-		for (Usuario contacto : contactos) {
-			if (contacto.getId().equals(id)) {
-				return contacto;
-			}
-		}
-		throw new WebApplicationException(Response.Status.NOT_FOUND);
-	}
-	
-	public Response invitarContactos(final String id) {
+	public Response invitarContacto(final int idUsuario, final int idContacto) {
+		gestionUsuarios.invitarContacto(idUsuario, idContacto);
 		return Response.ok().build();
 	}
 	
-	public List<Invitacion> getInvitaciones() {
-		return invitaciones;
+	public List<Invitacion> getInvitaciones(final int idUsuario) {
+		return gestionUsuarios.getInvitaciones(idUsuario);
 	}
 	
-	public Response procesarInvitacion(final String id, final Boolean aceptar) {
+	public Response aceptarInvitacion(final int idUsuario, final int idContacto) {
+		gestionUsuarios.aceptarInvitacion(idUsuario, idContacto);
 		return Response.ok().build();
 	}
 

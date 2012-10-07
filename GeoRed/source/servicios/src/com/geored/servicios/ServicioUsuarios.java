@@ -4,39 +4,43 @@ import java.util.List;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.geored.servicios.testdata.Invitacion;
-import com.geored.servicios.testdata.Usuario;
+import persistencia.Invitacion;
+import persistencia.Usuario;
 
 @Path("usuarios")
 public interface ServicioUsuarios {
-	
+
 	@GET
 	@Path("contactos")
 	@Produces("application/json")
-	public List<Usuario> getContactos();
-	
+	public List<Usuario> getContactos(@HeaderParam("idUsuario") final int idUsuario);
+
 	@GET
-	@Path("contactos/{id}")
+	@Path("contactos/{contactId}")
 	@Produces("application/json")
-	public Usuario getContacto(@PathParam("id") final String id);
-	
+	public Usuario getContacto(@HeaderParam("idUsuario") final int idUsuario,
+			@PathParam("idContacto") final int idContacto);
+
 	@POST
 	@Path("contactos/{id}")
-	public Response invitarContactos(@PathParam("id") final String id);
-	
+	public Response invitarContacto(@HeaderParam("idUsuario") final int idUsuario,
+			@PathParam("idContacto") final int idContacto);
+
 	@GET
 	@Path("contactos/invitaciones")
 	@Produces("application/json")
-	public List<Invitacion> getInvitaciones();
-	
+	public List<Invitacion> getInvitaciones(@HeaderParam("idUsuario") final int idUsuario);
+
 	@POST
 	@Path("contactos/invitaciones/{id}")
-	public Response procesarInvitacion(@PathParam("id") final String id, @FormParam("aceptar") final Boolean aceptar) ;
+	public Response aceptarInvitacion(@PathParam("idUsuario") final int idUsuario,
+			@FormParam("idContacto") final int idContacto);
 
 }
