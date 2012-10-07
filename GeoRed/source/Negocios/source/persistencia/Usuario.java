@@ -6,13 +6,14 @@ import java.util.Collection;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Usuario
  *
  */
 @Entity
-
+@XmlRootElement
 public class Usuario implements Serializable {
 
 	   
@@ -29,6 +30,9 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy="usuario")
 	private Collection<CheckIn> checkIns;
+	
+	@OneToMany(mappedBy="usuario")
+	private Collection<Invitacion> invitaciones;
 	
 
 	public Usuario() {
@@ -59,6 +63,12 @@ public class Usuario implements Serializable {
 	}
 	public void setCheckIns(Collection<CheckIn> checkIns) {
 		this.checkIns = checkIns;
+	}
+	public Collection<Invitacion> getInvitaciones() {
+		return invitaciones;
+	}
+	public void setInvitaciones(Collection<Invitacion> invitaciones) {
+		this.invitaciones = invitaciones;
 	}
    
 }

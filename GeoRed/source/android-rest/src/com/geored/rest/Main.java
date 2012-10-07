@@ -2,6 +2,7 @@ package com.geored.rest;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,11 +10,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.authorwjf.http_get.R;
-import com.geored.rest.data.Usuario;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -22,6 +18,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.authorwjf.http_get.R;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.geored.rest.data.Usuario;
 
 public class Main extends Activity implements OnClickListener {
     @Override
@@ -58,18 +58,18 @@ public class Main extends Activity implements OnClickListener {
 			 HttpContext localContext = new BasicHttpContext();
              HttpGet httpGet = new HttpGet("https://tsi2test-rectadeeuler.rhcloud.com/servicios/rest/usuarios/contactos/1");
              String text = null;
-             Usuario usuario = new Usuario();
              try {
                    HttpResponse response = httpClient.execute(httpGet, localContext);
                    HttpEntity entity = response.getEntity();
                    text = getASCIIContentFromEntity(entity);
-                   JSONArray json = new JSONObject(text).getJSONArray("");                   
-                   /*usuario.setId(json.getString("id"));
-                   usuario.setNombre(json.getString("nombre"));           */        
+                   ObjectMapper mapper = new ObjectMapper();
+                   Usuario usuario = mapper.readValue(text, Usuario.class);
+                   usuario.setId(usuario.getId());
+                   usuario.setNombre(usuario.getNombre());
+                   return "El nombre es: " + usuario.getNombre() + ". El id es: " + usuario.getId();
              } catch (Exception e) {            	 
             	 return e.getLocalizedMessage();
-             }
-             return "El nombre es: " + usuario.getNombre() + ". El id es: " + usuario.getId();
+             }             
 		}	
 		
 		protected void onPostExecute(String results) {

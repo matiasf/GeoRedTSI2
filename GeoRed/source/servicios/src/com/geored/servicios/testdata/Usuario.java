@@ -1,7 +1,5 @@
 package com.geored.servicios.testdata;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -9,7 +7,7 @@ public class Usuario {
 
 	String nombre;
 	String id; 
-	List<Invitacion> invitaciones;
+	//List<Invitacion> invitaciones;
 
 	public Usuario() {	}
 	
@@ -29,12 +27,12 @@ public class Usuario {
 		this.id = id;
 	}
 	
-	public List<Invitacion> getInvitaciones() {
+	/*public List<Invitacion> getInvitaciones() {
 		return invitaciones;
 	}
 
 	public void setInvitaciones(List<Invitacion> invitaciones) {
 		this.invitaciones = invitaciones;
-	}
+	}*/
 
 }

@@ -7,24 +7,28 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Entity implementation class for Entity: Categoria
+ * Entity implementation class for Entity: Empresa
  *
  */
 @Entity
 @XmlRootElement
-public class Categoria implements Serializable {
+public class Empresa implements Serializable {
 
-	   
+	
 	@Id
 	@GeneratedValue
 	private int id;
-	
 	@NotNull
 	private String nombre;
 	private String descripcion;
+	@NotNull
+	private String mailAdmin;
+	@NotNull
+	private String password;
+	private String nombreAdmin;
 	private static final long serialVersionUID = 1L;
 
-	public Categoria() {
+	public Empresa() {
 		super();
 	}   
 	public int getId() {
@@ -47,6 +51,27 @@ public class Categoria implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}   
+	public String getMailAdmin() {
+		return this.mailAdmin;
+	}
+
+	public void setMailAdmin(String mailAdmin) {
+		this.mailAdmin = mailAdmin;
+	}   
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}   
+	public String getNombreAdmin() {
+		return this.nombreAdmin;
+	}
+
+	public void setNombreAdmin(String nombreAdmin) {
+		this.nombreAdmin = nombreAdmin;
 	}
    
 }

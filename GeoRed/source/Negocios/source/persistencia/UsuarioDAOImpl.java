@@ -5,8 +5,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
-@Stateless
-public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO{
+@Stateless(name = "UsuarioDAOImpl")
+public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 
 	@Override
 	public Usuario buscarPorId(int id) {

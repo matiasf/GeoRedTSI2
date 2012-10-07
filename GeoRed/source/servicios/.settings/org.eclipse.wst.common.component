@@ -3,6 +3,9 @@
     <wb-module deploy-name="servicios">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="Negocios.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Negocios/Negocios">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="servicios"/>
         <property name="java-output-path" value="/servicios/build/classes"/>
     </wb-module>

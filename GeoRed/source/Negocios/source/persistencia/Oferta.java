@@ -2,29 +2,34 @@ package persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Calendar;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Entity implementation class for Entity: Categoria
+ * Entity implementation class for Entity: Oferta
  *
  */
 @Entity
-@XmlRootElement
-public class Categoria implements Serializable {
+
+public class Oferta implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue
 	private int id;
-	
-	@NotNull
 	private String nombre;
 	private String descripcion;
+	private float costo;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar comienzo;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fin;
+	
+	
 	private static final long serialVersionUID = 1L;
 
-	public Categoria() {
+	public Oferta() {
 		super();
 	}   
 	public int getId() {
@@ -47,6 +52,25 @@ public class Categoria implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}   
+	public float getCosto() {
+		return this.costo;
+	}
+
+	public void setCosto(float costo) {
+		this.costo = costo;
+	}
+	public Calendar getComienzo() {
+		return comienzo;
+	}
+	public void setComienzo(Calendar comienzo) {
+		this.comienzo = comienzo;
+	}
+	public Calendar getFin() {
+		return fin;
+	}
+	public void setFin(Calendar fin) {
+		this.fin = fin;
 	}
    
 }

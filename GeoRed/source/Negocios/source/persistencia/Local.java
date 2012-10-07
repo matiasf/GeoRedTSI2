@@ -7,24 +7,27 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Entity implementation class for Entity: Categoria
+ * Entity implementation class for Entity: Local
  *
  */
 @Entity
 @XmlRootElement
-public class Categoria implements Serializable {
+public class Local implements Serializable, Notificacion {
 
 	   
 	@Id
 	@GeneratedValue
 	private int id;
-	
 	@NotNull
 	private String nombre;
 	private String descripcion;
+	
+	private float latitud;
+	private float longitud;
+	
 	private static final long serialVersionUID = 1L;
 
-	public Categoria() {
+	public Local() {
 		super();
 	}   
 	public int getId() {
@@ -47,6 +50,20 @@ public class Categoria implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}   
+	public float getLatitud() {
+		return this.latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}   
+	public float getLongitud() {
+		return this.longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
    
 }
