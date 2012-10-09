@@ -2,6 +2,8 @@ package persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Collection;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,6 +28,10 @@ public class Empresa implements Serializable {
 	@NotNull
 	private String password;
 	private String nombreAdmin;
+	
+	@OneToMany(cascade={CascadeType.REMOVE})
+	private Collection<Local> locales;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Empresa() {
@@ -72,6 +78,12 @@ public class Empresa implements Serializable {
 
 	public void setNombreAdmin(String nombreAdmin) {
 		this.nombreAdmin = nombreAdmin;
+	}
+	public Collection<Local> getLocales() {
+		return locales;
+	}
+	public void setLocales(Collection<Local> locales) {
+		this.locales = locales;
 	}
    
 }

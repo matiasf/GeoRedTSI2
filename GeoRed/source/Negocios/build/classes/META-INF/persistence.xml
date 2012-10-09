@@ -4,6 +4,11 @@
 		<jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
 		<class>persistencia.Usuario</class>
 		<class>persistencia.SitioInteres</class>
+		<class>persistencia.Pago</class>
+		<class>persistencia.Oferta</class>
+		<class>persistencia.Local</class>
+		<class>persistencia.Invitacion</class>
+		<class>persistencia.Empresa</class>
 		<class>persistencia.CheckIn</class>
 		<class>persistencia.Categoria</class>
 		<properties>

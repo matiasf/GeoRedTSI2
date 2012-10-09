@@ -2,8 +2,10 @@ package persistencia;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
+@Stateless
 public class CategoriaDAOImpl extends BaseDAO<Categoria> implements CategoriaDAO{
 
 	@Override

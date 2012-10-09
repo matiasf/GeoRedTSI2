@@ -2,6 +2,8 @@ package persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Collection;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +26,9 @@ public class Local implements Serializable, Notificacion {
 	
 	private float latitud;
 	private float longitud;
+	
+	@OneToMany(mappedBy="local", cascade={CascadeType.REMOVE})
+	private Collection<Oferta> ofertas;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -64,6 +69,12 @@ public class Local implements Serializable, Notificacion {
 
 	public void setLongitud(float longitud) {
 		this.longitud = longitud;
+	}
+	public Collection<Oferta> getOfertas() {
+		return ofertas;
+	}
+	public void setOfertas(Collection<Oferta> ofertas) {
+		this.ofertas = ofertas;
 	}
    
 }

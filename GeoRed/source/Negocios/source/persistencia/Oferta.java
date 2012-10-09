@@ -3,6 +3,7 @@ package persistencia;
 import java.io.Serializable;
 import java.lang.String;
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.persistence.*;
 
@@ -26,6 +27,11 @@ public class Oferta implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fin;
 	
+	@OneToMany
+	private Collection<Pago> pagos;
+	
+	@ManyToOne
+	private Local local;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -71,6 +77,18 @@ public class Oferta implements Serializable {
 	}
 	public void setFin(Calendar fin) {
 		this.fin = fin;
+	}
+	public Collection<Pago> getPagos() {
+		return pagos;
+	}
+	public void setPagos(Collection<Pago> pagos) {
+		this.pagos = pagos;
+	}
+	public Local getLocal() {
+		return local;
+	}
+	public void setLocal(Local local) {
+		this.local = local;
 	}
    
 }
