@@ -17,7 +17,7 @@ public class Invitacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	private Usuario usuario;
+	private Usuario remitente;
 
 	public Invitacion() {
 		super();
@@ -29,11 +29,11 @@ public class Invitacion implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getRemitente() {
+		return remitente;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setRemitente(Usuario remitente) {
+		this.remitente = remitente;
 	}
    
 }

@@ -19,6 +19,9 @@ public class Pago implements Serializable {
 	private int evaluacion;
 	private String comentario;
 	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne
+	private Usuario usuario;
 
 	public Pago() {
 		super();
@@ -43,6 +46,12 @@ public class Pago implements Serializable {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
    
 }

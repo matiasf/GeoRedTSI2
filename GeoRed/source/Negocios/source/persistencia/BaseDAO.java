@@ -12,8 +12,8 @@ public abstract class BaseDAO<Entidad> {
 		return entidad;
 	}
 	
-	public void modificar(Entidad entidad) {
-		em.merge(entidad);
+	public Entidad modificar(Entidad entidad) {
+		return em.merge(entidad);
 	}
 	
 	public void borrar(Entidad entidad) {
@@ -23,6 +23,11 @@ public abstract class BaseDAO<Entidad> {
 	public void borrar(int id) {
 		Entidad entidad = this.buscarPorId(id);
 		this.borrar(entidad);
+	}
+	
+	public boolean existe(int id) {
+		Entidad e = this.buscarPorId(id);
+		return (e != null);
 	}
 	
 	public abstract Entidad buscarPorId(int id);

@@ -1,9 +1,10 @@
 package negocios;
 
 import java.util.List;
+
+import negocios.excepciones.EntidadNoExiste;
 import persistencia.Local;
 import persistencia.Oferta;
-import persistencia.Pago;
 
 
 import persistencia.Empresa;
@@ -17,21 +18,19 @@ public interface GestionEmpresas {
 	
 	public Empresa modifciarEmpresa(Empresa empresa);
 	
-	public void agregarLocal(int idEmpresa, Local local);
+	public void agregarLocal(int idEmpresa, Local local) throws EntidadNoExiste;
 	
 	public Empresa obtenerEmpresa(int id);
 	
 	public List<Empresa> obtenerTodasLasEmpresas();
 	
-	public List<Local> obtenerLocalesDeEmpresa(int idEmpresa);
+	public List<Local> obtenerLocalesDeEmpresa(int idEmpresa) throws EntidadNoExiste;
 	
-	public void borrarEmpresa(int id);
+	public void borrarEmpresa(int id) throws EntidadNoExiste;
 	
-	public void borrarLocal(int id);
+	public void borrarLocal(int id) throws EntidadNoExiste;
 	
-	public void comprarOferta(int idUsuario, Pago pago);
-	
-	public void agregarOferta(Oferta oferta);
+	public void agregarOferta(int idLocal, Oferta oferta) throws EntidadNoExiste;
 	
 	
 

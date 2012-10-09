@@ -23,6 +23,9 @@ public class Usuario implements Serializable {
 	
 	@NotNull
 	private String nombre;
+	@NotNull
+	private String password;
+	
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany
@@ -31,8 +34,11 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private Collection<CheckIn> checkIns;
 	
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Collection<Invitacion> invitaciones;
+	
+	@ManyToMany
+	private Collection<Usuario> contactos;
 	
 
 	public Usuario() {
@@ -69,6 +75,18 @@ public class Usuario implements Serializable {
 	}
 	public void setInvitaciones(Collection<Invitacion> invitaciones) {
 		this.invitaciones = invitaciones;
+	}
+	public Collection<Usuario> getContactos() {
+		return contactos;
+	}
+	public void setContactos(Collection<Usuario> contactos) {
+		this.contactos = contactos;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
    
 }
