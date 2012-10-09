@@ -9,45 +9,39 @@
                 xmlns:my="http://java.sun.com/jsf/composite/components">
     <ui:define name="content">
         <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>
-
+        <h:outputScript target="head" name="showMessage.js" library="js"/>	
 
        <h:form id="altaEmpresa">
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa Registration" headerClass="header">
-              <p>Enforces annotation-based constraints defined on the model class.</p>
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">
+          
+			<h:outputText value="Alta exitosa" rendered="{altaEmpresaBB.exito}"></h:outputText>
+			
+		   <h:panelGrid columns="3" columnClasses="titleCell">
+		      <h:outputLabel for="name" value="Nombre"/>
+		      <h:inputText id="name" value="#{altaEmpresaBB.nombre}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="name" errorClass="invalid"/>
+		
+		      <h:outputLabel for="email" value="Email:"/>
+		      <h:inputText id="email" value="#{altaEmpresaBB.mail}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="email" errorClass="invalid"/>
 
-				<my:empresaForm empresa="#{newEmpresa}"></my:empresaForm>
-              
-
-             <h:panelGrid columns="2">
-                <a4j:commandButton id="register" action="#{empresaController.altaEmpresa}" value="Aceptar"
-                                   styleClass="register" execute="newEmpresaPanel" render="newEmpresaPanel"/>
+		   </h:panelGrid>
+			
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="cancelar" action="#{altaEmpresaBB.cancelar}" value="Cancelar"
+                                   styleClass="boton" />
+                <a4j:commandButton id="altaEmpresa" action="#{altaEmpresaBB.altaEmpresa}" value="Dar de alta"
+                                   styleClass="boton" />
+                                   
                 <rich:messages globalOnly="true"/>
              </h:panelGrid>
-          </rich:panel>
-          <br />
 
-          <div id="newMemberMessages" class="update"/>
+			</rich:panel>
 
-
-          <rich:popupPanel id="memberPopup" modal="true" onmaskclick="#{rich:component('memberPopup')}.hide()"
-                           domElementAttachment="form" autosized="true">
-             <f:facet name="header">
-                <h:outputText value="Member Details"/>
-             </f:facet>
-             <f:facet name="controls">
-                <h:outputLink value="#" onclick="#{rich:component('memberPopup')}.hide(); return false;">
-                   X
-                </h:outputLink>
-             </f:facet>
-             <h:panelGroup id="memberPanel">
-                <my:memberForm member="#{member}"/>
-             </h:panelGroup>
-          </rich:popupPanel>
-
-          <a4j:push address="pushCdi" ondataavailable="showMessage(event.rf.data)">
-             <a4j:ajax event="dataavailable" render="memberList" />
-          </a4j:push>
 
        </h:form>
     </ui:define>
