@@ -1,5 +1,8 @@
 package persistencia;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 
 	@Override

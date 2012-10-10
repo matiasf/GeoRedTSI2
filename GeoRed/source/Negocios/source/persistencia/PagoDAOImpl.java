@@ -1,5 +1,8 @@
 package persistencia;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class PagoDAOImpl extends BaseDAO<Pago> implements PagoDAO {
 
 	@Override

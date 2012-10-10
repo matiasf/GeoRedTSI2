@@ -1,5 +1,8 @@
 package persistencia;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class CheckInDAOImpl extends BaseDAO<CheckIn> implements CheckInDAO {
 
 	@Override
