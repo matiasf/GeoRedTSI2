@@ -8,13 +8,32 @@ import persistencia.Usuario;
 
 public interface GestionUsuarios {
 
+	/**
+	 * Verifica si el loguin del usuario es correcto.
+	 * 
+	 * @param nombre
+	 *            Nombre de usuario.
+	 * @param password
+	 *            Contraseña del usuario.
+	 * @return Retorna si es valido o no.
+	 */
 	public boolean checkLogin(String nombre, String password);
 
+	/**
+	 * Se registra un nuevo usuario.
+	 * 
+	 * @param usuario
+	 *            Datos del usuario a registrar.
+	 */
 	public void registrarUsuario(Usuario usuario);
 
+	/**
+	 * Modifica la informacion de un usuario.
+	 * 
+	 * @param usuario
+	 *            Los datos del usuario a modificar.
+	 */
 	public void modificarUsuario(Usuario usuario);
-
-	/* Funciones Android */
 
 	/**
 	 * Obtiene todos los contactos de un usuario con un id particular.
@@ -72,5 +91,5 @@ public interface GestionUsuarios {
 	 *            Identificador del usuario.
 	 * @return Lista de notficaciones a mostrar.
 	 */
-	public List<Notificacion> obtenerNotificaciones(final int idUsuario);
+	public List<Notificacion> getNotificaciones(final int idUsuario);
 }

@@ -1,15 +1,6 @@
 package com.geored.rest;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -20,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.authorwjf.http_get.R;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.rest.data.Usuario;
 
 public class Main extends Activity implements OnClickListener {
@@ -40,36 +30,18 @@ public class Main extends Activity implements OnClickListener {
 	
 	private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
 		
-		protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-	       InputStream in = entity.getContent();
-	         StringBuffer out = new StringBuffer();
-	         int n = 1;
-	         while (n>0) {
-	             byte[] b = new byte[4096];
-	             n =  in.read(b);
-	             if (n>0) out.append(new String(b, 0, n));
-	         }
-	         return out.toString();
-	    }
-		
 		@Override
 		protected String doInBackground(Void... params) {
-			 HttpClient httpClient = new DefaultHttpClient();
-			 HttpContext localContext = new BasicHttpContext();
-             HttpGet httpGet = new HttpGet("https://tsi2test-rectadeeuler.rhcloud.com/servicios/rest/usuarios/contactos/1");
-             String text = null;
-             try {
-                   HttpResponse response = httpClient.execute(httpGet, localContext);
-                   HttpEntity entity = response.getEntity();
-                   text = getASCIIContentFromEntity(entity);
-                   ObjectMapper mapper = new ObjectMapper();
-                   Usuario usuario = mapper.readValue(text, Usuario.class);
-                   usuario.setId(usuario.getId());
-                   usuario.setNombre(usuario.getNombre());
-                   return "El nombre es: " + usuario.getNombre() + ". El id es: " + usuario.getId();
-             } catch (Exception e) {            	 
-            	 return e.getLocalizedMessage();
-             }             
+			String text = "Comenzando!\n";
+			String token = ServicioRestAutenticacion.login("nombre", "peteco");
+			text += "Token: " + token +"\n";
+			if (token != null) {
+				List<Usuario> usuario = ServicioRestUsuarios.getContactos();
+				for (Usuario user : usuario) {
+					text += "Nombre: " + user.getNombre() + ".\n";
+				}
+			}			
+			return text;
 		}	
 		
 		protected void onPostExecute(String results) {
