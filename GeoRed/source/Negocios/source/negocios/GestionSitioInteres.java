@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import negocios.excepciones.EntidadNoExiste;
+
+import persistencia.CheckIn;
 import persistencia.SitioInteres;
 
 @Local
@@ -16,11 +19,11 @@ public interface GestionSitioInteres {
 	
 	public SitioInteres obtenerSitioInteres(int id);
 	
-	//public void borrarSitioInteres(int id) throws EntidadNoExiste;
+	public void borrarSitioInteres(int id) throws EntidadNoExiste;
 	
 	public List<SitioInteres> obtenerTodosSitiosInteres();
 	
-	//public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
+	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
 	
 
 }

@@ -122,11 +122,6 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		invitacionDAO.borrar(invitacion);
 	}
 
-	@Override
-	public List<Notificacion> obtenerNotificaciones(int idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago)
@@ -143,6 +138,12 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		}
 		Pago pagoIns = pagoDAO.insertar(pago);
 		oferta.getPagos().add(pagoIns);
+	}
+
+	@Override
+	public List<Notificacion> getNotificaciones(int idUsuario) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
