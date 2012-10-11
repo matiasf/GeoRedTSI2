@@ -19,5 +19,9 @@ public class GestionTokens {
 	public boolean validarToken(String token) {
 		return tokens.containsKey(token);
 	}
+	
+	public Integer getIdUsuario(String token) {
+		return tokens.get(token);
+	}
 
 }

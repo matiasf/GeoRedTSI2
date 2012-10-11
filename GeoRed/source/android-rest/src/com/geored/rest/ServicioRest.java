@@ -21,6 +21,7 @@ public class ServicioRest {
 	}
 
 	final protected static String SERVICIO_REST_URL = "https://tsi2test-rectadeeuler.rhcloud.com/servicios/rest";
+	final private static String SECURITY_HEADER = "Security-Token";
 	
 	private static String securityToken;
 	
@@ -47,7 +48,7 @@ public class ServicioRest {
 			}			
 			if (request != null) {
 				if (getSecurityToken() != null)
-					request.addHeader("Security-Token", getSecurityToken());
+					request.addHeader(SECURITY_HEADER, getSecurityToken());
 				HttpClient cliente = new DefaultHttpClient();
 				HttpResponse response = cliente.execute(request, new BasicHttpContext());
 				return response.getEntity();
