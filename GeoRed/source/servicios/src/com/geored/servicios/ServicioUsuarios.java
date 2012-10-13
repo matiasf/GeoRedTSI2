@@ -3,10 +3,10 @@ package com.geored.servicios;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,32 +26,42 @@ public interface ServicioUsuarios {
 			@Context final HttpServletResponse response);
 
 	@GET
-	@Path("contactos/{contactId}")
+	@Path("contactos/{idContacto}")
 	@Produces("application/json")
 	public UsuarioJSON getContacto(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
 
-	@POST
-	@Path("contactos/{id}")
-	public void invitarContacto(
-			@HeaderParam("Security-Token") final String userToken,
-			@Context final HttpServletResponse response,
-			@PathParam("idContacto") final int idContacto);
-
 	@GET
-	@Path("contactos/invitaciones")
+	@Path("invitaciones")
 	@Produces("application/json")
 	public List<InvitacionJSON> getInvitaciones(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
 
+	@PUT
+	@Path("invitaciones/{idContacto}")
+	public void invitarContacto(
+			@HeaderParam("Security-Token") final String userToken,
+			@Context final HttpServletResponse response,
+			@PathParam("idContacto") final int idContacto);
+	
 	@POST
-	@Path("contactos/invitaciones/{id}")
+	@Path("invitaciones/{idContacto}")
 	public void aceptarInvitacion(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
-			@FormParam("idContacto") final int idContacto);
+			@PathParam("idContacto") final int idContacto);
+
+	@PUT
+	@Path("usuario/{password}")
+	void registrarUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
+
+	@POST
+	@Path("usuario/{password}")
+	void modificarUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
 
 }
