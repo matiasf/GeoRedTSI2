@@ -2,7 +2,6 @@ package javaBB;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import persistencia.Empresa;
 
@@ -10,43 +9,45 @@ import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
 
-@ManagedBean(name = "modificarEmpresa", eager = true)
-@SessionScoped
-public class ModificarEmpresaBB {
+@ManagedBean(name = "altaLocal", eager = true)
+public class AltaLocalBB {
 	
 	private String mail;
 	private String nombre;
 	private boolean exito;
+ 
+	private String gmkey;
+	private int zoom;
+	private int currentPlace;
+	private int currentId;
 	
-	private String descripcion;
-	private Object[] logoData;
 	
 	@EJB
 	private GestionEmpresas ge;
 	
-    public ModificarEmpresaBB() {    	
-        System.out.println("modificarEmpresaBean instantiated");        
+    public AltaLocalBB() {
+        System.out.println("altaLocalBean instantiated");
+        this.gmkey = "AIzaSyAuspGlgx94OHwLEhGPCETxd1I4v28blD0";
         this.exito = true;
     }
     
     /* logica y navegación*/
     
-    public String modificarEmpresa() {
+    public String altaEmpresa() {
     	String retorno = "";
     	
+    	retorno = "exito";
+    	/***** LOGICA    	
+    	//chequeo de admin sistema
     	Empresa empresa = new Empresa();
     	empresa.setNombre(this.nombre);
     	empresa.setMailAdmin(this.mail);
-    	empresa.setDescripcion(this.descripcion);    	
-    	ge.modifciarEmpresa(empresa);    	
+    	ge.agregarEmpresa(empresa);    	
     	retorno = "exito";   	
-    	    		
+    	//LOGICA *******/
+    	this.setExito(true);    		
     	
         return retorno;
-    }
-    
-    public void logoListener() {
-    	
     }
     
     public String finalizar() {
@@ -92,19 +93,35 @@ public class ModificarEmpresaBB {
 		this.exito = exito;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getGmkey() {
+		return gmkey;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setGmkey(String gmkey) {
+		this.gmkey = gmkey;
 	}
 
-	public Object[] getLogoData() {
-		return logoData;
+	public int getZoom() {
+		return zoom;
 	}
 
-	public void setLogoData(Object[] logoData) {
-		this.logoData = logoData;
+	public void setZoom(int zoom) {
+		this.zoom = zoom;
+	}
+
+	public int getCurrentPlace() {
+		return currentPlace;
+	}
+
+	public void setCurrentPlace(int currentPlace) {
+		this.currentPlace = currentPlace;
+	}
+
+	public int getCurrentId() {
+		return currentId;
+	}
+
+	public void setCurrentId(int currentId) {
+		this.currentId = currentId;
 	}
 }

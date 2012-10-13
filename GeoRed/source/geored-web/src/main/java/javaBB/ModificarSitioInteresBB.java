@@ -3,7 +3,10 @@ package javaBB;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import persistencia.Empresa;
@@ -13,7 +16,8 @@ import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
 
-@ManagedBean(name = "modificarSitioInteres", eager = true)
+@ManagedBean(name = "modificarSitioInteres")
+@SessionScoped
 public class ModificarSitioInteresBB {
 	
 	private String nombre;
@@ -25,26 +29,22 @@ public class ModificarSitioInteresBB {
 	private int sitioSelected;
 	private List<SelectItem> sitios;
 	
+	@EJB
+	private GestionSitioInteres gs;
+	
     public ModificarSitioInteresBB() {    	
         System.out.println("altaSIBean instantiated");        
         
-        /* SitioInteres sit = new SitioInteres();
+        /*SitioInteres sit = new SitioInteres();
         sit.setId(1);
-        sit.setNombre("nombre");*/
+        sit.setNombre("nombre");
         
         sitios = new LinkedList<SelectItem>();
         sitios.add(new SelectItem(1, "Sitio 1"));
         sitios.add(new SelectItem(2, "Sitio 2"));
-        sitios.add(new SelectItem(3, "Sitio 3"));
+        sitios.add(new SelectItem(3, "Sitio 3"));*/    
         
-        
-        /**** LOGICA
-        GestionSitioInteres gs = null;    	    	
-        List<SitioInteres> sitiosInteres = gs.obtenerTodosSitiosInteres();
-        for (SitioInteres s : sitiosInteres){
-        	sitios.add(new SelectItem(s.getId(), s.getNombre()));
-        }
-        LOGICA *******/     
+        sitios = new LinkedList<SelectItem>();
         
         this.sitioSelected = -1;
         this.exito = true;
@@ -57,32 +57,25 @@ public class ModificarSitioInteresBB {
     	String retorno = "";
     	
     	System.out.println("sitio seleccionado" + this.sitioSelected);
-        /**** LOGICA
-        GestionSitioInteres gs = null;    	    	
-        SitioInteres sitioInteres = gs.obtenerSitioInters(id);//??
-    	this.setNombre(sitioInteres.nombre);
-    	this.setDescripcion(sitioInteres.descripcion);   	    	
-    	LOGICA *******/
+        //**** LOGICA            	    	
+        SitioInteres sitioInteres = gs.obtenerSitioInteres(this.sitioSelected);//??
+    	this.setNombre(sitioInteres.getNombre());
+    	this.setDescripcion(sitioInteres.getDescripcion());   	    	
+    	//LOGICA *******/
         this.exito = true;
         return "modificar";
     }
     
-    public void modificarSitioInteres() {
+    public String modificarSitioInteres() {
     	String retorno = "";
-    	
-    	retorno = "exito";
-    	/***** LOGICA
-    	GestionSitioInteres gs = null;
-    	//chequeo de admin sistema
+	
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
     	sitioInteres.setDescripcion(this.descripcion);
     	gs.modifciarSitioInteres(sitioInteres);
-    	retorno = "exito";   	
-    	LOGICA *******/
-    	this.setExito(true);    		
+    	retorno = "exito";   	    		
     	
-        //return retorno;
+        return retorno;
     }
     
     public void logoListener() {
@@ -155,6 +148,12 @@ public class ModificarSitioInteresBB {
 
 
 	public List<SelectItem> getSitios() {
+		//*** LOGICA            	    	
+        List<SitioInteres> sitiosInteres = gs.obtenerTodosSitiosInteres();
+        for (SitioInteres s : sitiosInteres){
+        	sitios.add(new SelectItem(s.getId(), s.getNombre()));
+        }
+        //LOGICA *******/     
 		return sitios;
 	}
 

@@ -8,6 +8,11 @@
   <managed-bean-class>javaBB.LoginBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>  
+    <managed-bean-name>GoogleBean</managed-bean-name>  
+    <managed-bean-class>javaBB.GoogleBean</managed-bean-class>  
+    <managed-bean-scope>session</managed-bean-scope>  
+  </managed-bean>  
  <managed-bean>
   <managed-bean-name>menuBB</managed-bean-name>
   <managed-bean-class>javaBB.MenuBB</managed-bean-class>
@@ -29,6 +34,11 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
+  <managed-bean-name>altaLocalBB</managed-bean-name>
+  <managed-bean-class>javaBB.AltaLocalBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
   <managed-bean-name>modificarEmpresaBB</managed-bean-name>
   <managed-bean-class>javaBB.ModificarEmpresaBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
@@ -44,11 +54,14 @@
    <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
- 
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
@@ -57,6 +70,22 @@
   <from-view-id>/presentacionAdminSistema/altaSitioInteres.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/altaLocal.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
@@ -72,20 +101,26 @@
    <to-view-id>/presentacionAdminSistema/modificarSitioInteres.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
- 
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/modificarSitioInteres.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
-  </navigation-case>  
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
- 
  <navigation-rule>
   <from-view-id>/presentacionAdminEmpresa/menu.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>modificarEmpresa</from-outcome>
    <to-view-id>/presentacionAdminEmpresa/modificarEmpresa.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  <!-- This descriptor activates the JSF 2.0 Servlet 

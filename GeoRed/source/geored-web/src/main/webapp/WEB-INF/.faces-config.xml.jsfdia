@@ -29,6 +29,9 @@
     ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output1"
     PATH="/presentacionAdminSistema/menu.xhtml"
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#presentacionAdminEmpresa#menu.xhtml"
@@ -41,6 +44,9 @@
     PATH="/presentacionAdminEmpresa/modificarEmpresa.xhtml"
     TARGET="rules:#presentacionAdminEmpresa#modificarEmpresa.xhtml"
     TITLE="modificarEmpresa" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM
@@ -58,6 +64,9 @@
     ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output"
     PATH="/presentacionAdminSistema/menu.xhtml"
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM
@@ -92,6 +101,23 @@
     ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output"
     PATH="/presentacionAdminSistema/menu.xhtml"
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#presentacionAdminSistema#altaLocal.xhtml"
+  PATH="/presentacionAdminSistema/altaLocal.xhtml" SHAPE="504,56,50,25"
+  model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#presentacionAdminSistema#altaLocal.xhtml:0"
+   NAME="item" PATH="/presentacionAdminSistema/altaLocal.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output"
+    PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

@@ -26,6 +26,14 @@
         <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
             </properties>
 
+     <repositories>        
+        <repository>
+            <id>googlecode.com</id>
+            <url>http://gmaps4jsf.googlecode.com/svn/trunk/gmaps4jsf-repo</url>
+        </repository>
+        
+    </repositories> 
+
     <dependencyManagement>
         <dependencies>
             <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
@@ -193,6 +201,12 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>com.googlecode.gmaps4jsf</groupId>
+            <artifactId>gmaps4jsf-core</artifactId>
+            <version>1.1.1</version>
+        </dependency>  
 
     </dependencies>
 

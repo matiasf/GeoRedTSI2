@@ -1,14 +1,21 @@
 package javaBB;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import negocios.GestionAutenticacion;
+import negocios.GestionEmpresas;
 
 @ManagedBean(name = "login", eager = true)
+@SessionScoped
 public class LoginBB {
 	
 	private String mail;
 	private String password;
+	
+	@EJB
+	private GestionEmpresas ge;
 	
     public LoginBB() {
         System.out.println("WelcomeBean instantiated");
@@ -18,28 +25,29 @@ public class LoginBB {
     public String login() {
     	String retorno = "";
     	
+    	
     	boolean logAdm = this.mail.equals("admin");    	
     	if(logAdm){
     		retorno = "loginAdminSistema";
     	} 
     	//chequeo de admin empresa
+    	/*
     	boolean logEmp = this.mail.equals("empresa");
     	if(logEmp){
     		retorno = "loginAdminEmpresa";
-    	} 
-    	/***** LOGICA
-    	GestionAutenticacion ga = null;
+    	} */
+    	//***** LOGICA    	
     	//chequeo de admin sistema
-    	boolean logAdm = ga.checkAdmin(this.mail, this.password);    	
+    	/*boolean logAdm = ga.checkAdmin(this.mail, this.password);    	
     	if(logAdm){
     		retorno = "loginAdminSistema";
-    	} 
+    	} */
     	//chequeo de admin empresa
-    	boolean logEmp = ga.checkAdminEmpresa(this.mail, this.password);
+    	boolean logEmp = ge.chechLogin(this.mail, this.password);    			
     	if(logEmp){
     		retorno = "loginAdminEmpresa";
     	} 
-    	LOGICA *******/
+    	//LOGICA *******/
     		
     	
         return retorno;

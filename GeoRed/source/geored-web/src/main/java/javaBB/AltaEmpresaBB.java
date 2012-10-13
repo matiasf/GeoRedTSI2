@@ -1,19 +1,25 @@
 package javaBB;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import persistencia.Empresa;
 
 import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
+import negocios.GestionSitioInteres;
 
 @ManagedBean(name = "altaEmpresa", eager = true)
+@SessionScoped
 public class AltaEmpresaBB {
 	
 	private String mail;
 	private String nombre;
 	private boolean exito;
  
+	@EJB
+	private GestionEmpresas ge;
 	
     public AltaEmpresaBB() {
         System.out.println("altaEmpresaBean instantiated");
@@ -22,22 +28,22 @@ public class AltaEmpresaBB {
     
     /* logica y navegación*/
     
-    public void altaEmpresa() {
+    public String altaEmpresa() {
     	String retorno = "";
     	
     	retorno = "exito";
-    	/***** LOGICA
-    	GestionEmpresas ge = null;
+    	//***** LOGICA    	
     	//chequeo de admin sistema
     	Empresa empresa = new Empresa();
     	empresa.setNombre(this.nombre);
+    	empresa.setPassword("1111");
     	empresa.setMailAdmin(this.mail);
     	ge.agregarEmpresa(empresa);    	
     	retorno = "exito";   	
-    	LOGICA *******/
+    	//LOGICA *******/
     	this.setExito(true);    		
     	
-        //return retorno;
+        return retorno;
     }
     
     public String finalizar() {
