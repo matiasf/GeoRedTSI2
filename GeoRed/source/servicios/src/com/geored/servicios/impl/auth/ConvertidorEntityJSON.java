@@ -30,7 +30,7 @@ public class ConvertidorEntityJSON {
 	
 	public Usuario convertir(UsuarioJSON usuarioJSON) {
 		Usuario usuario = new Usuario();
-		usuario.setId(usuarioJSON.getId());
+		usuario.setId(usuarioJSON.getId() == null ? 0 : usuarioJSON.getId());
 		usuario.setNombre(usuarioJSON.getNombre());
 		return usuario;
 	}

@@ -1,7 +1,5 @@
 package com.geored.rest;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.geored.rest.data.Usuario;
-import com.geored.rest.R;
 
 public class TestServicios extends Activity implements OnClickListener {
     @Override
@@ -32,16 +29,11 @@ public class TestServicios extends Activity implements OnClickListener {
 		
 		@Override
 		protected String doInBackground(Void... params) {
-			String text = "Comenzando!\n";
-			String token = ServicioRestAutenticacion.login("peteco", "peteco");
-			text += "Token: " + token +"\n";
-			if (token != null) {
-				List<Usuario> usuario = ServicioRestUsuarios.getContactos();
-				for (Usuario user : usuario) {
-					text += "Nombre: " + user.getNombre() + ".\n";
-				}
-			}			
-			return text;
+			Usuario usuario = new Usuario();
+			usuario.setNombre("fucken");
+			ServicioRestUsuarios.registrarUsuario("fucken", usuario);
+			String token = ServicioRestAutenticacion.login("fucken", "fucken");		
+			return "Exit de exito! " + token;
 		}	
 		
 		protected void onPostExecute(String results) {
