@@ -20,7 +20,7 @@ public class ServicioRest {
 		GET, POST
 	}
 
-	final protected static String SERVICIO_REST_URL = "https://tsi2test-rectadeeuler.rhcloud.com/servicios/rest";
+	final protected static String SERVICIO_REST_URL = "http://localhost:8080/servicios/rest";
 	final private static String SECURITY_HEADER = "Security-Token";
 	
 	private static String securityToken;

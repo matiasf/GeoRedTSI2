@@ -13,8 +13,7 @@ public class ServicioRestAutenticacion extends ServicioRest {
 
 	public static String login(String nombre, String password) {
 		try {
-			setSecurityToken(Utils.getASCIIContentFromEntity(rest(Metodos.POST,
-					URL_LOGIN + "/" + nombre + "/" + password)));
+			setSecurityToken(Utils.getASCIIContentFromEntity(rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password)));
 			return getSecurityToken();
 		} catch (Exception e) {
 			Log.e("Error", "Problemas para hacer conulst rest", e);

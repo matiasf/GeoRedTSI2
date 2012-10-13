@@ -11,10 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
 
-import persistencia.Invitacion;
-import persistencia.Usuario;
+import com.geored.servicios.json.InvitacionJSON;
+import com.geored.servicios.json.UsuarioJSON;
 
 @Path("usuarios")
 public interface ServicioUsuarios {
@@ -22,21 +21,21 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("contactos")
 	@Produces("application/json")
-	public List<Usuario> getContactos(
+	public List<UsuarioJSON> getContactos(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
 
 	@GET
 	@Path("contactos/{contactId}")
 	@Produces("application/json")
-	public Usuario getContacto(
+	public UsuarioJSON getContacto(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
 
 	@POST
 	@Path("contactos/{id}")
-	public Response invitarContacto(
+	public void invitarContacto(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
@@ -44,14 +43,14 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("contactos/invitaciones")
 	@Produces("application/json")
-	public List<Invitacion> getInvitaciones(
+	public List<InvitacionJSON> getInvitaciones(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
 
 	@POST
 	@Path("contactos/invitaciones/{id}")
-	public Response aceptarInvitacion(
-			@PathParam("Security-Token") final String userToken,
+	public void aceptarInvitacion(
+			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@FormParam("idContacto") final int idContacto);
 

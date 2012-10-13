@@ -20,10 +20,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			List<Usuario> wrapper = mapper.readValue(
-					Utils.getASCIIContentFromEntity(rest(Metodos.GET,
-							URL_CONTACTOS)),
-					new TypeReference<List<Usuario>>() {
-					});
+					Utils.getASCIIContentFromEntity(rest(Metodos.GET, URL_CONTACTOS)), new TypeReference<List<Usuario>>() {});
 			return wrapper;
 		} catch (Exception e) {
 			Log.e("Error", "Problemas para hacer conulst rest", e);

@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import negocios.excepciones.ContactoYaExiste;
+import negocios.excepciones.EntidadNoExiste;
 import persistencia.Invitacion;
 import persistencia.Notificacion;
+import persistencia.Pago;
 import persistencia.Usuario;
 
 @Local
@@ -49,7 +52,7 @@ public interface GestionUsuarios {
 	 * @throws EntidadNoExiste 
 	 * 		Si no existe el usuario se lanza esta excepcion
 	 */
-	//public List<Usuario> getContactos(final int idUsuario) throws EntidadNoExiste;
+	public List<Usuario> getContactos(final int idUsuario) throws EntidadNoExiste;
 
 	/**
 	 * Obtiene la informacion de un contacto en particular.
@@ -62,7 +65,7 @@ public interface GestionUsuarios {
 	 * @throws EntidadNoExiste 
 	 * 		Si alguno de los usuario no existe se lanza esta excepcion
 	 */
-	public Usuario getContacto(final int idUsuario, final int idContacto);
+	public Usuario getContacto(final int idUsuario, final int idContacto) throws EntidadNoExiste;
 
 	/**
 	 * Invita a un usuario a ser contacto.
@@ -76,7 +79,7 @@ public interface GestionUsuarios {
 	 * @throws ContactoYaExiste 
 	 * 		Si el usuario idUsuario ya tiene como contacto a el usuairo idContacto se lanza esta excepcion
 	 */
-	//public void invitarContacto(final int idUsuario, final int idContacto) throws EntidadNoExiste, ContactoYaExiste;
+	public void invitarContacto(final int idUsuario, final int idContacto) throws EntidadNoExiste, ContactoYaExiste;
 
 	/**
 	 * Obtener todas las invitaciones del usuario.
@@ -99,7 +102,7 @@ public interface GestionUsuarios {
 	 * @throws ContactoYaExiste
 	 * 		Si los usuarios ya son contactos se lanza esta excepcion 
 	 */
-	//public void aceptarInvitacion(final int idUsuario, final int idContacto) throws EntidadNoExiste, ContactoYaExiste;
+	public void aceptarInvitacion(final int idUsuario, final int idContacto) throws EntidadNoExiste, ContactoYaExiste;
 
 	/**
 	 * Obtener las notificaciones del usuario.
@@ -121,5 +124,5 @@ public interface GestionUsuarios {
 	 * @throws EntidadNoExiste
 	 * 		En caso de que no exista el usuario o la oferta se lanza esta excepcion
 	 */
-	//public void comprarOferta(int idUsuario, int idOferta, Pago pago) throws EntidadNoExiste;
+	public void comprarOferta(int idUsuario, int idOferta, Pago pago) throws EntidadNoExiste;
 }

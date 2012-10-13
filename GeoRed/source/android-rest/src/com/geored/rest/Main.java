@@ -33,7 +33,7 @@ public class Main extends Activity implements OnClickListener {
 		@Override
 		protected String doInBackground(Void... params) {
 			String text = "Comenzando!\n";
-			String token = ServicioRestAutenticacion.login("nombre", "peteco");
+			String token = ServicioRestAutenticacion.login("peteco", "peteco");
 			text += "Token: " + token +"\n";
 			if (token != null) {
 				List<Usuario> usuario = ServicioRestUsuarios.getContactos();
