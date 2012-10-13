@@ -2,6 +2,31 @@
 <resources>
 
     <string name="hello">Hello World, Main!</string>
-    <string name="app_name">http_get</string>
+    <string name="app_name_http_get">http_get</string>
+    
+    <string name="app_name">GeoRed.uy</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">GeoRed.uy</string>
 
+    <string name="registrar">Registrar</string>
+    <string name="login">Login</string>
+    <string name="check_in">Check in sitio de interes</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="facebook">Facebook</string>
+    
+    <string name="email">E-Mail</string>
+    <string name="enterPassword">Ingresar Password</string>
+    <string name="enterPasswordAgain">Ingresar Password nuevamente</string>
+    
+    <string name="HttpGETDemo">Http GET Demo</string>
+    
+    <string name="GET">Http GET Demo</string>
+    <string name="rest_test">Test Servicios</string>
+    
+    <string name="activity_sample_code">Maps API Demos</string>
+    <string name="location_test">Maps API Demos</string>
+    
+    
+    
 </resources>
