@@ -1,56 +1,68 @@
 package com.geored.rest;
 
-import java.util.List;
+import com.geored.rest.R;
+import com.geored.gui.*;
+import com.geored.gui.map.MapsDemo;
 
-import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.authorwjf.http_get.R;
-import com.geored.rest.data.Usuario;
+public class Main extends Activity {
 
-public class Main extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        findViewById(R.id.my_button).setOnClickListener(this);
+        setContentView(R.layout.activity_main);
     }
 
-	@Override
-	public void onClick(View arg0) {
-		Button b = (Button)findViewById(R.id.my_button);
-		b.setClickable(false);
-		new LongRunningGetIO().execute();
-	}
-	
-	private class LongRunningGetIO extends AsyncTask <Void, Void, String> {
-		
-		@Override
-		protected String doInBackground(Void... params) {
-			String text = "Comenzando!\n";
-			String token = ServicioRestAutenticacion.login("peteco", "peteco");
-			text += "Token: " + token +"\n";
-			if (token != null) {
-				List<Usuario> usuario = ServicioRestUsuarios.getContactos();
-				for (Usuario user : usuario) {
-					text += "Nombre: " + user.getNombre() + ".\n";
-				}
-			}			
-			return text;
-		}	
-		
-		protected void onPostExecute(String results) {
-			if (results!=null) {
-				EditText et = (EditText)findViewById(R.id.my_edit);
-				et.setText(results);
-			}
-			Button b = (Button)findViewById(R.id.my_button);
-			b.setClickable(true);
-		}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
     }
+    
+    /** Switches to the given class (which must be a subclass of Activity). 
+     *  You must also register the new Activity in AndroidManifest.xml.
+     */
+    private void goToActivity(Class<? extends Activity> activityClass) {
+        Intent newActivity = new Intent(this, activityClass);
+        startActivity(newActivity);
+    }
+    
+    /** Switches to the ButtonActivity when the associated button is clicked. */
+    
+    public void showLogin(View clickedButton) {
+        goToActivity(LoginActivity.class);
+    }
+    
+    /** Switches to the SpinnerActivity when the associated button is clicked. */
+    
+    public void showRegistrar(View clickedButton) {
+        goToActivity(RegistrarActivity.class);
+    }
+    
+    public void showFacebook(View clickedButton) {
+        goToActivity(FacebookActivity.class);
+    }
+
+    public void showNotificaciones(View clickedButton) {
+        goToActivity(NotificacionesActivity.class);
+    }
+
+    public void showCheckIn(View clickedButton) {
+        goToActivity(CheckInActivity.class);
+    }
+    
+    public void showTestServicios(View clickedButton) {
+        goToActivity(TestServicios.class);
+    }
+    
+    public void showGPSLocation(View clickedButton) {
+        goToActivity(MapsDemo.class);
+    }
+    
+    
 }

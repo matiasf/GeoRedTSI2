@@ -13,6 +13,10 @@ public interface InvitacionDAO {
 	
 	public void borrar(Invitacion entidad);
 	
+	public void borrar(int id);
+	
+	public void flush();
+	
 	public List<Invitacion> getInvitacionesPorUsuario(int idUsuario);
 
 	Invitacion getInvitacionPorContactoRmte(int idContacto, int remitente);

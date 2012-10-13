@@ -30,5 +30,9 @@ public abstract class BaseDAO<Entidad> {
 		return (e != null);
 	}
 	
+	public void flush() {
+		em.flush();
+	}
+	
 	public abstract Entidad buscarPorId(int id);
 }
