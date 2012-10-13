@@ -1,5 +1,7 @@
 package com.geored.rest;
 
+import org.apache.http.HttpResponse;
+
 import android.util.Log;
 
 import com.geored.rest.utils.Utils;
@@ -13,13 +15,15 @@ public class ServicioRestAutenticacion extends ServicioRest {
 
 	public static String login(String nombre, String password) {
 		try {
-			setSecurityToken(Utils.getASCIIContentFromEntity(rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password)));
-			return getSecurityToken();
+			HttpResponse response = rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				setSecurityToken(Utils.getASCIIContentFromEntity(response.getEntity()));
+				return getSecurityToken();
+			}
 		} catch (Exception e) {
 			Log.e("Error", "Problemas para hacer conulst rest", e);
-			e.printStackTrace();
-			return e.getMessage();
 		}
+		return null;
 	}
 
 }
