@@ -55,6 +55,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public Empresa obtenerEmpresa(int id) {
 		return empresaDAO.buscarPorId(id);
 	}
+	
+	@Override
+	public Empresa obtenerEmpresaPorMail(String mail) {
+		return empresaDAO.buscarPorMail(mail);
+	}
 
 	@Override
 	public List<Empresa> obtenerTodasLasEmpresas() {

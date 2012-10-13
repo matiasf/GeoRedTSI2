@@ -21,6 +21,8 @@ public interface GestionEmpresas {
 	
 	public Empresa obtenerEmpresa(int id);
 	
+	public Empresa obtenerEmpresaPorMail(String mail);
+	
 	public List<Empresa> obtenerTodasLasEmpresas();
 	
 	public List<Local> obtenerLocalesDeEmpresa(int idEmpresa) throws EntidadNoExiste;

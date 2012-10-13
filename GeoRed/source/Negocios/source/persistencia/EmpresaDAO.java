@@ -20,4 +20,6 @@ public interface EmpresaDAO {
 	public void borrar(int id);
 	
 	public void borrar(Empresa empresa);
+
+	Empresa buscarPorMail(String mail);
 }
