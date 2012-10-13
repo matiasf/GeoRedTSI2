@@ -56,7 +56,7 @@ public interface ServicioUsuarios {
 
 	@PUT
 	@Path("usuario/{password}")
-	void registrarUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+	void registrarUsuario(@Context final HttpServletResponse response,
 			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
 
 	@POST

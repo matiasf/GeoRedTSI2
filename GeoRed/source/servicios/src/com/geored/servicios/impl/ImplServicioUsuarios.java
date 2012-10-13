@@ -110,17 +110,12 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	}
 	
 	@Override
-	public void registrarUsuario(final String userToken, final HttpServletResponse response, 
+	public void registrarUsuario(final HttpServletResponse response, 
 			final String password, final UsuarioJSON usuarioJSON) {
-		if(gestionTokens.validarToken(userToken)) {
-			response.setStatus(Response.Status.OK.getStatusCode());
-			Usuario usuario = convertidorEntityJSON.convertir(usuarioJSON);
-			usuario.setPassword(password);
-			gestionUsuarios.registrarUsuario(usuario);
-		}
-		else {
-			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
-		}		
+		response.setStatus(Response.Status.OK.getStatusCode());
+		Usuario usuario = convertidorEntityJSON.convertir(usuarioJSON);
+		usuario.setPassword(password);
+		gestionUsuarios.registrarUsuario(usuario);
 	}
 	
 	@Override
