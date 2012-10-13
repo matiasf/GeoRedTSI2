@@ -8,9 +8,9 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class EmpresaDAOImpl extends BaseDAO<Empresa> implements EmpresaDAO {
 
-	private static final String checkLoginQuery = "SELECT e.id FROM Empresa" +
-			"WHERE e.mailAdmin = :mailAdmin" +
-			"AND e.password = :password"; 
+	private static final String checkLoginQuery = "SELECT e FROM Empresa e " +
+			"WHERE e.mailAdmin = :mailAdmin " +
+			"AND e.password = :password "; 
 	
 	private static final String findAllQuery = "SELECT e FROM Empresa";
 	
@@ -22,10 +22,10 @@ public class EmpresaDAOImpl extends BaseDAO<Empresa> implements EmpresaDAO {
 	
 	@Override
 	public boolean checkLogin(String mailAdmin, String password) {
-		TypedQuery<Integer> query = em.createQuery(checkLoginQuery, int.class);
-		query.setParameter(":mailAdmin", mailAdmin);
+		TypedQuery<Empresa> query = em.createQuery(checkLoginQuery, Empresa.class);
+		query.setParameter("mailAdmin", mailAdmin);
 		query.setParameter("password", password);
-		List<Integer> resultado = query.getResultList();
+		List<Empresa> resultado = query.getResultList();
 		boolean ret = false;
 		if (!resultado.isEmpty()) {
 			ret = resultado.size() == 1;

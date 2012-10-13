@@ -16,11 +16,11 @@
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre: "/>
+		      <h:outputLabel for="name" value="Nombre:"/>
 		      <h:selectOneMenu value="#{modificarSitioInteresBB.sitioSelected}" style="width:200px;">
 				  <f:selectItem itemLabel="Seleccione sitio" itemValue="-1" />
 				  <f:selectItems value="#{modificarSitioInteresBB.sitios}"/>				  
-				</h:selectOneMenu>
+				</h:selectOneMenu>				
 		      <rich:message for="name" errorClass="invalid"/>     
 		   </h:panelGrid>
 			

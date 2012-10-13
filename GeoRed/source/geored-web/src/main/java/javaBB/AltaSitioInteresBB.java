@@ -1,6 +1,8 @@
 package javaBB;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 import persistencia.Empresa;
 import persistencia.SitioInteres;
@@ -10,6 +12,7 @@ import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
 
 @ManagedBean(name = "altaSitioInteres", eager = true)
+@SessionScoped
 public class AltaSitioInteresBB {
 	
 	private String nombre;
@@ -17,6 +20,9 @@ public class AltaSitioInteresBB {
 	
 	private String descripcion;
 	private Object[] logoData;
+	
+	@EJB
+	private GestionSitioInteres gs;
 	
 	
     public AltaSitioInteresBB() {    	
@@ -26,22 +32,20 @@ public class AltaSitioInteresBB {
     
     /* logica y navegación*/
     
-    public void altaSitioInteres() {
+    public String altaSitioInteres() {
     	String retorno = "";
     	
     	retorno = "exito";
-    	/***** LOGICA
-    	GestionSitioInteres gs = null;
-    	//chequeo de admin sistema
+    	//***** LOGICA    	
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
     	sitioInteres.setDescripcion(this.descripcion);
     	gs.agregarSitioInteres(sitioInteres);
     	retorno = "exito";   	
-    	LOGICA *******/
+    	//LOGICA *******/
     	this.setExito(true);    		
     	
-        //return retorno;
+        return retorno;
     }
     
     public void logoListener() {
