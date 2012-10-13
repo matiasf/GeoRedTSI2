@@ -108,7 +108,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 	public static void modificarUsuario(String password, Usuario usuario) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			HttpResponse response = rest(Metodos.POST, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario));
+			HttpResponse response = rest(Metodos.POST, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario), false);
 			if (response.getStatusLine().getStatusCode() != OK) {
 				Log.e("Error", "No se pudo modificar");
 			}

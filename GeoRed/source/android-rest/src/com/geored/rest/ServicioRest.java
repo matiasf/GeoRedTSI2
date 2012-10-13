@@ -41,8 +41,12 @@ public class ServicioRest {
 	protected static HttpResponse rest(Metodos metodo, String url) {
 		return rest(metodo, url, null);
 	}
-
+	
 	protected static HttpResponse rest(Metodos metodo, String url, String content) {
+		return rest(metodo, url, content, true);
+	}
+	
+	protected static HttpResponse rest(Metodos metodo, String url, String content, Boolean secure) {
 		try {
 			HttpRequestBase request = null;
 			switch (metodo) {
@@ -70,7 +74,7 @@ public class ServicioRest {
 				break;
 			}			
 			if (request != null) {
-				if (getSecurityToken() != null)
+				if (secure)
 					request.addHeader(SECURITY_HEADER, getSecurityToken());
 				HttpClient cliente = new DefaultHttpClient();
 				HttpResponse response = cliente.execute(request, new BasicHttpContext());

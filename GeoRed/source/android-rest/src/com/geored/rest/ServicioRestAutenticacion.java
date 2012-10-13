@@ -15,7 +15,7 @@ public class ServicioRestAutenticacion extends ServicioRest {
 
 	public static String login(String nombre, String password) {
 		try {
-			HttpResponse response = rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password);
+			HttpResponse response = rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password, null, false);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				setSecurityToken(Utils.getASCIIContentFromEntity(response.getEntity()));
 				return getSecurityToken();
