@@ -3,11 +3,10 @@ package negocios;
 import java.util.List;
 
 import negocios.excepciones.EntidadNoExiste;
-import persistencia.Local;
-import persistencia.Oferta;
-
 
 import persistencia.Empresa;
+import persistencia.Local;
+import persistencia.Oferta;
 
 @javax.ejb.Local
 public interface GestionEmpresas {

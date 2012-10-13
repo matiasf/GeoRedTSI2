@@ -10,22 +10,22 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 
 	private static final String findAllQuery = "SELECT u FROM Usuario u";
 	
-	private static final String checkLoginQuery = "SELECET u.id " +
-			"FROM Usuario u" +
-			"WHERE u.nombre = :userName" +
-			"	AND u.password = :password";
+	private static final String checkLoginQuery = "SELECT u.id " +
+			"FROM Usuario u " +
+			"WHERE u.nombre = :userName " +
+			"AND u.password = :password";
 	
-	private static final String buscarPorNombreQuery = "SELECT u FROM Usuario u" +
+	private static final String buscarPorNombreQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre = :nombre";
 	
-	private static final String obtenerContactosQuery = "SELECT u1 FROM Usuario u2" +
-			"WHERE u2.id = :id" +
-			"	AND u1 MEMBER OF u2.contactos";
+	private static final String obtenerContactosQuery = "SELECT u1 FROM Usuario u2 " +
+			"WHERE u2.id = :id " +
+			"AND u1 MEMBER OF u2.contactos";
 	
-	private static final String obtenerContactoQuery = "SELECT u1 FROM Usuario u2" +
-			"WHERE u2.id = :id" +
-			"	AND u2.id = :idContacto" +
-			"	AND u1 MEMBER OF u2.contactos"; 
+	private static final String obtenerContactoQuery = "SELECT u1 FROM Usuario u2 " +
+			"WHERE u2.id = :id " +
+			"AND u2.id = :idContacto " +
+			"AND u1 MEMBER OF u2.contactos"; 
 			
 	
 	@Override
@@ -43,7 +43,7 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 
 	@Override
 	public boolean checkLogin(String nombre, String password) {
-		TypedQuery<Integer> query = em.createQuery(checkLoginQuery, int.class);
+		TypedQuery<Integer> query = em.createQuery(checkLoginQuery, Integer.class);
 		query.setParameter("userName", nombre);
 		query.setParameter("password", password);
 		List<Integer> resultado = query.getResultList();

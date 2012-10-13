@@ -5,6 +5,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import negocios.GestionUsuarios;
+import negocios.excepciones.ContactoYaExiste;
+import negocios.excepciones.EntidadNoExiste;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
 import persistencia.Notificacion;
@@ -122,11 +125,6 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		invitacionDAO.borrar(invitacion);
 	}
 
-	@Override
-	public List<Notificacion> obtenerNotificaciones(int idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago)
@@ -143,6 +141,12 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		}
 		Pago pagoIns = pagoDAO.insertar(pago);
 		oferta.getPagos().add(pagoIns);
+	}
+
+	@Override
+	public List<Notificacion> getNotificaciones(int idUsuario) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

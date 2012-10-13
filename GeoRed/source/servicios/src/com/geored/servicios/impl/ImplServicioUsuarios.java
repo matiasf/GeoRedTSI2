@@ -5,13 +5,18 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import negocios.GestionUsuarios;
-import persistencia.Invitacion;
-import persistencia.Usuario;
+import negocios.excepciones.ContactoYaExiste;
+import negocios.excepciones.EntidadNoExiste;
 
 import com.geored.servicios.ServicioUsuarios;
+import com.geored.servicios.impl.auth.ConvertidorEntityJSON;
+import com.geored.servicios.impl.auth.GestionTokens;
+import com.geored.servicios.json.InvitacionJSON;
+import com.geored.servicios.json.UsuarioJSON;
 
 @Local
 @Stateless
@@ -19,27 +24,82 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 
 	@EJB
 	GestionUsuarios gestionUsuarios;
+
+	@EJB
+	GestionTokens gestionTokens;
 	
-	public List<Usuario> getContactos(final int idUsuario) {
-		return gestionUsuarios.getContactos(idUsuario);
+	@EJB
+	ConvertidorEntityJSON convertidorEntityJSON;
+
+	public List<UsuarioJSON> getContactos(final String userToken, final HttpServletResponse response) {
+		if (gestionTokens.validarToken(userToken)) {
+			try {
+				response.setStatus(Response.Status.OK.getStatusCode());
+				return convertidorEntityJSON.convert(gestionUsuarios.getContactos(gestionTokens.getIdUsuario(userToken)));
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			}
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
 	}
-	
-	public Usuario getContacto(final int idUsuario, final int idContacto) {
-		return gestionUsuarios.getContacto(idUsuario, idContacto);
+
+	public UsuarioJSON getContacto(final String userToken, final HttpServletResponse response, final int idContacto) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			try {
+				return convertidorEntityJSON.convertir(gestionUsuarios.getContacto(gestionTokens.getIdUsuario(userToken), idContacto));
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			}
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}		
+		return null;
 	}
-	
-	public Response invitarContacto(final int idUsuario, final int idContacto) {
-		gestionUsuarios.invitarContacto(idUsuario, idContacto);
-		return Response.ok().build();
+
+	public void invitarContacto(final String userToken, final HttpServletResponse response, final int idContacto) {
+		if (gestionTokens.validarToken(userToken)) {
+			try {
+				response.setStatus(Response.Status.OK.getStatusCode());
+				gestionUsuarios.invitarContacto(gestionTokens.getIdUsuario(userToken), idContacto);
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			} catch (ContactoYaExiste e) {
+				response.setStatus(Response.Status.CONFLICT.getStatusCode());
+			}
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
 	}
-	
-	public List<Invitacion> getInvitaciones(final int idUsuario) {
-		return gestionUsuarios.getInvitaciones(idUsuario);
+
+	public List<InvitacionJSON> getInvitaciones(final String userToken, final HttpServletResponse response) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convert(gestionUsuarios.getInvitaciones(gestionTokens.getIdUsuario(userToken)));
+		}
+		response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		return null;
 	}
-	
-	public Response aceptarInvitacion(final int idUsuario, final int idContacto) {
-		gestionUsuarios.aceptarInvitacion(idUsuario, idContacto);
-		return Response.ok().build();
+
+	public void aceptarInvitacion(final String userToken, final HttpServletResponse response, final int idContacto) {
+		if (gestionTokens.validarToken(userToken)) {
+			try {
+				response.setStatus(Response.Status.OK.getStatusCode());
+				gestionUsuarios.aceptarInvitacion(gestionTokens.getIdUsuario(userToken), idContacto);
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			} catch (ContactoYaExiste e) {
+				response.setStatus(Response.Status.CONFLICT.getStatusCode());
+			}
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
 	}
 
 }
