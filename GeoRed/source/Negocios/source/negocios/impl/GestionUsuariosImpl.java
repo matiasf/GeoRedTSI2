@@ -17,6 +17,9 @@ import persistencia.Pago;
 import persistencia.PagoDAO;
 import persistencia.Usuario;
 import persistencia.UsuarioDAO;
+import negocios.GestionUsuarios;
+import negocios.excepciones.ContactoYaExiste;
+import negocios.excepciones.EntidadNoExiste;
 
 @Stateless
 public class GestionUsuariosImpl implements GestionUsuarios {
@@ -121,6 +124,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		contacto.getInvitaciones().remove(invitacion);
 		invitacionDAO.borrar(invitacion);
 	}
+
 
 	@Override
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago)

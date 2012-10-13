@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import negocios.excepciones.EntidadNoExiste;
+
 import persistencia.CheckIn;
 import persistencia.SitioInteres;
 

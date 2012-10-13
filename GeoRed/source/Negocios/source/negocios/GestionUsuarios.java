@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+
 import persistencia.Invitacion;
 import persistencia.Notificacion;
 import persistencia.Pago;
