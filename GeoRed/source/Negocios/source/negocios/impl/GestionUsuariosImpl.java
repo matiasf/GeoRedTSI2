@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -64,11 +65,11 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 
 	@Override
 	public Usuario getContacto(int idUsuario, int idContacto) throws EntidadNoExiste {
-		if (usuarioDAO.existe(idUsuario)) {
+		if (!usuarioDAO.existe(idUsuario)) {
 			String msg = "El usuario " + idUsuario + "no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
-		if (usuarioDAO.existe(idContacto)) {
+		if (!usuarioDAO.existe(idContacto)) {
 			String msg = "El usuario " + idContacto + "no existe";
 			throw new EntidadNoExiste(idContacto, msg);
 		}
@@ -112,17 +113,19 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 					" ya es contacto de " + remitente.getNombre();
 			throw new ContactoYaExiste(msg);
 		}
-		contacto = usuarioDAO.buscarPorId(idContacto);
-		Invitacion invitacion = invitacionDAO.getInvitacionPorContactoRmte(idContacto, idUsuario);
+		contacto = usuarioDAO.buscarPorId(idUsuario);
+		Invitacion invitacion = invitacionDAO.getInvitacionPorContactoRmte(idUsuario, idContacto);
 		if (invitacion == null) {
 			EntidadNoExiste e = new EntidadNoExiste();
-			e.setMensaje("No existe una para el usuario " + contacto.getNombre() + " del usuario " + remitente.getNombre());
+			e.setMensaje("No existe una invitacion para el usuario " + contacto.getNombre() + " del usuario " + remitente.getNombre());
 			throw e;
 		}
 		remitente.getContactos().add(contacto);
 		contacto.getContactos().add(remitente);
-		contacto.getInvitaciones().remove(invitacion);
-		invitacionDAO.borrar(invitacion);
+		Collection<Invitacion> invitaciones = contacto.getInvitaciones();
+		invitaciones.remove(invitacion);
+		usuarioDAO.flush();
+		invitacionDAO.borrar(invitacion.getId());
 	}
 
 

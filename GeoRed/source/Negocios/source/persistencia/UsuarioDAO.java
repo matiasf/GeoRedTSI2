@@ -23,5 +23,7 @@ public interface UsuarioDAO {
 	
 	public Usuario obtenerContacto(int idUsuario, int idContacto);
 	
+	public void flush();
+	
 	public boolean existe(int id);
 }

@@ -18,11 +18,11 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	private static final String buscarPorNombreQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre = :nombre";
 	
-	private static final String obtenerContactosQuery = "SELECT u1 FROM Usuario u2 " +
+	private static final String obtenerContactosQuery = "SELECT u1 FROM Usuario u2, Usuario u1 " +
 			"WHERE u2.id = :id " +
 			"AND u1 MEMBER OF u2.contactos";
 	
-	private static final String obtenerContactoQuery = "SELECT u1 FROM Usuario u2 " +
+	private static final String obtenerContactoQuery = "SELECT u1 FROM Usuario u2, Usuario u1 " +
 			"WHERE u2.id = :id " +
 			"AND u2.id = :idContacto " +
 			"AND u1 MEMBER OF u2.contactos"; 

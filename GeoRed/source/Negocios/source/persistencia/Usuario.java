@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private Collection<CheckIn> checkIns;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany
 	private Collection<Invitacion> invitaciones;
 	
 	@ManyToMany
