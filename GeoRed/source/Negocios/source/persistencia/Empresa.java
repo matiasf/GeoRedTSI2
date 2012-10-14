@@ -1,19 +1,21 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Empresa
  *
  */
 @Entity
-@XmlRootElement
 public class Empresa implements Serializable {
 
 	
@@ -21,6 +23,7 @@ public class Empresa implements Serializable {
 	@GeneratedValue
 	private int id;
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	private String descripcion;
 	@NotNull

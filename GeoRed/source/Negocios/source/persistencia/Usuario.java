@@ -1,19 +1,21 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Usuario
  *
  */
 @Entity
-@XmlRootElement
 public class Usuario implements Serializable {
 
 	   
@@ -22,6 +24,7 @@ public class Usuario implements Serializable {
 	private int id;
 	
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	@NotNull
 	private String password;

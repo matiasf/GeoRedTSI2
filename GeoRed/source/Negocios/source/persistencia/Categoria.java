@@ -1,17 +1,18 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Categoria
  *
  */
 @Entity
-@XmlRootElement
 public class Categoria implements Serializable {
 
 	   
@@ -20,6 +21,7 @@ public class Categoria implements Serializable {
 	private int id;
 	
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	private String descripcion;
 	private static final long serialVersionUID = 1L;

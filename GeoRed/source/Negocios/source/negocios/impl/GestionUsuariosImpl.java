@@ -40,7 +40,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	
 	@Override
-	public boolean checkLogin(String nombre, String password) {
+	public int checkLogin(String nombre, String password) {
 		return usuarioDAO.checkLogin(nombre, password);
 	}
 
