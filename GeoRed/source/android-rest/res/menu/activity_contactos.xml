@@ -1,9 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <item android:id="@+id/menu_invitar_contacto"
-        android:title="@string/invitar_contacto"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
 
     <item android:id="@+id/menu_iniciar_chat"
         android:title="@string/iniciar_chat"

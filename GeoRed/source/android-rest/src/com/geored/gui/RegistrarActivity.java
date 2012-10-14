@@ -5,6 +5,9 @@ import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
+import com.geored.rest.exception.RestBlowUpException;
+import com.geored.rest.exception.UnauthorizedException;
+
 import android.view.View;
 import android.widget.EditText;
 
@@ -18,12 +21,10 @@ public class RegistrarActivity extends GenericActivity {
 	public void showRegistrar(View clickedButton) {
     	if (doSomething()){
     		goToActivity(UsuarioActivity.class);
-    	}else{
-    		
     	}        
     }
     
-    protected String salvarUsuario(String name, String password){
+    protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException{
     	//showToast("Registar");
     	Usuario usuario = new Usuario();
     	usuario.setNombre(name);
@@ -48,10 +49,20 @@ public class RegistrarActivity extends GenericActivity {
         		showToast("los password no coinciden");
         		return false;
         	}        		
-    	}catch(Exception ex){
+    	}catch(RestBlowUpException exbu){
+    		
+    		showToast("El servicio no responde");
+        	
+    		return false;
+    	}catch(UnauthorizedException exu){
+    		
+    		showToast("El usuario no esta autorizado");
+    		
+    		return false;
+    	}catch(Exception ex){    		
     		showToast(ex.getMessage());
     		return false;
-    	}    	
+    	}
     	
     	return true;
     }

@@ -2,6 +2,9 @@ package com.geored.gui;
 
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
+import com.geored.rest.exception.RestBlowUpException;
+import com.geored.rest.exception.UnauthorizedException;
+
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,8 +17,6 @@ public class LoginActivity extends GenericActivity {
     public void showLogin(View clickedButton) {
     	if (doSomething()){
     		goToActivity(UsuarioActivity.class);
-    	}else{
-    		showToast("please enter the correct information");
     	}        
     }
     
@@ -27,7 +28,17 @@ public class LoginActivity extends GenericActivity {
         	usuarioId = ServicioRestAutenticacion.login(emailText, passwordText);        	
     		
         	showToast( usuarioId );
-    	}catch(Exception ex){
+    	}catch(RestBlowUpException exbu){
+    		
+    		showToast("El servicio no responde");
+        	
+    		return false;
+    	}catch(UnauthorizedException exu){
+    		
+    		showToast("El usuario no esta autorizado");
+    		
+    		return false;
+    	}catch(Exception ex){    		
     		showToast(ex.getMessage());
     		return false;
     	}

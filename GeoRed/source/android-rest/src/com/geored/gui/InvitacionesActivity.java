@@ -6,6 +6,11 @@ import java.util.List;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Invitacion;
+import com.geored.rest.exception.ConflictException;
+import com.geored.rest.exception.NotFoundException;
+import com.geored.rest.exception.RestBlowUpException;
+import com.geored.rest.exception.UnauthorizedException;
+
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -54,11 +59,6 @@ public class InvitacionesActivity extends GenericActivity {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	Object itemList = getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.menu_rechazar_invitacion:
-                //showToast("Invitar: pos="+info.position + " , usr="+itemList.toString());
-                showInvitacionRechazada(itemList.toString());
-                showToast("invitacion del contacto <"+itemList.toString()+"> rechazada");
-            	return true;
             case R.id.menu_invitar_contacto:
                 showInvitacionAceptada(itemList.toString());
             	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
@@ -74,25 +74,29 @@ public class InvitacionesActivity extends GenericActivity {
 			ServicioRestUsuarios.aceptarInvitacion(idContacto);
 			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
 	    	startActivity(i);
-		}catch(Exception ex){
-			showToast(ex.getMessage());
-		}
+		}catch(NotFoundException nfbu){
+    		
+    		showToast("No se encontro el contacto");
+        	
+    	}catch(RestBlowUpException exbu){
+    		
+    		showToast("El servicio no responde");
+        	
+    	}catch(ConflictException cex){
+    		
+    		showToast("conflicto en los servicios");
+        	
+    	}catch(UnauthorizedException exu){
+    		
+    		showToast("El usuario no esta autorizado");
+    		
+    	}catch(Exception ex){    		
+    		showToast(ex.getMessage());
+    	}
 		
 	}
 
-	private void showInvitacionRechazada(String idContacto) {
-		try{
-			//ServicioRestUsuarios.aceptarInvitacion(idContacto);
-			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-	    	startActivity(i);
-		}catch(Exception ex){
-			showToast(ex.getMessage());
-		}
-		
-	}
-
-
-
+	
 	private void loadListView() {
     	try{    		
     		

@@ -6,6 +6,11 @@ import java.util.List;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
+//import com.geored.rest.exception.ConflictException;
+//import com.geored.rest.exception.NotFoundException;
+//import com.geored.rest.exception.RestBlowUpException;
+//import com.geored.rest.exception.UnauthorizedException;
+
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -54,11 +59,11 @@ public class ContactosActivity extends GenericActivity {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	Object itemList = getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.menu_invitar_contacto:
-                //showToast("Invitar: pos="+info.position + " , usr="+itemList.toString());
-                showInvitar(itemList.toString());
-                showToast("Contacto <"+itemList.toString()+"> invitado");
-            	return true;
+            //case R.id.menu_invitar_contacto:
+            //    //showToast("Invitar: pos="+info.position + " , usr="+itemList.toString());
+            //    showInvitar(itemList.toString());
+            //    showToast("Contacto <"+itemList.toString()+"> invitado");
+            //	return true;
             case R.id.menu_iniciar_chat:
                 showChat(itemList.toString());
             	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
@@ -76,18 +81,34 @@ public class ContactosActivity extends GenericActivity {
     	startActivity(i);   	   
 		
 	}
-
+/*
 	private void showInvitar(String id) {
 		try{
 			ServicioRestUsuarios.invitarContacto(id);
 			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
 			i.putExtra("user_id",usuarioId); 
 	    	startActivity(i);
-		}catch(Exception ex){
-			showToast(ex.getMessage());
-		}
+		}catch(NotFoundException nfbu){
+    		
+    		showToast("No se encontro el contacto");
+        	
+    	}catch(RestBlowUpException exbu){
+    		
+    		showToast("El servicio no responde");
+        	
+    	}catch(ConflictException cex){
+    		
+    		showToast("conflicto en los servicios");
+        	
+    	}catch(UnauthorizedException exu){
+    		
+    		showToast("El usuario no esta autorizado");
+    		
+    	}catch(Exception ex){    		
+    		showToast(ex.getMessage());
+    	}
 	}
-
+*/
 	private void loadListView() {
     	try{    		
     		

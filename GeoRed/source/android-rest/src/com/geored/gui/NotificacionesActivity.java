@@ -21,5 +21,6 @@ public class NotificacionesActivity extends GenericActivity {
         return true;
     }
     
+    
 
 }
