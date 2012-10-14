@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/emailtextView"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="@string/edicionUsuario"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/contactoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showContactos"
+        android:text="@string/Contactos" />
+
+    <Button
+        android:id="@+id/invitacionesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showInvitaciones"
+        android:text="@string/Invitaciones" />
+
+    <Button
+        android:id="@+id/modificarUsuarioButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showModificarUsuario"
+        android:text="@string/ModificarUsuario" />
+
+       <Button
+        android:id="@+id/notificaciones_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notificaciones"
+        android:onClick="showNotificaciones"
+         />
+
+    <Button
+        android:id="@+id/check_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/check_in"
+        android:onClick="showCheckIn"
+        />
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/menu_aceptar_invitacion"
+        android:title="@string/aceptar_invitacion"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/menu_rechazar_invitacion"
+        android:title="@string/rechazar_invitacion"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    
+</menu>

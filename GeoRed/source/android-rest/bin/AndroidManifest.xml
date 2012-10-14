@@ -67,6 +67,49 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="com.geored.gui.UsuarioActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+            <activity android:name="com.geored.gui.ContactosActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>    
+                <activity android:name="com.geored.gui.ModificarUsuarioActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>    
+                
+        <activity android:name="com.geored.gui.ChatActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>                 
+        
+        <activity android:name="com.geored.gui.InvitacionesActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> 
+        
         <activity
             android:name="com.geored.rest.TestServicios"
             android:label="@string/rest_test" >
