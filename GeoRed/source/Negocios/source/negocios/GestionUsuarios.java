@@ -24,7 +24,7 @@ public interface GestionUsuarios {
 	 *            Contraseña del usuario.
 	 * @return Retorna si es valido o no.
 	 */
-	public boolean checkLogin(String nombre, String password);
+	public int checkLogin(String nombre, String password);
 
 	/**
 	 * Se registra un nuevo usuario.
