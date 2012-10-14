@@ -22,6 +22,7 @@ public class Empresa implements Serializable {
 	@GeneratedValue
 	private int id;
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	private String descripcion;
 	@NotNull

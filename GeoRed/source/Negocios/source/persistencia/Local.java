@@ -22,6 +22,7 @@ public class Local implements Serializable, Notificacion {
 	@GeneratedValue
 	private int id;
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	private String descripcion;
 	

@@ -15,7 +15,7 @@ public interface UsuarioDAO {
 	
 	public List<Usuario> obtenerTodos();
 	
-	public boolean checkLogin(String nombre, String password);
+	public int checkLogin(String nombre, String password);
 	
 	public Usuario buscarPorNombre(String nombre);
 	

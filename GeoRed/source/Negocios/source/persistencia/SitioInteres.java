@@ -22,9 +22,12 @@ public class SitioInteres implements Serializable, Notificacion {
 	private int id;
 	
 	@NotNull
+	@Column(unique=true)
 	private String Nombre;
 	private String Descripcion;
 	private static final long serialVersionUID = 1L;
+	private float latitud;
+	private float longitud;
 	
 	@OneToMany
 	private Collection<Categoria> categorias;
@@ -67,6 +70,18 @@ public class SitioInteres implements Serializable, Notificacion {
 	}
 	public void setCategorias(Collection<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+	public float getLatitud() {
+		return latitud;
+	}
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+	public float getLongitud() {
+		return longitud;
+	}
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
    
 }

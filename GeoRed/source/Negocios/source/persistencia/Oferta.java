@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collection;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: Oferta
@@ -17,6 +18,7 @@ public class Oferta implements Serializable {
 	   
 	@Id
 	private int id;
+	@NotNull
 	private String nombre;
 	private String descripcion;
 	private float costo;
