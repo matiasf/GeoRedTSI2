@@ -101,7 +101,7 @@ public class InvitacionesActivity extends GenericActivity {
     	try{    		
     		
     		List<String> strs = new ArrayList<String>(); 
-    		List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones(usuarioId);
+    		List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones();
     		if (invitaciones != null){
     			showToast(Integer.toString(invitaciones.size()));
         		Iterator<Invitacion> it = invitaciones.iterator();

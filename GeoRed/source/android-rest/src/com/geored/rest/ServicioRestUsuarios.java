@@ -73,7 +73,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 		}
 	}
 	
-	public static List<Invitacion> getInvitaciones(String idUsuario) throws RestBlowUpException, UnauthorizedException {
+	public static List<Invitacion> getInvitaciones() throws RestBlowUpException, NotFoundException, UnauthorizedException {
 		
 			ObjectMapper mapper = new ObjectMapper();
 			HttpResponse response = rest(Metodos.GET, URL_INVITACIONES);
@@ -85,6 +85,9 @@ public class ServicioRestUsuarios extends ServicioRest {
 				} catch (Exception e) {
 					throw new RestBlowUpException(e.getMessage());
 				}
+			}
+			else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
+				throw new NotFoundException();
 			}
 			else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 				throw new UnauthorizedException();
@@ -138,7 +141,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 		ObjectMapper mapper = new ObjectMapper();
 		HttpResponse response;
 		try {
-			response = rest(Metodos.PUT, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario));
+			response = rest(Metodos.PUT, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario), false);
 		} catch (Exception e) {
 			throw new RestBlowUpException(e.getMessage());
 		}
@@ -150,16 +153,19 @@ public class ServicioRestUsuarios extends ServicioRest {
 		}
 	}
 	
-	public static void modificarUsuario(String password, Usuario usuario) throws RestBlowUpException, UnauthorizedException {
+	public static void modificarUsuario(String password, Usuario usuario) throws RestBlowUpException, NotFoundException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
 		HttpResponse response;
 		try {
-			response = rest(Metodos.POST, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario), false);
+			response = rest(Metodos.POST, URL_USUARIO + "/" + password, mapper.writeValueAsString(usuario));
 		} catch (Exception e) {
 			throw new RestBlowUpException(e.getMessage());
 		}
 		if (response.getStatusLine().getStatusCode() == OK || response.getStatusLine().getStatusCode() == NOT_CONTENT) {
 			return;
+		}
+		else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
+			throw new NotFoundException();
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();
