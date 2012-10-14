@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.geored.rest.data.Usuario;
+import com.geored.rest.exception.RestBlowUpException;
+import com.geored.rest.exception.UnauthorizedException;
 
 public class TestServicios extends Activity implements OnClickListener {
     @Override
@@ -31,8 +33,15 @@ public class TestServicios extends Activity implements OnClickListener {
 		protected String doInBackground(Void... params) {
 			Usuario usuario = new Usuario();
 			usuario.setNombre("fucken");
-			ServicioRestUsuarios.registrarUsuario("fucken", usuario);
-			String token = ServicioRestAutenticacion.login("fucken", "fucken");		
+			String token = "";
+			try {
+				ServicioRestUsuarios.registrarUsuario("fucken", usuario);
+				token = ServicioRestAutenticacion.login("fucken", "fucken");
+			} catch (RestBlowUpException e) {
+				return "Error: " + e.getMessage();
+			} catch (UnauthorizedException e) {
+				return "Error: " + e.getMessage();
+			}
 			return "Exit de exito! " + token;
 		}	
 		

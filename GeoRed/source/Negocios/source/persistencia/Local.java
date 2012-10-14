@@ -1,19 +1,21 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Local
  *
  */
 @Entity
-@XmlRootElement
 public class Local implements Serializable, Notificacion {
 
 	   

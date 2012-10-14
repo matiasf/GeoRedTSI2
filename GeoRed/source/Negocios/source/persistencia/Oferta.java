@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-
 public class Oferta implements Serializable {
 
 	   

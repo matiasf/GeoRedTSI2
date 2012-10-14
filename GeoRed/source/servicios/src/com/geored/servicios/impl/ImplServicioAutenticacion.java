@@ -22,9 +22,10 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 
 	@Override
 	public Response login(final String usuario, final String password) {
-		if (gestionUsuarios.checkLogin(usuario, password)) {
-			gestionTokens.obtenerToken(1);
-			return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(1)).build();
+		int idUsuario = gestionUsuarios.checkLogin(usuario, password);
+		if (idUsuario >= 0) {
+			gestionTokens.obtenerToken(idUsuario);
+			return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
 		}
 		else {
 			return Response.status(Response.Status.UNAUTHORIZED).build();
