@@ -40,7 +40,7 @@ public interface GestionUsuarios {
 	 * @param usuario
 	 *            Los datos del usuario a modificar.
 	 */
-	public void modificarUsuario(Usuario usuario);
+	public void modificarUsuario(Usuario usuario) throws EntidadNoExiste;
 
 	/* Funciones Android */
 
@@ -89,7 +89,7 @@ public interface GestionUsuarios {
 	 *            Identificador del usuario.
 	 * @return Lista de invitaciones del usuario.
 	 */
-	public List<Invitacion> getInvitaciones(final int idUsuario);
+	public List<Invitacion> getInvitaciones(final int idUsuario) throws EntidadNoExiste;
 
 	/**
 	 * Aceptar la invitacion de un contacto.
@@ -112,7 +112,7 @@ public interface GestionUsuarios {
 	 *            Identificador del usuario.
 	 * @return Lista de notficaciones a mostrar.
 	 */
-	public List<Notificacion> getNotificaciones(final int idUsuario);
+	public List<Notificacion> getNotificaciones(final int idUsuario, final float latitud, final float longitud, final float distancia) throws EntidadNoExiste;
 
 	/**
 	 * Permite al usuario realizar una compra de una ofera
@@ -126,4 +126,13 @@ public interface GestionUsuarios {
 	 * 		En caso de que no exista el usuario o la oferta se lanza esta excepcion
 	 */
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago) throws EntidadNoExiste;
+	
+	/**
+	 * Busca usuarios
+	 * @param nombre 
+	 * El nombre o comienzo del nombre
+	 * @return
+	 * Los usuarios cuyo nombre comienzan con el parametro nombre
+	 */
+	public List<Usuario> buscarUsuario(String nombre);
 }
