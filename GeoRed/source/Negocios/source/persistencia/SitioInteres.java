@@ -1,19 +1,19 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Sitio de Interes
  *
  */
 @Entity
-@XmlRootElement
 public class SitioInteres implements Serializable, Notificacion {
 
 	   

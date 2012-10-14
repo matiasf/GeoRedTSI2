@@ -12,7 +12,6 @@ import javax.persistence.*;
  *
  */
 @Entity
-
 public class Oferta implements Serializable {
 
 	   
