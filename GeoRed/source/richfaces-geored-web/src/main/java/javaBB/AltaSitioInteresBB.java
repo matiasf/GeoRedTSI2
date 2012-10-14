@@ -16,10 +16,16 @@ import negocios.GestionSitioInteres;
 public class AltaSitioInteresBB {
 	
 	private String nombre;
-	private boolean exito;
+	
 	
 	private String descripcion;
+	
+	private float latitud;
+	private float longitud;
+	
 	private Object[] logoData;
+	
+	private boolean exito;
 	
 	@EJB
 	private GestionSitioInteres gs;
@@ -40,6 +46,7 @@ public class AltaSitioInteresBB {
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
     	sitioInteres.setDescripcion(this.descripcion);
+    	
     	gs.agregarSitioInteres(sitioInteres);
     	retorno = "exito";   	
     	//LOGICA *******/
@@ -104,5 +111,21 @@ public class AltaSitioInteresBB {
 
 	public void setLogoData(Object[] logoData) {
 		this.logoData = logoData;
+	}
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
 }
