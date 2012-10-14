@@ -20,6 +20,7 @@ public class Categoria implements Serializable {
 	private int id;
 	
 	@NotNull
+	@Column(unique=true)
 	private String nombre;
 	private String descripcion;
 	private static final long serialVersionUID = 1L;

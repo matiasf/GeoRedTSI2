@@ -12,7 +12,7 @@ public class EmpresaDAOImpl extends BaseDAO<Empresa> implements EmpresaDAO {
 			"WHERE e.mailAdmin = :mailAdmin " +
 			"AND e.password = :password "; 
 	
-	private static final String findAllQuery = "SELECT e FROM Empresa";
+	private static final String findAllQuery = "SELECT e FROM Empresa e ";
 	
 	@Override
 	public Empresa buscarPorId(int id) {
