@@ -50,7 +50,11 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public void modificarUsuario(Usuario usuario) {
+	public void modificarUsuario(Usuario usuario) throws EntidadNoExiste {
+		if (!usuarioDAO.existe(usuario.getId())) {
+			String msg = "El usuario " + usuario.getId() + "no existe";
+			throw new EntidadNoExiste(usuario.getId(), msg);
+		}
 		usuarioDAO.modificar(usuario);
 	}
 
@@ -100,7 +104,12 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public List<Invitacion> getInvitaciones(int idUsuario) {
+	public List<Invitacion> getInvitaciones(int idUsuario) throws EntidadNoExiste {
+		if (!usuarioDAO.existe(idUsuario)) {
+			String msg = "El usuario " + idUsuario + "no existe";
+			throw new EntidadNoExiste(idUsuario, msg);
+		}
+		
 		return invitacionDAO.getInvitacionesPorUsuario(idUsuario);
 	}
 
