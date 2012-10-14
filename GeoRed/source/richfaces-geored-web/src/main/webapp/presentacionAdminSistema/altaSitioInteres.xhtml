@@ -22,6 +22,18 @@
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>		      
 		      
+		      <h:outputLabel for="coordX" value="Latitud"/>
+		      <h:inputText id="coordX" value="#{altaSitioInteresBB.latitud}">
+		      <rich:validator/>		         
+		      </h:inputText>
+		      <rich:message for="coordX" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="coordY" value="Longitud"/>
+		      <h:inputText id="coordY" value="#{altaSitioInteresBB.longitud}">
+		      <rich:validator/>		         
+		      </h:inputText>
+		      <rich:message for="coordY" errorClass="invalid"/>		    		      
+		      
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
 		      <h:inputTextarea
                     maxlength="200"
