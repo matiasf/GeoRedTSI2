@@ -12,18 +12,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
-        android:id="@+id/contactosListView"
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.43" >
 
     </ListView>
-    
-    <Button
-        android:id="@+id/contactoButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="showContactos"
-        android:text="@string/Contactos" />
 
 </LinearLayout>

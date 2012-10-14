@@ -3,30 +3,14 @@ package com.geored.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Invitacion;
-import com.geored.rest.data.Usuario;
-
-
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.view.Menu;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import android.view.ActionMode;
-
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -35,32 +19,25 @@ import android.view.View;
 
 
 
-public class InvitacionesActivity extends ListActivity {
+public class InvitacionesActivity extends GenericActivity {
 	
-	private Usuario usuario = null;
-
-    @Override
-    public void onCreate(Bundle icicle) {
-    	super.onCreate(icicle);
-        
-        loadListViewHardCoreData2();
+	protected void loadVista() {
+		setContentView(R.layout.activity_invitaciones);
+		loadListView();
         registerForContextMenu(getListView());
-        
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("user_id");
-            
-            setUsuario(value);
-        }
-    }
+	}    
+
+	private void setListAdapter(ArrayAdapter<String> adapter) {
+		getListView().setAdapter(adapter);
+	}
+
+    private ListAdapter getListAdapter() {
+		return getListView().getAdapter();
+	}
     
-    private void setUsuario(String usuarioId){
-    	try{
-    		this.usuario = ServicioRestUsuarios.getContacto(usuarioId);
-    	}catch(Exception ex){
-    		showToast(ex.getMessage());
-    	}
-    }
+    private ListView getListView() {
+    	return  ((ListView)findViewById(R.id.listView));    	
+	}
     
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
@@ -118,10 +95,9 @@ public class InvitacionesActivity extends ListActivity {
 
 	private void loadListView() {
     	try{    		
-    		//ListView listView = (ListView) findViewById(R.id.contactosListView);
     		
     		List<String> strs = new ArrayList<String>(); 
-    		List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones(usuario.getId());
+    		List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones(usuarioId);
     		if (invitaciones != null){
     			showToast(Integer.toString(invitaciones.size()));
         		Iterator<Invitacion> it = invitaciones.iterator();
@@ -130,14 +106,10 @@ public class InvitacionesActivity extends ListActivity {
         			strs.add("id:<"+invitacion.getId()+"> remitente:<"+invitacion.getRemitente().getNombre()+">");
         		}
         		
-            	//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            	//    	  android.R.layout.simple_list_item_1, android.R.id.text1, strs);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1, strs);
                 
-    	    	// Assign adapter to ListView
-    	    	//listView.setAdapter(adapter); 
-                setListAdapter(adapter);
+    	    	setListAdapter(adapter);
     		}else{
     			showToast("invitaciones == null");
     		}    		
@@ -146,10 +118,7 @@ public class InvitacionesActivity extends ListActivity {
     	}
     }
     
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
-    
+    /*
     private void loadListViewHardCoreData2() {
     	//ListView listView = (ListView) findViewById(R.id.contactosListView);
 		
@@ -169,6 +138,7 @@ public class InvitacionesActivity extends ListActivity {
     	//listView.setAdapter(adapter);
         setListAdapter(adapter);
     }
+    */
 
 
 }

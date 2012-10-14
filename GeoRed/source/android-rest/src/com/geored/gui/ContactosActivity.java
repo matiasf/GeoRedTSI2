@@ -3,28 +3,14 @@ package com.geored.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
-
-
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.view.Menu;
-import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import android.view.ActionMode;
-
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -33,42 +19,27 @@ import android.view.View;
 
 
 
-public class ContactosActivity extends ListActivity {
+public class ContactosActivity extends GenericActivity {
 	
-	private Usuario usuario = null;
-	private String usuarioId;
-
-    @Override
-    public void onCreate(Bundle icicle) {
-    	super.onCreate(icicle);
-        
-        loadListViewHardCoreData2();
+	protected void loadVista() {
+		setContentView(R.layout.activity_contactos);
+		loadListView();
         registerForContextMenu(getListView());
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("user_id");
-            
-            setUsuario(value);
-        }
-    }
+	}    
+
+	private void setListAdapter(ArrayAdapter<String> adapter) {
+		getListView().setAdapter(adapter);
+	}
+
+    private ListAdapter getListAdapter() {
+		return getListView().getAdapter();
+	}
     
-    private void setUsuario(String usuarioId){
-    	try{
-    		this.usuario = ServicioRestUsuarios.getContacto(usuarioId);
-    	}catch(Exception ex){
-    		showToast(ex.getMessage());
-    	}
-    }
-    
-    private String getUsuario(){
-    	if (usuario == null){
-    		return usuarioId;    		
-    	}else{
-    		return usuario.getNombre();
-    	}
-    }
-    
-    @Override
+    private ListView getListView() {
+    	return  ((ListView)findViewById(R.id.listView));    	
+	}
+
+	@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
     {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -97,7 +68,9 @@ public class ContactosActivity extends ListActivity {
         }
     }
     
-    private void showChat(String id) {
+
+
+	private void showChat(String id) {
     	Intent i = new Intent(getApplicationContext(), ChatActivity.class);
     	i.putExtra("user_id",id);
     	startActivity(i);   	   
@@ -108,7 +81,7 @@ public class ContactosActivity extends ListActivity {
 		try{
 			ServicioRestUsuarios.invitarContacto(id);
 			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-			i.putExtra("user_id",getUsuario()); 
+			i.putExtra("user_id",usuarioId); 
 	    	startActivity(i);
 		}catch(Exception ex){
 			showToast(ex.getMessage());
@@ -117,7 +90,6 @@ public class ContactosActivity extends ListActivity {
 
 	private void loadListView() {
     	try{    		
-    		//ListView listView = (ListView) findViewById(R.id.contactosListView);
     		
     		List<String> strs = new ArrayList<String>(); 
     		List<Usuario> usuarios = ServicioRestUsuarios.getContactos();
@@ -129,13 +101,9 @@ public class ContactosActivity extends ListActivity {
         			strs.add(usuario.getNombre());
         		}
         		
-            	//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            	//    	  android.R.layout.simple_list_item_1, android.R.id.text1, strs);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1, strs);
                 
-    	    	// Assign adapter to ListView
-    	    	//listView.setAdapter(adapter); 
                 setListAdapter(adapter);
     		}else{
     			showToast("usuarios == null");
@@ -145,49 +113,22 @@ public class ContactosActivity extends ListActivity {
     	}
     }
     
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
     
-    private void loadListViewHardCoreData2() {
-    	//ListView listView = (ListView) findViewById(R.id.contactosListView);
-		
+    
+    
+/*
+	private void loadListViewHardCoreData2() {
+    	
 		List<String> strs = new ArrayList<String>(); 
 		
 		for(int i=0; i < 15;i++){
 			strs.add("Usuario "+Integer.toString(i));
 		}
 		
-    	//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    	//    	  android.R.layout.simple_list_item_1, android.R.id.text1, strs);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, strs);
         
-    	// Assign adapter to ListView
-    	//listView.setAdapter(adapter);
         setListAdapter(adapter);
     }
-    
-    private void loadListViewHardCoreData() {
-    	//ListView listView = (ListView) findViewById(R.id.contactosListView);
-    	String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-    	  "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-    	  "Linux", "OS/2" };
-
-    	// First paramenter - Context
-    	// Second parameter - Layout for the row
-    	// Third parameter - ID of the TextView to which the data is written
-    	// Forth - the Array of data
-    	//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-    	//  android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, values);
-    	
-    	// Assign adapter to ListView
-    	//listView.setAdapter(adapter); 
-        setListAdapter(adapter);
-	}
-
-
+  */  
 }
