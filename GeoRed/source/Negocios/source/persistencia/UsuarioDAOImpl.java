@@ -42,15 +42,15 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	}
 
 	@Override
-	public boolean checkLogin(String nombre, String password) {
+	public int checkLogin(String nombre, String password) {
 		TypedQuery<Integer> query = em.createQuery(checkLoginQuery, Integer.class);
 		query.setParameter("userName", nombre);
 		query.setParameter("password", password);
 		List<Integer> resultado = query.getResultList();
-		boolean ret = false;
-		if (!resultado.isEmpty())
-		{
-			ret = resultado.size() == 1; 
+		int ret = -1;
+		if (!resultado.isEmpty() && (resultado.size() == 1))
+		{ 
+			ret = resultado.get(0);
 		}
 		return ret;
 	}

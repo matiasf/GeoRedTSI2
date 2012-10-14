@@ -1,19 +1,20 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Sitio de Interes
  *
  */
 @Entity
-@XmlRootElement
 public class SitioInteres implements Serializable, Notificacion {
 
 	   
@@ -22,9 +23,12 @@ public class SitioInteres implements Serializable, Notificacion {
 	private int id;
 	
 	@NotNull
+	@Column(unique=true)
 	private String Nombre;
 	private String Descripcion;
 	private static final long serialVersionUID = 1L;
+	private float latitud;
+	private float longitud;
 	
 	@OneToMany
 	private Collection<Categoria> categorias;
@@ -67,6 +71,18 @@ public class SitioInteres implements Serializable, Notificacion {
 	}
 	public void setCategorias(Collection<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+	public float getLatitud() {
+		return latitud;
+	}
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+	public float getLongitud() {
+		return longitud;
+	}
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
    
 }
