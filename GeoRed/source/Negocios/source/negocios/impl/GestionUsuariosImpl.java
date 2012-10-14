@@ -193,4 +193,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	    return (float) dist;
 	}
 
+	@Override
+	public List<Usuario> buscarUsuario(String nombre) {
+		return usuarioDAO.buscarUsuarios(nombre);
+	}
+
 }
