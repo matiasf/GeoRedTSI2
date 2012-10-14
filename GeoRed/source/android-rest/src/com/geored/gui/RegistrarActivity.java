@@ -5,6 +5,7 @@ import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
+import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
@@ -24,7 +25,7 @@ public class RegistrarActivity extends GenericActivity {
     	}        
     }
     
-    protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException{
+    protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException, NotFoundException{
     	//showToast("Registar");
     	Usuario usuario = new Usuario();
     	usuario.setNombre(name);

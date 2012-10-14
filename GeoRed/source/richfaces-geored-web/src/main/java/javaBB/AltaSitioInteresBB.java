@@ -3,6 +3,7 @@ package javaBB;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import persistencia.Empresa;
 import persistencia.SitioInteres;
@@ -42,15 +43,18 @@ public class AltaSitioInteresBB {
     	String retorno = "";
     	
     	retorno = "exito";
-    	//***** LOGICA    	
+
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
     	sitioInteres.setDescripcion(this.descripcion);
-    	
+    	sitioInteres.setLatitud(this.latitud);
+    	sitioInteres.setLongitud(this.longitud);    	
     	gs.agregarSitioInteres(sitioInteres);
     	retorno = "exito";   	
-    	//LOGICA *******/
-    	this.setExito(true);    		
+
+    	this.setExito(true);
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().remove("ModificarSitioInteresBB");
     	
         return retorno;
     }

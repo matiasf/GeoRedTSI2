@@ -3,6 +3,7 @@ package com.geored.gui;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
+import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
@@ -47,7 +48,7 @@ public class ModificarUsuarioActivity extends RegistrarActivity {
     	}        
     }
     
-    protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException{
+    protected String salvarUsuario(String name, String password) throws RestBlowUpException, NotFoundException, UnauthorizedException{
     	//showToast("Modificar");
 		Usuario usuario = new Usuario();
     	usuario.setNombre(name);

@@ -7,21 +7,37 @@
       body { height: 100%; margin: 0; padding: 0 }
       #map_canvas { height: 100% }
     </style>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyCE_BR7GG3ru0_m9tHTvsQfEEiiIn0102U&amp;sensor=true">
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
     </script>
     <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
+    var map;
+    function initialize() {
+      var myLatlng = new google.maps.LatLng(-34.91834202183006,-56.166390037536644);
+      var mapOptions = {
+        zoom: 10,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       }
+      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+      google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+      });
+    }
+
+    function placeMarker(location) {      
+      alert(location);
+      var marker = new google.maps.Marker({
+          position: location,
+          map: map
+      });
+
+      map.setCenter(location);
+    }
     </script>
   </head>
   <body onload="initialize()">
-    <div id="map_canvas" style="width:100%; height:100%"></div>
+    <div id="map_canvas" style="width:40%; height:40%"></div>
   </body>
 </html>

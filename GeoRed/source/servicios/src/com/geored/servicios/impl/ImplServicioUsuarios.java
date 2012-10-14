@@ -8,11 +8,10 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
-import persistencia.Usuario;
-
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
 import com.geored.servicios.impl.auth.ConvertidorEntityJSON;
@@ -32,6 +31,18 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	
 	@EJB
 	ConvertidorEntityJSON convertidorEntityJSON;
+	
+	@Override
+	public List<UsuarioJSON> buscarContactos(final String userToken, final HttpServletResponse response, final String query) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convert(gestionUsuarios.buscarUsuario(query));
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
+	}
 
 	@Override
 	public List<UsuarioJSON> getContactos(final String userToken, final HttpServletResponse response) {
@@ -86,7 +97,11 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	public List<InvitacionJSON> getInvitaciones(final String userToken, final HttpServletResponse response) {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
-			return convertidorEntityJSON.convert(gestionUsuarios.getInvitaciones(gestionTokens.getIdUsuario(userToken)));
+			try {
+				return convertidorEntityJSON.convert(gestionUsuarios.getInvitaciones(gestionTokens.getIdUsuario(userToken)));
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			}
 		}
 		response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		return null;
@@ -124,11 +139,27 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 			response.setStatus(Response.Status.OK.getStatusCode());
 			Usuario usuario = convertidorEntityJSON.convertir(usuarioJSON);
 			usuario.setPassword(password);
-			gestionUsuarios.modificarUsuario(usuario);
+			try {
+				gestionUsuarios.modificarUsuario(usuario);
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			}
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}		
 	}
+	
+	//@Override
+	/*public List<NotificacionJSON> getNotificaciones(final String userToken, final HttpServletResponse response) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convert(gestionUsuarios.getNotificaciones(gestionTokens.getIdUsuario(userToken)));
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
+	}*/
 
 }
