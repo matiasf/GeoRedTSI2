@@ -28,5 +28,22 @@
     <string name="location_test">Maps API Demos</string>
     
     
+    <string name="edicionUsuario">Edicion de Usuario</string>
     
+    <string name="Contactos">Contactos</string>
+	<string name="Contacto">Contacto</string>
+	<string name="Invitaciones">Invitaciones</string>
+	<string name="InvitarContacto">Invitar Contacto</string>
+	<string name="AceptarInvitacion">Aceptar Invitacion</string>
+	<string name="ModificarUsuario">Modificar Usuario</string>
+
+	<string name="iniciar_chat">Iniciar Chat</string>
+	<string name="invitar_contacto">Invitar Contacto</string>
+    
+	    <string name="aceptar_invitacion">Aceptar invitacion</string>
+	    <string name="rechazar_invitacion">Rechazar invitacion</string>
+
+
+	
+	
 </resources>

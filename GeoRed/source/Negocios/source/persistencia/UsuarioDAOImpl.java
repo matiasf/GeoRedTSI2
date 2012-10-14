@@ -26,6 +26,9 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 			"WHERE u2.id = :id " +
 			"AND u2.id = :idContacto " +
 			"AND u1 MEMBER OF u2.contactos"; 
+	
+	private static final String buscarUsuariosQuery = "SELECT u FROM Usuario u " +
+			"WHERE u.nombre LIKE :nombre";
 			
 	
 	@Override
@@ -86,6 +89,15 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 		}
 		return ret;
 	}
-	
 
+	@Override
+	public List<Usuario> buscarUsuarios(String nombre) {
+		TypedQuery<Usuario> query = em.createQuery(buscarUsuariosQuery, Usuario.class);
+		nombre = nombre + "%";
+		query.setParameter("nombre", nombre);
+		return query.getResultList(); 
+	}
+	
+	
+	
 }

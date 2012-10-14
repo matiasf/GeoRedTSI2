@@ -4,11 +4,10 @@ import com.geored.rest.R;
 
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 
 
-public class NotificacionesActivity extends Activity {
+public class NotificacionesActivity extends GenericActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,6 +20,7 @@ public class NotificacionesActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
+    
     
 
 }

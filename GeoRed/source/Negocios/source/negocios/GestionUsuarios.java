@@ -126,4 +126,13 @@ public interface GestionUsuarios {
 	 * 		En caso de que no exista el usuario o la oferta se lanza esta excepcion
 	 */
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago) throws EntidadNoExiste;
+	
+	/**
+	 * Busca usuarios
+	 * @param nombre 
+	 * El nombre o comienzo del nombre
+	 * @return
+	 * Los usuarios cuyo nombre comienzan con el parametro nombre
+	 */
+	public List<Usuario> buscarUsuario(String nombre);
 }

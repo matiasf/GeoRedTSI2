@@ -26,4 +26,6 @@ public interface UsuarioDAO {
 	public void flush();
 	
 	public boolean existe(int id);
+	
+	public List<Usuario> buscarUsuarios(String nombre);
 }

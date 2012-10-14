@@ -19,6 +19,12 @@ import com.geored.servicios.json.UsuarioJSON;
 public interface ServicioUsuarios {
 
 	@GET
+	@Path("contactos/buscar/{query}")
+	@Produces("application/json")
+	List<UsuarioJSON> buscarContactos(@HeaderParam("Security-Token") final String userToken, 
+			@Context final HttpServletResponse response, final String query);
+	
+	@GET
 	@Path("contactos")
 	@Produces("application/json")
 	public List<UsuarioJSON> getContactos(

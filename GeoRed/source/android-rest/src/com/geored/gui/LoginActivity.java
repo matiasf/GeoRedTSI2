@@ -1,50 +1,50 @@
 package com.geored.gui;
 
-import com.geored.rest.Main;
 import com.geored.rest.R;
+import com.geored.rest.ServicioRestAutenticacion;
+import com.geored.rest.exception.RestBlowUpException;
+import com.geored.rest.exception.UnauthorizedException;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends GenericActivity {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+	protected void loadVista() {
+    	setContentView(R.layout.activity_login);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-    
-    /** Switches to the given class (which must be a subclass of Activity). 
-     *  You must also register the new Activity in AndroidManifest.xml.
-     */
-    private void goToActivity(Class<? extends Activity> activityClass) {
-        Intent newActivity = new Intent(this, activityClass);
-        startActivity(newActivity);
-    }
-    
     public void showLogin(View clickedButton) {
     	if (doSomething()){
-    		goToActivity(Main.class);
-    	}else{
-    		showToast("please enter the correct information");
+    		goToActivity(UsuarioActivity.class);
     	}        
     }
     
     private boolean doSomething(){
+    	try{
+    		String emailText = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
+        	String passwordText = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
+        	
+        	usuarioId = ServicioRestAutenticacion.login(emailText, passwordText);        	
+    		
+        	showToast( usuarioId );
+    	}catch(RestBlowUpException exbu){
+    		
+    		showToast("El servicio no responde");
+        	
+    		return false;
+    	}catch(UnauthorizedException exu){
+    		
+    		showToast("El usuario no esta autorizado");
+    		
+    		return false;
+    	}catch(Exception ex){    		
+    		showToast(ex.getMessage());
+    		return false;
+    	}
+    	
     	return true;
     }
     
-    private void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-    }
+    
 }
