@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import persistencia.Empresa;
@@ -20,10 +21,14 @@ import negocios.GestionSitioInteres;
 @SessionScoped
 public class ModificarSitioInteresBB {
 	
-	private String nombre;
 	private boolean exito;
 	
+	private String nombre;
 	private String descripcion;
+	private float latitud;
+	private float longitud;
+	
+	
 	private Object[] logoData;
 	
 	private int sitioSelected;
@@ -60,9 +65,12 @@ public class ModificarSitioInteresBB {
         //**** LOGICA            	    	
         SitioInteres sitioInteres = gs.obtenerSitioInteres(this.sitioSelected);//??
     	this.setNombre(sitioInteres.getNombre());
+    	this.setLatitud(sitioInteres.getLatitud());
+    	this.setLongitud(sitioInteres.getLongitud());
     	this.setDescripcion(sitioInteres.getDescripcion());   	    	
     	//LOGICA *******/
         this.exito = true;
+        
         return "modificar";
     }
     
@@ -70,10 +78,16 @@ public class ModificarSitioInteresBB {
     	String retorno = "";
 	
     	SitioInteres sitioInteres = new SitioInteres();
+    	sitioInteres.setId(this.sitioSelected);
     	sitioInteres.setNombre(this.nombre);
     	sitioInteres.setDescripcion(this.descripcion);
+    	sitioInteres.setLatitud(this.latitud);
+    	sitioInteres.setLongitud(this.longitud);
     	gs.modifciarSitioInteres(sitioInteres);
     	retorno = "exito";   	    		
+    	
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().remove("ModificarSitioInteresBB");
     	
         return retorno;
     }
@@ -148,7 +162,8 @@ public class ModificarSitioInteresBB {
 
 
 	public List<SelectItem> getSitios() {
-		//*** LOGICA            	    	
+		//*** LOGICA
+		sitios = new LinkedList<SelectItem>();
         List<SitioInteres> sitiosInteres = gs.obtenerTodosSitiosInteres();
         for (SitioInteres s : sitiosInteres){
         	sitios.add(new SelectItem(s.getId(), s.getNombre()));
@@ -160,5 +175,25 @@ public class ModificarSitioInteresBB {
 
 	public void setSitios(List<SelectItem> sitios) {
 		this.sitios = sitios;
+	}
+
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
 }
