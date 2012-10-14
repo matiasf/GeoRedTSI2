@@ -112,7 +112,7 @@ public interface GestionUsuarios {
 	 *            Identificador del usuario.
 	 * @return Lista de notficaciones a mostrar.
 	 */
-	public List<Notificacion> getNotificaciones(final int idUsuario) throws EntidadNoExiste;
+	public List<Notificacion> getNotificaciones(final int idUsuario, final float latitud, final float longitud, final float distancia) throws EntidadNoExiste;
 
 	/**
 	 * Permite al usuario realizar una compra de una ofera

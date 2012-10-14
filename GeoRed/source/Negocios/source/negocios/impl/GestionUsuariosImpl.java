@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import persistencia.Oferta;
 import persistencia.OfertaDAO;
 import persistencia.Pago;
 import persistencia.PagoDAO;
+import persistencia.SitioInteres;
+import persistencia.SitioInteresDAO;
 import persistencia.Usuario;
 import persistencia.UsuarioDAO;
 import negocios.GestionUsuarios;
@@ -37,7 +40,8 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	@EJB
 	private PagoDAO pagoDAO;
 	
-	
+	@EJB
+	private SitioInteresDAO sitioInteresDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -156,9 +160,37 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public List<Notificacion> getNotificaciones(int idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Notificacion> getNotificaciones(final int idUsuario, 
+			final float latitud, 
+			final float longitud, 
+			final float distancia) throws EntidadNoExiste {
+		
+		if (!usuarioDAO.existe(idUsuario)) {
+			String msg = "El usuario " + idUsuario + " no existe";
+			throw new EntidadNoExiste(idUsuario, msg);
+		}
+		
+		List<SitioInteres> sitios = sitioInteresDAO.obtenerTodos();
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for (SitioInteres sitio : sitios) {
+			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
+				ret.add(sitio);
+			}
+		}
+		return ret;
+	}
+	
+	private float distanciaEntrePuntos(float lat1, float long1, float lat2, float long2) {
+		double earthRadius = 6371;
+	    double dLat = Math.toRadians(lat2-lat1);
+	    double dLng = Math.toRadians(long2-long1);
+	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(dLng/2) * Math.sin(dLng/2);
+	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	    double dist = earthRadius * c;
+
+	    return (float) dist;
 	}
 
 }
