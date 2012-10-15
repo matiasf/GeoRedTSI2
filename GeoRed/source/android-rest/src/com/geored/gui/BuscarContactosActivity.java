@@ -27,7 +27,7 @@ import android.view.View;
 public class BuscarContactosActivity extends GenericActivity {
 	
 	protected void loadVista() {
-		setContentView(R.layout.activity_contactos);
+		setContentView(R.layout.activity_buscar_contactos);
 		loadListView();
         registerForContextMenu(getListView());
 	}    
