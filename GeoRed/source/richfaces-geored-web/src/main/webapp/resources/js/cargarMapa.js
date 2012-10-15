@@ -2,12 +2,13 @@
     function initialize() {
       var myLatlng = new google.maps.LatLng(-34.91834202183006,-56.166390037536644);
       var mapOptions = {
-        zoom: 18,
+        zoom: 17,
         center: myLatlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
       map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);      
-      google.maps.event.addListener(map, 'click', function(event) {
+      map.markers = new Array();
+      google.maps.event.addListener(map, 'click', function(event) {    	
         placeMarker(event.latLng);
       });
     }
@@ -21,7 +22,11 @@
           position: location,
           map: map
       });
-
+      for(var i=0; i<map.markers.length; i++){
+  		map.markers[i].setMap(null);
+      }  	  
+      map.markers = new Array();
+      map.markers[0] = marker;
       map.setCenter(location);
     }
     

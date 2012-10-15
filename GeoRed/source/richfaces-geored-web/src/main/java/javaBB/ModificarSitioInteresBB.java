@@ -87,7 +87,7 @@ public class ModificarSitioInteresBB {
     	retorno = "exito";   	    		
     	
     	FacesContext context = FacesContext.getCurrentInstance(); 
-        context.getExternalContext().getSessionMap().remove("ModificarSitioInteresBB");
+        context.getExternalContext().getSessionMap().remove("modificarSitioInteresBB");
     	
         return retorno;
     }

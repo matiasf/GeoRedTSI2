@@ -3,6 +3,9 @@ package javaBB;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import persistencia.Empresa;
 
@@ -22,6 +25,7 @@ public class LoginBB {
 	private GestionEmpresas ge;
 	
     public LoginBB() {
+    	
         System.out.println("WelcomeBean instantiated");
     }
     
@@ -48,9 +52,17 @@ public class LoginBB {
     	} */
     	//chequeo de admin empresa
     	boolean logEmp = ge.chechLogin(this.mail, this.password);    			
-    	if(logEmp){
-    		this.empresaSession = ge.obtenerEmpresaPorMail(this.mail);
-    		retorno = "loginAdminEmpresa";
+    	if(logEmp){    		
+    		FacesContext context = FacesContext.getCurrentInstance();
+    	    HttpSession session = (HttpSession)context.getExternalContext().getSession(true);    	
+    	    Empresa empresa = ge.obtenerEmpresaPorMail(this.mail);    		
+    		session.setAttribute("idEmpresa", empresa.getId());
+    		session.setAttribute("nombreEmpresa", empresa.getNombre());    		
+    		session.setAttribute("mailEmpresa", empresa.getMailAdmin());
+    		session.setAttribute("passEmpresa", empresa.getPassword());
+    		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
+    		retorno = "loginAdminEmpresa";    		
+    		context.getExternalContext().getSessionMap().remove("altaLocalBB");
     	} 
     	//LOGICA *******/
     		

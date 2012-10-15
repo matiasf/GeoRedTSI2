@@ -7,22 +7,26 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:my="http://java.sun.com/jsf/composite/components">
-    <ui:define name="content">
-        <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>	
+                
+                
+<ui:define name="content">
+   <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
+   <h:outputScript target="body">   			   			
+   			initialize();
+   </h:outputScript>    
 
-       <h:form id="modificarEmpresa">
-          <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Sitio interes" headerClass="header">        
-			
+	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
+       <h:form id="form">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Local" headerClass="header">
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
 		      <h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
-		      <rich:validator/>		         
+		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
-		      
-		      <h:outputLabel for="coordX" value="Latitud"/>
+		
+		     <h:outputLabel for="coordX" value="Latitud"/>
 		      <h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}">
 		      <rich:validator/>		         
 		      </h:inputText>
@@ -32,7 +36,7 @@
 		      <h:inputText id="coordY" value="#{modificarSitioInteresBB.longitud}">
 		      <rich:validator/>		         
 		      </h:inputText>
-		      <rich:message for="coordY" errorClass="invalid"/>		      
+		      <rich:message for="coordY" errorClass="invalid"/>
 		      
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
 		      <h:inputTextarea
@@ -41,28 +45,24 @@
                     value="#{modificarSitioInteresBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
-              		      
-		      <h:outputLabel for="logo" value="Imagenes:"/>      
-			  <rich:fileUpload listWidth="240px" listHeight="100px" style="width:240px; height:120px;"
-			    uploadData="#{altaSitioInteresBB.logoData}" fileUploadListener="#{modificarSitioInteresBB.logoListener}"/>
-			  <rich:message for="logo" errorClass="invalid"/>
-		      		      
-		      	      
-		     
 
 		   </h:panelGrid>
+		   
+
 			
 			<h:panelGrid columns="2">
 				<a4j:commandButton id="cancelar" action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="modificarEmpresa" action="#{modificarSitioInteresBB.modificarSitioInteres}" value="Modificar"
-                                   styleClass="boton" />                                 
-                
+                <a4j:commandButton id="altaLocal" action="#{modificarSitioInteresBB.modificarSitioInteres}" value="Modificar"
+                                   styleClass="boton" />
+                                   
+                <rich:messages globalOnly="true"/>
              </h:panelGrid>
 
 			</rich:panel>
 
 
-       </h:form>
+       </h:form>     
+       
     </ui:define>
 </ui:composition>
