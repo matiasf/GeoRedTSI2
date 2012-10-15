@@ -85,8 +85,9 @@ public class BuscarContactosActivity extends GenericActivity {
 	}
 
 	private void loadListView() {
+		//TODO:hacer que el parametro de filtro funcione 
 		RegistryAsyncTask task = new RegistryAsyncTask();
-		task.execute();
+		task.execute(new String[] { ""});
 	}
 	    
 	private void loadListView(List<Usuario> usuarios) {
