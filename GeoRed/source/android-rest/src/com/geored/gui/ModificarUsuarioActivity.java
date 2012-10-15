@@ -43,9 +43,9 @@ public class ModificarUsuarioActivity extends RegistrarActivity {
     
     
     public void showRegistrar(View clickedButton) {
-    	if (doSomething()){
-    		goToActivity(UsuarioActivity.class);
-    	}        
+    	//if (doSomething()){
+    	//	goToActivity(UsuarioActivity.class);
+    	//}        
     }
     
     protected String salvarUsuario(String name, String password) throws RestBlowUpException, NotFoundException, UnauthorizedException{

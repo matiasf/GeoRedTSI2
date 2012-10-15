@@ -15,7 +15,7 @@ public interface GestionEmpresas {
 	
 	public void agregarEmpresa(Empresa empresa);
 	
-	public Empresa modifciarEmpresa(Empresa empresa);
+	public Empresa modifciarEmpresa(Empresa empresa) throws EntidadNoExiste;
 	
 	public void agregarLocal(int idEmpresa, Local local) throws EntidadNoExiste;
 	

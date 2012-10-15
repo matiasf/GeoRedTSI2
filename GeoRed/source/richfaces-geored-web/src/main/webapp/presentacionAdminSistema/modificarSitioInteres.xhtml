@@ -17,10 +17,22 @@
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{modificarSitioInteresBB.sitioSelected}">
+		      <h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
 		      <rich:validator/>		         
 		      </h:inputText>
-		      <rich:message for="name" errorClass="invalid"/>		      
+		      <rich:message for="name" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="coordX" value="Latitud"/>
+		      <h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}">
+		      <rich:validator/>		         
+		      </h:inputText>
+		      <rich:message for="coordX" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="coordY" value="Longitud"/>
+		      <h:inputText id="coordY" value="#{modificarSitioInteresBB.longitud}">
+		      <rich:validator/>		         
+		      </h:inputText>
+		      <rich:message for="coordY" errorClass="invalid"/>		      
 		      
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
 		      <h:inputTextarea

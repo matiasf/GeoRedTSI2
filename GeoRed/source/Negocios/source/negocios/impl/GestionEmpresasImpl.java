@@ -36,7 +36,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	}
 
 	@Override
-	public Empresa modifciarEmpresa(Empresa empresa) {
+	public Empresa modifciarEmpresa(Empresa empresa) throws EntidadNoExiste {
+		if (!empresaDAO.existe(empresa.getId())) {
+			String msg = "La empresa " + empresa.getId() + " no existe";
+			throw new EntidadNoExiste(empresa.getId(), msg);
+		}
 		return empresaDAO.modificar(empresa);
 	}
 

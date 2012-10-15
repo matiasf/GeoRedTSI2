@@ -6,6 +6,7 @@ import java.util.List;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Usuario;
+import com.geored.rest.exception.ConflictException;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
@@ -23,7 +24,7 @@ import android.view.View;
 
 
 
-public class ContactosActivity extends GenericActivity {
+public class BuscarContactosActivity extends GenericActivity {
 	
 	protected void loadVista() {
 		setContentView(R.layout.activity_contactos);
@@ -49,7 +50,7 @@ public class ContactosActivity extends GenericActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
      
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_contactos, menu);
+        inflater.inflate(R.menu.activity_invitar_contactos, menu);
     }
     
     @Override
@@ -58,29 +59,26 @@ public class ContactosActivity extends GenericActivity {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	Object itemList = getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
-            //case R.id.menu_invitar_contacto:
-            //    //showToast("Invitar: pos="+info.position + " , usr="+itemList.toString());
-            //    showInvitar(itemList.toString());
-            //    showToast("Contacto <"+itemList.toString()+"> invitado");
-            //	return true;
-            case R.id.menu_iniciar_chat:
-                showChat(itemList.toString());
-            	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
-                return true;
+            case R.id.menu_invitar_contacto:
+                //showToast("Invitar: pos="+info.position + " , usr="+itemList.toString());
+                showInvitar(itemList.toString());
+                showToast("Contacto <"+itemList.toString()+"> invitado");
+            	return true;
+            //case R.id.menu_iniciar_chat:
+            //    showChat(itemList.toString());
+            //	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
+            //    return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
     
+    //private void showChat(String id) {
+    //	Intent i = new Intent(getApplicationContext(), ChatActivity.class);
+    //	i.putExtra("user_id",id);
+    //	startActivity(i);   	   
+	//}
 
-
-	private void showChat(String id) {
-    	Intent i = new Intent(getApplicationContext(), ChatActivity.class);
-    	i.putExtra("user_id",id);
-    	startActivity(i);   	   
-		
-	}
-/*
 	private void showInvitar(String id) {
 		try{
 			ServicioRestUsuarios.invitarContacto(id);
@@ -107,7 +105,7 @@ public class ContactosActivity extends GenericActivity {
     		showToast(ex.getMessage());
     	}
 	}
-*/
+
 	private void loadListView() {
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute();
@@ -126,7 +124,7 @@ public class ContactosActivity extends GenericActivity {
         			strs.add(usuario.getNombre());
         		}
         		
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ContactosActivity.this,
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(BuscarContactosActivity.this,
                         android.R.layout.simple_list_item_1, strs);
                 
                 setListAdapter(adapter);
@@ -143,7 +141,7 @@ public class ContactosActivity extends GenericActivity {
 	    protected List<Usuario> doInBackground(String... params) {
 	      List<Usuario> usuarios;
 			try {
-				usuarios = ServicioRestUsuarios.getContactos();
+				usuarios = ServicioRestUsuarios.();
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
