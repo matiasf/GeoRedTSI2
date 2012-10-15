@@ -8,7 +8,7 @@
         android:id="@+id/emailtextView"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:text="@string/Contactos"
+        android:text="Invitaciones"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView

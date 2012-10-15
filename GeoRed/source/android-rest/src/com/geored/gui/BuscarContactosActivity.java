@@ -80,30 +80,8 @@ public class BuscarContactosActivity extends GenericActivity {
 	//}
 
 	private void showInvitar(String id) {
-		try{
-			ServicioRestUsuarios.invitarContacto(id);
-			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-			i.putExtra("user_id",usuarioId); 
-	    	startActivity(i);
-		}catch(NotFoundException nfbu){
-    		
-    		showToast("No se encontro el contacto");
-        	
-    	}catch(RestBlowUpException exbu){
-    		
-    		showToast("El servicio no responde");
-        	
-    	}catch(ConflictException cex){
-    		
-    		showToast("conflicto en los servicios");
-        	
-    	}catch(UnauthorizedException exu){
-    		
-    		showToast("El usuario no esta autorizado");
-    		
-    	}catch(Exception ex){    		
-    		showToast(ex.getMessage());
-    	}
+    	InvitacionAsyncTask task = new InvitacionAsyncTask();
+		task.execute(new String[] { id});
 	}
 
 	private void loadListView() {
@@ -141,11 +119,8 @@ public class BuscarContactosActivity extends GenericActivity {
 	    protected List<Usuario> doInBackground(String... params) {
 	      List<Usuario> usuarios;
 			try {
-				usuarios = ServicioRestUsuarios.();
+				usuarios = ServicioRestUsuarios.buscarContactos(params[0]);
 			} catch (RestBlowUpException e) {
-				e.printStackTrace();
-				return null;
-			} catch (NotFoundException e) {
 				e.printStackTrace();
 				return null;
 			} catch (UnauthorizedException e) {
@@ -168,7 +143,44 @@ public class BuscarContactosActivity extends GenericActivity {
 	  }
     
     
-    
+	private class InvitacionAsyncTask extends AsyncTask<String, Void, String> {
+	    @Override
+	    protected String  doInBackground(String... params) {
+	    	try {
+	    		ServicioRestUsuarios.invitarContacto(params[0]);
+				
+				//ServicioRestUsuarios.aceptarInvitacion(params[0]);
+			} catch (RestBlowUpException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+				return null;
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+				return null;
+			} catch (ConflictException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			return "Exito";
+	    }
+	
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	if (result != null){
+	    		Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
+				i.putExtra("user_id",usuarioId); 
+		    	startActivity(i);
+		    	
+	    		//loadListView(result);
+	    		//goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast("error");
+	    	}	    	
+	    }
+	  }
 /*
 	private void loadListViewHardCoreData2() {
     	
