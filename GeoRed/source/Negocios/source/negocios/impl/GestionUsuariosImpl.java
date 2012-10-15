@@ -21,9 +21,6 @@ import persistencia.SitioInteres;
 import persistencia.SitioInteresDAO;
 import persistencia.Usuario;
 import persistencia.UsuarioDAO;
-import negocios.GestionUsuarios;
-import negocios.excepciones.ContactoYaExiste;
-import negocios.excepciones.EntidadNoExiste;
 
 @Stateless
 public class GestionUsuariosImpl implements GestionUsuarios {

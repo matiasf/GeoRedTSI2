@@ -1,14 +1,20 @@
 package com.geored.servicios.impl.auth;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.Singleton;
 
+import persistencia.CheckIn;
 import persistencia.Invitacion;
+import persistencia.SitioInteres;
 import persistencia.Usuario;
 
+import com.geored.servicios.json.CheckInJSON;
 import com.geored.servicios.json.InvitacionJSON;
+import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
 
 @Singleton
@@ -26,6 +32,25 @@ public class ConvertidorEntityJSON {
 		invitacionJSON.setId(invitacion.getId());
 		invitacionJSON.setRemitente(convertir(invitacion.getRemitente()));
 		return invitacionJSON;
+	}
+	
+	public NotificacionJSON convertir(SitioInteres sitioInteres) {
+		NotificacionJSON notifiacionJSON = new NotificacionJSON();
+		notifiacionJSON.setId(sitioInteres.getId());
+		notifiacionJSON.setDescripcion(sitioInteres.getDescripcion());
+		notifiacionJSON.setNombre(sitioInteres.getNombre());
+		PosicionJSON posicionJSON = new PosicionJSON();
+		posicionJSON.setLatitud(sitioInteres.getLatitud());
+		posicionJSON.setLongitud(sitioInteres.getLongitud());
+		notifiacionJSON.setPosicion(posicionJSON);
+		return notifiacionJSON;
+	}
+	
+	public CheckIn convertir(CheckInJSON checkInJSON) {
+		CheckIn checkIn = new CheckIn();
+		checkIn.setFecha(GregorianCalendar.getInstance());
+		checkIn.setComentario(checkInJSON.getComentario());
+		return checkIn;
 	}
 	
 	public Usuario convertir(UsuarioJSON usuarioJSON) {
@@ -47,6 +72,9 @@ public class ConvertidorEntityJSON {
 			}
 			else if (s instanceof UsuarioJSON) {
 				tt.add((T)convertir((UsuarioJSON)s));
+			}
+			else if (s instanceof SitioInteres) {
+				tt.add((T)convertir((SitioInteres)s));
 			}
 		}
 		return tt;

@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.geored.rest.data.Notificacion;
+import com.geored.rest.data.Posicion;
 import com.geored.rest.data.Usuario;
 
 public class TestServicios extends Activity implements OnClickListener {
@@ -35,9 +37,16 @@ public class TestServicios extends Activity implements OnClickListener {
 			try {
 				ServicioRestUsuarios.registrarUsuario("trollencio", usuario);
 				token = ServicioRestAutenticacion.login("trollencio", "trollencio");
-				/*for (Usuario contacto : ServicioRestUsuarios.getContactos()) {
-					token += "Contacto: " + contacto.getNombre() + "\n";
-				}	*/			
+				for (Usuario contacto : ServicioRestUsuarios.buscarContactos("troll")) {
+					token += "Buscado: " + contacto.getNombre() + "\n";
+				}
+				Posicion posicion = new Posicion();
+				posicion.setDistancia((float)20);
+				posicion.setLatitud((float)0);
+				posicion.setLongitud((float)0);
+				for (Notificacion notifiacion : ServicioRestUsuarios.getNotificaciones(posicion)) {
+					token += "Notifiacion: " + notifiacion.getNombre();
+				}
 			} catch (Exception e) {
 				return "Error: " + e.getMessage();
 			}
