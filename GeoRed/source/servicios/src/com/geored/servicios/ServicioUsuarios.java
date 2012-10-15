@@ -13,6 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import com.geored.servicios.json.InvitacionJSON;
+import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
 
 @Path("usuarios")
@@ -69,5 +71,11 @@ public interface ServicioUsuarios {
 	@Path("usuario/{password}")
 	void modificarUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
 			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
+
+	@POST
+	@Path("notificaciones")
+	@Produces("application/json")
+	List<NotificacionJSON> getNotificaciones(@HeaderParam("Security-Token") final String userToken,
+			@Context final HttpServletResponse response, final PosicionJSON posicion);
 
 }

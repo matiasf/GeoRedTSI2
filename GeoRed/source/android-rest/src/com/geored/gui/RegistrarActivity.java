@@ -9,6 +9,7 @@ import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
 
@@ -20,9 +21,19 @@ public class RegistrarActivity extends GenericActivity {
 	}
 	
 	public void showRegistrar(View clickedButton) {
-    	if (doSomething()){
-    		goToActivity(UsuarioActivity.class);
-    	}        
+		//Button b = (Button)findViewById(R.id.my_button);
+		//b.setClickable(false);
+		String emailText = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
+    	String passwordText = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
+    	String passwordAgainText = ((EditText)findViewById(R.id.passwordAgainEditText)).getText().toString();
+    	//showToast("<"+passwordText+">==<"+passwordAgainText+">");
+    	if (passwordText.equals(passwordAgainText)){
+    		RegistryAsyncTask task = new RegistryAsyncTask();
+    		 task.execute(new String[] { emailText,passwordText});
+    	}else
+    		showToast("los passwords no coinciden");
+		
+    	        
     }
     
     protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException, NotFoundException{
@@ -35,38 +46,36 @@ public class RegistrarActivity extends GenericActivity {
     	
     }
     
-    protected boolean doSomething(){
-    	try{
-    		String emailText = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
-        	String passwordText = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
-        	String passwordAgainText = ((EditText)findViewById(R.id.passwordAgainEditText)).getText().toString();
-        	//showToast("<"+passwordText+">==<"+passwordAgainText+">");
-        	if (passwordText.equals(passwordAgainText)){
-            	
-        		usuarioId = salvarUsuario(emailText, passwordText);
-        		
-        		showToast( usuarioId);        	
-        	}else {
-        		showToast("los password no coinciden");
-        		return false;
-        	}        		
-    	}catch(RestBlowUpException exbu){
-    		
-    		showToast("El servicio no responde");
-        	
-    		return false;
-    	}catch(UnauthorizedException exu){
-    		
-    		showToast("El usuario no esta autorizado");
-    		
-    		return false;
-    	}catch(Exception ex){    		
-    		showToast(ex.getMessage());
-    		return false;
-    	}
-    	
-    	return true;
-    }
+	private class RegistryAsyncTask extends AsyncTask<String, Void, String> {
+	    @Override
+	    protected String doInBackground(String... params) {
+	      try {
+			usuarioId = salvarUsuario(params[0],params[1]);
+		} catch (RestBlowUpException e) {
+			e.printStackTrace();
+			return "El servicio no responde";
+		} catch (UnauthorizedException e) {
+			e.printStackTrace();
+			return "El usuario no esta autorizado";
+		} catch (NotFoundException e) {
+			
+			e.printStackTrace();
+			return "No esta servicio";
+		}
+	   		return "Exito";
+	    }
+	
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	if (result.equals("Exito")){
+	    		goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast(result);
+	    	}	    	
+	    }
+	  }
+
+		  
     
     
 }
