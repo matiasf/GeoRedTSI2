@@ -31,9 +31,7 @@ public class RegistrarActivity extends GenericActivity {
     		RegistryAsyncTask task = new RegistryAsyncTask();
     		 task.execute(new String[] { emailText,passwordText});
     	}else
-    		showToast("los passwords no coinciden");
-		
-    	        
+    		showToast("los passwords no coinciden");        
     }
     
     protected String salvarUsuario(String name, String password) throws RestBlowUpException, UnauthorizedException, NotFoundException{
@@ -74,8 +72,4 @@ public class RegistrarActivity extends GenericActivity {
 	    	}	    	
 	    }
 	  }
-
-		  
-    
-    
 }

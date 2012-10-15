@@ -19,6 +19,13 @@
         android:text="@string/Contactos" />
 
     <Button
+        android:id="@+id/buscarContactoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showBuscarContactos"
+        android:text="Buscar Contactos" />
+
+    <Button
         android:id="@+id/invitacionesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

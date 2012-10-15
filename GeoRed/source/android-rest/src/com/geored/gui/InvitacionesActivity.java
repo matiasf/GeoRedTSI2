@@ -3,6 +3,7 @@ package com.geored.gui;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Invitacion;
@@ -10,12 +11,12 @@ import com.geored.rest.exception.ConflictException;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
-
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.os.AsyncTask;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
@@ -59,7 +60,7 @@ public class InvitacionesActivity extends GenericActivity {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	Object itemList = getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.menu_invitar_contacto:
+            case R.id.menu_aceptar_invitacion:
                 showInvitacionAceptada(itemList.toString());
             	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
                 showToast("invitacion del contacto <"+itemList.toString()+"> aceptada");
@@ -69,48 +70,41 @@ public class InvitacionesActivity extends GenericActivity {
         }
     }
     
-    private void showInvitacionAceptada(String idContacto) {
-		try{
-			ServicioRestUsuarios.aceptarInvitacion(idContacto);
-			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-	    	startActivity(i);
-		}catch(NotFoundException nfbu){
-    		
-    		showToast("No se encontro el contacto");
-        	
-    	}catch(RestBlowUpException exbu){
-    		
-    		showToast("El servicio no responde");
-        	
-    	}catch(ConflictException cex){
-    		
-    		showToast("conflicto en los servicios");
-        	
-    	}catch(UnauthorizedException exu){
-    		
-    		showToast("El usuario no esta autorizado");
-    		
-    	}catch(Exception ex){    		
-    		showToast(ex.getMessage());
+    private void showInvitacionAceptada(String idItem) {
+    	if (hashUsuarios.containsKey(idItem)){
+			String id = hashUsuarios.get(idItem).getId();
+			AceptarInvitacionAsyncTask task = new AceptarInvitacionAsyncTask();
+			task.execute(new String[] { id});
+    	}else{
+    		showToast("error antes de llamar al invitacion Aceptada");
     	}
-		
+    	
+    	
 	}
 
-	
-	private void loadListView() {
+    private void loadListView() {
+		RegistryAsyncTask task = new RegistryAsyncTask();
+		task.execute();
+    }
+    
+	private void loadListView(List<Invitacion> invitaciones) {
     	try{    		
-    		
+    		hashUsuarios.clear();
     		List<String> strs = new ArrayList<String>(); 
-    		List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones();
+    		//List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones();
     		if (invitaciones != null){
     			showToast(Integer.toString(invitaciones.size()));
         		Iterator<Invitacion> it = invitaciones.iterator();
         		while(it.hasNext()){
         			Invitacion invitacion  = (Invitacion)it.next();
-        			strs.add("id:<"+invitacion.getId()+"> remitente:<"+invitacion.getRemitente().getNombre()+">");
+        			
+        			String valueToShow = "id:<"+invitacion.getId()+"> remitente:<"+invitacion.getRemitente().getNombre()+">";
+        			strs.add(valueToShow);
+        			
+        			hashUsuarios.put(valueToShow, invitacion.getRemitente());
         		}
         		
-            	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            	ArrayAdapter<String> adapter = new ArrayAdapter<String>(InvitacionesActivity.this,
                         android.R.layout.simple_list_item_1, strs);
                 
     	    	setListAdapter(adapter);
@@ -143,6 +137,69 @@ public class InvitacionesActivity extends GenericActivity {
         setListAdapter(adapter);
     }
     */
-
+	private class RegistryAsyncTask extends AsyncTask<String, Void, List<Invitacion> > {
+	    @Override
+	    protected List<Invitacion>  doInBackground(String... params) {
+	    	List<Invitacion> invitaciones;
+			try {
+				invitaciones = ServicioRestUsuarios.getInvitaciones();
+			} catch (RestBlowUpException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+				return null;
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			return invitaciones;
+	    }
+	
+	    @Override
+	    protected void onPostExecute(List<Invitacion> result) {
+	    	if (result != null){
+	    		loadListView(result);
+	    		//goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast("error");
+	    	}	    	
+	    }
+	  }
+	private class AceptarInvitacionAsyncTask extends AsyncTask<String, Void, String> {
+	    @Override
+	    protected String  doInBackground(String... params) {
+	    	try {
+				ServicioRestUsuarios.aceptarInvitacion(params[0]);
+			} catch (RestBlowUpException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+				return null;
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+				return null;
+			} catch (ConflictException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			return "Exito";
+	    }
+	
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	if (result != null){
+	    		Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
+		    	startActivity(i);
+	    		//loadListView(result);
+	    		//goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast("error");
+	    	}	    	
+	    }
+	  }
 
 }
