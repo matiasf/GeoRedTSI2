@@ -12,6 +12,7 @@ import persistencia.Empresa;
 import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
+import negocios.excepciones.EntidadNoExiste;
 
 @ManagedBean(name = "modificarEmpresa", eager = true)
 @SessionScoped
@@ -45,7 +46,12 @@ public class ModificarEmpresaBB extends LoginBB{
     	empresa.setNombre(this.nombre);
     	empresa.setMailAdmin(this.mail);
     	empresa.setDescripcion(this.descripcion);    	
-    	ge.modifciarEmpresa(empresa);    	
+    	try {
+			ge.modifciarEmpresa(empresa);
+		} catch (EntidadNoExiste e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
     	retorno = "exito";   	
     	    		
     	

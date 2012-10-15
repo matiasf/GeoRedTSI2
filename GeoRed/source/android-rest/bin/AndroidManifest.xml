@@ -110,6 +110,15 @@
             </intent-filter>
         </activity> 
         
+        <activity android:name="com.geored.gui.BuscarContactosActivity"
+                  android:label="@string/title_activity_main"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> 
+        
         <activity
             android:name="com.geored.rest.TestServicios"
             android:label="@string/rest_test" >
