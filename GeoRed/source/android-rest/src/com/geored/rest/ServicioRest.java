@@ -30,7 +30,7 @@ public class ServicioRest {
 	final protected static int NOT_CONTENT = 204;
 	
 	//final protected static String SERVICIO_REST_URL = "http://10.0.2.2:8080/servicios/rest";
-	final protected static String SERVICIO_REST_URL = "http://tsi2test-rectadeeuler.rhcloud.com/servicios/rest";
+	final protected static String SERVICIO_REST_URL = "http://10.0.2.2:8080/servicios/rest";
 	final private static String SECURITY_HEADER = "Security-Token";
 	
 	private static String securityToken;
