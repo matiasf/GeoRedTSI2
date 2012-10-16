@@ -12,6 +12,7 @@ public class Invitacion implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue
 	private int id;
 	private static final long serialVersionUID = 1L;
 
