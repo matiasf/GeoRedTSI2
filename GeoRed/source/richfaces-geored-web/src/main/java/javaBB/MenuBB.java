@@ -40,6 +40,15 @@ public class MenuBB extends LoginBB {
     	return "modificarEmpresa";    	
     }
     
+    public String logout() {
+    	String retorno = "";
+    	
+    	//removerBB
+    	retorno = "finalizar";   		
+    	
+        return retorno;
+    }
+    
     public String finalizar() {
     	String retorno = "";
     	

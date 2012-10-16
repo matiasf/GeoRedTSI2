@@ -26,8 +26,9 @@ import android.view.View;
 
 public class BuscarContactosActivity extends GenericActivity {
 	
+	
 	protected void loadVista() {
-		setContentView(R.layout.activity_contactos);
+		setContentView(R.layout.activity_buscar_contactos);
 		loadListView();
         registerForContextMenu(getListView());
 	}    
@@ -79,41 +80,27 @@ public class BuscarContactosActivity extends GenericActivity {
     //	startActivity(i);   	   
 	//}
 
-	private void showInvitar(String id) {
-		try{
-			ServicioRestUsuarios.invitarContacto(id);
-			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-			i.putExtra("user_id",usuarioId); 
-	    	startActivity(i);
-		}catch(NotFoundException nfbu){
-    		
-    		showToast("No se encontro el contacto");
-        	
-    	}catch(RestBlowUpException exbu){
-    		
-    		showToast("El servicio no responde");
-        	
-    	}catch(ConflictException cex){
-    		
-    		showToast("conflicto en los servicios");
-        	
-    	}catch(UnauthorizedException exu){
-    		
-    		showToast("El usuario no esta autorizado");
-    		
-    	}catch(Exception ex){    		
-    		showToast(ex.getMessage());
-    	}
+	private void showInvitar(String nombreUsuario) {
+		if (hashUsuarios.containsKey(nombreUsuario)){
+			String id = hashUsuarios.get(nombreUsuario).getId();
+			InvitacionAsyncTask task = new InvitacionAsyncTask();
+			task.execute(new String[] { id});
+		}else{
+			showToast("error antes de llamar al invitar");
+		}
+    	
 	}
 
 	private void loadListView() {
+		//TODO:hacer que el parametro de filtro funcione 
 		RegistryAsyncTask task = new RegistryAsyncTask();
-		task.execute();
+		//TODO:sacar el parametro hardcoreado
+		task.execute(new String[] { "e"});
 	}
-	    
+	
 	private void loadListView(List<Usuario> usuarios) {
     	try{    		
-    		
+    		hashUsuarios.clear();
     		List<String> strs = new ArrayList<String>(); 
     		//List<Usuario> usuarios = ServicioRestUsuarios.getContactos();
     		if (usuarios != null){
@@ -122,6 +109,8 @@ public class BuscarContactosActivity extends GenericActivity {
         		while(it.hasNext()){
         			Usuario usuario  = (Usuario)it.next();
         			strs.add(usuario.getNombre());
+        			
+        			hashUsuarios.put(usuario.getNombre(), usuario);
         		}
         		
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(BuscarContactosActivity.this,
@@ -141,11 +130,9 @@ public class BuscarContactosActivity extends GenericActivity {
 	    protected List<Usuario> doInBackground(String... params) {
 	      List<Usuario> usuarios;
 			try {
-				usuarios = ServicioRestUsuarios.();
+				
+				usuarios = ServicioRestUsuarios.buscarContactos(params[0]);
 			} catch (RestBlowUpException e) {
-				e.printStackTrace();
-				return null;
-			} catch (NotFoundException e) {
 				e.printStackTrace();
 				return null;
 			} catch (UnauthorizedException e) {
@@ -168,7 +155,44 @@ public class BuscarContactosActivity extends GenericActivity {
 	  }
     
     
-    
+	private class InvitacionAsyncTask extends AsyncTask<String, Void, String> {
+	    @Override
+	    protected String  doInBackground(String... params) {
+	    	try {
+	    		ServicioRestUsuarios.invitarContacto(params[0]);
+				
+				//ServicioRestUsuarios.aceptarInvitacion(params[0]);
+			} catch (RestBlowUpException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+				return null;
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+				return null;
+			} catch (ConflictException e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+			return "Exito";
+	    }
+	
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	if (result != null){
+	    		Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
+				i.putExtra("user_id",usuarioId); 
+		    	startActivity(i);
+		    	
+	    		//loadListView(result);
+	    		//goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast("error");
+	    	}	    	
+	    }
+	  }
 /*
 	private void loadListViewHardCoreData2() {
     	

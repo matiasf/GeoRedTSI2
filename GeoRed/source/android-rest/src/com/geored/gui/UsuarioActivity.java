@@ -66,6 +66,9 @@ public class UsuarioActivity extends GenericActivity {
     public void showGPSLocation(View clickedButton) {
         goToActivity(MapsDemo.class);
     }
-
+    
+    public void showBuscarContactos(View clickedButton) {
+        goToActivity(BuscarContactosActivity.class);
+    }
 
 }

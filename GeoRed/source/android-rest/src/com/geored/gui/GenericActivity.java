@@ -1,6 +1,10 @@
 package com.geored.gui;
 
+import java.util.Hashtable;
+
 import com.geored.rest.R;
+import com.geored.rest.data.Usuario;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +14,8 @@ import android.widget.Toast;
 public class GenericActivity extends Activity {
 
 	protected String usuarioId;
+	protected Hashtable<String, Usuario>  hashUsuarios = new Hashtable<String,Usuario> ();
+	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {

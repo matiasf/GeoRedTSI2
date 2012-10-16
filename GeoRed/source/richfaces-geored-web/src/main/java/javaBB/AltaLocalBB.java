@@ -2,18 +2,28 @@ package javaBB;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import persistencia.Empresa;
+import persistencia.Local;
 
 import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
+import negocios.excepciones.EntidadNoExiste;
 
 @ManagedBean(name = "altaLocal", eager = true)
 public class AltaLocalBB {
 	
 	private String mail;
+	
 	private String nombre;
+	private String descripcion;
+	private float latitud;
+	private float longitud;
+	
+	
 	private boolean exito;
  
 	private String gmkey;
@@ -33,19 +43,29 @@ public class AltaLocalBB {
     
     /* logica y navegación*/
     
-    public String altaEmpresa() {
+    public String altaLocal() {
     	String retorno = "";
     	
-    	retorno = "exito";
-    	/***** LOGICA    	
-    	//chequeo de admin sistema
-    	Empresa empresa = new Empresa();
-    	empresa.setNombre(this.nombre);
-    	empresa.setMailAdmin(this.mail);
-    	ge.agregarEmpresa(empresa);    	
-    	retorno = "exito";   	
-    	//LOGICA *******/
-    	this.setExito(true);    		
+    	FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
+    	Integer idEmpresa = (Integer) session.getAttribute("idEmpresa");
+    	    	
+    	try {
+	    	Local local = new Local();
+	    	local.setDescripcion(this.descripcion);
+	    	local.setNombre(this.nombre);
+	    	local.setLatitud(this.latitud);
+	    	local.setLongitud(this.longitud);
+			ge.agregarLocal(idEmpresa, local);
+			this.setExito(true);
+			retorno = "exito";
+			context.getExternalContext().getSessionMap().remove("altaLocalBB");        
+			
+			
+		} catch (EntidadNoExiste e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   		
     	
         return retorno;
     }
@@ -53,7 +73,8 @@ public class AltaLocalBB {
     public String finalizar() {
     	String retorno = "";
     	
-    	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().remove("altaLocalBB");        
     	retorno = "finalizar";   		
     	
         return retorno;
@@ -61,8 +82,8 @@ public class AltaLocalBB {
     
     public String cancelar() {
     	String retorno = "";
-    	
-    	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+        context.getExternalContext().getSessionMap().remove("altaLocalBB");
     	retorno = "cancelar";   		
     	
         return retorno;
@@ -123,5 +144,29 @@ public class AltaLocalBB {
 
 	public void setCurrentId(int currentId) {
 		this.currentId = currentId;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
 }
