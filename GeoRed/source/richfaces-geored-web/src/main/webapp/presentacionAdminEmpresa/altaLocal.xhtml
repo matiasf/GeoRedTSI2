@@ -21,19 +21,19 @@
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaEmpresaBB.nombre}">
+		      <h:inputText id="name" value="#{altaLocalBB.nombre}">
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
 		
 		     <h:outputLabel for="coordX" value="Latitud"/>
-		      <h:inputText id="coordX" value="#{altaSitioInteresBB.latitud}">
+		      <h:inputText id="coordX" value="#{altaLocalBB.latitud}">
 		      <rich:validator/>		         
 		      </h:inputText>
 		      <rich:message for="coordX" errorClass="invalid"/>
 		      
 		      <h:outputLabel for="coordY" value="Longitud"/>
-		      <h:inputText id="coordY" value="#{altaSitioInteresBB.longitud}">
+		      <h:inputText id="coordY" value="#{altaLocalBB.longitud}">
 		      <rich:validator/>		         
 		      </h:inputText>
 		      <rich:message for="coordY" errorClass="invalid"/>
@@ -42,16 +42,16 @@
 		      <h:inputTextarea
                     maxlength="200"
                     cols="36" rows="10"
-                    value="#{altaSitioInteresBB.descripcion}"
+                    value="#{altaLocalBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
 
 		   </h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<a4j:commandButton id="cancelar" action="#{altaEmpresaBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{altaLocalBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="altaEmpresa" action="#{altaEmpresaBB.altaEmpresa}" value="Dar de alta"
+                <a4j:commandButton id="altaLocal" action="#{altaLocalBB.altaLocal}" value="Dar de alta"
                                    styleClass="boton" />
                                    
                 <rich:messages globalOnly="true"/>

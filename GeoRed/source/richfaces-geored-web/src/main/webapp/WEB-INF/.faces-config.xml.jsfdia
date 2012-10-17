@@ -45,19 +45,6 @@
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#presentacionAdminSistema#altaLocal.xhtml"
-  PATH="/presentacionAdminSistema/altaLocal.xhtml" SHAPE="256,465,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#presentacionAdminSistema#altaLocal.xhtml:0"
-   NAME="item" PATH="/presentacionAdminSistema/altaLocal.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output"
-    PATH="/presentacionAdminSistema/menu.xhtml"
-    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
-    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
-    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
  <PROCESS-ITEM
   NAME="rules:#presentacionAdminSistema#modificarSitioInteres0.xhtml"
   PATH="/presentacionAdminSistema/modificarSitioInteres0.xhtml"
@@ -96,24 +83,36 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#presentacionAdminEmpresa#menu.xhtml"
-  PATH="/presentacionAdminEmpresa/menu.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#presentacionAdminEmpresa#menu.xhtml:0"
-   NAME="item" PATH="/presentacionAdminEmpresa/menu.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="modificarEmpresa::#presentacionAdminEmpresa#modificarEmpresa.xhtml"
-    NAME="output"
-    PATH="/presentacionAdminEmpresa/modificarEmpresa.xhtml"
-    TARGET="rules:#presentacionAdminEmpresa#modificarEmpresa.xhtml"
-    TITLE="modificarEmpresa" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
-    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
-    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
+  PATH="/presentacionAdminEmpresa/menu.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM
   NAME="rules:#presentacionAdminEmpresa#modificarEmpresa.xhtml"
   PATH="/presentacionAdminEmpresa/modificarEmpresa.xhtml"
-  SHAPE="528,17,0,0" model-entity="JSFProcessGroup"/>
+  SHAPE="528,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#presentacionAdminEmpresa#modificarEmpresa.xhtml:0"
+   NAME="item" PATH="/presentacionAdminEmpresa/modificarEmpresa.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancelar::#presentacionAdminEmpresa#menu.xhtml" NAME="output"
+    PATH="/presentacionAdminEmpresa/menu.xhtml"
+    TARGET="rules:#presentacionAdminEmpresa#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminEmpresa#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminEmpresa/menu.xhtml"
+    TARGET="rules:#presentacionAdminEmpresa#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#presentacionAdminSistema#menu.xhtml"
   PATH="/presentacionAdminSistema/menu.xhtml" SHAPE="528,161,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#presentacionAdminEmpresa#altaLocal.xhtml"
+  PATH="/presentacionAdminEmpresa/altaLocal.xhtml" SHAPE="32,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#presentacionAdminEmpresa#altaLocal.xhtml:0"
+   NAME="item" PATH="/presentacionAdminEmpresa/altaLocal.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancelar::#presentacionAdminEmpresa#menu.xhtml" NAME="output"
+    PATH="/presentacionAdminEmpresa/menu.xhtml"
+    TARGET="rules:#presentacionAdminEmpresa#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminEmpresa#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminEmpresa/menu.xhtml"
+    TARGET="rules:#presentacionAdminEmpresa#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

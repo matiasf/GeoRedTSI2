@@ -27,8 +27,9 @@ import android.view.View;
 
 public class BuscarContactosActivity extends GenericActivity {
 	
+	
 	protected void loadVista() {
-		setContentView(R.layout.activity_contactos);
+		setContentView(R.layout.activity_buscar_contactos);
 		loadListView();
         registerForContextMenu(getListView());
 	}    
@@ -80,19 +81,27 @@ public class BuscarContactosActivity extends GenericActivity {
     //	startActivity(i);   	   
 	//}
 
-	private void showInvitar(String id) {
-    	InvitacionAsyncTask task = new InvitacionAsyncTask();
-		task.execute(new String[] { id});
+	private void showInvitar(String nombreUsuario) {
+		if (hashUsuarios.containsKey(nombreUsuario)){
+			String id = hashUsuarios.get(nombreUsuario).getId();
+			InvitacionAsyncTask task = new InvitacionAsyncTask();
+			task.execute(new String[] { id});
+		}else{
+			showToast("error antes de llamar al invitar");
+		}
+    	
 	}
 
 	private void loadListView() {
+		//TODO:hacer que el parametro de filtro funcione 
 		RegistryAsyncTask task = new RegistryAsyncTask();
-		task.execute();
+		//TODO:sacar el parametro hardcoreado
+		task.execute(new String[] { "e"});
 	}
-	    
+	
 	private void loadListView(List<Usuario> usuarios) {
     	try{    		
-    		
+    		hashUsuarios.clear();
     		List<String> strs = new ArrayList<String>(); 
     		//List<Usuario> usuarios = ServicioRestUsuarios.getContactos();
     		if (usuarios != null){
@@ -101,6 +110,8 @@ public class BuscarContactosActivity extends GenericActivity {
         		while(it.hasNext()){
         			Usuario usuario  = (Usuario)it.next();
         			strs.add(usuario.getNombre());
+        			
+        			hashUsuarios.put(usuario.getNombre(), usuario);
         		}
         		
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(BuscarContactosActivity.this,
@@ -121,6 +132,7 @@ public class BuscarContactosActivity extends GenericActivity {
 	    protected List<Usuario> doInBackground(String... params) {
 	      List<Usuario> usuarios;
 			try {
+				
 				usuarios = ServicioRestUsuarios.buscarContactos(params[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();

@@ -60,7 +60,7 @@ public class InvitacionesActivity extends GenericActivity {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
     	Object itemList = getListAdapter().getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.menu_invitar_contacto:
+            case R.id.menu_aceptar_invitacion:
                 showInvitacionAceptada(itemList.toString());
             	//showToast("Chat: pos="+info.position + " , usr="+itemList.toString());
                 showToast("invitacion del contacto <"+itemList.toString()+"> aceptada");
@@ -70,10 +70,16 @@ public class InvitacionesActivity extends GenericActivity {
         }
     }
     
-    private void showInvitacionAceptada(String idContacto) {
-    	AceptarInvitacionAsyncTask task = new AceptarInvitacionAsyncTask();
-		task.execute(new String[] { idContacto});
-		
+    private void showInvitacionAceptada(String idItem) {
+    	if (hashUsuarios.containsKey(idItem)){
+			String id = hashUsuarios.get(idItem).getId();
+			AceptarInvitacionAsyncTask task = new AceptarInvitacionAsyncTask();
+			task.execute(new String[] { id});
+    	}else{
+    		showToast("error antes de llamar al invitacion Aceptada");
+    	}
+    	
+    	
 	}
 
     private void loadListView() {
@@ -83,7 +89,7 @@ public class InvitacionesActivity extends GenericActivity {
     
 	private void loadListView(List<Invitacion> invitaciones) {
     	try{    		
-    		
+    		hashUsuarios.clear();
     		List<String> strs = new ArrayList<String>(); 
     		//List<Invitacion> invitaciones = ServicioRestUsuarios.getInvitaciones();
     		if (invitaciones != null){
@@ -91,7 +97,11 @@ public class InvitacionesActivity extends GenericActivity {
         		Iterator<Invitacion> it = invitaciones.iterator();
         		while(it.hasNext()){
         			Invitacion invitacion  = (Invitacion)it.next();
-        			strs.add("id:<"+invitacion.getId()+"> remitente:<"+invitacion.getRemitente().getNombre()+">");
+        			
+        			String valueToShow = "id:<"+invitacion.getId()+"> remitente:<"+invitacion.getRemitente().getNombre()+">";
+        			strs.add(valueToShow);
+        			
+        			hashUsuarios.put(valueToShow, invitacion.getRemitente());
         		}
         		
             	ArrayAdapter<String> adapter = new ArrayAdapter<String>(InvitacionesActivity.this,
