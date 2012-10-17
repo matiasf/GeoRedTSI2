@@ -23,11 +23,10 @@ public class LoginActivity extends GenericActivity {
 		task.execute(new String[] { emailText,passwordText});
     }
     
-    private String login(String emailText,String passwordText) throws RestBlowUpException, UnauthorizedException{
-    		
-        	return ServicioRestAutenticacion.login(emailText, passwordText);        	
-    		
+    private String login(String emailText,String passwordText) throws RestBlowUpException, UnauthorizedException {    		
+        	return ServicioRestAutenticacion.login(emailText, passwordText);    		
     }
+    
 	private class RegistryAsyncTask extends AsyncTask<String, Void, String> {
 	    @Override
 	    protected String doInBackground(String... params) {
@@ -51,6 +50,6 @@ public class LoginActivity extends GenericActivity {
 	    		showToast(result);
 	    	}	    	
 	    }
-	  }
+	}
     
 }

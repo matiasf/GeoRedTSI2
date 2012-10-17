@@ -12,5 +12,9 @@ public interface ServicioAutenticacion {
 	@Path("login/{usuario}/{password}")
 	public Response login(@PathParam("usuario") String usuario,
 			@PathParam("password") String password);
-
+	
+	@POST
+	@Path("login/{access-token}")
+	public Response loginFacebook(@PathParam("access-token") String accessToken);
+	
 }

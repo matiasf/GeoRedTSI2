@@ -14,5 +14,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Negocios"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/jackson-annotations-2.0.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/jackson-core-2.0.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/jackson-databind-2.0.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

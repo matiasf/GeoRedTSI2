@@ -14,5 +14,14 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jackson-core-2.0.6.jar" deploy-path="/lib" handle="module:/classpath/lib/servicios/WebContent/WEB-INF/jackson-core-2.0.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-databind-2.0.6.jar" deploy-path="/lib" handle="module:/classpath/lib/servicios/WebContent/WEB-INF/jackson-databind-2.0.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-annotations-2.0.6.jar" deploy-path="/lib" handle="module:/classpath/lib/servicios/WebContent/WEB-INF/jackson-annotations-2.0.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

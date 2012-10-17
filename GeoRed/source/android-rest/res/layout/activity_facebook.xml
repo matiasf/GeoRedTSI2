@@ -1,22 +1,42 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--  
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="@string/hello_world"
         tools:context=".MainActivity" />
 
-    <Button
-        android:id="@+id/facebook_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/facebook"
-        
-        />
+</RelativeLayout>
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-</LinearLayout>
+        <TextView android:layout_width="fill_parent" android:id="@+id/textFacebook"
+                android:gravity="center_horizontal" android:layout_height="wrap_content"
+                android:text="welcome" android:layout_alignParentTop="true" />
+        <Button android:text="enter" android:id="@+id/buttonLogin"
+                android:layout_below="@+id/textFacebook"
+                android:layout_centerHorizontal="true" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="30dip"></Button>
+        <ProgressBar android:id="@+id/progressLogin"
+                android:layout_centerInParent="true" android:layout_width="wrap_content"
+                android:visibility="gone" android:layout_height="wrap_content"></ProgressBar>
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonLogin"
+            android:layout_below="@+id/buttonLogin"
+            android:layout_marginTop="21dp"
+            android:text="out" />
+
+</RelativeLayout>

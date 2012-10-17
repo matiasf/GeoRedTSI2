@@ -62,7 +62,6 @@ public class Main extends Activity {
     
     public void showGPSLocation(View clickedButton) {
         goToActivity(MapsDemo.class);
-    }
-    
+    }    
     
 }

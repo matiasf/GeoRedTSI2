@@ -34,5 +34,27 @@ public class ServicioRestAutenticacion extends ServicioRest {
 			throw new RestBlowUpException();
 		}
 	}
+	
+	public static String loginFacebook(String accessToken) throws RestBlowUpException, UnauthorizedException {
+		HttpResponse response = rest(Metodos.POST, URL_LOGIN + "/" + accessToken, null, false);
+		if (response.getStatusLine().getStatusCode() == OK) {
+			String idUsuario;
+			try {				
+				String sResponse = Utils.getASCIIContentFromEntity(response.getEntity());
+				String token = sResponse.split(":")[0];
+				idUsuario = sResponse.split(":")[1];
+				setSecurityToken(token);
+			} catch (Exception e) {
+				throw new RestBlowUpException(e.getMessage());
+			}
+			return idUsuario;
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}
+	}
 
 }
