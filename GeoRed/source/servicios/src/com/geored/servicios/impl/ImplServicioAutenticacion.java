@@ -67,9 +67,15 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 			Usuario user = new Usuario();
 			user.setNombre(userFacebook.getUsername());
 			user.setPassword(userFacebook.getUsername());
-			gestionUsuarios.registrarUsuario(user);
-			int idUsuario = gestionUsuarios.checkLogin(userFacebook.getUsername(), userFacebook.getUsername());
-			return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
+			int idUsuario;
+			if ((idUsuario = gestionUsuarios.checkLogin(userFacebook.getUsername(), userFacebook.getUsername())) >= 0) {
+				return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
+			}
+			else {
+				gestionUsuarios.registrarUsuario(user);
+				idUsuario = gestionUsuarios.checkLogin(userFacebook.getUsername(), userFacebook.getUsername());
+				return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
+			}			
 		}
 		else {
 			return Response.status(Response.Status.UNAUTHORIZED).build();

@@ -1,6 +1,5 @@
 package com.geored.gui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -23,7 +22,7 @@ import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
-public class FacebookActivity extends Activity {
+public class FacebookActivity extends GenericActivity {
 	private TextView txtUserName;
 	private ProgressBar pbLogin;
 	private Button btnLogin;
@@ -48,12 +47,12 @@ public class FacebookActivity extends Activity {
 		txtUserName = (TextView) findViewById(R.id.textFacebook);
 		pbLogin = (ProgressBar) findViewById(R.id.progressLogin);
 		btnLogout = (Button) findViewById(R.id.buttonLogout);
-		/*
-		 * btnLogout.setOnClickListener(new View.OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { getLoguot(txtUserName,
-		 * pbLogin); } });
-		 */
+		/*btnLogout.setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v) {
+				getLoguot(txtUserName,pbLogin); 
+			}
+		});*/
+		 
 		btnLogin = (Button) findViewById(R.id.buttonLogin);
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -81,6 +80,12 @@ public class FacebookActivity extends Activity {
 		pb = progbar;
 		mFacebook.authorize(this, new LoginDialogListener());
 	}
+	
+	/*public void getLoguot(TextView txtUserName, ProgressBar progbar) {
+		username = txtUserName;
+		pb = progbar;
+		mAsyncRunner.logout(this.getBaseContext(), new LogoutRequestListener());
+    }*/
 
 	private String loginFacebook(String accessToken) throws RestBlowUpException, UnauthorizedException {
 		return ServicioRestAutenticacion.loginFacebook(accessToken);
@@ -94,10 +99,8 @@ public class FacebookActivity extends Activity {
 			long token_expires = mFacebook.getAccessExpires();
 			Log.d(TAG, "AccessToken: " + token);
 			Log.d(TAG, "AccessExpires: " + token_expires);
-			sharedPrefs = PreferenceManager
-					.getDefaultSharedPreferences(mContext);
-			sharedPrefs.edit().putLong("access_expires", token_expires)
-					.commit();
+			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+			sharedPrefs.edit().putLong("access_expires", token_expires).commit();
 			sharedPrefs.edit().putString("access_token", token).commit();
 
 			RegistryAsyncTask task = new RegistryAsyncTask();
@@ -134,5 +137,15 @@ public class FacebookActivity extends Activity {
 			}
 			return "Exito";
 		}
+		
+		@Override
+	    protected void onPostExecute(String result) {
+	    	if (result.equals("Exito")){
+	    		goToActivity(UsuarioActivity.class);
+	    	}
+	    	else{
+	    		showToast(result);
+	    	}	    	
+	    }
 	}
 }
