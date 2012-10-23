@@ -29,7 +29,11 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	
 	private static final String buscarUsuariosQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre LIKE :nombre";
-			
+
+	private static final String obtenerCategoriaQuery = "SELECT c FROM Usuario u JOIN u.categorias c" +
+			"WHERE u.id = :idUsuario AND " +
+			"c.id = :idCategoria";
+	
 	
 	@Override
 	public Usuario buscarPorId(int id) {
@@ -96,6 +100,19 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 		nombre = nombre + "%";
 		query.setParameter("nombre", nombre);
 		return query.getResultList(); 
+	}
+
+	@Override
+	public Categoria obtenerCategoria(int idUsuario, int idCategoria) {
+		TypedQuery<Categoria> query = em.createQuery(obtenerCategoriaQuery, Categoria.class);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idCategoria", idCategoria);
+		List<Categoria> categorias = query.getResultList();
+		Categoria ret = null;
+		if (!categorias.isEmpty()) {
+			ret = categorias.get(0);
+		}
+		return ret;
 	}
 	
 	

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import persistencia.Categoria;
+import persistencia.CategoriaDAO;
 import persistencia.Empresa;
 import persistencia.EmpresaDAO;
 import persistencia.Local;
@@ -22,7 +24,10 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	@EJB
 	private LocalDAO localDAO;
 	@EJB 
-	private OfertaDAO ofertaDAO;
+	private OfertaDAO ofertaDAO;	
+	@EJB 
+	private CategoriaDAO categoriaDAO;
+	
 	
 	
 	@Override
@@ -108,6 +113,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		Oferta insertada = ofertaDAO.insertar(oferta);
 		insertada.setLocal(local);
 		local.getOfertas().add(oferta);
+	}
+
+	@Override
+	public void altaCategoria(Categoria categoria) {
+		categoriaDAO.insertar(categoria);
 	}
 
 }

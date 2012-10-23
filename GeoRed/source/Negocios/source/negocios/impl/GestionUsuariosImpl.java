@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import persistencia.Categoria;
+import persistencia.CategoriaDAO;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
 import persistencia.Notificacion;
@@ -39,6 +41,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	@EJB
 	private SitioInteresDAO sitioInteresDAO;
+	
+	@EJB
+	private CategoriaDAO categoriaDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -193,6 +198,28 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	@Override
 	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioDAO.buscarUsuarios(nombre);
+	}
+
+	@Override
+	public void agregarCategorias(int idUsuario, Collection<Integer> idCategorias) {
+		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		for (Integer idCat : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCat);
+			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) == null) {
+				usuario.getCategorias().add(cat);
+			}
+		}
+	}
+	
+	@Override
+	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias) {
+		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		for (Integer idCat : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCat);
+			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) == null) {
+				usuario.getCategorias().remove(cat);
+			}
+		}
 	}
 
 }

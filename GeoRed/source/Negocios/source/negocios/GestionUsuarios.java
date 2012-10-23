@@ -1,5 +1,6 @@
 package negocios;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -135,4 +136,18 @@ public interface GestionUsuarios {
 	 * Los usuarios cuyo nombre comienzan con el parametro nombre
 	 */
 	public List<Usuario> buscarUsuario(String nombre);
+	
+	/**
+	 * Agrega categorias al usuario
+	 * @param idUsuario usuario al que se le agregan las categorias
+	 * @param idCategorias los id's categorias a agregar
+	 */
+	public void agregarCategorias(int idUsuario, Collection<Integer> idCategorias);
+	
+	/**
+	 * Borra categorias al usuario
+	 * @param idUsuario usuario al que se le borran las categorias
+	 * @param idCategorias los id's categorias a borrar
+	 */
+	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias);
 }

@@ -28,4 +28,6 @@ public interface UsuarioDAO {
 	public boolean existe(int id);
 	
 	public List<Usuario> buscarUsuarios(String nombre);
+	
+	public Categoria obtenerCategoria(int idUsuario, int idCategoria);
 }
