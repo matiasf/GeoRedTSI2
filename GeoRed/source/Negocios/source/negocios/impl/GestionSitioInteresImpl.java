@@ -1,10 +1,13 @@
 package negocios.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import persistencia.Categoria;
+import persistencia.CategoriaDAO;
 import persistencia.CheckIn;
 import persistencia.CheckInDAO;
 import persistencia.SitioInteres;
@@ -23,7 +26,11 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 	@EJB
 	private UsuarioDAO usuarioDAO;
 	
-	@EJB CheckInDAO checkInDAO;
+	@EJB 
+	private CheckInDAO checkInDAO;
+	
+	@EJB
+	private CategoriaDAO categoriaDAO;
 	
 	@Override
 	public void agregarSitioInteres(SitioInteres sitioInteres) {
@@ -71,6 +78,18 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 		CheckIn checkInInsertado = checkInDAO.insertar(checkIn);
 		usuario.getCheckIns().add(checkInInsertado);
 		sitio.getCheckIns().add(checkInInsertado);
+	}
+
+	@Override
+	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias) {
+		SitioInteres sitio = sitioInteresDAO.buscarPorId(idSitio);
+		for (Integer idCategoria : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCategoria);
+			if (!sitio.getCategorias().contains(cat)) {
+				sitio.getCategorias().add(cat);
+			}
+		}
+		
 	}
 
 }

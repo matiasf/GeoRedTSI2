@@ -172,7 +172,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
 		
-		List<SitioInteres> sitios = sitioInteresDAO.obtenerTodos();
+		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (SitioInteres sitio : sitios) {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {

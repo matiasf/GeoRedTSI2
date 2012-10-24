@@ -1,6 +1,7 @@
 package negocios;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -25,5 +26,5 @@ public interface GestionSitioInteres {
 	
 	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
 	
-
+	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
 }

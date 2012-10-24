@@ -35,5 +35,7 @@ public interface GestionEmpresas {
 	public void agregarOferta(int idLocal, Oferta oferta) throws EntidadNoExiste;
 	
 	public void altaCategoria(Categoria categoria);
+	
+	
 
 }

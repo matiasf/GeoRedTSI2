@@ -17,4 +17,8 @@ public interface SitioInteresDAO {
 	public boolean existe(int id);
 	
 	public List<SitioInteres> obtenerTodos();
+	
+	public List<SitioInteres> obtenerParaUsuario(int id);
+	
+	
 }

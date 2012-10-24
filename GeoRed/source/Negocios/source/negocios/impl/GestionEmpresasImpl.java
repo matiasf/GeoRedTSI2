@@ -13,6 +13,7 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
+import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
 
@@ -27,6 +28,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	private OfertaDAO ofertaDAO;	
 	@EJB 
 	private CategoriaDAO categoriaDAO;
+
 	
 	
 	
@@ -119,5 +121,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public void altaCategoria(Categoria categoria) {
 		categoriaDAO.insertar(categoria);
 	}
+
+
 
 }

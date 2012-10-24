@@ -30,7 +30,7 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	private static final String buscarUsuariosQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre LIKE :nombre";
 
-	private static final String obtenerCategoriaQuery = "SELECT c FROM Usuario u JOIN u.categorias c" +
+	private static final String obtenerCategoriaQuery = "SELECT c FROM Usuario u JOIN u.categorias c " +
 			"WHERE u.id = :idUsuario AND " +
 			"c.id = :idCategoria";
 	
