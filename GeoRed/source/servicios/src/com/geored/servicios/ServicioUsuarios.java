@@ -73,6 +73,16 @@ public interface ServicioUsuarios {
 			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
 
 	@POST
+	@Path("categorias/agregar")
+	void agregarCategorias(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			final List<Integer> categorias);
+
+	@POST
+	@Path("categorias/borrar")
+	void borrarCategorias(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			final List<Integer> categorias);
+	
+	@POST
 	@Path("notificaciones")
 	@Produces("application/json")
 	List<NotificacionJSON> getNotificaciones(@HeaderParam("Security-Token") final String userToken,
