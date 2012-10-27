@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.geored.rest.data.Categoria;
 import com.geored.rest.data.Invitacion;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Posicion;
@@ -235,6 +236,28 @@ public class ServicioRestUsuarios extends ServicioRest {
 		}
 		if (response.getStatusLine().getStatusCode() == OK) {
 			return;		
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}
+	}
+	
+	public static List<Categoria> getCategorias() throws RestBlowUpException, UnauthorizedException {
+		ObjectMapper mapper = new ObjectMapper();
+		HttpResponse response;
+		response = rest(Metodos.POST, URL_CATEGORIAS);
+		if (response.getStatusLine().getStatusCode() == OK) {
+			String asciiContent;
+			try {
+				asciiContent = Utils.getASCIIContentFromEntity(response.getEntity());
+				List<Categoria> wrapper = mapper.readValue(asciiContent, new TypeReference<List<Categoria>>() {});
+				return wrapper;
+			} catch (Exception e) {
+				throw new RestBlowUpException(e.getLocalizedMessage());
+			}	
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();
