@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
 
+import persistencia.Categoria;
 import persistencia.Imagen;
 import persistencia.Invitacion;
 import persistencia.Notificacion;
@@ -158,4 +159,10 @@ public interface GestionUsuarios {
 	 * @return La imagen que se busca
 	 */
 	public Imagen obtenerImagen(int id);
+	
+	/**
+	 * Obtiene todas las categorias del sistema
+	 * @return Las categorias del sistema
+	 */
+	public List<Categoria> obtenerCategorias();
 }

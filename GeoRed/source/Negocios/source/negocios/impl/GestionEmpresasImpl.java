@@ -121,6 +121,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		categoriaDAO.insertar(categoria);
 	}
 
+	@Override
+	public List<Categoria> obtenerCategorias() {
+		return categoriaDAO.obtenerTodos();
+	}
+
 
 
 }

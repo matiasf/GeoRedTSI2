@@ -36,6 +36,5 @@ public interface GestionEmpresas {
 	
 	public void altaCategoria(Categoria categoria);
 	
-	
-
+	public List<Categoria> obtenerCategorias();
 }

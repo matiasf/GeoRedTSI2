@@ -231,5 +231,10 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	public Imagen obtenerImagen(int id) {
 		return imagenDAO.buscarPorId(id);
 	}
+	
+	@Override
+	public List<Categoria> obtenerCategorias() {
+		return categoriaDAO.obtenerTodos();
+	}
 
 }
