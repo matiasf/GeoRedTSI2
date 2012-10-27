@@ -1,151 +1,113 @@
 package com.geored.gui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.android.AsyncFacebookRunner;
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
-import com.geored.rest.R;
-import com.geored.rest.ServicioRestAutenticacion;
-import com.geored.rest.exception.RestBlowUpException;
-import com.geored.rest.exception.UnauthorizedException;
+import com.facebook.LoggingBehaviors;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+import com.facebook.android.R;
+
 
 public class FacebookActivity extends GenericActivity {
-	private TextView txtUserName;
-	private ProgressBar pbLogin;
-	private Button btnLogin;
-	private Button btnLogout;
+	static final String URL_PREFIX_FRIENDS = "https://graph.facebook.com/me/friends?access_token=";
+    TextView textInstructionsOrLink;
+    Button buttonLoginLogout;
+    Session.StatusCallback statusCallback = new SessionStatusCallback();
 
-	public static final String TAG = "FACEBOOK";
-	private Facebook mFacebook;
-	public static final String APP_ID = "218019388328218";
-	private AsyncFacebookRunner mAsyncRunner;
-	private SharedPreferences sharedPrefs;
-	private Context mContext;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_facebook);
+        buttonLoginLogout = (Button)findViewById(R.id.buttonLoginLogout);
+        textInstructionsOrLink = (TextView)findViewById(R.id.instructionsOrLink);
+        
+        Settings.addLoggingBehavior(LoggingBehaviors.INCLUDE_ACCESS_TOKENS);
 
-	private TextView username;
-	private ProgressBar pb;
+        Session session = Session.getActiveSession();
+        if (session == null) {
+            if (savedInstanceState != null) {
+                session = Session.restoreSession(this, null, statusCallback, savedInstanceState);
+            }
+            if (session == null) {
+                session = new Session(this);
+            }
+            Session.setActiveSession(session);
+            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+                session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+            }
+        }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_facebook);
-		setConnection();
+        updateView();
+    }
 
-		txtUserName = (TextView) findViewById(R.id.textFacebook);
-		pbLogin = (ProgressBar) findViewById(R.id.progressLogin);
-		btnLogout = (Button) findViewById(R.id.buttonLogout);
-		/*btnLogout.setOnClickListener(new View.OnClickListener() {
-			@Override public void onClick(View v) {
-				getLoguot(txtUserName,pbLogin); 
-			}
-		});*/
-		 
-		btnLogin = (Button) findViewById(R.id.buttonLogin);
-		btnLogin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				pbLogin.setVisibility(ProgressBar.VISIBLE);
-				getID(txtUserName, pbLogin);
-			}
-		});
-	}
+    @Override
+    public void onStart() {
+        super.onStart();
+        Session.getActiveSession().addCallback(statusCallback);
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        Session.getActiveSession().removeCallback(statusCallback);
+    }
 
-	public void setConnection() {
-		mContext = this;
-		mFacebook = new Facebook(APP_ID);
-		mAsyncRunner = new AsyncFacebookRunner(mFacebook);
-	}
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
 
-	public void getID(TextView txtUserName, ProgressBar progbar) {
-		username = txtUserName;
-		pb = progbar;
-		mFacebook.authorize(this, new LoginDialogListener());
-	}
-	
-	/*public void getLoguot(TextView txtUserName, ProgressBar progbar) {
-		username = txtUserName;
-		pb = progbar;
-		mAsyncRunner.logout(this.getBaseContext(), new LogoutRequestListener());
-    }*/
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Session session = Session.getActiveSession();
+        Session.saveSession(session, outState);
+    }
 
-	private String loginFacebook(String accessToken) throws RestBlowUpException, UnauthorizedException {
-		return ServicioRestAutenticacion.loginFacebook(accessToken);
-	}
+    private void updateView() {
+        Session session = Session.getActiveSession();
+        if (session.isOpened()) {
+            textInstructionsOrLink.setText(URL_PREFIX_FRIENDS + session.getAccessToken());
+            buttonLoginLogout.setText(R.string.logout);
+            buttonLoginLogout.setOnClickListener(new OnClickListener() {
+                public void onClick(View view) { onClickLogout(); }
+            });
+        } else {
+            textInstructionsOrLink.setText(R.string.instructions);
+            buttonLoginLogout.setText(R.string.login);
+            buttonLoginLogout.setOnClickListener(new OnClickListener() {
+                public void onClick(View view) { onClickLogin(); }
+            });
+        }
+    }
 
-	private class LoginDialogListener implements DialogListener {
-		@Override
-		public void onComplete(Bundle values) {
-			Log.d(TAG, "LoginONComplete");
-			String token = mFacebook.getAccessToken();
-			long token_expires = mFacebook.getAccessExpires();
-			Log.d(TAG, "AccessToken: " + token);
-			Log.d(TAG, "AccessExpires: " + token_expires);
-			sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-			sharedPrefs.edit().putLong("access_expires", token_expires).commit();
-			sharedPrefs.edit().putString("access_token", token).commit();
+    private void onClickLogin() {
+        Session session = Session.getActiveSession();
+        if (!session.isOpened() && !session.isClosed()) {
+            session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+        } else {
+            Session.openActiveSession(this, true, statusCallback);
+        }
+    }
 
-			RegistryAsyncTask task = new RegistryAsyncTask();
-			task.execute(new String[] {token});
-		}
+    private void onClickLogout() {
+        Session session = Session.getActiveSession();
+        if (!session.isClosed()) {
+            session.closeAndClearTokenInformation();
+        }
+    }
 
-		@Override
-		public void onFacebookError(FacebookError e) {
-			Log.d(TAG, "FacebookError: " + e.getMessage());
-		}
-
-		@Override
-		public void onError(DialogError e) {
-			Log.d(TAG, "Error: " + e.getMessage());
-		}
-
-		@Override
-		public void onCancel() {
-			Log.d(TAG, "OnCancel");
-		}
-	}
-
-	private class RegistryAsyncTask extends AsyncTask<String, Void, String> {
-		@Override
-		protected String doInBackground(String... params) {
-			try {
-				loginFacebook(params[0]);
-			} catch (RestBlowUpException e) {
-				e.printStackTrace();
-				return "El servicio no responde";
-			} catch (UnauthorizedException e) {
-				e.printStackTrace();
-				return "El usuario no esta autorizado";
-			}
-			return "Exito";
-		}
-		
-		@Override
-	    protected void onPostExecute(String result) {
-	    	if (result.equals("Exito")){
-	    		goToActivity(UsuarioActivity.class);
-	    	}
-	    	else{
-	    		showToast(result);
-	    	}	    	
-	    }
-	}
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            updateView();
+        }
+    }
 }

@@ -2,21 +2,28 @@ package com.geored.gui;
 
 import java.util.Hashtable;
 
-import com.geored.rest.R;
-import com.geored.rest.data.Usuario;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.LoggingBehaviors;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+import com.geored.rest.R;
+import com.geored.rest.data.Usuario;
 
 public class GenericActivity extends Activity {
 
 	protected String usuarioId;
 	protected Hashtable<String, Usuario>  hashUsuarios = new Hashtable<String,Usuario> ();
-	
-	
+    	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,5 +58,4 @@ public class GenericActivity extends Activity {
     protected void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
-
 }

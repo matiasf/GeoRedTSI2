@@ -247,8 +247,8 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 
 		private void loadNotifications(List<Notificacion> result) {
 			try{    	
-				Drawable drawable = NotificacionesActivity.this.getResources().getDrawable(R.drawable.marker);
-    			SitioDInteresItemizedOverlay itemizedoverlay = new SitioDInteresItemizedOverlay(drawable, NotificacionesActivity.this);
+				//Drawable drawable = NotificacionesActivity.this.getResources().getDrawable(R.drawable.marker);
+    			SitioDInteresItemizedOverlay itemizedoverlay = new SitioDInteresItemizedOverlay(null, NotificacionesActivity.this);
                 
     			itemizedoverlay.hashNotificaciones.clear();
 	    		List<String> strs = new ArrayList<String>(); 
