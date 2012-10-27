@@ -13,7 +13,8 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	private static final String checkLoginQuery = "SELECT u.id " +
 			"FROM Usuario u " +
 			"WHERE u.nombre = :userName " +
-			"AND u.password = :password";
+			"AND u.password = :password " +
+			"AND u.facebookUser = 0";
 	
 	private static final String buscarPorNombreQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre = :nombre";

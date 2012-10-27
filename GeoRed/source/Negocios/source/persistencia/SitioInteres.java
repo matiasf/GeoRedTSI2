@@ -36,6 +36,9 @@ public class SitioInteres implements Serializable, Notificacion {
 	@OneToMany(mappedBy="sitioInteres")
 	private Collection<CheckIn> checkIns;
 
+	@OneToMany
+	private Collection<Imagen> fotos;
+	
 	public SitioInteres() {
 		super();
 	}   
@@ -84,5 +87,12 @@ public class SitioInteres implements Serializable, Notificacion {
 	public void setLongitud(float longitud) {
 		this.longitud = longitud;
 	}
-   
+	public Collection<Imagen> getFotos() {
+		return fotos;
+	}
+	public void setFotos(Collection<Imagen> fotos) {
+		this.fotos = fotos;
+	}
+	
+	
 }

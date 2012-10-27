@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
 
+import persistencia.Imagen;
 import persistencia.Invitacion;
 import persistencia.Notificacion;
 import persistencia.Pago;
@@ -150,4 +151,11 @@ public interface GestionUsuarios {
 	 * @param idCategorias los id's categorias a borrar
 	 */
 	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias);
+	
+	/**
+	 * Obtiene una imagen a partir del id
+	 * @param id Id de la imagen
+	 * @return La imagen que se busca
+	 */
+	public Imagen obtenerImagen(int id);
 }

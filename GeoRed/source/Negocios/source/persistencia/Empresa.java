@@ -37,6 +37,8 @@ public class Empresa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	private Imagen logo;
+	
 	public Empresa() {
 		super();
 	}   
@@ -87,6 +89,12 @@ public class Empresa implements Serializable {
 	}
 	public void setLocales(Collection<Local> locales) {
 		this.locales = locales;
+	}
+	public Imagen getLogo() {
+		return logo;
+	}
+	public void setLogo(Imagen logo) {
+		this.logo = logo;
 	}
    
 }

@@ -13,7 +13,6 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
-import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
 

@@ -12,6 +12,8 @@ import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
+import persistencia.Imagen;
+import persistencia.ImagenDAO;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
 import persistencia.Notificacion;
@@ -44,6 +46,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	@EJB
 	private CategoriaDAO categoriaDAO;
+	
+	@EJB
+	private ImagenDAO imagenDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -216,10 +221,15 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
 		for (Integer idCat : idCategorias) {
 			Categoria cat = categoriaDAO.buscarPorId(idCat);
-			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) == null) {
+			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) != null) {
 				usuario.getCategorias().remove(cat);
 			}
 		}
+	}
+
+	@Override
+	public Imagen obtenerImagen(int id) {
+		return imagenDAO.buscarPorId(id);
 	}
 
 }

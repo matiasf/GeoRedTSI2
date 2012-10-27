@@ -3,12 +3,13 @@ package persistencia;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"nombre", "facebookUser"}))
 public class Usuario implements Serializable {
 
 	   
@@ -24,10 +26,11 @@ public class Usuario implements Serializable {
 	private int id;
 	
 	@NotNull
-	@Column(unique=true)
 	private String nombre;
-	@NotNull
+
 	private String password;
+	
+	private boolean facebookUser;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -91,5 +94,12 @@ public class Usuario implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public boolean isFacebookUser() {
+		return facebookUser;
+	}
+	public void setFacebookUser(boolean facebookUser) {
+		this.facebookUser = facebookUser;
+	}
+	
    
 }

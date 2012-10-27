@@ -34,6 +34,9 @@ public class Oferta implements Serializable {
 	@ManyToOne
 	private Local local;
 	
+	@OneToOne
+	private Imagen foto;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Oferta() {
@@ -90,6 +93,12 @@ public class Oferta implements Serializable {
 	}
 	public void setLocal(Local local) {
 		this.local = local;
+	}
+	public Imagen getFoto() {
+		return foto;
+	}
+	public void setFoto(Imagen foto) {
+		this.foto = foto;
 	}
    
 }

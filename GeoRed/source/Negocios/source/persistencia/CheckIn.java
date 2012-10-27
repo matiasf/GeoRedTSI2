@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,9 @@ public class CheckIn implements Serializable, Notificacion {
 	@ManyToOne
 	@NotNull
 	private Usuario usuario;
+	
+	@OneToOne
+	private Imagen foto;
 	
 	public CheckIn() {
 		super();
@@ -69,5 +73,12 @@ public class CheckIn implements Serializable, Notificacion {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-   
+	public Imagen getFoto() {
+		return foto;
+	}
+	public void setFoto(Imagen foto) {
+		this.foto = foto;
+	}
+
+	
 }
