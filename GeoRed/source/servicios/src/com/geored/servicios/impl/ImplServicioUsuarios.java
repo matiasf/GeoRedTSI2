@@ -153,6 +153,30 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	}
 	
 	@Override
+	public void agregarCategorias(final String userToken, final HttpServletResponse response,
+			final List<Integer> categorias) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			gestionUsuarios.agregarCategorias(gestionTokens.getIdUsuario(userToken), categorias);
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+	}
+	
+	@Override
+	public void borrarCategorias(final String userToken, final HttpServletResponse response,
+			final List<Integer> categorias) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			gestionUsuarios.borrarCategorias(gestionTokens.getIdUsuario(userToken), categorias);
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+	}
+	
+	@Override
 	public List<NotificacionJSON> getNotificaciones(final String userToken, final HttpServletResponse response,
 			final PosicionJSON posicion) {
 		if (gestionTokens.validarToken(userToken)) {

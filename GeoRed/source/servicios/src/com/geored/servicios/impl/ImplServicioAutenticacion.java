@@ -82,4 +82,15 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 		}
 	}
 
+	@Override
+	public Response logout(final String userToken) {
+		if (gestionTokens.validarToken(userToken)) {
+			gestionTokens.removeToken(userToken);
+			return Response.status(Response.Status.OK).build();
+		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+
 }
