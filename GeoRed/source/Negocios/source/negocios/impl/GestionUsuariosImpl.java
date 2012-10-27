@@ -237,4 +237,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		return categoriaDAO.obtenerTodos();
 	}
 
+	@Override
+	public int checkLoginUsuarioFacebook(String nombre) {
+		return usuarioDAO.checkLoginUsuarioFacebook(nombre);
+	}
+
 }

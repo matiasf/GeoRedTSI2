@@ -165,4 +165,11 @@ public interface GestionUsuarios {
 	 * @return Las categorias del sistema
 	 */
 	public List<Categoria> obtenerCategorias();
+	
+	/**
+	 * Funcion anolaga a checkLogin pero para usuarios de facebook
+	 * @param nombre
+	 * @return En caso de que exista el usuario devuelve el id si no devuelve -1
+	 */
+	public int checkLoginUsuarioFacebook(String nombre);
 }
