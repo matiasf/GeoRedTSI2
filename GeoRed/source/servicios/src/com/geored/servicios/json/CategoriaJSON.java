@@ -3,18 +3,17 @@ package com.geored.servicios.json;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class NotificacionJSON {
+public class CategoriaJSON {
 	
-	private Integer id;
+	private int id;
 	private String nombre;
 	private String descripcion;
-	private PosicionJSON posicion;
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
@@ -32,14 +31,6 @@ public class NotificacionJSON {
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public PosicionJSON getPosicion() {
-		return posicion;
-	}
-
-	public void setPosicion(PosicionJSON posicion) {
-		this.posicion = posicion;
 	}
 
 }
