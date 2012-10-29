@@ -1,4 +1,4 @@
-package com.geored.servicios.impl.auth;
+package com.geored.servicios.json.converters;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -6,18 +6,19 @@ import java.util.List;
 
 import javax.ejb.Singleton;
 
-import persistencia.Categoria;
-import persistencia.CheckIn;
-import persistencia.Invitacion;
-import persistencia.SitioInteres;
-import persistencia.Usuario;
-
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.CheckInJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
+
+import persistencia.Categoria;
+import persistencia.CheckIn;
+import persistencia.Invitacion;
+import persistencia.SitioInteres;
+import persistencia.Usuario;
+
 
 @Singleton
 public class ConvertidorEntityJSON {
