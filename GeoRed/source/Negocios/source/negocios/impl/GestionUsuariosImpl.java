@@ -1,17 +1,22 @@
 package negocios.impl;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.xml.stream.XMLStreamException;
 
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import negocios.impl.eventosExternos.GoogleCalendarFeed;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
+import persistencia.Evento;
 import persistencia.Imagen;
 import persistencia.ImagenDAO;
 import persistencia.Invitacion;
@@ -182,12 +187,33 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		for (SitioInteres sitio : sitios) {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
+				if (!sitio.getGoogleCalendarId().isEmpty()) {
+					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
+					gcf.setCalendarId(sitio.getGoogleCalendarId());
+					try {
+						List<Evento> eventos = gcf.obtenerEventos();
+						for (Evento evento : eventos) {
+							evento.setLatitud(sitio.getLatitud());
+							evento.setLongitud(longitud);
+							ret.add(evento);
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (XMLStreamException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return ret;
 	}
 	
-	private float distanciaEntrePuntos(float lat1, float long1, float lat2, float long2) {
+	private double distanciaEntrePuntos(double lat1, double long1, double lat2, double long2) {
 		double earthRadius = 6371;
 	    double dLat = Math.toRadians(lat2-lat1);
 	    double dLng = Math.toRadians(long2-long1);
@@ -197,7 +223,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	    double dist = earthRadius * c;
 
-	    return (float) dist;
+	    return dist;
 	}
 
 	@Override

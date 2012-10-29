@@ -27,8 +27,10 @@ public class SitioInteres implements Serializable, Notificacion {
 	private String Nombre;
 	private String Descripcion;
 	private static final long serialVersionUID = 1L;
-	private float latitud;
-	private float longitud;
+	private double latitud;
+	private double longitud;
+	private String googleCalendarId;
+
 	
 	@OneToMany
 	private Collection<Categoria> categorias;
@@ -75,13 +77,13 @@ public class SitioInteres implements Serializable, Notificacion {
 	public void setCategorias(Collection<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	public float getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(float latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
-	public float getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
 	public void setLongitud(float longitud) {
@@ -92,6 +94,12 @@ public class SitioInteres implements Serializable, Notificacion {
 	}
 	public void setFotos(Collection<Imagen> fotos) {
 		this.fotos = fotos;
+	}
+	public String getGoogleCalendarId() {
+		return googleCalendarId;
+	}
+	public void setGoogleCalendarId(String googleCalendarId) {
+		this.googleCalendarId = googleCalendarId;
 	}
 	
 	

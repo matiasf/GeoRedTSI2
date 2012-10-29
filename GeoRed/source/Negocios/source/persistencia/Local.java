@@ -30,6 +30,7 @@ public class Local implements Serializable, Notificacion {
 	private float latitud;
 	private float longitud;
 	
+	
 	@OneToMany(mappedBy="local", cascade={CascadeType.REMOVE})
 	private Collection<Oferta> ofertas;
 	
