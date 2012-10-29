@@ -10,9 +10,9 @@ import negocios.GestionSitioInteres;
 import negocios.excepciones.EntidadNoExiste;
 
 import com.geored.servicios.ServicioSitiosInteres;
-import com.geored.servicios.impl.auth.ConvertidorEntityJSON;
 import com.geored.servicios.impl.auth.GestionTokens;
 import com.geored.servicios.json.CheckInJSON;
+import com.geored.servicios.json.converters.ConvertidorEntityJSON;
 
 @Local
 @Stateless

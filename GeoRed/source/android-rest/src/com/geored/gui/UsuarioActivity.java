@@ -14,7 +14,8 @@ public class UsuarioActivity extends GenericActivity {
 	protected void loadVista() {
 		setContentView(R.layout.activity_usuario);
 	}
-	    @Override
+	
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
@@ -69,6 +70,10 @@ public class UsuarioActivity extends GenericActivity {
     
     public void showBuscarContactos(View clickedButton) {
         goToActivity(BuscarContactosActivity.class);
+    }
+    
+    public void showGCMTest(View clickedButtom) {
+    	goToActivity(GCMDemoActivity.class);
     }
 
 }
