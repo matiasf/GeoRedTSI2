@@ -10,6 +10,10 @@ import javax.ejb.Stateless;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import persistencia.Categoria;
+import persistencia.CategoriaDAO;
+import persistencia.Imagen;
+import persistencia.ImagenDAO;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
 import persistencia.Notificacion;
@@ -39,6 +43,12 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	@EJB
 	private SitioInteresDAO sitioInteresDAO;
+	
+	@EJB
+	private CategoriaDAO categoriaDAO;
+	
+	@EJB
+	private ImagenDAO imagenDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -167,7 +177,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
 		
-		List<SitioInteres> sitios = sitioInteresDAO.obtenerTodos();
+		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (SitioInteres sitio : sitios) {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
@@ -193,6 +203,43 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	@Override
 	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioDAO.buscarUsuarios(nombre);
+	}
+
+	@Override
+	public void agregarCategorias(int idUsuario, Collection<Integer> idCategorias) {
+		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		for (Integer idCat : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCat);
+			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) == null) {
+				usuario.getCategorias().add(cat);
+			}
+		}
+	}
+	
+	@Override
+	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias) {
+		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		for (Integer idCat : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCat);
+			if (usuarioDAO.obtenerCategoria(idUsuario, idCat) != null) {
+				usuario.getCategorias().remove(cat);
+			}
+		}
+	}
+
+	@Override
+	public Imagen obtenerImagen(int id) {
+		return imagenDAO.buscarPorId(id);
+	}
+	
+	@Override
+	public List<Categoria> obtenerCategorias() {
+		return categoriaDAO.obtenerTodos();
+	}
+
+	@Override
+	public int checkLoginUsuarioFacebook(String nombre) {
+		return usuarioDAO.checkLoginUsuarioFacebook(nombre);
 	}
 
 }

@@ -1,16 +1,18 @@
 package com.geored.rest;
 
-import com.geored.rest.R;
-import com.geored.gui.*;
-import com.geored.gui.map.MapsDemo;
-
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class Main extends Activity {
+import com.geored.gui.CheckInActivity;
+import com.geored.gui.FacebookActivity;
+import com.geored.gui.GenericActivity;
+import com.geored.gui.LoginActivity;
+import com.geored.gui.NotificacionesActivity;
+import com.geored.gui.RegistrarActivity;
+import com.geored.gui.map.MapsDemo;
+
+public class Main extends GenericActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,14 +24,6 @@ public class Main extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
-    }
-    
-    /** Switches to the given class (which must be a subclass of Activity). 
-     *  You must also register the new Activity in AndroidManifest.xml.
-     */
-    private void goToActivity(Class<? extends Activity> activityClass) {
-        Intent newActivity = new Intent(this, activityClass);
-        startActivity(newActivity);
     }
     
     /** Switches to the ButtonActivity when the associated button is clicked. */
@@ -62,7 +56,6 @@ public class Main extends Activity {
     
     public void showGPSLocation(View clickedButton) {
         goToActivity(MapsDemo.class);
-    }
-    
+    }    
     
 }

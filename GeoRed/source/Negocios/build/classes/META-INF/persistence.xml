@@ -11,6 +11,7 @@
 		<class>persistencia.Empresa</class>
 		<class>persistencia.CheckIn</class>
 		<class>persistencia.Categoria</class>
+		<class>persistencia.Evento</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 			<property name="hibernate.show_sql" value="false"/>

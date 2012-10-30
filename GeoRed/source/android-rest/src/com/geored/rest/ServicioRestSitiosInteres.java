@@ -15,7 +15,7 @@ public class ServicioRestSitiosInteres extends ServicioRest {
 	final private static String URL_CHECKIN = SERVICIO_REST_SITIOINTERES_URL
 			+ "/checkin";
 	
-	public void hacerCheckIn(String idSitioInteres, CheckIn checkin) throws RestBlowUpException, NotFoundException,
+	public static void hacerCheckIn(String idSitioInteres, CheckIn checkin) throws RestBlowUpException, NotFoundException,
 		UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
 		HttpResponse response;

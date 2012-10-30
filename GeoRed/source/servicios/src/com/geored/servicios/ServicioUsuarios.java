@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
+import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.PosicionJSON;
@@ -29,14 +30,14 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("contactos")
 	@Produces("application/json")
-	public List<UsuarioJSON> getContactos(
+	List<UsuarioJSON> getContactos(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
 
 	@GET
 	@Path("contactos/{idContacto}")
 	@Produces("application/json")
-	public UsuarioJSON getContacto(
+	UsuarioJSON getContacto(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
@@ -44,20 +45,20 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("invitaciones")
 	@Produces("application/json")
-	public List<InvitacionJSON> getInvitaciones(
+	List<InvitacionJSON> getInvitaciones(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
 
 	@PUT
 	@Path("invitaciones/{idContacto}")
-	public void invitarContacto(
+	void invitarContacto(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
 	
 	@POST
 	@Path("invitaciones/{idContacto}")
-	public void aceptarInvitacion(
+	void aceptarInvitacion(
 			@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response,
 			@PathParam("idContacto") final int idContacto);
@@ -72,6 +73,21 @@ public interface ServicioUsuarios {
 	void modificarUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
 			@PathParam("password") final String password, final UsuarioJSON usuarioJSON);
 
+	@POST
+	@Path("categorias/agregar")
+	void agregarCategorias(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			final List<Integer> categorias);
+
+	@POST
+	@Path("categorias/borrar")
+	void borrarCategorias(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			final List<Integer> categorias);
+	
+	@GET
+	@Path("categorias")
+	@Produces("application/json")
+	List<CategoriaJSON> getCategorias(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response);
+	
 	@POST
 	@Path("notificaciones")
 	@Produces("application/json")

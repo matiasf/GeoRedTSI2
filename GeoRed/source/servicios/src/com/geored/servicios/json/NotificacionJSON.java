@@ -1,6 +1,8 @@
 package com.geored.servicios.json;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class NotificacionJSON {
 	
 	private Integer id;

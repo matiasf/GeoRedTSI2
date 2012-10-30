@@ -13,10 +13,12 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	private static final String checkLoginQuery = "SELECT u.id " +
 			"FROM Usuario u " +
 			"WHERE u.nombre = :userName " +
-			"AND u.password = :password";
+			"AND u.password = :password " +
+			"AND u.facebookUser = 0";
 	
-	private static final String buscarPorNombreQuery = "SELECT u FROM Usuario u " +
-			"WHERE u.nombre = :nombre";
+	private static final String buscarUsuarioFacebook = "SELECT u.id FROM Usuario u " +
+			"WHERE u.nombre = :nombre " +
+			"AND u.facebookUser = 1";
 	
 	private static final String obtenerContactosQuery = "SELECT u1 FROM Usuario u2, Usuario u1 " +
 			"WHERE u2.id = :id " +
@@ -29,7 +31,11 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	
 	private static final String buscarUsuariosQuery = "SELECT u FROM Usuario u " +
 			"WHERE u.nombre LIKE :nombre";
-			
+
+	private static final String obtenerCategoriaQuery = "SELECT c FROM Usuario u JOIN u.categorias c " +
+			"WHERE u.id = :idUsuario AND " +
+			"c.id = :idCategoria";
+	
 	
 	@Override
 	public Usuario buscarPorId(int id) {
@@ -59,11 +65,11 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 	}
 	
 	@Override
-	public Usuario buscarPorNombre(String nombre) {
-		TypedQuery<Usuario> query = em.createQuery(buscarPorNombreQuery, Usuario.class);
+	public int checkLoginUsuarioFacebook(String nombre) {
+		TypedQuery<Integer> query = em.createQuery(buscarUsuarioFacebook, Integer.class);
 		query.setParameter("nombre", nombre);
-		List<Usuario> resultado = query.getResultList();
-		Usuario ret = null;
+		List<Integer> resultado = query.getResultList();
+		int ret = -1;
 		if (!resultado.isEmpty()) {
 			ret = resultado.get(0);
 		}
@@ -96,6 +102,19 @@ public class UsuarioDAOImpl extends BaseDAO<Usuario> implements UsuarioDAO {
 		nombre = nombre + "%";
 		query.setParameter("nombre", nombre);
 		return query.getResultList(); 
+	}
+
+	@Override
+	public Categoria obtenerCategoria(int idUsuario, int idCategoria) {
+		TypedQuery<Categoria> query = em.createQuery(obtenerCategoriaQuery, Categoria.class);
+		query.setParameter("idUsuario", idUsuario);
+		query.setParameter("idCategoria", idCategoria);
+		List<Categoria> categorias = query.getResultList();
+		Categoria ret = null;
+		if (!categorias.isEmpty()) {
+			ret = categorias.get(0);
+		}
+		return ret;
 	}
 	
 	

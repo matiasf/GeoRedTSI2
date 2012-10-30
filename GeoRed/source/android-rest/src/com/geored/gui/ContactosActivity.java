@@ -80,34 +80,7 @@ public class ContactosActivity extends GenericActivity {
     	startActivity(i);   	   
 		
 	}
-/*
-	private void showInvitar(String id) {
-		try{
-			ServicioRestUsuarios.invitarContacto(id);
-			Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
-			i.putExtra("user_id",usuarioId); 
-	    	startActivity(i);
-		}catch(NotFoundException nfbu){
-    		
-    		showToast("No se encontro el contacto");
-        	
-    	}catch(RestBlowUpException exbu){
-    		
-    		showToast("El servicio no responde");
-        	
-    	}catch(ConflictException cex){
-    		
-    		showToast("conflicto en los servicios");
-        	
-    	}catch(UnauthorizedException exu){
-    		
-    		showToast("El usuario no esta autorizado");
-    		
-    	}catch(Exception ex){    		
-    		showToast(ex.getMessage());
-    	}
-	}
-*/
+
 	private void loadListView() {
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute();
@@ -168,22 +141,4 @@ public class ContactosActivity extends GenericActivity {
 	    	}	    	
 	    }
 	  }
-    
-    
-    
-/*
-	private void loadListViewHardCoreData2() {
-    	
-		List<String> strs = new ArrayList<String>(); 
-		
-		for(int i=0; i < 15;i++){
-			strs.add("Usuario "+Integer.toString(i));
-		}
-		
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, strs);
-        
-        setListAdapter(adapter);
-    }
-  */  
 }

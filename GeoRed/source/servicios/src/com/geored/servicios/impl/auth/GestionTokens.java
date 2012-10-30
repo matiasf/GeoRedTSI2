@@ -20,6 +20,10 @@ public class GestionTokens {
 		return tokens.containsKey(token);
 	}
 	
+	public boolean removeToken(String token) {
+		return !(tokens.remove(token) == null);
+	}
+	
 	public Integer getIdUsuario(String token) {
 		return tokens.get(token);
 	}

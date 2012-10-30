@@ -3,24 +3,35 @@
     package="com.geored.rest"
     android:versionCode="1"
     android:versionName="1.0" >
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="15" />
- 	
- 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <permission
+        android:name="com.geored.rest.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
- 	
-	
-        
- 
- 	<application
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.geored.rest.permission.C2D_MESSAGE" />
+    <!-- App receives GCM messages. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- GCM connects to Google Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
- 	    <uses-library android:name="com.google.android.maps" />
- 	    
+        <uses-library android:name="com.google.android.maps" />
+
         <activity
             android:name=".Main"
             android:label="@string/title_activity_main" >
@@ -30,100 +41,126 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.geored.gui.RegistrarActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="com.geored.gui.RegistrarActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.geored.gui.LoginActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="com.geored.gui.LoginActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-		</activity>
-            <activity android:name="com.geored.gui.CheckInActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
-            <intent-filter>       
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-		</activity>
-            <activity android:name="com.geored.gui.FacebookActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
-            <intent-filter>
-                
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            		</activity>
-            <activity android:name="com.geored.gui.NotificacionesActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity android:name="com.geored.gui.UsuarioActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="com.geored.gui.GCMDemoActivity"
+            android:label="GCMDemoLabel"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-            <activity android:name="com.geored.gui.ContactosActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="com.geored.gui.CheckInActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>    
-                <activity android:name="com.geored.gui.ModificarUsuarioActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.geored.gui.FacebookActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>    
-                
-        <activity android:name="com.geored.gui.ChatActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.geored.gui.NotificacionesActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>                 
-        
-        <activity android:name="com.geored.gui.InvitacionesActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.geored.gui.UsuarioActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> 
-        
-        <activity android:name="com.geored.gui.BuscarContactosActivity"
-                  android:label="@string/title_activity_main"
-                  android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.geored.gui.ContactosActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> 
-        
+        </activity>
+        <activity
+            android:name="com.geored.gui.ModificarUsuarioActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.geored.gui.ChatActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.geored.gui.InvitacionesActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.geored.gui.BuscarContactosActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.geored.rest.TestServicios"
             android:label="@string/rest_test" >
@@ -133,7 +170,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.geored.gui.map.MapsDemo"
             android:label="@string/rest_test" >
@@ -143,8 +179,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <activity android:name="com.facebook.LoginActivity"
+                  android:label="@string/app_name" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/applicationId" />
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.geored.rest" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GCMIntentService" />
     </application>
 
-    
 </manifest>

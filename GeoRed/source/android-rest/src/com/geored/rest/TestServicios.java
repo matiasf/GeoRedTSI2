@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.geored.rest.data.CheckIn;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Posicion;
 import com.geored.rest.data.Usuario;
@@ -47,6 +48,9 @@ public class TestServicios extends Activity implements OnClickListener {
 				for (Notificacion notifiacion : ServicioRestUsuarios.getNotificaciones(posicion)) {
 					token += "Notifiacion: " + notifiacion.getNombre();
 				}
+				CheckIn checkin = new CheckIn();
+				checkin.setComentario("que bueno que esta!");
+				ServicioRestSitiosInteres.hacerCheckIn("0", checkin);
 			} catch (Exception e) {
 				return "Error: " + e.getMessage();
 			}

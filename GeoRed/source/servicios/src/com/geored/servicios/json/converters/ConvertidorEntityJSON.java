@@ -1,4 +1,4 @@
-package com.geored.servicios.impl.auth;
+package com.geored.servicios.json.converters;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -6,16 +6,19 @@ import java.util.List;
 
 import javax.ejb.Singleton;
 
-import persistencia.CheckIn;
-import persistencia.Invitacion;
-import persistencia.SitioInteres;
-import persistencia.Usuario;
-
+import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.CheckInJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
+
+import persistencia.Categoria;
+import persistencia.CheckIn;
+import persistencia.Invitacion;
+import persistencia.SitioInteres;
+import persistencia.Usuario;
+
 
 @Singleton
 public class ConvertidorEntityJSON {
@@ -44,6 +47,14 @@ public class ConvertidorEntityJSON {
 		posicionJSON.setLongitud(sitioInteres.getLongitud());
 		notifiacionJSON.setPosicion(posicionJSON);
 		return notifiacionJSON;
+	}
+	
+	private CategoriaJSON convertir(Categoria categoria) {
+		CategoriaJSON categoriaJSON = new CategoriaJSON();
+		categoriaJSON.setId(categoria.getId());
+		categoriaJSON.setNombre(categoria.getNombre());
+		categoriaJSON.setDescripcion(categoria.getDescripcion());
+		return categoriaJSON;
 	}
 	
 	public CheckIn convertir(CheckInJSON checkInJSON) {
@@ -75,6 +86,9 @@ public class ConvertidorEntityJSON {
 			}
 			else if (s instanceof SitioInteres) {
 				tt.add((T)convertir((SitioInteres)s));
+			}
+			else if (s instanceof Categoria) {
+				tt.add((T)convertir((Categoria)s));
 			}
 		}
 		return tt;

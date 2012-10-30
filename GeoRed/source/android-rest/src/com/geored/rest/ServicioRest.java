@@ -20,7 +20,7 @@ import android.util.Log;
 public class ServicioRest {
 
 	public enum Metodos {
-		GET, POST, PUT
+		GET, POST, PUT, DELETE
 	}
 
 	final protected static int OK = 200;

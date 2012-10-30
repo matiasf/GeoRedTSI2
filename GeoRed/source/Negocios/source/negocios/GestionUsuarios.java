@@ -1,5 +1,6 @@
 package negocios;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -7,6 +8,8 @@ import javax.ejb.Local;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
 
+import persistencia.Categoria;
+import persistencia.Imagen;
 import persistencia.Invitacion;
 import persistencia.Notificacion;
 import persistencia.Pago;
@@ -135,4 +138,38 @@ public interface GestionUsuarios {
 	 * Los usuarios cuyo nombre comienzan con el parametro nombre
 	 */
 	public List<Usuario> buscarUsuario(String nombre);
+	
+	/**
+	 * Agrega categorias al usuario
+	 * @param idUsuario usuario al que se le agregan las categorias
+	 * @param idCategorias los id's categorias a agregar
+	 */
+	public void agregarCategorias(int idUsuario, Collection<Integer> idCategorias);
+	
+	/**
+	 * Borra categorias al usuario
+	 * @param idUsuario usuario al que se le borran las categorias
+	 * @param idCategorias los id's categorias a borrar
+	 */
+	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias);
+	
+	/**
+	 * Obtiene una imagen a partir del id
+	 * @param id Id de la imagen
+	 * @return La imagen que se busca
+	 */
+	public Imagen obtenerImagen(int id);
+	
+	/**
+	 * Obtiene todas las categorias del sistema
+	 * @return Las categorias del sistema
+	 */
+	public List<Categoria> obtenerCategorias();
+	
+	/**
+	 * Funcion anolaga a checkLogin pero para usuarios de facebook
+	 * @param nombre
+	 * @return En caso de que exista el usuario devuelve el id si no devuelve -1
+	 */
+	public int checkLoginUsuarioFacebook(String nombre);
 }

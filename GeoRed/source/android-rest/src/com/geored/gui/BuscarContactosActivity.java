@@ -10,6 +10,7 @@ import com.geored.rest.exception.ConflictException;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -125,6 +126,7 @@ public class BuscarContactosActivity extends GenericActivity {
     	}
     }
     
+	@SuppressLint("NewApi")
 	private class RegistryAsyncTask extends AsyncTask<String, Void, List<Usuario>> {
 	    @Override
 	    protected List<Usuario> doInBackground(String... params) {
@@ -143,7 +145,8 @@ public class BuscarContactosActivity extends GenericActivity {
 			return usuarios;
 	    }
 	
-	    @Override
+	    @SuppressLint("NewApi")
+		@Override
 	    protected void onPostExecute(List<Usuario> result) {
 	    	if (result != null){
 	    		loadListView(result);
@@ -155,6 +158,7 @@ public class BuscarContactosActivity extends GenericActivity {
 	  }
     
     
+	@SuppressLint("NewApi")
 	private class InvitacionAsyncTask extends AsyncTask<String, Void, String> {
 	    @Override
 	    protected String  doInBackground(String... params) {

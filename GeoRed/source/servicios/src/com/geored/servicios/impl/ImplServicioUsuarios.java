@@ -14,12 +14,13 @@ import negocios.excepciones.EntidadNoExiste;
 import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
-import com.geored.servicios.impl.auth.ConvertidorEntityJSON;
 import com.geored.servicios.impl.auth.GestionTokens;
+import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
+import com.geored.servicios.json.converters.ConvertidorEntityJSON;
 
 @Local
 @Stateless
@@ -150,6 +151,42 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}		
+	}
+	
+	@Override
+	public void agregarCategorias(final String userToken, final HttpServletResponse response,
+			final List<Integer> categorias) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			gestionUsuarios.agregarCategorias(gestionTokens.getIdUsuario(userToken), categorias);
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+	}
+	
+	@Override
+	public void borrarCategorias(final String userToken, final HttpServletResponse response,
+			final List<Integer> categorias) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			gestionUsuarios.borrarCategorias(gestionTokens.getIdUsuario(userToken), categorias);
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+	}
+	
+	@Override
+	public List<CategoriaJSON> getCategorias(final String userToken, final HttpServletResponse response) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convert(gestionUsuarios.obtenerCategorias());
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
 	}
 	
 	@Override

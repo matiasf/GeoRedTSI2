@@ -4,6 +4,7 @@ import java.util.List;
 
 import negocios.excepciones.EntidadNoExiste;
 
+import persistencia.Categoria;
 import persistencia.Empresa;
 import persistencia.Local;
 import persistencia.Oferta;
@@ -33,6 +34,7 @@ public interface GestionEmpresas {
 	
 	public void agregarOferta(int idLocal, Oferta oferta) throws EntidadNoExiste;
 	
+	public void altaCategoria(Categoria categoria);
 	
-
+	public List<Categoria> obtenerCategorias();
 }

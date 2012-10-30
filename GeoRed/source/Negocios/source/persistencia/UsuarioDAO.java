@@ -17,7 +17,7 @@ public interface UsuarioDAO {
 	
 	public int checkLogin(String nombre, String password);
 	
-	public Usuario buscarPorNombre(String nombre);
+	public int checkLoginUsuarioFacebook(String nombre);
 	
 	public List<Usuario> obtenerContactos(int idUsuario);
 	
@@ -28,4 +28,6 @@ public interface UsuarioDAO {
 	public boolean existe(int id);
 	
 	public List<Usuario> buscarUsuarios(String nombre);
+	
+	public Categoria obtenerCategoria(int idUsuario, int idCategoria);
 }
