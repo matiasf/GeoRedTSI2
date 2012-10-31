@@ -33,12 +33,29 @@ public class MenuBB extends LoginBB {
     /* logica y navegación*/
     
     public String altaEmpresa() {    	
-    	return "altaEmpresa";    	
+    	return "/presentacionAdminSistema/altaEmpresa.xhtml";    	
     }
     
-    public String modificarEmpresa() {    	
-    	return "modificarEmpresa";    	
+    public String modificarEmpresa() {
+    	return "/presentacionAdminSistema/modificarEmpresa.xhtml";
+    	//return "modificarEmpresa";
+    	
     }
+	
+	public String altaSitioInteres(){
+		return "/presentacionAdminSistema/altaSitioInteres.xhtml";
+		//return "altaSitioInteres";
+	}
+	
+	public String modificarSitioInteres(){
+		return "/presentacionAdminSistema/modificarSitioInteres0.xhtml";
+		//return "modificarSitioInteres";
+	}
+	
+	public String bajaSitioInteres(){
+		return "/presentacionAdminSistema/bajaSitioInteres0.xhtml";
+		//return "bajaSitioInteres";
+	}
     
     public String logout() {
     	String retorno = "";
@@ -82,7 +99,13 @@ public class MenuBB extends LoginBB {
 	public void setContextyurl(String contextyurl) {
 		this.contextyurl = contextyurl;
 	}
-    
+
+	
+	public String updateCurrent(){
+		return "hola";
+	}
+	
+	
     
     
     

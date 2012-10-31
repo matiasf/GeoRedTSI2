@@ -52,6 +52,22 @@
  </navigation-rule>
  
  <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/menu.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>altaEmpresa</from-outcome>
+   <to-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>altaSitioInteres</from-outcome>
+   <to-view-id>/presentacionAdminSistema/altaSitioInteres.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificarSitioInteres</from-outcome>
+   <to-view-id>/presentacionAdminSistema/modificarSitioInteres0.xhtml</to-view-id>
+  </navigation-case>  
+ </navigation-rule>
+ 
+ <navigation-rule>
   <from-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
@@ -61,7 +77,21 @@
    <from-outcome>exito</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
+  <navigation-case>
+   <from-outcome>altaEmpresa</from-outcome>
+   <to-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>altaSitioInteres</from-outcome>
+   <to-view-id>/presentacionAdminSistema/altaSitioInteres.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificarSitioInteres</from-outcome>
+   <to-view-id>/presentacionAdminSistema/modificarSitioInteres0.xhtml</to-view-id>
+  </navigation-case>
  </navigation-rule>
+ 
+ 
  
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/altaSitioInteres.xhtml</from-view-id>

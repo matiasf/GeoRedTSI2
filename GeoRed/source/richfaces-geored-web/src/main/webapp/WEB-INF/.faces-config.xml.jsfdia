@@ -27,6 +27,23 @@
    <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
     NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="altaEmpresa::#presentacionAdminSistema#altaEmpresa.xhtml"
+    NAME="output2" PATH="/presentacionAdminSistema/altaEmpresa.xhtml"
+    TARGET="rules:#presentacionAdminSistema#altaEmpresa.xhtml"
+    TITLE="altaEmpresa" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="altaSitioInteres::#presentacionAdminSistema#altaSitioInteres.xhtml"
+    NAME="output3"
+    PATH="/presentacionAdminSistema/altaSitioInteres.xhtml"
+    TARGET="rules:#presentacionAdminSistema#altaSitioInteres.xhtml"
+    TITLE="altaSitioInteres" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="modificarSitioInteres::#presentacionAdminSistema#modificarSitioInteres0.xhtml"
+    NAME="output4"
+    PATH="/presentacionAdminSistema/modificarSitioInteres0.xhtml"
+    TARGET="rules:#presentacionAdminSistema#modificarSitioInteres0.xhtml"
+    TITLE="modificarSitioInteres" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM
@@ -101,7 +118,28 @@
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#presentacionAdminSistema#menu.xhtml"
-  PATH="/presentacionAdminSistema/menu.xhtml" SHAPE="528,161,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/presentacionAdminSistema/menu.xhtml" SHAPE="528,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#presentacionAdminSistema#menu.xhtml:0"
+   NAME="item" PATH="/presentacionAdminSistema/menu.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="altaEmpresa::#presentacionAdminSistema#altaEmpresa.xhtml"
+    NAME="output" PATH="/presentacionAdminSistema/altaEmpresa.xhtml"
+    TARGET="rules:#presentacionAdminSistema#altaEmpresa.xhtml"
+    TITLE="altaEmpresa" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="altaSitioInteres::#presentacionAdminSistema#altaSitioInteres.xhtml"
+    NAME="output1"
+    PATH="/presentacionAdminSistema/altaSitioInteres.xhtml"
+    TARGET="rules:#presentacionAdminSistema#altaSitioInteres.xhtml"
+    TITLE="altaSitioInteres" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="modificarSitioInteres::#presentacionAdminSistema#modificarSitioInteres0.xhtml"
+    NAME="output2"
+    PATH="/presentacionAdminSistema/modificarSitioInteres0.xhtml"
+    TARGET="rules:#presentacionAdminSistema#modificarSitioInteres0.xhtml"
+    TITLE="modificarSitioInteres" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#presentacionAdminEmpresa#altaLocal.xhtml"
   PATH="/presentacionAdminEmpresa/altaLocal.xhtml" SHAPE="32,305,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#presentacionAdminEmpresa#altaLocal.xhtml:0"

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+   <title>TSI 2</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+   <h:outputStylesheet name="screen.css" library="css"/>
+   <h:outputStylesheet name="mapa.css" library="css"/>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
+    </script>
+</h:head>
+<h:body onload="initialize()">
+   <div id="container">
+      <div>
+         <h:graphicImage name="tsileodef.png" library="gfx"/>
+      </div>
+      <div>
+      <div id="menuizquierdo" style="float: left; width: 40%; margin: 1px;">
+      	<h:form id="formMenu" >
+		    <h:panelGrid columns="2" columnClasses="cols,cols" width="400">
+		    <rich:panelMenu style="width:200px"  mode="ajax" 
+		        iconExpandedGroup="disc" iconCollapsedGroup="disc" 
+		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
+		        iconCollapsedTopGroup="chevronDown">
+		        <rich:panelMenuGroup label="Empresas">
+		            <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}" reRender="content">
+		                <f:param name="current" value="Alta Empresa"/>
+		            </rich:panelMenuItem>		            
+		        </rich:panelMenuGroup>
+		        <rich:panelMenuGroup label="Sitios">
+		            <rich:panelMenuItem label="Alta Sitio" action="#{menuBB.altaSitioInteres}" reRender="content">
+		                <f:param name="current" value="Alta Sitio"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Modificar Sitio" action="#{menuBB.modificarSitioInteres}" reRender="content">
+		                <f:param name="current" value="Modificar Sitio"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Baja Sitio" action="#{menuBB.bajaSitioInteres}" reRender="content">
+		                <f:param name="current" value="Baja Sitio"/>
+		            </rich:panelMenuItem>
+		        </rich:panelMenuGroup>
+		        <rich:panelMenuGroup label="Eventos">
+		            <rich:panelMenuItem label="Alta Evento" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Alta Evento"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Modificar Evento" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Modificar Evento"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Baja Evento" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Baja Evento"/>
+		            </rich:panelMenuItem>
+	            </rich:panelMenuGroup>
+	            <rich:panelMenuGroup label="Categorias">
+		            <rich:panelMenuItem label="Alta Categoria" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Alta Categoria"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Modificar Categoria" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Modificar Categoria"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Baja Categoria" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Baja Categoria"/>
+		            </rich:panelMenuItem>
+		       	</rich:panelMenuGroup>
+		    </rich:panelMenu>    
+	    </h:panelGrid>
+	    </h:form>
+      </div>      
+      <div id="content" style="float: left; width: 40%; margin: 1px;">
+         <ui:insert name="content">
+            [Template content will be inserted here]
+         </ui:insert>
+      </div>
+	</div>      
+      <div id="footer">
+         <p>
+            TSI2 2012 - Grupo 8<br />
+         </p>
+      </div>
+   </div>
+</h:body>
+</html>
