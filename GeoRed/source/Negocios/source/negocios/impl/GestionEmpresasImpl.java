@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,6 +14,7 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
+import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
 
@@ -125,7 +127,6 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public List<Categoria> obtenerCategorias() {
 		return categoriaDAO.obtenerTodos();
 	}
-
 
 
 }

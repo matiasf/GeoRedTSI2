@@ -37,6 +37,9 @@ public class Oferta implements Serializable {
 	@OneToOne
 	private Imagen foto;
 	
+	@ManyToMany
+	private Collection<Categoria> categorias;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Oferta() {
@@ -100,5 +103,10 @@ public class Oferta implements Serializable {
 	public void setFoto(Imagen foto) {
 		this.foto = foto;
 	}
-   
+	public Collection<Categoria> getCategorias() {
+		return categorias;
+	}
+	public void setCategorias(Collection<Categoria> categorias) {
+		this.categorias = categorias;
+	}   
 }

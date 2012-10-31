@@ -34,7 +34,7 @@ public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@OneToMany
+	@ManyToMany
 	private Collection<Categoria> categorias;
 	
 	@OneToMany(mappedBy="usuario")

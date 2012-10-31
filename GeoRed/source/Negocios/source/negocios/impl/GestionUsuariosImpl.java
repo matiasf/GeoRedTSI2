@@ -16,11 +16,16 @@ import negocios.excepciones.EntidadNoExiste;
 import negocios.impl.eventosExternos.GoogleCalendarFeed;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
+import persistencia.CheckIn;
+import persistencia.CheckInDAO;
+import persistencia.Empresa;
+import persistencia.EmpresaDAO;
 import persistencia.Evento;
 import persistencia.Imagen;
 import persistencia.ImagenDAO;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
+import persistencia.Local;
 import persistencia.Notificacion;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
@@ -54,6 +59,12 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	@EJB
 	private ImagenDAO imagenDAO;
+	
+	@EJB
+	private EmpresaDAO empresaDAO;
+	
+	@EJB
+	private CheckInDAO checkInDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -181,7 +192,16 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			String msg = "El usuario " + idUsuario + " no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
-		
+		List<Notificacion> ret = getNotLocalYExtEvento(idUsuario, latitud, longitud, distancia);
+		ret.addAll(getNotLocales(idUsuario, latitud, longitud, distancia));
+		ret.addAll(getCheckInAmigos(idUsuario));
+		return ret;
+	}
+	
+	private List<Notificacion> getNotLocalYExtEvento(final int idUsuario, 
+			final float latitud, 
+			final float longitud, 
+			final float distancia) {
 		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (SitioInteres sitio : sitios) {
@@ -211,6 +231,23 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			}
 		}
 		return ret;
+		
+	}
+	
+	private List<Notificacion> getNotLocales (final int idUsuario, 
+			final float latitud, 
+			final float longitud, 
+			final float distancia) {
+		List<Empresa> empresas = empresaDAO.obtenerTodas();
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for (Empresa empresa : empresas) {
+			for (Local local : empresa.getLocales()) {
+				if (this.distanciaEntrePuntos(latitud, longitud, local.getLatitud(), local.getLongitud()) <= distancia) {
+					ret.add(local);
+				}
+			}
+		}
+		return ret;
 	}
 	
 	private double distanciaEntrePuntos(double lat1, double long1, double lat2, double long2) {
@@ -226,6 +263,15 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	    return dist;
 	}
 
+	private List<Notificacion> getCheckInAmigos(int idUsuario) {
+		List<CheckIn> checkIns = checkInDAO.getCheckInAmigos(idUsuario);
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for (CheckIn checkIn : checkIns) {
+			ret.add(checkIn);
+		}
+		return ret;
+	}
+	
 	@Override
 	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioDAO.buscarUsuarios(nombre);
