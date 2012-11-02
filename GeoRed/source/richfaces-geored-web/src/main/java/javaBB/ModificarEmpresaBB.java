@@ -1,5 +1,6 @@
 package javaBB;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import javax.ejb.EJB;
@@ -10,7 +11,11 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
+
 import persistencia.Empresa;
+import persistencia.Imagen;
 
 import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
@@ -27,6 +32,8 @@ public class ModificarEmpresaBB {
 	private String password;
 	
 	private Object[] logoData;
+	
+	private UploadedFile uploadedFile;
 	
 	private boolean exito;
 	
@@ -58,14 +65,23 @@ public class ModificarEmpresaBB {
 		HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
 		String mailEmpresa = (String) session.getAttribute("mailEmpresa");
     	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
-    	empresa.setNombre(this.nombre);
-    	empresa.setMailAdmin(this.mail);
-    	empresa.setDescripcion(this.descripcion);    	
-    	try {
+    	    	
+    	try {    		
+    		empresa.setNombre(this.nombre);
+        	empresa.setMailAdmin(this.mail);
+        	empresa.setDescripcion(this.descripcion);
+        	
+    		Imagen imagen = new Imagen();
+    		imagen.setImagen(this.uploadedFile.getData());
+    		empresa.setLogo(imagen);
+    		
 			ge.modifciarEmpresa(empresa);
 			session.setAttribute("nombreEmpresa", empresa.getNombre());    		
     		session.setAttribute("mailEmpresa", empresa.getMailAdmin());
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
+    		
+     		
+    		
     	} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,9 +92,13 @@ public class ModificarEmpresaBB {
         return retorno;
     }
     
-    public void logoListener() {
+    
+    public void logoListener(FileUploadEvent event) throws Exception{
+    	this.uploadedFile = event.getUploadedFile();
     	
+        System.out.println();
     }
+    
     
     public String finalizar() {
     	String retorno = "";
