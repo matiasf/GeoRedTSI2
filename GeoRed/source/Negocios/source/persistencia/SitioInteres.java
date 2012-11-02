@@ -87,7 +87,7 @@ public class SitioInteres implements Serializable, Notificacion {
 	public double getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(float longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
 	public Collection<Imagen> getFotos() {
