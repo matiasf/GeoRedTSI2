@@ -18,6 +18,16 @@ public class MenuBB extends LoginBB {
 	private String context;
 	private String contextyurl;
 	
+	private boolean aExito;
+	private boolean bExito;
+	private boolean mExito;
+	
+	private boolean error;
+	
+	private String msjError;
+	
+	
+	
 	
     public MenuBB() {
         System.out.println("menuBB instantiated");        
@@ -25,6 +35,12 @@ public class MenuBB extends LoginBB {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
     	HttpServletRequest request= (HttpServletRequest)context.getExternalContext().getRequest();
+    	
+    	this.aExito = request.getAttribute("aExito") != null;
+    	this.bExito = request.getAttribute("bExito") != null;
+    	this.mExito = request.getAttribute("mExito") != null;    	
+        this.error = request.getAttribute("error") != null;            
+        this.msjError = (String) request.getAttribute("msjError");                      
         
         this.contextyurl = request.getContextPath().toString();
         
@@ -32,7 +48,9 @@ public class MenuBB extends LoginBB {
     
     /* logica y navegación*/
     
-    public String altaEmpresa() {    	
+    public String altaEmpresa() {
+    	FacesContext context = FacesContext.getCurrentInstance();
+    	context.getExternalContext().getSessionMap().remove("menuBB");
     	return "/presentacionAdminSistema/altaEmpresa.xhtml";    	
     }
     
@@ -75,6 +93,11 @@ public class MenuBB extends LoginBB {
         return retorno;
     }
     
+    public String alMenu() {
+    	String retorno = "menu";
+        return retorno;
+    }
+    
     public String cancelar() {
     	String retorno = "";
     	
@@ -103,6 +126,46 @@ public class MenuBB extends LoginBB {
 	
 	public String updateCurrent(){
 		return "hola";
+	}
+
+	public boolean isaExito() {
+		return aExito;
+	}
+
+	public void setaExito(boolean aExito) {
+		this.aExito = aExito;
+	}
+
+	public boolean isbExito() {
+		return bExito;
+	}
+
+	public void setbExito(boolean bExito) {
+		this.bExito = bExito;
+	}
+
+	public boolean ismExito() {
+		return mExito;
+	}
+
+	public void setmExito(boolean mExito) {
+		this.mExito = mExito;
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
+	public String getMsjError() {
+		return msjError;
+	}
+
+	public void setMsjError(String msjError) {
+		this.msjError = msjError;
 	}
 	
 	

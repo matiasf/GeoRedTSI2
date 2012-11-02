@@ -20,7 +20,7 @@
          <h:graphicImage name="tsileodef.png" library="gfx"/>
       </div>
       <div>
-      <div id="menuizquierdo" style="float: left; width: 40%; margin: 1px;">
+      <div id="menuizquierdo" style="float: left; width: 25%; margin: 1px;">
       	<h:form id="formMenu" >
 		    <h:panelGrid columns="2" columnClasses="cols,cols" width="400">
 		    <rich:panelMenu style="width:200px"  mode="ajax" 
@@ -64,6 +64,14 @@
 		            <rich:panelMenuItem label="Baja Categoria" action="#{menuBB.updateCurrent}" reRender="content">
 		                    <f:param name="current" value="Baja Categoria"/>
 		            </rich:panelMenuItem>
+		       	</rich:panelMenuGroup>
+		       	<rich:panelMenuGroup label="Reportes">
+		            <rich:panelMenuItem label="Reporte Check in" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Reporte Check in"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Reporte ofertas" action="#{menuBB.updateCurrent}" reRender="content">
+		                    <f:param name="current" value="Reporte ofertas"/>
+		            </rich:panelMenuItem>		            
 		       	</rich:panelMenuGroup>
 		    </rich:panelMenu>    
 	    </h:panelGrid>

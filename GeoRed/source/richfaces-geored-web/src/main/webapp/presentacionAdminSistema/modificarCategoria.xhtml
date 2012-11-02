@@ -10,10 +10,8 @@
                 
                 
 <ui:define name="content">
-	<h:outputStylesheet name="app.css" library="css"/>
-   <h:outputScript target="head" name="cargarMapa.js" library="js"/>
-   
-   <h:outputScript target="body">
+   <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
+   <h:outputScript target="body">   			   			
    			initialize();
    </h:outputScript>    
 
@@ -23,28 +21,16 @@
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaSitioInteresBB.nombre}">
+		      <h:inputText id="name" value="#{modificarCategoriaBB.nombre}">
 		         <rich:validator/>
 		      </h:inputText>
-		      <rich:message for="name" errorClass="invalid"/>
+		      <rich:message for="name" errorClass="invalid"/>		
 		
-		     <h:outputLabel for="coordX" value="Latitud"/>
-		      <h:inputText id="coordX" value="#{altaSitioInteresBB.latitud}">
-		      <rich:validator/>		         
-		      </h:inputText>
-		      <rich:message for="coordX" errorClass="invalid"/>
-		      
-		      <h:outputLabel for="coordY" value="Longitud"/>
-		      <h:inputText id="coordY" value="#{altaSitioInteresBB.longitud}">
-		      <rich:validator/>		         
-		      </h:inputText>
-		      <rich:message for="coordY" errorClass="invalid"/>
-		      
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
 		      <h:inputTextarea
                     maxlength="200"
                     cols="36" rows="10"
-                    value="#{altaSitioInteresBB.descripcion}"
+                    value="#{modificarCategoriaBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
 
@@ -52,14 +38,14 @@
 		   
 
 			
-			<div id="botones">
-				<a4j:commandButton id="cancelar" action="#{altaSitioInteresBB.cancelar}" value="Cancelar"
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="cancelar" action="#{modificarCategoriaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="altaLocal" action="#{altaSitioInteresBB.altaSitioInteres}" value="Dar de alta"
+                <a4j:commandButton id="altaLocal" action="#{modificarCategoriaBB.modificar}" value="Modificar"
                                    styleClass="boton" />
                                    
                 <rich:messages globalOnly="true"/>
-				</div>
+             </h:panelGrid>
 
 			</rich:panel>
 
