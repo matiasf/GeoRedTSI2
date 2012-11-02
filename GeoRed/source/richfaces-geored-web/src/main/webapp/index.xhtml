@@ -30,25 +30,17 @@
 						      <rich:message for="phoneNumber" errorClass="invalid"/>
 						   </h:panelGrid>
 
-             <h:panelGrid columns="2">
-                <a4j:commandButton id="login" action="#{loginBB.login}" value="Login"
+             
+	             <div class="botones">
+							<a4j:commandButton id="login" action="#{loginBB.login}" value="Login"
                                    styleClass="boton" />
-                <rich:messages globalOnly="true"/>
-             </h:panelGrid>
+						</div>				
+                
+          
+
           </rich:panel>
           <br />
-          <rich:popupPanel id="memberPopup" modal="true" onmaskclick="#{rich:component('memberPopup')}.hide()"
-                           domElementAttachment="form" autosized="true">
-             <f:facet name="header">
-                <h:outputText value="Member Details"/>
-             </f:facet>
-             <f:facet name="controls">
-                <h:outputLink value="#" onclick="#{rich:component('memberPopup')}.hide(); return false;">                   
-                </h:outputLink>
-             </f:facet>
-
-          </rich:popupPanel>
-
+          
 
        </h:form>
     </ui:define>

@@ -16,32 +16,34 @@
 		
         
 
-       <h:form id="altaEmpresa">
+       <h:form id="altaCategoria">
        
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Categoria" headerClass="header">
           
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaEmpresaBB.nombre}">
+		      <h:inputText id="name" value="#{altaCategoriaBB.nombre}">
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
 		
-		      <h:outputLabel for="email" value="Email:"/>
-		      <h:inputText id="email" value="#{altaEmpresaBB.mail}">
-		         <rich:validator/>
-		      </h:inputText>
-		      <rich:message for="email" errorClass="invalid"/>
-
+		      <h:outputLabel for="descripcion" value="Descripcion:" />      
+		      <h:inputTextarea
+                    maxlength="200"
+                    cols="34" rows="10"
+                    value="#{altaCategoriaBB.descripcion}"
+                    id="description"></h:inputTextarea>
+              <rich:message for="descripcion" errorClass="invalid"/>
+              
 		   </h:panelGrid>
 
 			
 			<div id="botones">
-				<a4j:commandButton id="cancelar" action="#{altaEmpresaBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{altaCategoriaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="altaEmpresa" action="#{altaEmpresaBB.altaEmpresa}" value="Dar de alta"
+                <a4j:commandButton id="alta" action="#{altaCategoriaBB.altaCategoria}" value="Dar de alta"
                                    styleClass="boton" />
                                    
                 <rich:messages globalOnly="true"/>

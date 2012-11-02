@@ -29,6 +29,11 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
+  <managed-bean-name>altaCategoriaBB</managed-bean-name>
+  <managed-bean-class>javaBB.AltaCategoriaBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
   <managed-bean-name>altaLocalBB</managed-bean-name>
   <managed-bean-class>javaBB.AltaLocalBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
@@ -36,6 +41,11 @@
  <managed-bean>
   <managed-bean-name>modificarEmpresaBB</managed-bean-name>
   <managed-bean-class>javaBB.ModificarEmpresaBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>modificarCategoriaBB</managed-bean-name>
+  <managed-bean-class>javaBB.ModificarCategoriaBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  
@@ -68,6 +78,14 @@
  </navigation-rule>
  
  <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/altaExito.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>alMenu</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>    
+ </navigation-rule>
+ 
+ <navigation-rule>
   <from-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
@@ -91,10 +109,33 @@
   </navigation-case>
  </navigation-rule>
  
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/altaEmpresa.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  </navigation-rule>
  
  
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/altaSitioInteres.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/altaCategoria.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
@@ -142,6 +183,29 @@
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/modificarSitioInteres.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarCategoria0.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/modificarCategoria.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarCategoria.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
