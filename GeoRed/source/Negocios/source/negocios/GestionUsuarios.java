@@ -172,4 +172,12 @@ public interface GestionUsuarios {
 	 * @return En caso de que exista el usuario devuelve el id si no devuelve -1
 	 */
 	public int checkLoginUsuarioFacebook(String nombre);
+	
+
+	/**
+	 * Da de alta una imagen en el sistema
+	 * @param imagen la imagen a dar de alta
+	 * @return el id de la imagen
+	 */
+	public int altaImagen(Imagen imagen);
 }

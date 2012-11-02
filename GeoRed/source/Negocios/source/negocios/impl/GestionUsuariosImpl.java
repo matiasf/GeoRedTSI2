@@ -314,4 +314,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		return usuarioDAO.checkLoginUsuarioFacebook(nombre);
 	}
 
+	@Override
+	public int altaImagen(Imagen imagen) {
+		return imagenDAO.insertar(imagen).getId();	
+	}
+
 }
