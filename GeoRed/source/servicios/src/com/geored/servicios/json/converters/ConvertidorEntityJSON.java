@@ -15,13 +15,20 @@ import com.geored.servicios.json.UsuarioJSON;
 
 import persistencia.Categoria;
 import persistencia.CheckIn;
+import persistencia.Evento;
 import persistencia.Invitacion;
+import persistencia.Local;
+import persistencia.Notificacion;
 import persistencia.SitioInteres;
 import persistencia.Usuario;
 
 
 @Singleton
 public class ConvertidorEntityJSON {
+	
+	public enum TipoNotifiacion {
+		SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
+	}
 	
 	public UsuarioJSON convertir(Usuario usuario) {
 		UsuarioJSON usuarioJSON = new UsuarioJSON();
@@ -37,15 +44,53 @@ public class ConvertidorEntityJSON {
 		return invitacionJSON;
 	}
 	
-	public NotificacionJSON convertir(SitioInteres sitioInteres) {
-		NotificacionJSON notifiacionJSON = new NotificacionJSON();
-		notifiacionJSON.setId(sitioInteres.getId());
-		notifiacionJSON.setDescripcion(sitioInteres.getDescripcion());
-		notifiacionJSON.setNombre(sitioInteres.getNombre());
-		PosicionJSON posicionJSON = new PosicionJSON();
-		posicionJSON.setLatitud(sitioInteres.getLatitud());
-		posicionJSON.setLongitud(sitioInteres.getLongitud());
-		notifiacionJSON.setPosicion(posicionJSON);
+	public NotificacionJSON convertir(Notificacion notificacion) {
+		NotificacionJSON notifiacionJSON = null;
+		PosicionJSON posicionJSON;
+		if (notificacion instanceof SitioInteres) {
+			SitioInteres sitioInteres = (SitioInteres)notificacion;
+			notifiacionJSON = new NotificacionJSON();
+			notifiacionJSON.setId(sitioInteres.getId());
+			notifiacionJSON.setDescripcion(sitioInteres.getDescripcion());
+			notifiacionJSON.setTipo(TipoNotifiacion.SITIO_DE_INTERES.toString());
+			notifiacionJSON.setNombre(sitioInteres.getNombre());
+			posicionJSON = new PosicionJSON();
+			posicionJSON.setLatitud(sitioInteres.getLatitud());
+			posicionJSON.setLongitud(sitioInteres.getLongitud());
+			notifiacionJSON.setPosicion(posicionJSON);
+		}
+		else if (notificacion instanceof Evento) {
+			Evento evento = (Evento)notificacion;
+			notifiacionJSON = new NotificacionJSON();
+			notifiacionJSON.setId(evento.getId());
+			notifiacionJSON.setDescripcion(evento.getDescripcion());
+			notifiacionJSON.setTipo(TipoNotifiacion.EVENTO.toString());
+			notifiacionJSON.setNombre(evento.getNombre());
+			posicionJSON = new PosicionJSON();
+			posicionJSON.setLatitud(evento.getLatitud());
+			posicionJSON.setLongitud(evento.getLongitud());
+			notifiacionJSON.setPosicion(posicionJSON);
+		}
+		else if (notificacion instanceof Local) {
+			Local local = (Local)notificacion;
+			notifiacionJSON = new NotificacionJSON();
+			notifiacionJSON.setId(local.getId());
+			notifiacionJSON.setDescripcion(local.getDescripcion());
+			notifiacionJSON.setTipo(TipoNotifiacion.LOCAL.toString());
+			notifiacionJSON.setNombre(local.getNombre());
+			posicionJSON = new PosicionJSON();
+			posicionJSON.setLatitud(local.getLatitud());
+			posicionJSON.setLongitud(local.getLongitud());
+			notifiacionJSON.setPosicion(posicionJSON);
+		}
+		else if (notificacion instanceof CheckIn) {
+			CheckIn checkIn = (CheckIn)notificacion;
+			notifiacionJSON = new NotificacionJSON();
+			notifiacionJSON.setId(checkIn.getId());
+			notifiacionJSON.setDescripcion(checkIn.getComentario());
+			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString());
+			notifiacionJSON.setNombre(checkIn.getUsuario().getNombre());
+		}
 		return notifiacionJSON;
 	}
 	
@@ -84,8 +129,8 @@ public class ConvertidorEntityJSON {
 			else if (s instanceof UsuarioJSON) {
 				tt.add((T)convertir((UsuarioJSON)s));
 			}
-			else if (s instanceof SitioInteres) {
-				tt.add((T)convertir((SitioInteres)s));
+			else if (s instanceof SitioInteres || s instanceof Local || s instanceof Evento) {
+				tt.add((T)convertir((Notificacion)s));
 			}
 			else if (s instanceof Categoria) {
 				tt.add((T)convertir((Categoria)s));

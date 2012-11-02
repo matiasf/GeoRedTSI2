@@ -5,6 +5,7 @@ public class Notificacion {
 	private String id;
 	private String nombre;
 	private String descripcion;
+	private String tipo;
 	private Posicion posicion;
 	
 	public String getId() {
@@ -37,6 +38,14 @@ public class Notificacion {
 
 	public void setPosicion(Posicion posicion) {
 		this.posicion = posicion;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }
