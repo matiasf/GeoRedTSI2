@@ -36,7 +36,7 @@ public class AltaOfertaBB {
     
     public String altaOferta() {
     	String retorno = "";
-    	
+    	/*
     	Oferta oferta = new Oferta();
     	oferta.s
     	
@@ -53,7 +53,7 @@ public class AltaOfertaBB {
     	} catch (Exception e){
     		retorno = "revento";
     	}
-    	
+    	*/
     	return retorno;
     }
     
