@@ -53,14 +53,13 @@
         android:layout_height="wrap_content"
         android:text="@string/notificaciones"
         android:onClick="showNotificaciones"
-         />
-       
-       <Button
-        android:id="@+id/notificacionesLocal_button"
+        android:text="@string/notificaciones" />
+
+    <Button
+        android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/notificacionesLocal"
-        android:onClick="showNotificacionesLocal"
-         />
+        android:onClick="showGCMTest"
+        android:text="Demo GCM" />
 
 </LinearLayout>

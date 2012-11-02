@@ -64,14 +64,14 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		}
 		if (userFacebook.isVerified()) {
-			Usuario user = new Usuario();
-			user.setNombre(userFacebook.getUsername());
-			user.setPassword(userFacebook.getUsername());
 			int idUsuario;
-			if ((idUsuario = gestionUsuarios.checkLogin(userFacebook.getUsername(), userFacebook.getUsername())) >= 0) {
+			if ((idUsuario = gestionUsuarios.checkLoginUsuarioFacebook(userFacebook.getUsername())) >= 0) {
 				return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
 			}
 			else {
+				Usuario user = new Usuario();
+				user.setNombre(userFacebook.getUsername());
+				user.setFacebookUser(true);
 				gestionUsuarios.registrarUsuario(user);
 				idUsuario = gestionUsuarios.checkLogin(userFacebook.getUsername(), userFacebook.getUsername());
 				return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();

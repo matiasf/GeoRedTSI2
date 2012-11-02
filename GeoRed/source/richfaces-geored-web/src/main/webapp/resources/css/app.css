@@ -1,5 +1,5 @@
 .titleCell {
-    text-align: right;
+    text-align: right;    
 }
 
 .header {
@@ -23,4 +23,34 @@
 .update div {
    color: #006400;
    padding: 6px 4px;
+}
+
+.mensajeExito {
+	display: block;	
+	font-size: 22px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	color: #990100;
+}
+
+.botones {
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:10px;
+    text-align: center;
+    clear:both;
+}
+
+.boton {
+	margin:10px 5px;
+	text-align: center;	
+	text-decoration: none;
+	padding: 3px 16px;
+  	font-size: 13px; 
+  	color: #FFFFFF; 
+  	font-weight:bold; 
+  	cursor:pointer;
+  	font-family: verdana, arial, sans-serif;
+  	background-color: #A5657F; /*#AF4C4C;*/
 }

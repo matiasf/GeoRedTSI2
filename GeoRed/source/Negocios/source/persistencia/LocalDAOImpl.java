@@ -13,6 +13,7 @@ public class LocalDAOImpl extends BaseDAO<Local> implements LocalDAO {
 		"WHERE e.id = :idEmpresa " +
 		"	AND l MEMBER OF e.locales";
 	
+	
 	@Override
 	public Local buscarPorId(int id) {
 		Local ret = em.find(Local.class, id);

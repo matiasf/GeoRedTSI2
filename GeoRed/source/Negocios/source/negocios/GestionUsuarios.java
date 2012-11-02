@@ -115,7 +115,7 @@ public interface GestionUsuarios {
 	 *            Identificador del usuario.
 	 * @return Lista de notficaciones a mostrar.
 	 */
-	public List<Notificacion> getNotificaciones(final int idUsuario, final float latitud, final float longitud, final float distancia) throws EntidadNoExiste;
+	public List<Notificacion> getNotificaciones(final int idUsuario, final double latitud, final double longitud, final double distancia) throws EntidadNoExiste;
 
 	/**
 	 * Permite al usuario realizar una compra de una ofera
@@ -165,4 +165,19 @@ public interface GestionUsuarios {
 	 * @return Las categorias del sistema
 	 */
 	public List<Categoria> obtenerCategorias();
+	
+	/**
+	 * Funcion anolaga a checkLogin pero para usuarios de facebook
+	 * @param nombre
+	 * @return En caso de que exista el usuario devuelve el id si no devuelve -1
+	 */
+	public int checkLoginUsuarioFacebook(String nombre);
+	
+
+	/**
+	 * Da de alta una imagen en el sistema
+	 * @param imagen la imagen a dar de alta
+	 * @return el id de la imagen
+	 */
+	public int altaImagen(Imagen imagen);
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:my="http://java.sun.com/jsf/composite/components">
+                
+                
+<ui:define name="content">
+   <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
+   <h:outputScript target="body">   			   			
+   			initialize();
+   </h:outputScript>    
+
+	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
+       <h:form id="form">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Local" headerClass="header">
+			
+		   <h:panelGrid columns="3" columnClasses="titleCell">
+		      <h:outputLabel for="name" value="Nombre"/>
+		      <h:inputText id="name" value="#{modificarCategoriaBB.nombre}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="name" errorClass="invalid"/>		
+		
+		      <h:outputLabel for="descripcion" value="Descripcion:" />      
+		      <h:inputTextarea
+                    maxlength="200"
+                    cols="36" rows="10"
+                    value="#{modificarCategoriaBB.descripcion}"
+                    id="description"></h:inputTextarea>
+              <rich:message for="descripcion" errorClass="invalid"/>
+
+		   </h:panelGrid>
+		   
+
+			
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="cancelar" action="#{modificarCategoriaBB.cancelar}" value="Cancelar"
+                                   styleClass="boton" />
+                <a4j:commandButton id="altaLocal" action="#{modificarCategoriaBB.modificar}" value="Modificar"
+                                   styleClass="boton" />
+                                   
+                <rich:messages globalOnly="true"/>
+             </h:panelGrid>
+
+			</rich:panel>
+
+
+       </h:form>     
+       
+    </ui:define>
+</ui:composition>
