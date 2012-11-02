@@ -184,9 +184,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 
 	@Override
 	public List<Notificacion> getNotificaciones(final int idUsuario, 
-			final float latitud, 
-			final float longitud, 
-			final float distancia) throws EntidadNoExiste {
+			final double latitud, 
+			final double longitud, 
+			final double distancia) throws EntidadNoExiste {
 		
 		if (!usuarioDAO.existe(idUsuario)) {
 			String msg = "El usuario " + idUsuario + " no existe";
@@ -199,9 +199,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 	
 	private List<Notificacion> getNotLocalYExtEvento(final int idUsuario, 
-			final float latitud, 
-			final float longitud, 
-			final float distancia) {
+			final double latitud, 
+			final double longitud, 
+			final double distancia) {
 		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (SitioInteres sitio : sitios) {
@@ -235,9 +235,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 	
 	private List<Notificacion> getNotLocales (final int idUsuario, 
-			final float latitud, 
-			final float longitud, 
-			final float distancia) {
+			final double latitud, 
+			final double longitud, 
+			final double distancia) {
 		List<Empresa> empresas = empresaDAO.obtenerTodas();
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (Empresa empresa : empresas) {

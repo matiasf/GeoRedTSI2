@@ -1,12 +1,13 @@
 package negocios;
 
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.List;
 
 import negocios.excepciones.EntidadNoExiste;
 
 import persistencia.Categoria;
 import persistencia.Empresa;
+import persistencia.Evento;
 import persistencia.Local;
 import persistencia.Oferta;
 
@@ -38,4 +39,9 @@ public interface GestionEmpresas {
 	public void altaCategoria(Categoria categoria);
 	
 	public List<Categoria> obtenerCategorias();
+	
+	public int altaEvento(Evento evento);
+	
+	public List<Evento> obtenerEventos(Calendar desdeFecha);
+	
 }

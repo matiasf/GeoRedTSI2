@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import persistencia.Categoria;
 import persistencia.CategoriaDAO;
 import persistencia.Empresa;
 import persistencia.EmpresaDAO;
+import persistencia.Evento;
+import persistencia.EventoDAO;
 import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
@@ -29,7 +32,8 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	private OfertaDAO ofertaDAO;	
 	@EJB 
 	private CategoriaDAO categoriaDAO;
-
+	@EJB
+	private EventoDAO eventoDAO;
 	
 	
 	
@@ -128,5 +132,14 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		return categoriaDAO.obtenerTodos();
 	}
 
+	@Override
+	public int altaEvento(Evento evento) {
+		return eventoDAO.insertar(evento).getId();
+	}
+
+	@Override
+	public List<Evento> obtenerEventos(Calendar desdeFecha) {
+		return eventoDAO.obtenerEventos(desdeFecha);
+	}
 
 }
