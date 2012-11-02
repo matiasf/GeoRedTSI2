@@ -45,8 +45,6 @@ public class LoginActivity extends GenericActivity {
 			}
 			return "Exito";
 		}
-	   		return "Exito";
-	    }
 	
 	    @Override
 	    protected void onPostExecute(String result) {
