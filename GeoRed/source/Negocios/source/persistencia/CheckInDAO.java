@@ -1,5 +1,7 @@
 package persistencia;
 
+import java.util.List;
+
 @javax.ejb.Local
 public interface CheckInDAO {
 	
@@ -8,6 +10,8 @@ public interface CheckInDAO {
 	public CheckIn modificar(CheckIn entidad);
 	
 	public CheckIn buscarPorId(int id);
+	
+	public List<CheckIn> getCheckInAmigos(int idUsuario);
 	
 
 }

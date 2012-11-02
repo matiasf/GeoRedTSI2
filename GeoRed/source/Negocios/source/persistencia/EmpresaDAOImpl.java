@@ -17,6 +17,8 @@ public class EmpresaDAOImpl extends BaseDAO<Empresa> implements EmpresaDAO {
 	private static final String findForMail = "SELECT e FROM Empresa e " +
 			"WHERE e.mailAdmin = :mailAdmin ";
 	
+
+	
 	@Override
 	public Empresa buscarPorId(int id) {
 		Empresa ret = em.find(Empresa.class, id);

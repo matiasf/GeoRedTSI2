@@ -21,5 +21,5 @@ public interface EmpresaDAO {
 	
 	public void borrar(Empresa empresa);
 
-	public Empresa buscarPorMail(String mail);
+	public Empresa buscarPorMail(String mail);	
 }
