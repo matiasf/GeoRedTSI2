@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -37,6 +38,7 @@ public class Empresa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	@OneToOne(cascade={CascadeType.ALL})
 	private Imagen logo;
 	
 	public Empresa() {
