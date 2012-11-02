@@ -14,6 +14,14 @@
        <h:form id="modificarEmpresa" enctype="multipart/form-data">
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">        
 			
+			  <h:panelGroup id="divImagen">                                 
+						<a4j:mediaOutput element="img" rendered="modificarEmpresaBB.imagen != null" mimeType="image/png"
+                                    createContent="#{modificarEmpresaBB.paint}" value="1"
+                                    style="width:100px; height:100px;" cacheable="false">
+ 
+				</a4j:mediaOutput>
+                           
+                </h:panelGroup>
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>

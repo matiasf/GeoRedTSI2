@@ -1,6 +1,8 @@
 package javaBB;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.LinkedList;
 
 import javax.ejb.EJB;
@@ -33,6 +35,9 @@ public class ModificarEmpresaBB {
 	
 	private Object[] logoData;
 	
+	private Imagen imagen;
+	private byte[] imageToShow;
+	
 	private UploadedFile uploadedFile;
 	
 	private boolean exito;
@@ -54,6 +59,11 @@ public class ModificarEmpresaBB {
     	this.nombre = empresa.getNombre();
     	this.mail = empresa.getMailAdmin();
     	this.descripcion = empresa.getDescripcion();
+    	this.imagen = empresa.getLogo();
+    	if (this.imagen != null){
+    		this.imageToShow = this.imagen.getImagen();	
+    	} 
+    	
     	
     }
     
@@ -70,10 +80,11 @@ public class ModificarEmpresaBB {
     		empresa.setNombre(this.nombre);
         	empresa.setMailAdmin(this.mail);
         	empresa.setDescripcion(this.descripcion);
+        	empresa.setLogo(this.imagen);
         	
-    		Imagen imagen = new Imagen();
+    		/*Imagen imagen = new Imagen();
     		imagen.setImagen(this.uploadedFile.getData());
-    		empresa.setLogo(imagen);
+    		empresa.setLogo(imagen);*/
     		
 			ge.modifciarEmpresa(empresa);
 			session.setAttribute("nombreEmpresa", empresa.getNombre());    		
@@ -95,10 +106,20 @@ public class ModificarEmpresaBB {
     
     public void logoListener(FileUploadEvent event) throws Exception{
     	this.uploadedFile = event.getUploadedFile();
-    	
-        System.out.println();
+
+    	this.imagen = new Imagen();
+		this.imagen.setImagen(this.uploadedFile.getData());
+		
+        System.out.println("finlistener");
     }
     
+    
+    public void paint(OutputStream stream, Object object) throws IOException {
+    	if (this.imagen != null){
+    		stream.write(this.imageToShow);
+    	}
+    		
+    }
     
     public String finalizar() {
     	String retorno = "";
@@ -177,5 +198,13 @@ public class ModificarEmpresaBB {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public byte[] getImageToShow() {
+		return imageToShow;
+	}
+
+	public void setImageToShow(byte[] imageToShow) {
+		this.imageToShow = imageToShow;
 	}
 }
