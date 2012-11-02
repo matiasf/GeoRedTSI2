@@ -44,8 +44,12 @@
     
 	    <string name="aceptar_invitacion">Aceptar invitacion</string>
 	    <string name="rechazar_invitacion">Rechazar invitacion</string>
-
-
+	    
+	<string name="sitioDInteres">Sitios de Interes</string>
+	<string name="notificacionesLocal">Noticias Locales</string>
+	<string name="BuscarContactos">Buscar Contactos</string>
 	
+	
+		
 	
 </resources>

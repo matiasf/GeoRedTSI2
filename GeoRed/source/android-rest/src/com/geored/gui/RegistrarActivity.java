@@ -28,6 +28,7 @@ public class RegistrarActivity extends GenericActivity {
     	String passwordAgainText = ((EditText)findViewById(R.id.passwordAgainEditText)).getText().toString();
     	//showToast("<"+passwordText+">==<"+passwordAgainText+">");
     	if (passwordText.equals(passwordAgainText)){
+    		blockGUI(R.id.registrar_button);
     		RegistryAsyncTask task = new RegistryAsyncTask();
     		 task.execute(new String[] { emailText,passwordText});
     	}else
@@ -70,6 +71,7 @@ public class RegistrarActivity extends GenericActivity {
 	    	}else{
 	    		showToast(result);
 	    	}	    	
+	    	unBlockGUI(R.id.registrar_button);
 	    }
 	  }
 }

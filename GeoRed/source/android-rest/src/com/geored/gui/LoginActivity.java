@@ -19,6 +19,8 @@ public class LoginActivity extends GenericActivity {
     	String emailText = ((EditText)findViewById(R.id.emailEditText)).getText().toString();
     	String passwordText = ((EditText)findViewById(R.id.passwordEditText)).getText().toString();
     	
+    	blockGUI(R.id.login_button);
+    	
     	RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute(new String[] { emailText,passwordText});
     }
@@ -48,7 +50,8 @@ public class LoginActivity extends GenericActivity {
 	    		goToActivity(UsuarioActivity.class);
 	    	}else{
 	    		showToast(result);
-	    	}	    	
+	    	}	    
+	    	unBlockGUI(R.id.login_button);
 	    }
 	}
     

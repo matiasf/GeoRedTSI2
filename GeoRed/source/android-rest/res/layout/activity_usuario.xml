@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showBuscarContactos"
-        android:text="Buscar Contactos" />
+        android:text="@string/BuscarContactos" />
 
     <Button
         android:id="@+id/invitacionesButton"
@@ -40,11 +40,27 @@
         android:text="@string/ModificarUsuario" />
 
        <Button
+        android:id="@+id/notificacionesSitio_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sitioDInteres"
+        android:onClick="showNotificacionesSitio"
+         />
+       
+       <Button
         android:id="@+id/notificaciones_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/notificaciones"
         android:onClick="showNotificaciones"
+         />
+       
+       <Button
+        android:id="@+id/notificacionesLocal_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notificacionesLocal"
+        android:onClick="showNotificacionesLocal"
          />
 
 </LinearLayout>

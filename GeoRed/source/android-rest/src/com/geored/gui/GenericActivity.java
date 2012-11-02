@@ -1,33 +1,31 @@
 package com.geored.gui;
 
 import java.util.Hashtable;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.LoggingBehaviors;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.Settings;
 import com.geored.rest.R;
 import com.geored.rest.data.Usuario;
 
 public class GenericActivity extends Activity {
-
+	
+	protected ProgressDialog progressBar;
+	
 	protected String usuarioId;
 	protected Hashtable<String, Usuario>  hashUsuarios = new Hashtable<String,Usuario> ();
     	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+        progressBar = new ProgressDialog(this);
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setMessage("Por favor espere...");
+
         //este metodo tiene que ejecutar el setContentView(R.layout.activity_ 
         //y algo mas particular de cada vista hija/o
         loadVista();
@@ -58,4 +56,19 @@ public class GenericActivity extends Activity {
     protected void showToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+    
+	protected void blockGUI(int id) {
+		Button b = (Button)findViewById(id);
+		b.setClickable(false);
+		
+		progressBar.show();
+	}
+	
+	protected void unBlockGUI(int id) {
+		Button b = (Button)findViewById(id);
+		b.setClickable(true);
+		
+		progressBar.dismiss();
+	}
+    
 }

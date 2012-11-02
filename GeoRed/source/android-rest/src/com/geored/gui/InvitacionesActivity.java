@@ -72,6 +72,7 @@ public class InvitacionesActivity extends GenericActivity {
     
     private void showInvitacionAceptada(String idItem) {
     	if (hashUsuarios.containsKey(idItem)){
+    		progressBar.show();
 			String id = hashUsuarios.get(idItem).getId();
 			AceptarInvitacionAsyncTask task = new AceptarInvitacionAsyncTask();
 			task.execute(new String[] { id});
@@ -83,6 +84,7 @@ public class InvitacionesActivity extends GenericActivity {
 	}
 
     private void loadListView() {
+    	progressBar.show();
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute();
     }
@@ -165,6 +167,7 @@ public class InvitacionesActivity extends GenericActivity {
 	    	}else{
 	    		showToast("error");
 	    	}	    	
+	    	progressBar.dismiss();
 	    }
 	  }
 	private class AceptarInvitacionAsyncTask extends AsyncTask<String, Void, String> {
@@ -198,7 +201,8 @@ public class InvitacionesActivity extends GenericActivity {
 	    		//goToActivity(UsuarioActivity.class);
 	    	}else{
 	    		showToast("error");
-	    	}	    	
+	    	}	 
+	    	progressBar.dismiss();
 	    }
 	  }
 

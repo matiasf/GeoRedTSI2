@@ -2,25 +2,12 @@ package com.geored.gui;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.widget.Toast;
-
-import com.geored.rest.ServicioRestSitiosInteres;
-import com.geored.rest.ServicioRestUsuarios;
-import com.geored.rest.data.CheckIn;
 import com.geored.rest.data.Notificacion;
-import com.geored.rest.data.Posicion;
-import com.geored.rest.exception.NotFoundException;
-import com.geored.rest.exception.RestBlowUpException;
-import com.geored.rest.exception.UnauthorizedException;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 

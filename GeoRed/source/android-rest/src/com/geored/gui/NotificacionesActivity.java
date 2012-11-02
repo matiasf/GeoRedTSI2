@@ -1,7 +1,6 @@
 package com.geored.gui;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,12 +17,12 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-
-
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -40,6 +39,7 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 	private MapView mapView;
 	private NotificacionesItemizedOverlay itemizedoverlay;
 	
+	private ProgressDialog progressBar;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,16 +51,26 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
         
         mapView.setBuiltInZoomControls(true);
         
-                
+        progressBar = new ProgressDialog(this);
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.setMessage("Por favor espere...");
+
+        
      // Use the location manager through GPS
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, this);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+        criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+        criteria.setCostAllowed(false);     
+
+        String bestProvider = locManager.getBestProvider(criteria, true); 
+        
+        locManager.requestLocationUpdates(bestProvider, 0,0, this);
 
         //get the current location (last known location) from the location manager
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location location = locManager.getLastKnownLocation(bestProvider);
 
-
-            //if location found display as a toast the current latitude and longitude
+        //if location found display as a toast the current latitude and longitude
         if (location != null) {
 
             Toast.makeText(
@@ -81,9 +91,6 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
             // zoom 1 is top world view
             //controller.setZoom(17);
             controller.setZoom(15);
-
-            
-
             
             List<Overlay> mapOverlays = mapView.getOverlays();
             Drawable drawable = this.getResources().getDrawable(R.drawable.androidmarker);
@@ -99,8 +106,7 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
             
             controller.animateTo(point);
             showNotificaciones(location.getLatitude(),location.getLongitude());
-        } else {
-
+        } else {        	
             Toast.makeText(this, "Cannot fetch current location!",
                     Toast.LENGTH_LONG).show();
         }
@@ -109,6 +115,8 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
     }
 
     private void showNotificaciones(double lat,double lon){
+    	progressBar.show();
+    	
     	NotificacionesAsyncTask task = new NotificacionesAsyncTask();
         
         Posicion[] posiciones = new Posicion[1];
@@ -124,7 +132,13 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
     @Override
     protected void onResume() {
         super.onResume();
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, this);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+        criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+        criteria.setCostAllowed(false);     
+
+        String bestProvider = locManager.getBestProvider(criteria, true); 
+        locManager.requestLocationUpdates(bestProvider, 0,0, this);
     }
 
     @Override
@@ -182,12 +196,12 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
             mapView.getOverlays().add(itemizedoverlay);
             mapView.invalidate();
             
+            showNotificaciones(location.getLatitude(), location.getLongitude());   
         } else {
 
             Toast.makeText(this, "Cannot fetch current location!",
                     Toast.LENGTH_LONG).show();
-        }
-		showNotificaciones(location.getLatitude(), location.getLongitude());
+        }		
 	}
 
 
@@ -243,6 +257,7 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 	    	}else{
 	    		showToast("error");
 	    	}	    	
+	    	progressBar.dismiss();
 	    }
 
 		private void loadNotifications(List<Notificacion> result) {
