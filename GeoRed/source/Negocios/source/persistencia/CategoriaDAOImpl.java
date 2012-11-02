@@ -17,7 +17,7 @@ public class CategoriaDAOImpl extends BaseDAO<Categoria> implements CategoriaDAO
 	@Override
 	public List<Categoria> obtenerTodos() { 
 		TypedQuery<Categoria> ret = em.createQuery(
-				"SELECT c FROM Categoria", Categoria.class);
+				"SELECT c FROM Categoria c", Categoria.class);
 		return ret.getResultList();
 	}
 
