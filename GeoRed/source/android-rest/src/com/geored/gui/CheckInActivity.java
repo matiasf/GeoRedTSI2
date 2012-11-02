@@ -1,12 +1,9 @@
 package com.geored.gui;
 
-import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestSitiosInteres;
 import com.geored.rest.data.CheckIn;

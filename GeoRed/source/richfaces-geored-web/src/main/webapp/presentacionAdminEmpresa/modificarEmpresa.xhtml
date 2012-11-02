@@ -11,7 +11,7 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
 
-       <h:form id="modificarEmpresa">
+       <h:form id="modificarEmpresa" enctype="multipart/form-data">
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">        
 			
 			
@@ -42,10 +42,10 @@
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
               		      
-		   <!--   <h:outputLabel for="logo" value="Logo:"/>      
+		   <h:outputLabel for="logo" value="Logo:"/>      
 			  <rich:fileUpload listWidth="240px" listHeight="100px" style="width:240px; height:120px;"
 			    uploadData="#{modificarEmpresaBB.logoData}" fileUploadListener="#{modificarEmpresaBB.logoListener}"/>
-			  <rich:message for="logo" errorClass="invalid"/>-->  
+			  <rich:message for="logo" errorClass="invalid"/>  
 		      		      
 		      	      
 		     

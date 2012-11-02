@@ -83,6 +83,7 @@ public class BuscarContactosActivity extends GenericActivity {
 
 	private void showInvitar(String nombreUsuario) {
 		if (hashUsuarios.containsKey(nombreUsuario)){
+			progressBar.show();
 			String id = hashUsuarios.get(nombreUsuario).getId();
 			InvitacionAsyncTask task = new InvitacionAsyncTask();
 			task.execute(new String[] { id});
@@ -93,6 +94,7 @@ public class BuscarContactosActivity extends GenericActivity {
 	}
 
 	private void loadListView() {
+		progressBar.show();
 		//TODO:hacer que el parametro de filtro funcione 
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		//TODO:sacar el parametro hardcoreado
@@ -154,6 +156,7 @@ public class BuscarContactosActivity extends GenericActivity {
 	    	}else{
 	    		showToast("error");
 	    	}	    	
+	    	progressBar.dismiss();
 	    }
 	  }
     
@@ -189,27 +192,11 @@ public class BuscarContactosActivity extends GenericActivity {
 	    		Intent i = new Intent(getApplicationContext(), UsuarioActivity.class);
 				i.putExtra("user_id",usuarioId); 
 		    	startActivity(i);
-		    	
-	    		//loadListView(result);
-	    		//goToActivity(UsuarioActivity.class);
 	    	}else{
 	    		showToast("error");
-	    	}	    	
+	    	}	 
+	    	progressBar.dismiss();
 	    }
 	  }
-/*
-	private void loadListViewHardCoreData2() {
-    	
-		List<String> strs = new ArrayList<String>(); 
-		
-		for(int i=0; i < 15;i++){
-			strs.add("Usuario "+Integer.toString(i));
-		}
-		
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, strs);
-        
-        setListAdapter(adapter);
-    }
-  */  
+
 }

@@ -23,6 +23,27 @@
     <param-name>facelets.SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
+  
+  <filter>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+		<init-param>
+		<param-name>createTempFiles</param-name>
+		<param-value>false</param-value>
+		</init-param>
+		<init-param>
+		<param-name>maxRequestSize</param-name>
+		<param-value>10000000</param-value>
+		</init-param>
+	</filter>
+<filter-mapping>
+<filter-name>richfaces</filter-name>
+<servlet-name>Faces Servlet</servlet-name>
+<dispatcher>REQUEST</dispatcher>
+<dispatcher>FORWARD</dispatcher>
+<dispatcher>INCLUDE</dispatcher>
+</filter-mapping>
 
   <!-- add a welcome-file-list entry to allow JSF pages to be sued as welcome files -->
   <welcome-file-list>
