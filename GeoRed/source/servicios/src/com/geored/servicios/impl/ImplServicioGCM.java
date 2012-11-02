@@ -55,8 +55,8 @@ public class ImplServicioGCM implements ServicioGCM {
 			try {
 				response.setStatus(Response.Status.OK.getStatusCode());
 				Message message = new Message.Builder().addData("mensaje", mensaje.getMessage()).
-						addData("idUsuario", mensaje.getIdUsuario().toString()).build();
-				String idDevice = gestionDevices.getDevice(gestionTokens.getIdUsuario(userToken));
+						addData("idUsuario", gestionTokens.getIdUsuario(userToken).toString()).build();
+				String idDevice = gestionDevices.getDevice(mensaje.getIdUsuario());
 				sender.send(message, idDevice, RETRY_ATTEMPS);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -67,5 +67,4 @@ public class ImplServicioGCM implements ServicioGCM {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
 	}
-
 }
