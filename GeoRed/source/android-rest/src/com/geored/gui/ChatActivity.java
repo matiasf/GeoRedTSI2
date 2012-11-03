@@ -4,6 +4,7 @@ import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestGCM;
 import com.geored.rest.data.Mensaje;
+import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
@@ -53,7 +54,7 @@ public class ChatActivity extends GenericActivity {
         //View header = (View)getLayoutInflater().inflate(R.layout.activity_chat_header_row, null);
         //listView1.addHeaderView(header);
         
-
+        
         View footer = (View)getLayoutInflater().inflate(R.layout.activity_chat_footer_row, null);
         listView1.addFooterView(footer);
         
@@ -63,7 +64,7 @@ public class ChatActivity extends GenericActivity {
         			progressBar.show();
         			String text = ((EditText) findViewById(R.id.txtTextoEnviar)).getText().toString();
         			EnviarAsyncTask task = new EnviarAsyncTask();
-        			task.execute(new String[] { text, "10" });
+        			task.execute(new String[] { text, "2" });
         			//enviarMensaje(); 
         		}
         	});
@@ -71,7 +72,7 @@ public class ChatActivity extends GenericActivity {
         listView1.setAdapter(adapter);
     }
 	
-	private String enviarMensaje(String mensaje, String id) throws RestBlowUpException, UnauthorizedException{
+	private String enviarMensaje(String mensaje, String id) throws RestBlowUpException, UnauthorizedException, NotFoundException {
 		
 			Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
 			ServicioRestGCM.enviarMensaje(msj);
