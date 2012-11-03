@@ -1,5 +1,6 @@
 package persistencia;
 
+import java.util.Calendar;
 import java.util.List;
 
 public interface SitioInteresDAO {
@@ -21,4 +22,14 @@ public interface SitioInteresDAO {
 	public List<SitioInteres> obtenerParaUsuario(int id);
 	
 	public long cantCheckInSitio(int idSitio);
+	
+	public long cantCheckInSitioDesde(int idSitio, Calendar fecha);
+	
+	public long cantCheckInSitioHasta(int idSitio, Calendar fecha);
+	
+	public long cantCheckInSitioEntre(int idSitio, Calendar inicio, Calendar fin);
+	
+	
+	
+	
 }
