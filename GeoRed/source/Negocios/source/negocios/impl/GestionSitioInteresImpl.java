@@ -97,4 +97,9 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 		return sitioInteresDAO.cantCheckInSitio(idSitio);
 	}
 
+	@Override
+	public List<CheckIn> obtenerCheckInsAmigosLocal(int idUsuario, int idSitio) {
+		return checkInDAO.getCheckInAmigosLocal(idUsuario, idSitio);
+	}
+
 }

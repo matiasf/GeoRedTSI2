@@ -13,5 +13,5 @@ public interface CheckInDAO {
 	
 	public List<CheckIn> getCheckInAmigos(int idUsuario);
 	
-
+	public List<CheckIn> getCheckInAmigosLocal(int idUsuario, int idSitio);
 }

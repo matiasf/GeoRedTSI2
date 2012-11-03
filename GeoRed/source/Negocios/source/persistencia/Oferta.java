@@ -17,6 +17,7 @@ public class Oferta implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue
 	private int id;
 	@NotNull
 	private String nombre;
