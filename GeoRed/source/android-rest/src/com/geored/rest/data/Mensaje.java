@@ -5,6 +5,14 @@ public class Mensaje {
 	private Integer idUsuario;
 	private String message;
 	
+	public Mensaje(){
+	}
+	
+	public Mensaje(Integer idUsuario, String message){
+		this.idUsuario = idUsuario;
+		this.message = message;
+	}
+	
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
