@@ -4,22 +4,28 @@ package javaBB;
 public class DatoReporteCheckIn {
 
 	   
-	
+	public int codigo;
 	public String nombre;	
 	public String descripcion;	
 	public double latitud;
 	public double longitud;
 	public int cantidad;
 	
-	public DatoReporteCheckIn(String nombre, String descripcion,
+	public DatoReporteCheckIn(int codigo, String nombre, String descripcion,
 			double latitud, double longitud, int cantidad) {	
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.cantidad = cantidad;
 	}
-	
+	public int getCodigo() {
+		return this.codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 	public String getNombre() {
 		return this.nombre;
 	}

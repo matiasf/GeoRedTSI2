@@ -15,7 +15,7 @@
    			initializeConPunto();
    </h:outputScript>
    
-   
+		<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres.jsf" style="color:black;">Recargar</a>   
        
 
 	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
@@ -44,7 +44,7 @@
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
 		      <h:inputTextarea
                     maxlength="200"
-                    cols="36" rows="10"
+                    cols="34" rows="10"
                     value="#{modificarSitioInteresBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>

@@ -18,9 +18,9 @@
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre:"/>
-		      <h:selectOneMenu value="#{modificarCategoriaBB.sitioSelected}" style="width:200px;">
-				  <f:selectItem itemLabel="Seleccione sitio" itemValue="-1" />
-				  <f:selectItems value="#{modificarCategoriaBB.sitios}"/>				  
+		      <h:selectOneMenu value="#{modificarCategoriaBB.objectSelected}" style="width:200px;">
+				  <f:selectItem itemLabel="Seleccione Categoria" itemValue="-1" />
+				  <f:selectItems value="#{modificarCategoriaBB.objects}"/>				  
 				</h:selectOneMenu>				
 		      <rich:message for="name" errorClass="invalid"/>     
 		   </h:panelGrid>
