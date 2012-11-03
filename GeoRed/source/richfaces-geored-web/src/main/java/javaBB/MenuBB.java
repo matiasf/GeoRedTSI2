@@ -55,7 +55,7 @@ public class MenuBB extends LoginBB {
     }
     
     public String modificarEmpresa() {
-    	return "/presentacionAdminSistema/modificarEmpresa.xhtml";
+    	return "/presentacionAdminEmpresa/modificarEmpresa.xhtml";
     	//return "modificarEmpresa";
     	
     }
@@ -74,6 +74,32 @@ public class MenuBB extends LoginBB {
 		return "/presentacionAdminSistema/bajaSitioInteres0.xhtml";
 		//return "bajaSitioInteres";
 	}
+	
+	public String altaLocal(){
+		return "/presentacionAdminEmpresa/altaLocal.xhtml";
+	}
+	
+	public String modificarLocal(){
+		return "/presentacionAdminEmpresa/modificarLocal0.xhtml";
+	}
+	
+	public String bajaLocal(){
+		return "/presentacionAdminEmpresa/bajaLocal.xhtml";
+	}
+	
+	public String altaOferta(){
+		return "/presentacionAdminEmpresa/altaOferta.xhtml";
+	}
+	
+	public String modificarOferta(){
+		return "/presentacionAdminEmpresa/modificarOferta0.xhtml";
+	}
+	
+	public String bajaOferta(){
+		return "/presentacionAdminEmpresa/bajaOferta.xhtml";
+	}
+	
+	
     
     public String logout() {
     	String retorno = "";

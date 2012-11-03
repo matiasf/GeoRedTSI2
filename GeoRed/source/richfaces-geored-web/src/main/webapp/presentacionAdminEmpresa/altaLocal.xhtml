@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -10,12 +10,14 @@
                 
                 
 <ui:define name="content">
+	<h:outputStylesheet name="app.css" library="css"/>
    <h:outputScript target="head" name="cargarMapa.js" library="js"/>
+   
    <h:outputScript target="body">
    			initialize();
    </h:outputScript>    
 
-	   <div id="map_canvas" style="width:400px; height:400px"> </div>
+	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
        <h:form id="form">
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Local" headerClass="header">
 			
@@ -39,11 +41,11 @@
 		      <rich:message for="coordY" errorClass="invalid"/>
 		      
 		      <h:outputLabel for="descripcion" value="Descripcion:" />      
-		      <h:inputTextarea
+		      <h:inputTextarea id="descripcion"
                     maxlength="200"
                     cols="36" rows="10"
                     value="#{altaLocalBB.descripcion}"
-                    id="description"></h:inputTextarea>
+                    ></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
 
 		   </h:panelGrid>
