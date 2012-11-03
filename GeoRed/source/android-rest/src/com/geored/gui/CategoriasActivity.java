@@ -105,6 +105,7 @@ private class AgregarAsyncTask extends AsyncTask<String, Void, String> {
     		showToast("error al agregar las categorias");
     	}
     	progressBar.dismiss();
+    	goToActivity(UsuarioActivity.class);
     }
 }
 	
