@@ -69,10 +69,10 @@ public class CategoriasActivity extends GenericActivity {
 	
 	private Mensaje continuar(String mensaje, String id) throws RestBlowUpException, UnauthorizedException{
 		
-		Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
-		ServicioRestGCM.enviarMensaje(msj);
+		//Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
+		//ServicioRestGCM.enviarMensaje(msj);
 		
-		return msj;
+		return null;
 }
 
 private class AgregarAsyncTask extends AsyncTask<String, Void, Mensaje> {

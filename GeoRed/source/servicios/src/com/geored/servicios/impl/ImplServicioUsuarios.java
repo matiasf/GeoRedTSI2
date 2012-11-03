@@ -1,5 +1,6 @@
 package com.geored.servicios.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,13 +12,16 @@ import javax.ws.rs.core.Response;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import persistencia.Pago;
 import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
 import com.geored.servicios.impl.auth.GestionTokens;
+import com.geored.servicios.impl.gcm.GestionDevices;
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
 import com.geored.servicios.json.converters.ConvertidorEntityJSON;
@@ -32,6 +36,9 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	@EJB
 	GestionTokens gestionTokens;
 	
+	@EJB
+	GestionDevices gestionDevices;
+
 	@EJB
 	ConvertidorEntityJSON convertidorEntityJSON;
 	
@@ -52,7 +59,16 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		if (gestionTokens.validarToken(userToken)) {
 			try {
 				response.setStatus(Response.Status.OK.getStatusCode());
-				return convertidorEntityJSON.convert(gestionUsuarios.getContactos(gestionTokens.getIdUsuario(userToken)));
+				List<Usuario> listTmp = gestionUsuarios.getContactos(gestionTokens.getIdUsuario(userToken));
+				List<Usuario> onLine = new ArrayList<Usuario>();
+				String idDevice;
+				for (Usuario usuario : listTmp) {
+					idDevice = gestionDevices.getDevice(usuario.getId());
+//					if (idDevice != null && idDevice.isEmpty()) {
+						onLine.add(usuario);
+//					}
+				}
+				return convertidorEntityJSON.convert(onLine);
 			} catch (EntidadNoExiste e) {
 				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
 			}
@@ -205,6 +221,21 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
 		return null;
+	}
+	
+	@Override
+	public void comprarOferta(final String userToken, final HttpServletResponse response, final Integer idOferta, final PagoJSON pagoJSON) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			try {
+				gestionUsuarios.comprarOferta(gestionTokens.getIdUsuario(userToken), idOferta, convertidorEntityJSON.convertir(pagoJSON));
+			} catch (EntidadNoExiste e) {
+				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
+			}
+		}
+		else{
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
 	}
 
 }

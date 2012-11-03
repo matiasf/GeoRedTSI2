@@ -12,11 +12,17 @@ import com.geored.gui.LoginActivity;
 import com.geored.gui.NotificacionesActivity;
 import com.geored.gui.RegistrarActivity;
 import com.geored.gui.map.MapsDemo;
+import com.google.android.gcm.GCMRegistrar;
 
 public class Main extends GenericActivity {
 
+	private final static String SENDER_ID = "786328023735";
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		GCMRegistrar.register(this, SENDER_ID);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

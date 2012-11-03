@@ -11,37 +11,37 @@ import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 
 public class GCMIntentService extends GCMBaseIntentService {
+	
+	private final static String EXTRA_MESSAGE = "message";
 
 	@Override
 	protected void onError(Context context, String errorId) {
-		Log.i(TAG, "Received error: " + errorId);
-		// displayMessage(context, getString(R.string.gcm_error, errorId));
+		Log.e(TAG, "Received error from GCM: " + errorId);
 	}
 
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 		Log.i(TAG, "Received message");
-		//String message = getString(R.string.gcm_message);
-		displayMessage(context, "REgistrado minieri");
+		Mensaje mensaje = new Mensaje();
+		mensaje.setIdUsuario(Integer.valueOf(intent.getExtras().getString("idUsuario")));
+		mensaje.setMessage(intent.getExtras().getString("mensaje"));
+		displayMessage(context, mensaje);
 	}
 
 	@Override
 	protected void onRegistered(Context context, String regId) {
 		Log.i(TAG, "Device registered: regId = " + regId);
-		displayMessage(context, "");
 		try {
 			ServicioRestGCM.registrar(regId);
-			Mensaje mensaje = new Mensaje();
-			mensaje.setIdUsuario(1);
-			mensaje.setMessage("Hola GCM!");
-			ServicioRestGCM.enviarMensaje(mensaje);
-		} catch (RestBlowUpException e) {
+		} 
+		catch (RestBlowUpException e) {
 			GCMRegistrar.unregister(context);
 			Log.w("Warning", e.getMessage(), e);
-		} catch (UnauthorizedException e) {
+		} 
+		catch (UnauthorizedException e) {
 			GCMRegistrar.unregister(context);
 			Log.w("Warning", e.getMessage(), e);
-		}
+		} 
 	}
 
 	@Override
@@ -62,9 +62,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 		}
 	}
 
-	static void displayMessage(Context context, String message) {
+	static void displayMessage(Context context, Mensaje mensaje) {
 		Intent intent = new Intent("com.google.android.gcm.demo.app.DISPLAY_MESSAGE");
-		intent.putExtra("message", message);
+		intent.putExtra(EXTRA_MESSAGE, mensaje.getIdUsuario() + ": " + mensaje.getMessage());
 		context.sendBroadcast(intent);
 	}
 

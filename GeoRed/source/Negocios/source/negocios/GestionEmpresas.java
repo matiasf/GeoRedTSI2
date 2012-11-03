@@ -1,6 +1,7 @@
 package negocios;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -45,5 +46,9 @@ public interface GestionEmpresas {
 	public int altaEvento(Evento evento);
 	
 	public List<Evento> obtenerEventos(Calendar desdeFecha);
+	
+	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
+	
+	
 	
 }

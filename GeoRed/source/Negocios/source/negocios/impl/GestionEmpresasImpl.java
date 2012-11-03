@@ -18,7 +18,6 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
-import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
 import negocios.impl.mailSender.MailSender;
@@ -145,6 +144,20 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	@Override
 	public List<Evento> obtenerEventos(Calendar desdeFecha) {
 		return eventoDAO.obtenerEventos(desdeFecha);
+	}
+
+	@Override
+	public void agregarCategoriasOferta(int idOferta,
+			Collection<Integer> idCategorias) {
+		
+		Oferta oferta = ofertaDAO.buscarPorId(idOferta);
+		for (Integer idCategoria : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCategoria);
+			if (!oferta.getCategorias().contains(cat)) {
+				oferta.getCategorias().add(cat);
+			}
+		}
+		
 	}
 
 }

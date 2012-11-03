@@ -20,6 +20,11 @@ public class SitioInteresDAOIpml extends BaseDAO<SitioInteres> implements
 			"	SELECT c FROM Usuario u JOIN u.categorias c" +
 			"		WHERE c = csi AND" +
 			"		u.id = :userId)";
+	
+	private static final String cantCheckInsQuery = 
+			"SELECT count(c.id) " +
+			"FROM SitioInteres si JOIN si.checkIns c " +
+			"WHERE si.id = :idSitio";
 
 	@Override
 	public SitioInteres buscarPorId(int id) {
@@ -38,6 +43,14 @@ public class SitioInteresDAOIpml extends BaseDAO<SitioInteres> implements
 		TypedQuery<SitioInteres> query = em.createQuery(obtenerCatUsuarioQuery, SitioInteres.class);
 		query.setParameter("userId", id);
 		return query.getResultList();
+	}
+
+	@Override
+	public long cantCheckInSitio(int idSitio) {
+		TypedQuery<Long> query = em.createQuery(cantCheckInsQuery, Long.class);
+		query.setParameter("idSitio", idSitio);
+		Long ret = query.getSingleResult();
+		return ret;
 	}
 
 }

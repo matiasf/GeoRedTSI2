@@ -6,6 +6,7 @@ import java.util.List;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestGCM;
 import com.geored.rest.data.Mensaje;
+import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 import com.google.android.gcm.GCMRegistrar;
@@ -26,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class ChatActivity extends GenericActivity {
 
 	private ListView listView1;
@@ -40,25 +42,17 @@ public class ChatActivity extends GenericActivity {
     	setContentView(R.layout.activity_chat);
     	
     	Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("user_id");
-            
-            TextView txtView = (TextView)findViewById(R.id.textView2);
-            txtView.setText(value);
-            
-        }
+        final String value = extras.getString("user_id");            
+        TextView txtView = (TextView)findViewById(R.id.textView2);
+        txtView.setText(value);
         
-        List<Mensaje> data = new ArrayList<Mensaje>();
-        
-        MensajeAdapter adapter = new MensajeAdapter(this, 
-                        R.layout.activity_chat_item, data);
-                
+        List<Mensaje> data = new ArrayList<Mensaje>();        
+        MensajeAdapter adapter = new MensajeAdapter(this, R.layout.activity_chat_item, data);
                 
         listView1 = (ListView)findViewById(R.id.chatlistView);
                  
         //View header = (View)getLayoutInflater().inflate(R.layout.activity_chat_header_row, null);
-        //listView1.addHeaderView(header);
-        
+        //listView1.addHeaderView(header);        
 
         View footer = (View)getLayoutInflater().inflate(R.layout.activity_chat_footer_row, null);
         listView1.addFooterView(footer);
@@ -72,11 +66,9 @@ public class ChatActivity extends GenericActivity {
         			progressBar.show();
         			String text = ((EditText) findViewById(R.id.txtTextoEnviar)).getText().toString();
         			EnviarAsyncTask task = new EnviarAsyncTask();
-        			task.execute(new String[] { text, "10" });
-        			//enviarMensaje(); 
-        		}
-        	});
-                
+        			task.execute(new String[] { text, value }); 
+        	}
+        });
         listView1.setAdapter(adapter);
         
         
@@ -113,16 +105,20 @@ public class ChatActivity extends GenericActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
-			Toast.makeText(ChatActivity.this, newMessage, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(ChatActivity.this, newMessage, Toast.LENGTH_LONG).show();
 		}
 	};
 	
 	private Mensaje enviarMensaje(String mensaje, String id) throws RestBlowUpException, UnauthorizedException{
 		
 			Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
-			ServicioRestGCM.enviarMensaje(msj);
+			try {
 			
+				ServicioRestGCM.enviarMensaje(msj);
+				
+			} catch (NotFoundException e) {
+				Log.i("INFO", "El usuario " + id + " no esta conetado.");
+			}
 			return msj;
 	}
 	
@@ -133,14 +129,15 @@ public class ChatActivity extends GenericActivity {
 				return enviarMensaje(params[0], params[1]);
 			} catch (RestBlowUpException e) {
 				Log.e("Error", "Rest blow up!", e);
-				return null;
+				
 			} catch (UnauthorizedException e) {
 				Log.w("Warning", "Unautorized!", e);
-				return null;
+				
 			}catch(Exception ex){
 				showToast("error al mandar el mensaje");
-				return null;
+				
 			}
+			return null;
 		}
 	
 	    @Override
@@ -155,6 +152,36 @@ public class ChatActivity extends GenericActivity {
 	    	progressBar.dismiss();
 	    }
 	}
- 
+
+	
+/*
+    private ListView listView1;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        Weather weather_data[] = new Weather[]
+        {
+            new Weather(R.drawable.weather_cloudy, "Cloudy"),
+            new Weather(R.drawable.weather_showers, "Showers"),
+            new Weather(R.drawable.weather_snow, "Snow"),
+            new Weather(R.drawable.weather_storm, "Storm"),
+            new Weather(R.drawable.weather_sunny, "Sunny")
+        };
+        
+        WeatherAdapter adapter = new WeatherAdapter(this, 
+                R.layout.listview_item_row, weather_data);
+        
+        
+        listView1 = (ListView)findViewById(R.id.listView1);
+         
+        View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
+        listView1.addHeaderView(header);
+        
+        listView1.setAdapter(adapter);
+	    
+  */  
     
 }

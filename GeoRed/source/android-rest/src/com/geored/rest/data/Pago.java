@@ -1,11 +1,9 @@
-package com.geored.servicios.json;
+package com.geored.rest.data;
 
-import javax.xml.bind.annotation.XmlRootElement;
+public class Pago {
 
-@XmlRootElement
-public class CheckInJSON {
-	
 	private Integer id;
+	private Integer evaluacion;
 	private String comentario;
 	
 	public Integer getId() {
@@ -16,12 +14,20 @@ public class CheckInJSON {
 		this.id = id;
 	}
 	
+	public Integer getEvaluacion() {
+		return evaluacion;
+	}
+	
+	public void setEvaluacion(Integer evaluacion) {
+		this.evaluacion = evaluacion;
+	}
+	
 	public String getComentario() {
 		return comentario;
 	}
 	
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
-	}	
+	}
 
 }
