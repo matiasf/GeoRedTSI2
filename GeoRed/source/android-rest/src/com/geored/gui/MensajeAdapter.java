@@ -1,5 +1,7 @@
 package com.geored.gui;
 
+import java.util.List;
+
 import com.geored.rest.data.Mensaje;
 
 import com.geored.rest.R;
@@ -15,15 +17,20 @@ public class MensajeAdapter extends ArrayAdapter<Mensaje>{
 
 	 Context context; 
 	    int layoutResourceId;    
-	    Mensaje data[] = null;
+	    List<Mensaje>  data = null;
 	    
-	    public MensajeAdapter(Context context, int layoutResourceId, Mensaje[] data) {
+	    public MensajeAdapter(Context context, int layoutResourceId, List<Mensaje> data) {
 	        super(context, layoutResourceId, data);
 	        this.layoutResourceId = layoutResourceId;
 	        this.context = context;
 	        this.data = data;
 	    }
 
+	    public void add(Mensaje xxx)
+	    {
+	        data.add(xxx);
+	    }
+	    
 	    @Override
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        View row = convertView;
@@ -45,7 +52,7 @@ public class MensajeAdapter extends ArrayAdapter<Mensaje>{
 	            holder = (MensajeHolder)row.getTag();
 	        }
 	        
-	        Mensaje mensaje = data[position];
+	        Mensaje mensaje = data.get(position);
 	        holder.txtNombre.setText(mensaje.getIdUsuario().toString());
 	        holder.txtTexto.setText(mensaje.getMessage());
 	        
