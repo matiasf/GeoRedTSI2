@@ -12,4 +12,8 @@ public interface OfertaDAO {
 	public Oferta buscarPorId(int id);
 	
 	public List<Oferta> ofertasRelacionadas(int idLocal, int idUsuario);
+	
+	public float promedioValoraciones(int idOferta);
+
+	public void flush();
 }
