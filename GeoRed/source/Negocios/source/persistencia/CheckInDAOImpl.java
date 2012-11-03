@@ -13,7 +13,13 @@ public class CheckInDAOImpl extends BaseDAO<CheckIn> implements CheckInDAO {
 			"	JOIN u.contactos con " +
 			"	JOIN con.checkIns c " +
 			"	WHERE u.id = :userId";
-					
+	
+	private static final String getCheckInAmigosLocal = 
+			"SELECT c FROM Usuario u " +
+			"	JOIN u.contactos con " +
+			"	JOIN con.checkIns c " +
+			"	WHERE u.id = :userId " +
+			"		AND c.sitioInteres.id = :sitioId";
 	
 	@Override
 	public CheckIn buscarPorId(int id) {
@@ -24,6 +30,14 @@ public class CheckInDAOImpl extends BaseDAO<CheckIn> implements CheckInDAO {
 	public List<CheckIn> getCheckInAmigos(int idUsuario) {
 		TypedQuery<CheckIn> query = em.createQuery(getCheckInAmigos, CheckIn.class);
 		query.setParameter("userId", idUsuario);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<CheckIn> getCheckInAmigosLocal(int idUsuario, int sitioId) {
+		TypedQuery<CheckIn> query = em.createQuery(getCheckInAmigosLocal, CheckIn.class);
+		query.setParameter("userId", idUsuario);
+		query.setParameter("sitioId", sitioId);
 		return query.getResultList();
 	}
 

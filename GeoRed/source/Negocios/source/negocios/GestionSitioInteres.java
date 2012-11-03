@@ -29,4 +29,6 @@ public interface GestionSitioInteres {
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
 	
 	public long cantCheckInsSitio(int idSitio);
+	
+	public List<CheckIn> obtenerCheckInsAmigosLocal(int idUsuario, int idSitio);
 }
