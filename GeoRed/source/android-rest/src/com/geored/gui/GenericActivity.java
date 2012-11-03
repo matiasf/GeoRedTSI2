@@ -32,8 +32,7 @@ public class GenericActivity extends Activity {
         
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-        	usuarioId = extras.getString("user_id");
-        
+        	usuarioId = extras.getString("user_id");        
         }
     }
     

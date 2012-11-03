@@ -10,6 +10,7 @@ import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.CheckInJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
 
@@ -19,6 +20,7 @@ import persistencia.Evento;
 import persistencia.Invitacion;
 import persistencia.Local;
 import persistencia.Notificacion;
+import persistencia.Pago;
 import persistencia.SitioInteres;
 import persistencia.Usuario;
 
@@ -114,6 +116,13 @@ public class ConvertidorEntityJSON {
 		usuario.setId(usuarioJSON.getId() == null ? 0 : usuarioJSON.getId());
 		usuario.setNombre(usuarioJSON.getNombre());
 		return usuario;
+	}
+	
+	public Pago convertir(PagoJSON pagoJSON) {
+		Pago pago = new Pago();
+		pago.setEvaluacion(pagoJSON.getEvaluacion());
+		pago.setComentario(pagoJSON.getComentario());
+		return pago;
 	}
 	
 	@SuppressWarnings("unchecked")
