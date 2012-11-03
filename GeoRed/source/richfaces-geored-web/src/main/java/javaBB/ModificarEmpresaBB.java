@@ -90,6 +90,7 @@ public class ModificarEmpresaBB {
 			session.setAttribute("nombreEmpresa", empresa.getNombre());    		
     		session.setAttribute("mailEmpresa", empresa.getMailAdmin());
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
+    		context.getExternalContext().getSessionMap().remove("altaEmpresaBB");
     		
      		
     		
