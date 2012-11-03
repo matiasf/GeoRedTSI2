@@ -1,5 +1,7 @@
 package com.geored.servicios.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -42,6 +44,18 @@ public class ImplServicioSitiosInteres implements ServicioSitiosInteres {
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
+	}
+	
+	@Override
+	public List<CheckInJSON> getCheckIns(final String userToken, final HttpServletResponse response, final Integer idSitioInteres) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convert(gestionSitioInteres.obtenerCheckInsAmigosLocal(gestionTokens.getIdUsuario(userToken), idSitioInteres));	
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
 	}
 
 }

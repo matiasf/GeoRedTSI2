@@ -12,11 +12,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
-import persistencia.Pago;
-
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.OfertaJSON;
 import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
@@ -101,5 +100,10 @@ public interface ServicioUsuarios {
 	@Path("ofertas/{idOferta}")
 	void comprarOferta(@HeaderParam("Security-Token") final String userToken, @Context HttpServletResponse response, 
 			@PathParam("{idOferta}") final Integer idOferta, final PagoJSON pago);
+
+	@GET
+	@Path("ofertas/{idLocal}")
+	List<OfertaJSON> getOfertasLocal(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			@PathParam("{idLocal}") final Integer idLocal);
 
 }

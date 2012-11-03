@@ -13,6 +13,8 @@ import com.geored.rest.data.Posicion;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
+import com.google.android.gcm.GCMRegistrar;
+
 import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
@@ -28,10 +30,14 @@ import android.widget.Toast;
 public class UsuarioActivity extends GenericActivity implements LocationListener {
 
 	private LocationManager locManager; 
-	
+
+	private final static String SENDER_ID = "786328023735";
 	
 	@Override
 	protected void loadVista() {
+		GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		GCMRegistrar.register(this, SENDER_ID);
 		setContentView(R.layout.activity_usuario);
 		
 	     // Use the location manager through GPS
@@ -145,13 +151,12 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
 				  }
 	    	}catch(Exception ex){
 	    		showToast(ex.getMessage());    		
-	    	}
-			
+	    	}		
 		}
-	  }
+	 }
 
     
-	    @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
