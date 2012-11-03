@@ -12,9 +12,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
+import persistencia.Pago;
+
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
 
@@ -93,5 +96,10 @@ public interface ServicioUsuarios {
 	@Produces("application/json")
 	List<NotificacionJSON> getNotificaciones(@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response, final PosicionJSON posicion);
+
+	@POST
+	@Path("ofertas/{idOferta}")
+	void comprarOferta(@HeaderParam("Security-Token") final String userToken, @Context HttpServletResponse response, 
+			@PathParam("{idOferta}") final Integer idOferta, final PagoJSON pago);
 
 }

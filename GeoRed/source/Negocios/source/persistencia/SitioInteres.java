@@ -1,8 +1,11 @@
 package persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +42,7 @@ public class SitioInteres implements Serializable, Notificacion {
 	@OneToMany(mappedBy="sitioInteres")
 	private Collection<CheckIn> checkIns;
 
-	@OneToMany
+	@OneToMany(cascade={CascadeType.ALL})
 	private Collection<Imagen> fotos;
 	
 	public SitioInteres() {
@@ -103,5 +106,13 @@ public class SitioInteres implements Serializable, Notificacion {
 		this.googleCalendarId = googleCalendarId;
 	}
 	
-	
+	public List<Notificacion> getCheckInAmigos(Usuario usuario) {
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for (CheckIn checkIn : checkIns) {
+			if (checkIn.getUsuario().getContactos().contains(usuario)) {
+				ret.add(checkIn);
+			}
+		}
+		return ret;
+	}
 }

@@ -2,7 +2,6 @@ package negocios.impl.eventosExternos;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +21,7 @@ import persistencia.Evento;
 
 public class GoogleCalendarFeed {
 	
-	private final static String BASEURL = "http://www.google.com/calendar/feeds/%1/public/full?futureevents=true&orderby=starttime&sortorder=ascending"; 
+	private final static String BASEURL = "http://www.google.com/calendar/feeds/%1/public/full?futureevents=true&orderby=starttime&sortorder=ascending&max-results=15"; 
 	
 	static final String ENTRY = "entry";
 	static final String WHEN = "when";

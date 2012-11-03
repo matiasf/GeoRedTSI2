@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.rest.data.Categoria;
 import com.geored.rest.data.Invitacion;
 import com.geored.rest.data.Notificacion;
+import com.geored.rest.data.Pago;
 import com.geored.rest.data.Posicion;
 import com.geored.rest.data.Usuario;
 import com.geored.rest.exception.ConflictException;
@@ -33,6 +34,8 @@ public class ServicioRestUsuarios extends ServicioRest {
 			+ "/categorias";
 	final private static String URL_NOTIFICACIONES = SERVICIO_REST_USUARIOS_URL
 			+ "/notificaciones";
+	final private static String URL_OFERTAS = SERVICIO_REST_USUARIOS_URL
+			+ "/ofertas";
 	
 	public static List<Usuario> buscarContactos(String query) throws RestBlowUpException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -284,6 +287,29 @@ public class ServicioRestUsuarios extends ServicioRest {
 			} catch (Exception e) {
 				throw new RestBlowUpException(e.getLocalizedMessage());
 			}
+		}
+		else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
+			throw new NotFoundException();
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}
+	}
+	
+	public static void comprarOferta(final Integer idOferta, final Pago pago) throws RestBlowUpException, UnauthorizedException, NotFoundException {
+		ObjectMapper mapper = new ObjectMapper();
+		HttpResponse response;
+		try {
+			response = rest(Metodos.POST, URL_OFERTAS + "/" + idOferta, mapper.writeValueAsString(pago));
+		} catch (Exception e) {
+			Log.e("FATAL ERROR", e.getMessage(), e);
+			throw new RestBlowUpException(e.getMessage());
+		}
+		if (response.getStatusLine().getStatusCode() == OK || response.getStatusLine().getStatusCode() == NOT_CONTENT) {
+			return;
 		}
 		else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
 			throw new NotFoundException();

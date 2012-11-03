@@ -92,4 +92,9 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 		
 	}
 
+	@Override
+	public long cantCheckInsSitio(int idSitio) {
+		return sitioInteresDAO.cantCheckInSitio(idSitio);
+	}
+
 }

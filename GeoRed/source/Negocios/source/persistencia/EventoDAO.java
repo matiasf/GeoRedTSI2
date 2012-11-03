@@ -15,5 +15,7 @@ public interface EventoDAO {
 	public Evento buscarPorId(int id);
 	
 	public List<Evento> obtenerEventos(Calendar fecha);
+	
+	public List<Evento> obtenerEventosNotificacion(Calendar fecha);
 
 }

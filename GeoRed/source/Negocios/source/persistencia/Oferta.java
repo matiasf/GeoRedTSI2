@@ -34,7 +34,7 @@ public class Oferta implements Serializable {
 	@ManyToOne
 	private Local local;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Imagen foto;
 	
 	@ManyToMany

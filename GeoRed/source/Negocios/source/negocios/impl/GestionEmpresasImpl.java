@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
@@ -17,9 +18,9 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
-import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
+import negocios.impl.mailSender.MailSender;
 
 @Stateless
 public class GestionEmpresasImpl implements GestionEmpresas {
@@ -36,15 +37,18 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	private EventoDAO eventoDAO;
 	
 	
-	
 	@Override
 	public boolean chechLogin(String email, String password) {
 		return empresaDAO.checkLogin(email, password);
 	}
 
 	@Override
-	public void agregarEmpresa(Empresa empresa) {
+	public void agregarEmpresa(Empresa empresa) throws MessagingException {
 		empresaDAO.insertar(empresa);
+		String asunto = "Bienvenido a GeoredUy";
+		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";
+		MailSender mailSender = new MailSender(empresa.getMailAdmin(), asunto, cuerpo);
+		mailSender.send();
 	}
 
 	@Override
@@ -140,6 +144,20 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	@Override
 	public List<Evento> obtenerEventos(Calendar desdeFecha) {
 		return eventoDAO.obtenerEventos(desdeFecha);
+	}
+
+	@Override
+	public void agregarCategoriasOferta(int idOferta,
+			Collection<Integer> idCategorias) {
+		
+		Oferta oferta = ofertaDAO.buscarPorId(idOferta);
+		for (Integer idCategoria : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCategoria);
+			if (!oferta.getCategorias().contains(cat)) {
+				oferta.getCategorias().add(cat);
+			}
+		}
+		
 	}
 
 }
