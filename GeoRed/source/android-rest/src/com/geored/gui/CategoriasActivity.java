@@ -25,13 +25,14 @@ public class CategoriasActivity extends GenericActivity {
 	
 	private List<Categoria> data = null;
 	private Button continuarButton = null; 
+	private CategoriaAdapter adapter = null;
 	
 	protected void loadVista() {
     	setContentView(R.layout.activity_categorias);
     	
         data = new ArrayList<Categoria>();
         
-        CategoriaAdapter adapter = new CategoriaAdapter(this, 
+        adapter = new CategoriaAdapter(this, 
                         R.layout.activity_categoria_item, data);
                 
                 
@@ -54,6 +55,7 @@ public class CategoriasActivity extends GenericActivity {
         
         listView1.setAdapter(adapter);
         
+        progressBar.show();
 		GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
 		task.execute(new String[] { "" });
         
@@ -64,19 +66,24 @@ public class CategoriasActivity extends GenericActivity {
     	
     }
 	
-	private Mensaje continuar(String mensaje, String id) throws RestBlowUpException, UnauthorizedException{
+	private void continuar() throws RestBlowUpException, UnauthorizedException {
 		
-		//Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
-		//ServicioRestGCM.enviarMensaje(msj);
+		Iterator<Categoria> it = adapter.getSelected().values().iterator();
+		List<Integer> categorias = new ArrayList<Integer>();
+		while(it.hasNext()){
+			Categoria cat  = (Categoria)it.next();
+			
+			categorias.add(cat.getId());
+		}
+		ServicioRestUsuarios.agregarCategorias(categorias);
 		
-		return null;
 }
 
-private class AgregarAsyncTask extends AsyncTask<String, Void, Mensaje> {
+private class AgregarAsyncTask extends AsyncTask<String, Void, String> {
 	@Override
-	protected Mensaje doInBackground(String... params) {
+	protected String doInBackground(String... params) {
 		try{
-			return continuar(params[0], params[1]);
+			continuar();
 		} catch (RestBlowUpException e) {
 			Log.e("Error", "Rest blow up!", e);
 			return null;
@@ -87,17 +94,16 @@ private class AgregarAsyncTask extends AsyncTask<String, Void, Mensaje> {
 			showToast("error al mandar el mensaje");
 			return null;
 		}
+		return "Exito";
 	}
 
     @Override
-    protected void onPostExecute(Mensaje result) {
+    protected void onPostExecute(String result) {
     	if (result != null){
-    		showToast("mensaje enviado");
+    		showToast("categorias agregadas");
     	}else{
-    		showToast("error al enviar el mensaje");
+    		showToast("error al agregar las categorias");
     	}
-    	//((MensajeAdapter)listView1.getAdapter()).add(result);
-    	//((MensajeAdapter)listView1.getAdapter()).notifyDataSetChanged();
     	progressBar.dismiss();
     }
 }
@@ -170,7 +176,8 @@ protected List<Categoria> GetCategorias() throws RestBlowUpException, Unauthoriz
 	    	}else{
 	    		showToast("las categorias no se pudieron cargar");
 	    	}    	
-	    	
+	    	progressBar.dismiss();
+	    	adapter.notifyDataSetChanged();
 	    }
 	  }
     
