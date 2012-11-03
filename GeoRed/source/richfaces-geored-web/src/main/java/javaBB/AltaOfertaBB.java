@@ -41,10 +41,7 @@ public class AltaOfertaBB {
 	private Date fechaComienzo;
 	private Date fechaFin;
 	
-	private Object[] logoData;
 	private Imagen imagen;	
-	private byte[] imageToShow;
-	private UploadedFile uploadedFile;
 	
 	//private List<> categorias
 	private List<Local> locales;
@@ -73,7 +70,6 @@ public class AltaOfertaBB {
     	Oferta oferta = new Oferta();
     	oferta.setNombre(this.nombre);
     	oferta.setDescripcion(this.descripcion);
-    	SimpleDateFormat sdf = new SimpleDateFormat();
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(this.fechaComienzo);    	
     	oferta.setComienzo(cal);
@@ -110,18 +106,16 @@ public class AltaOfertaBB {
     }
     
     public void logoListener(FileUploadEvent event) throws Exception{
-    	this.uploadedFile = event.getUploadedFile();
-
+    	UploadedFile uploadedFile = event.getUploadedFile();
     	this.imagen = new Imagen();
-		this.imagen.setImagen(this.uploadedFile.getData());
-		
+		this.imagen.setImagen(uploadedFile.getData());
         System.out.println("finlistener");
     }
     
     
     public void paint(OutputStream stream, Object object) throws IOException {
     	if (this.imagen != null){
-    		stream.write(this.imageToShow);
+    		stream.write(imagen.getImagen());
     	}
     		
     }
@@ -196,22 +190,6 @@ public class AltaOfertaBB {
 		this.imagen = imagen;
 	}
 
-	public byte[] getImageToShow() {
-		return imageToShow;
-	}
-
-	public void setImageToShow(byte[] imageToShow) {
-		this.imageToShow = imageToShow;
-	}
-
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
-	}
-
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		this.uploadedFile = uploadedFile;
-	}
-
 	public int getObjectSelected() {
 		return objectSelected;
 	}
@@ -257,13 +235,4 @@ public class AltaOfertaBB {
 	public void setLocales(List<Local> locales) {
 		this.locales = locales;
 	}
-
-	public Object[] getLogoData() {
-		return logoData;
-	}
-
-	public void setLogoData(Object[] logoData) {
-		this.logoData = logoData;
-	}
-
 }

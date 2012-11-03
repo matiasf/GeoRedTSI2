@@ -11,11 +11,6 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
 <br />
-
-
-		
-        
-
        <h:form id="alta" enctype="multipart/form-data">
        
           <rich:panel id="newPanel" styleClass=".form" header="Oferta" headerClass="header">
@@ -72,7 +67,8 @@
               
               <h:outputLabel for="imagen" value="Imagen:"/>      
 			  <rich:fileUpload id="imagen" listWidth="220px" listHeight="100px" style="width:200px; height:120px;"
-			    uploadData="#{altaOfertaBB.logoData}" fileUploadListener="#{altaOfertaBB.logoListener}"/>
+			    uploadData="#{altaOfertaBB.logoData}" fileUploadListener="#{altaOfertaBB.logoListener}"
+			    maxFilesQuantity="1"/>
 			  <rich:message for="imagen" errorClass="invalid"/>
               
               
