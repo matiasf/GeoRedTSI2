@@ -71,14 +71,11 @@ public class ContactosActivity extends GenericActivity {
                 return super.onContextItemSelected(item);
         }
     }
-    
-
 
 	private void showChat(String id) {
     	Intent i = new Intent(getApplicationContext(), ChatActivity.class);
     	i.putExtra("user_id",id);
-    	startActivity(i);   	   
-		
+    	startActivity(i);   	   		
 	}
 
 	private void loadListView() {
@@ -97,7 +94,7 @@ public class ContactosActivity extends GenericActivity {
         		Iterator<Usuario> it = usuarios.iterator();
         		while(it.hasNext()){
         			Usuario usuario  = (Usuario)it.next();
-        			strs.add(usuario.getNombre());
+        			strs.add(usuario.getId());
         		}
         		
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(ContactosActivity.this,

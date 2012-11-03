@@ -4,6 +4,7 @@ import org.apache.http.HttpResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.rest.data.Mensaje;
+import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
@@ -44,7 +45,7 @@ public class ServicioRestGCM extends ServicioRest {
 		}
 	}
 
-	public static void enviarMensaje(final Mensaje mensaje) throws RestBlowUpException, UnauthorizedException {
+	public static void enviarMensaje(final Mensaje mensaje) throws RestBlowUpException, UnauthorizedException, NotFoundException {
 		ObjectMapper mapper = new ObjectMapper();
 		HttpResponse response;
 		try {
@@ -57,6 +58,9 @@ public class ServicioRestGCM extends ServicioRest {
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();
+		}
+		else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
+			throw new NotFoundException();
 		}
 		else {
 			throw new RestBlowUpException();
