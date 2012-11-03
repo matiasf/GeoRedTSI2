@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.geored.rest.R;
-import com.geored.rest.ServicioRestGCM;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Categoria;
 import com.geored.rest.data.Mensaje;
@@ -38,11 +37,10 @@ public class CategoriasActivity extends GenericActivity {
                 
         listView1 = (ListView)findViewById(R.id.categoriaslistView);
                  
-        //View header = (View)getLayoutInflater().inflate(R.layout.activity_chat_header_row, null);
-        //listView1.addHeaderView(header);
-                
-        View footer = (View)getLayoutInflater().inflate(R.layout.activity_categorias_footer_row, null);
-        listView1.addFooterView(footer);
+        View header = (View)getLayoutInflater().inflate(R.layout.activity_categorias_footer_row, null);
+        listView1.addHeaderView(header);
+        
+        
         
         continuarButton = (Button)findViewById(R.id.continuarButton);
         continuarButton.setOnClickListener(new Button.OnClickListener() { 
@@ -56,7 +54,6 @@ public class CategoriasActivity extends GenericActivity {
         
         listView1.setAdapter(adapter);
         
-
 		GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
 		task.execute(new String[] { "" });
         
