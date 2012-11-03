@@ -11,18 +11,23 @@
                 
 <ui:define name="content">
    <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
-   <h:outputScript target="body"> 	
-   			initializeConPunto();
-   </h:outputScript>
-   
-   
-       
+   <h:outputScript target="body">   			   			
+   			initialize();
+   </h:outputScript>    
+   <ui:repeat value="#{reporteCheckInBB.datos}" var="dato">
+   			<h:outputScript target="body">
+   				alert(#{dato.nombre});
+	   			var lat = #{dato.latitud};
+			    var lon = #{dato.longitud};
+	    		cargarPuntoIterativo(lat, lon);
+   			</h:outputScript>
+   </ui:repeat>  
 
 	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
        <h:form id="form">
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header">
 			
-		   <h:panelGrid columns="3" columnClasses="titleCell">
+		  <!--   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
 		      <h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
 		         <rich:validator/>
@@ -50,6 +55,7 @@
               <rich:message for="descripcion" errorClass="invalid"/>
 
 		   </h:panelGrid>
+		   -->
 		   
 
 			
@@ -65,9 +71,7 @@
 			</rich:panel>
 
 
-       </h:form>
-       
-         
+       </h:form>     
        
     </ui:define>
 </ui:composition>
