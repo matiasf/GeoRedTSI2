@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:my="http://java.sun.com/jsf/composite/components">
+    <ui:define name="content">
+        <h:outputStylesheet name="app.css" library="css"/>
+        <h:outputScript target="head" name="showMessage.js" library="js"/>	
+<br />
+
+
+		
+        
+
+       <h:form id="alta" enctype="multipart/form-data">
+       
+          <rich:panel id="newPanel" styleClass=".form" header="Oferta" headerClass="header">
+          
+			
+			
+		   <h:panelGrid columns="3" columnClasses="titleCell">
+		      <h:outputLabel for="name" value="Nombre"/>
+		      <h:inputText id="name" value="#{altaOfertaBB.nombre}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="name" errorClass="invalid"/>
+		
+		      <h:outputLabel for="descripcion" value="Descripcion:" />      
+		      <h:inputTextarea id="descripcion"
+                    maxlength="200"
+                    cols="34" rows="10"
+                    value="#{altaOfertaBB.descripcion}"
+                    ></h:inputTextarea>
+              <rich:message for="descripcion" errorClass="invalid"/>
+              
+              <h:outputLabel for="costo" value="Costo:"/>
+		      <h:inputText id="costo" value="#{altaOfertaBB.costo}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="costo" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="name" value="Local:"/>
+		      <h:selectOneMenu value="#{altaOfertaBB.objectSelected}" style="width:200px;">
+				  <f:selectItem itemLabel="Seleccione Local" itemValue="-1" />
+				  <f:selectItems value="#{altaOfertaBB.objects}"/>				  
+				</h:selectOneMenu>				
+		      <rich:message for="name" errorClass="invalid"/>
+              
+              <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
+              <a4j:outputPanel id="fechaComienzo" layout="block">
+                    <rich:calendar value="#{altaOfertaBB.fechaComienzo}"
+                        locale="en/US"
+                        popup="true"
+                        datePattern="d/M/yy HH:mm"
+                       showApplyButton="false" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+            	</a4j:outputPanel>
+             <rich:message for="fechaComienzo" errorClass="invalid"/>
+            	
+              <h:outputLabel for="fechaFin" value="Fecha Fin:" />
+              <a4j:outputPanel id="fechaFin" layout="block">
+                    <rich:calendar value="#{altaOfertaBB.fechaFin}"
+                        locale="en/US"
+                        popup="true"
+                        datePattern="d/M/yy HH:mm"
+                       showApplyButton="false" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+            	</a4j:outputPanel>
+              <rich:message for="fechaFin" errorClass="invalid"/>
+              
+              <h:outputLabel for="imagen" value="Imagen:"/>      
+			  <rich:fileUpload id="imagen" listWidth="220px" listHeight="100px" style="width:200px; height:120px;"
+			    uploadData="#{altaOfertaBB.logoData}" fileUploadListener="#{altaOfertaBB.logoListener}"/>
+			  <rich:message for="imagen" errorClass="invalid"/>
+              
+              
+              
+		   </h:panelGrid>
+
+
+			
+			<div id="botones">
+				<a4j:commandButton id="cancelar" action="#{altaOfertaBB.cancelar}" value="Cancelar"
+                                   styleClass="boton" />
+                <a4j:commandButton id="alta" action="#{altaOfertaBB.alta}" value="Dar de alta"
+                                   styleClass="boton" />
+                                   
+                <rich:messages globalOnly="true"/>
+             </div>
+
+			</rich:panel>
+
+
+       </h:form>
+    </ui:define>
+</ui:composition>

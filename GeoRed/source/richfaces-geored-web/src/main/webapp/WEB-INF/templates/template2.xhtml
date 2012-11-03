@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+   <title>TSI 2</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+   <h:outputStylesheet name="screen.css" library="css"/>
+   <h:outputStylesheet name="mapa.css" library="css"/>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
+    </script>
+</h:head>
+<h:body onload="initialize()">
+   <div id="container">
+      <div>
+         <h:graphicImage name="tsileodef.png" library="gfx"/>
+      </div>
+      <div>
+      <div id="menuizquierdo" style="float: left; width: 25%; margin: 1px;">
+      	<h:form id="formMenu" >
+		    <h:panelGrid columns="2" columnClasses="cols,cols" width="400">
+		    <rich:panelMenu style="width:200px"  mode="ajax" 
+		        iconExpandedGroup="disc" iconCollapsedGroup="disc" 
+		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
+		        iconCollapsedTopGroup="chevronDown">
+		        <rich:panelMenuGroup label="Empresas">
+		            <rich:panelMenuItem label="Modificar Empresa" action="#{menuBB.modificarEmpresa}" reRender="content">
+		                <f:param name="current" value="Modificar Empresa"/>
+		            </rich:panelMenuItem>		            
+		        </rich:panelMenuGroup>
+		        <rich:panelMenuGroup label="Locales">
+		            <rich:panelMenuItem label="Alta Local" action="#{menuBB.altaLocal}" reRender="content">
+		                <f:param name="current" value="Alta Local"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Modificar Local" action="#{menuBB.modificarLocal}" reRender="content">
+		                <f:param name="current" value="Modificar Local"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Baja Local" action="#{menuBB.bajaLocal}" reRender="content">
+		                <f:param name="current" value="Baja Local"/>
+		            </rich:panelMenuItem>
+		        </rich:panelMenuGroup>
+		        <rich:panelMenuGroup label="Ofertas">
+		            <rich:panelMenuItem label="Alta Oferta" action="#{menuBB.altaOferta}" reRender="content">
+		                    <f:param name="current" value="Alta Oferta"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Modificar Oferta" action="#{menuBB.modificarOferta}" reRender="content">
+		                    <f:param name="current" value="Modificar Oferta"/>
+		            </rich:panelMenuItem>
+		            <rich:panelMenuItem label="Baja Oferta" action="#{menuBB.bajaOferta}" reRender="content">
+		                    <f:param name="current" value="Baja Oferta"/>
+		            </rich:panelMenuItem>
+	            </rich:panelMenuGroup>	            
+		    </rich:panelMenu>    
+	    </h:panelGrid>
+	    </h:form>
+      </div>      
+      <div id="content" style="float: left; width: 40%; margin: 1px;">
+         <ui:insert name="content">
+            [Template content will be inserted here]
+         </ui:insert>
+      </div>
+	</div>      
+      <div id="footer">
+         <p>
+            TSI2 2012 - Grupo 8<br />
+         </p>
+      </div>
+   </div>
+</h:body>
+</html>

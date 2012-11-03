@@ -36,6 +36,7 @@ public class ModificarEmpresaBB {
 	private Object[] logoData;
 	
 	private Imagen imagen;
+	
 	private byte[] imageToShow;
 	
 	private UploadedFile uploadedFile;
@@ -202,10 +203,40 @@ public class ModificarEmpresaBB {
 	}
 
 	public byte[] getImageToShow() {
+		FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
+    	String mailEmpresa = (String) session.getAttribute("mailEmpresa");
+    	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
+    	this.imagen = empresa.getLogo();
+    	if (this.imagen != null){
+    		this.imageToShow = this.imagen.getImagen();	
+    	} 		
+		
 		return imageToShow;
 	}
 
 	public void setImageToShow(byte[] imageToShow) {
 		this.imageToShow = imageToShow;
+	}
+	
+	public Imagen getImagen() {
+		FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
+    	String mailEmpresa = (String) session.getAttribute("mailEmpresa");
+    	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
+    	this.imagen = empresa.getLogo();
+		return imagen;
+	}
+
+	public void setImagen(Imagen imagen) {
+		this.imagen = imagen;
+	}
+
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
 }
