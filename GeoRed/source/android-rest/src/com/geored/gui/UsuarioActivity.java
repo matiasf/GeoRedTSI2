@@ -2,10 +2,12 @@ package com.geored.gui;
 
 
 import java.util.List;
+
 import com.geored.gui.map.MapsDemo;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.TestServicios;
+import com.geored.rest.data.Categoria;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Posicion;
 import com.geored.rest.exception.NotFoundException;
@@ -64,6 +66,9 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
             Toast.makeText(this, "Cannot fetch current location! Please turn of Internet or GPS",
                     Toast.LENGTH_LONG).show();
         }
+        
+		GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
+		task.execute(new String[] { "" });
 
 	}
 	
@@ -80,6 +85,24 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
         task.execute(posiciones);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+        criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+        criteria.setCostAllowed(false);     
+
+        String bestProvider = locManager.getBestProvider(criteria, true); 
+        locManager.requestLocationUpdates(bestProvider, 0,0, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        locManager.removeUpdates(this); //activity pauses => stop listening for updates
+    }
+    
 	private class NotificacionesAsyncTask extends AsyncTask<Posicion, Void, List<Notificacion>> {
 	    @Override
 	    protected List<Notificacion> doInBackground(Posicion... posicions) {
@@ -231,5 +254,45 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+	protected List<Categoria> GetCategorias() throws RestBlowUpException, UnauthorizedException, NotFoundException{
+    	
+    	List<Categoria> cat = ServicioRestUsuarios.getCategorias();
+    	
+    	return cat;
+    }
+	    
+			
+	private class GetCategoriasAsyncTask extends AsyncTask<String, Void, List<Categoria>> {
+	    @Override
+	    protected List<Categoria> doInBackground(String... params) {
+	  	  List<Categoria> cat = null;
+	    	try {
+		    	 cat = GetCategorias();
+			} catch (RestBlowUpException e) {
+				e.printStackTrace();
+				return null;
+			} catch (UnauthorizedException e) {
+				e.printStackTrace();
+				return null;
+			} catch (NotFoundException e) {
+				
+				e.printStackTrace();
+				return null;
+			}
+	   		return cat;
+	    }
+	
+	    @Override
+	    protected void onPostExecute( List<Categoria>  result) {
+	    	if (result != null){
+	    		showToast(Integer.toString(result.size()));
+	    	}else{
+	    		showToast("las categorias no se pudieron cargar");
+	    	}    	
+	    	
+	    }
+	  }
 
 }
