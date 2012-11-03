@@ -215,10 +215,6 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
     public void showBuscarContactos(View clickedButton) {
         goToActivity(BuscarContactosActivity.class);
     }
-
-	public void showGCMTest(View clickedButtom) {
-    	goToActivity(GCMDemoActivity.class);
-    }
     
     @Override
 	public void onLocationChanged(Location location) {
