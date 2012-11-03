@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -32,12 +33,11 @@ public class ModificarEmpresaBB {
 	private String nombre;
 	private String descripcion;
 	private String password;
-	
-	private Object[] logoData;
-	
+	private int id;
+	private int idImagen;
+		
 	private Imagen imagen;
 	
-	private byte[] imageToShow;
 	
 	private UploadedFile uploadedFile;
 	
@@ -52,6 +52,7 @@ public class ModificarEmpresaBB {
         
     }
     
+    @PostConstruct
     public void cargarDatos(){
     	FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
@@ -61,11 +62,10 @@ public class ModificarEmpresaBB {
     	this.mail = empresa.getMailAdmin();
     	this.descripcion = empresa.getDescripcion();
     	this.imagen = empresa.getLogo();
+    	this.id = empresa.getId();
     	if (this.imagen != null){
-    		this.imageToShow = this.imagen.getImagen();	
-    	} 
-    	
-    	
+    		this.idImagen = empresa.getLogo().getId();
+    	}	
     }
     
     /* logica y navegación*/
@@ -78,22 +78,19 @@ public class ModificarEmpresaBB {
     	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
     	    	
     	try {    		
+    		empresa.setId(id);
     		empresa.setNombre(this.nombre);
         	empresa.setMailAdmin(this.mail);
         	empresa.setDescripcion(this.descripcion);
         	empresa.setLogo(this.imagen);
-        	
-    		/*Imagen imagen = new Imagen();
-    		imagen.setImagen(this.uploadedFile.getData());
-    		empresa.setLogo(imagen);*/
-    		
+        	empresa.getLogo().setId(idImagen);
+        	    	
 			ge.modifciarEmpresa(empresa);
 			session.setAttribute("nombreEmpresa", empresa.getNombre());    		
     		session.setAttribute("mailEmpresa", empresa.getMailAdmin());
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
     		context.getExternalContext().getSessionMap().remove("altaEmpresaBB");
     		
-     		
     		
     	} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
@@ -111,6 +108,7 @@ public class ModificarEmpresaBB {
 
     	this.imagen = new Imagen();
 		this.imagen.setImagen(this.uploadedFile.getData());
+		this.imagen.setId(idImagen);
 		
         System.out.println("finlistener");
     }
@@ -118,7 +116,7 @@ public class ModificarEmpresaBB {
     
     public void paint(OutputStream stream, Object object) throws IOException {
     	if (this.imagen != null){
-    		stream.write(this.imageToShow);
+    		stream.write(imagen.getImagen());
     	}
     		
     }
@@ -151,15 +149,15 @@ public class ModificarEmpresaBB {
     	this.mail = (String) session.getAttribute("mailEmpresa");
 		return mail;
 	}
+
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	
 	public String getNombre() {
-		FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    	this.nombre = (String) session.getAttribute("nombreEmpresa");
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -173,9 +171,6 @@ public class ModificarEmpresaBB {
 	}
 
 	public String getDescripcion() {
-		FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    	this.descripcion = (String) session.getAttribute("descripcionEmpresa");
 		return descripcion;
 	}
 
@@ -183,48 +178,16 @@ public class ModificarEmpresaBB {
 		this.descripcion = descripcion;
 	}
 
-	public Object[] getLogoData() {
-		return logoData;
-	}
-
-	public void setLogoData(Object[] logoData) {
-		this.logoData = logoData;
-	}
 
 	public String getPassword() {
-		FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    	this.password = (String) session.getAttribute("passEmpresa");
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public byte[] getImageToShow() {
-		FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    	String mailEmpresa = (String) session.getAttribute("mailEmpresa");
-    	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
-    	this.imagen = empresa.getLogo();
-    	if (this.imagen != null){
-    		this.imageToShow = this.imagen.getImagen();	
-    	} 		
-		
-		return imageToShow;
-	}
-
-	public void setImageToShow(byte[] imageToShow) {
-		this.imageToShow = imageToShow;
-	}
 	
 	public Imagen getImagen() {
-		FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    	String mailEmpresa = (String) session.getAttribute("mailEmpresa");
-    	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
-    	this.imagen = empresa.getLogo();
 		return imagen;
 	}
 

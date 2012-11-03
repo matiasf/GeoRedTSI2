@@ -67,8 +67,6 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
                     Toast.LENGTH_LONG).show();
         }
         
-		GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
-		task.execute(new String[] { "" });
 
 	}
 	
@@ -215,10 +213,6 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
     public void showBuscarContactos(View clickedButton) {
         goToActivity(BuscarContactosActivity.class);
     }
-
-	public void showGCMTest(View clickedButtom) {
-    	goToActivity(GCMDemoActivity.class);
-    }
     
     @Override
 	public void onLocationChanged(Location location) {
@@ -256,43 +250,6 @@ public class UsuarioActivity extends GenericActivity implements LocationListener
 	}
 	
 
-	protected List<Categoria> GetCategorias() throws RestBlowUpException, UnauthorizedException, NotFoundException{
-    	
-    	List<Categoria> cat = ServicioRestUsuarios.getCategorias();
-    	
-    	return cat;
-    }
-	    
-			
-	private class GetCategoriasAsyncTask extends AsyncTask<String, Void, List<Categoria>> {
-	    @Override
-	    protected List<Categoria> doInBackground(String... params) {
-	  	  List<Categoria> cat = null;
-	    	try {
-		    	 cat = GetCategorias();
-			} catch (RestBlowUpException e) {
-				e.printStackTrace();
-				return null;
-			} catch (UnauthorizedException e) {
-				e.printStackTrace();
-				return null;
-			} catch (NotFoundException e) {
-				
-				e.printStackTrace();
-				return null;
-			}
-	   		return cat;
-	    }
 	
-	    @Override
-	    protected void onPostExecute( List<Categoria>  result) {
-	    	if (result != null){
-	    		showToast(Integer.toString(result.size()));
-	    	}else{
-	    		showToast("las categorias no se pudieron cargar");
-	    	}    	
-	    	
-	    }
-	  }
 
 }

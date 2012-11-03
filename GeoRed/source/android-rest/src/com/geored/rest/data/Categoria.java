@@ -6,6 +6,8 @@ public class Categoria {
 	private String nombre;
 	private String descripcion;
 	
+	public Categoria(){}
+	
 	public Categoria(int id, String nombre, String descripcion){
 		this.id = id;
 		this.nombre = nombre;
