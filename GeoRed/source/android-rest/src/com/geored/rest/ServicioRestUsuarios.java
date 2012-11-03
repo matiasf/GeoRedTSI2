@@ -218,7 +218,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 		} catch (Exception e) {
 			throw new RestBlowUpException(e.getLocalizedMessage());
 		}
-		if (response.getStatusLine().getStatusCode() == OK) {
+		if (response.getStatusLine().getStatusCode() == OK || response.getStatusLine().getStatusCode() == NOT_CONTENT) {
 			return;			
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {

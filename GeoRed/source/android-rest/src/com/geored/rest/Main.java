@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.geored.gui.CategoriasActivity;
 import com.geored.gui.CheckInActivity;
 import com.geored.gui.FacebookActivity;
 import com.geored.gui.GenericActivity;
@@ -64,4 +65,7 @@ public class Main extends GenericActivity {
         goToActivity(MapsDemo.class);
     }    
     
+    public void showCategoria(View clickedButton) {
+        goToActivity(CategoriasActivity.class);
+    }
 }

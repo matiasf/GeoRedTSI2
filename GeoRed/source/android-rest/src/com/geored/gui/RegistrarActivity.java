@@ -21,8 +21,8 @@ public class RegistrarActivity extends GenericActivity {
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_registrar);
-		GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
-		task.execute(new String[] { "" });
+		//GetCategoriasAsyncTask task = new GetCategoriasAsyncTask();
+		//task.execute(new String[] { "" });
 		
 		
 	}
@@ -74,14 +74,15 @@ public class RegistrarActivity extends GenericActivity {
 	    @Override
 	    protected void onPostExecute(String result) {
 	    	if (result.equals("Exito")){
-	    		goToActivity(UsuarioActivity.class);
+	    		//goToActivity(UsuarioActivity.class);
+	    		goToActivity(CategoriasActivity.class);
 	    	}else{
 	    		showToast(result);
 	    	}	    	
 	    	unBlockGUI(R.id.registrar_button);
 	    }
 	  }
-
+/*
 	protected List<Categoria> GetCategorias() throws RestBlowUpException, UnauthorizedException, NotFoundException{
     	
     	List<Categoria> cat = ServicioRestUsuarios.getCategorias();
@@ -120,4 +121,5 @@ public class RegistrarActivity extends GenericActivity {
 	    	
 	    }
 	  }
+	  */
 }

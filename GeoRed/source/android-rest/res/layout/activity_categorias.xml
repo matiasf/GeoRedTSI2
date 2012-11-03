@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/emailtextView"
+        android:id="@+id/nombreCategoriatextView"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:text="Categorias"
