@@ -3,6 +3,8 @@ package negocios;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import negocios.excepciones.EntidadNoExiste;
 
 import persistencia.Categoria;
@@ -16,7 +18,7 @@ public interface GestionEmpresas {
 	
 	public boolean chechLogin(String email, String password);
 	
-	public void agregarEmpresa(Empresa empresa);
+	public void agregarEmpresa(Empresa empresa) throws MessagingException;
 	
 	public Empresa modifciarEmpresa(Empresa empresa) throws EntidadNoExiste;
 	

@@ -3,6 +3,7 @@ package negocios.impl;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import persistencia.CheckInDAO;
 import persistencia.Empresa;
 import persistencia.EmpresaDAO;
 import persistencia.Evento;
+import persistencia.EventoDAO;
 import persistencia.Imagen;
 import persistencia.ImagenDAO;
 import persistencia.Invitacion;
@@ -65,6 +67,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	
 	@EJB
 	private CheckInDAO checkInDAO;
+	
+	@EJB
+	private EventoDAO eventoDAO;
 	
 	@Override
 	public int checkLogin(String nombre, String password) {
@@ -188,34 +193,54 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			final double longitud, 
 			final double distancia) throws EntidadNoExiste {
 		
-		if (!usuarioDAO.existe(idUsuario)) {
+		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		if (usuario == null) {
 			String msg = "El usuario " + idUsuario + " no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
-		List<Notificacion> ret = getNotLocalYExtEvento(idUsuario, latitud, longitud, distancia);
+		List<Notificacion> ret = getNotSitio(idUsuario, latitud, longitud, distancia);
 		ret.addAll(getNotLocales(idUsuario, latitud, longitud, distancia));
-		ret.addAll(getCheckInAmigos(idUsuario));
+		ret.addAll(getNotiEventosInternos(idUsuario, latitud, longitud, distancia));
 		return ret;
 	}
 	
-	private List<Notificacion> getNotLocalYExtEvento(final int idUsuario, 
+	private List<Notificacion> getNotiEventosInternos(final int idUsuario, 
+			final double latitud, 
+			final double longitud, 
+			final double distancia) {
+		List<Evento> eventos = eventoDAO.obtenerEventosNotificacion(Calendar.getInstance());
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for (Evento evento : eventos) {
+			if (this.distanciaEntrePuntos(latitud, longitud, evento.getLatitud(), evento.getLongitud()) <= distancia) {
+				ret.add(evento);
+			}
+		}
+		return ret;
+	}
+	
+	private List<Notificacion> getNotSitio(final int idUsuario, 
 			final double latitud, 
 			final double longitud, 
 			final double distancia) {
 		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
+		Calendar now = Calendar.getInstance();
 		for (SitioInteres sitio : sitios) {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
+				ret.addAll(sitio.getCheckIns());
 				if (!sitio.getGoogleCalendarId().isEmpty()) {
 					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
 					gcf.setCalendarId(sitio.getGoogleCalendarId());
 					try {
 						List<Evento> eventos = gcf.obtenerEventos();
 						for (Evento evento : eventos) {
-							evento.setLatitud(sitio.getLatitud());
-							evento.setLongitud(longitud);
-							ret.add(evento);
+							if (evento.getInicio().before(now) && evento.getFin().after(now)) {
+								evento.setLatitud(sitio.getLatitud());
+								evento.setLongitud(longitud);
+								ret.add(evento);	
+							}
+							
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -231,10 +256,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			}
 		}
 		return ret;
-		
 	}
 	
-	private List<Notificacion> getNotLocales (final int idUsuario, 
+	private List<Notificacion> getNotLocales(final int idUsuario, 
 			final double latitud, 
 			final double longitud, 
 			final double distancia) {
@@ -261,15 +285,6 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	    double dist = earthRadius * c;
 
 	    return dist;
-	}
-
-	private List<Notificacion> getCheckInAmigos(int idUsuario) {
-		List<CheckIn> checkIns = checkInDAO.getCheckInAmigos(idUsuario);
-		List<Notificacion> ret = new ArrayList<Notificacion>();
-		for (CheckIn checkIn : checkIns) {
-			ret.add(checkIn);
-		}
-		return ret;
 	}
 	
 	@Override

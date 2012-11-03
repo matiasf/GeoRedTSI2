@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
@@ -20,6 +21,7 @@ import persistencia.OfertaDAO;
 import persistencia.SitioInteres;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
+import negocios.impl.mailSender.MailSender;
 
 @Stateless
 public class GestionEmpresasImpl implements GestionEmpresas {
@@ -36,15 +38,18 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	private EventoDAO eventoDAO;
 	
 	
-	
 	@Override
 	public boolean chechLogin(String email, String password) {
 		return empresaDAO.checkLogin(email, password);
 	}
 
 	@Override
-	public void agregarEmpresa(Empresa empresa) {
+	public void agregarEmpresa(Empresa empresa) throws MessagingException {
 		empresaDAO.insertar(empresa);
+		String asunto = "Bienvenido a GeoredUy";
+		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";
+		MailSender mailSender = new MailSender(empresa.getMailAdmin(), asunto, cuerpo);
+		mailSender.send();
 	}
 
 	@Override

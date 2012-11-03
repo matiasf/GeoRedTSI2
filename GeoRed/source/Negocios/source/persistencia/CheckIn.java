@@ -3,6 +3,7 @@ package persistencia;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class CheckIn implements Serializable, Notificacion {
 	@NotNull
 	private Usuario usuario;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.ALL})
 	private Imagen foto;
 	
 	public CheckIn() {
