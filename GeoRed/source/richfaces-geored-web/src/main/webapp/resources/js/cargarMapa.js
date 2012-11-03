@@ -23,11 +23,61 @@
           center: myLatlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);      
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        
+        var markerIni = new google.maps.Marker({
+            position: myLatlng,
+            map: map
+        });
         map.markers = new Array();
+        map.markers[map.markers.length] = markerIni;
         google.maps.event.addListener(map, 'click', function(event) {    	
           placeMarker(event.latLng);
         });
+      }
+    
+     function initializeConMuchosPuntos() {
+    	 var myCenter = new google.maps.LatLng(-34.91834202183006,-56.166390037536644);
+         var mapOptions = {
+           zoom: 15,
+           center: myCenter,
+           mapTypeId: google.maps.MapTypeId.ROADMAP
+         }
+         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        
+        var cant =  document.getElementById("formReporte:cantDatos").value;
+   	 
+        var image = 'flag_green.png';
+        map.markers = new Array();
+    	for(var i=0; i<cant; i++){      			
+      			var lat = document.getElementById("formReporte:tablaReporte:"+i+":latitud").value;
+      	    	var len = document.getElementById("formReporte:tablaReporte:"+i+":longitud").value;
+      	    	var name = document.getElementById("formReporte:tablaReporte:"+i+":nombre").value;
+      	    	var number = document.getElementById("formReporte:tablaReporte:"+i+":cantidad").value;
+      	    	if (number > 5){
+      	    		image = 'flag_yellow.png';
+      	    	}  else {
+      	    		image = 'flag_green.png';
+      	    	}
+      	    	if (number > 10){
+      	    		image = 'flag_red.png';
+      	    	}
+      	        var myLatlng = new google.maps.LatLng(lat,len);
+      			var markerPaPoner = new google.maps.Marker({
+      				position: myLatlng,
+      				title:name,     
+      				icon:image,
+      				map: map
+      			});
+      			map.markers[map.markers.length] = markerPaPoner;      		
+          }
+        
+        
+        
+        
+        /*google.maps.event.addListener(map, 'click', function(event) {    	
+          placeMarker(event.latLng);
+        });*/
       }
 
     function placeMarker(location) {      

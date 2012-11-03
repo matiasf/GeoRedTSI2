@@ -16,19 +16,32 @@
           <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Check In" headerClass="header">        
 			
 			
-		 <!-- <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre:"/>
-		      <h:selectOneMenu value="#{modificarSitioInteresBB.sitioSelected}" style="width:200px;">
-				  <f:selectItem itemLabel="Seleccione sitio" itemValue="-1" />
-				  <f:selectItems value="#{modificarSitioInteresBB.sitios}"/>				  
-				</h:selectOneMenu>				
-		      <rich:message for="name" errorClass="invalid"/>     
-		   </h:panelGrid>-->
+		 <h:panelGrid columns="3" columnClasses="titleCell">
+		      <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
+              <a4j:outputPanel id="fechaComienzo" layout="block">
+                    <rich:calendar value="#{altaOfertaBB.fechaComienzo}"
+                        locale="en/US"
+                        popup="true"
+                        datePattern="d/M/yy HH:mm"
+                       showApplyButton="false" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+            	</a4j:outputPanel>
+             <rich:message for="fechaComienzo" errorClass="invalid"/>
+            	
+              <h:outputLabel for="fechaFin" value="Fecha Fin:" />
+              <a4j:outputPanel id="fechaFin" layout="block">
+                    <rich:calendar value="#{reporteCheckInBB.fechaFin}"
+                        locale="en/US"
+                        popup="true"
+                        datePattern="d/M/yy HH:mm"
+                       showApplyButton="false" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+            	</a4j:outputPanel>
+              <rich:message for="fechaFin" errorClass="invalid"/>
+		   </h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<a4j:commandButton id="cancelar" action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{reporteCheckInBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="modificarEmpresa" action="#{modificarSitioInteresBB.seleccionoSitioInteres}" value="Modificar"
+                <a4j:commandButton id="modificarEmpresa" action="#{reporteCheckInBB.continuar}" value="Modificar"
                                    styleClass="boton" />                                 
                 
              </h:panelGrid>

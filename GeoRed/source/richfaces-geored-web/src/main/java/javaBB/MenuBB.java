@@ -99,6 +99,14 @@ public class MenuBB extends LoginBB {
 		return "/presentacionAdminEmpresa/bajaOferta.xhtml";
 	}
 	
+	public String reporteCheckIn(){
+		return "/presentacionAdminSistema/reporteCheckIn0.xhtml";
+	}
+	
+	public String reporteOferta(){
+		return "/presentacionAdminSistema/reporteOferta0.xhtml";
+	}
+	
 	
     
     public String logout() {
