@@ -45,15 +45,15 @@ public class LoginActivity extends GenericActivity {
 			}
 			return "Exito";
 		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			if (result.equals("Exito")) {
-				goToActivity(UsuarioActivity.class);
-			} else {
-				showToast(result);
-			}
-		}
+	
+	    @Override
+	    protected void onPostExecute(String result) {
+	    	if (result.equals("Exito")){
+	    		goToActivity(UsuarioActivity.class);
+	    	}else{
+	    		showToast(result);
+	    	}	    	
+	    }
 	}
-
+    
 }

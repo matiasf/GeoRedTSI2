@@ -23,6 +23,15 @@
     <param-name>facelets.SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
+  
+  <context-param>
+        <param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+        <param-value>10000000</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.fileUpload.createTempFiles</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
   <!-- add a welcome-file-list entry to allow JSF pages to be sued as welcome files -->
   <welcome-file-list>

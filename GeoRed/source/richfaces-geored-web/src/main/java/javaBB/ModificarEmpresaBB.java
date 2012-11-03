@@ -1,5 +1,8 @@
 package javaBB;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.LinkedList;
 
 import javax.ejb.EJB;
@@ -10,7 +13,11 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
+
 import persistencia.Empresa;
+import persistencia.Imagen;
 
 import negocios.GestionAutenticacion;
 import negocios.GestionEmpresas;
@@ -27,6 +34,11 @@ public class ModificarEmpresaBB {
 	private String password;
 	
 	private Object[] logoData;
+	
+	private Imagen imagen;
+	private byte[] imageToShow;
+	
+	private UploadedFile uploadedFile;
 	
 	private boolean exito;
 	
@@ -47,6 +59,11 @@ public class ModificarEmpresaBB {
     	this.nombre = empresa.getNombre();
     	this.mail = empresa.getMailAdmin();
     	this.descripcion = empresa.getDescripcion();
+    	this.imagen = empresa.getLogo();
+    	if (this.imagen != null){
+    		this.imageToShow = this.imagen.getImagen();	
+    	} 
+    	
     	
     }
     
@@ -58,14 +75,25 @@ public class ModificarEmpresaBB {
 		HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
 		String mailEmpresa = (String) session.getAttribute("mailEmpresa");
     	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);    	
-    	empresa.setNombre(this.nombre);
-    	empresa.setMailAdmin(this.mail);
-    	empresa.setDescripcion(this.descripcion);    	
-    	try {
+    	    	
+    	try {    		
+    		empresa.setNombre(this.nombre);
+        	empresa.setMailAdmin(this.mail);
+        	empresa.setDescripcion(this.descripcion);
+        	empresa.setLogo(this.imagen);
+        	
+    		/*Imagen imagen = new Imagen();
+    		imagen.setImagen(this.uploadedFile.getData());
+    		empresa.setLogo(imagen);*/
+    		
 			ge.modifciarEmpresa(empresa);
 			session.setAttribute("nombreEmpresa", empresa.getNombre());    		
     		session.setAttribute("mailEmpresa", empresa.getMailAdmin());
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
+    		context.getExternalContext().getSessionMap().remove("altaEmpresaBB");
+    		
+     		
+    		
     	} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,8 +104,22 @@ public class ModificarEmpresaBB {
         return retorno;
     }
     
-    public void logoListener() {
-    	
+    
+    public void logoListener(FileUploadEvent event) throws Exception{
+    	this.uploadedFile = event.getUploadedFile();
+
+    	this.imagen = new Imagen();
+		this.imagen.setImagen(this.uploadedFile.getData());
+		
+        System.out.println("finlistener");
+    }
+    
+    
+    public void paint(OutputStream stream, Object object) throws IOException {
+    	if (this.imagen != null){
+    		stream.write(this.imageToShow);
+    	}
+    		
     }
     
     public String finalizar() {
@@ -157,5 +199,13 @@ public class ModificarEmpresaBB {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public byte[] getImageToShow() {
+		return imageToShow;
+	}
+
+	public void setImageToShow(byte[] imageToShow) {
+		this.imageToShow = imageToShow;
 	}
 }

@@ -8,6 +8,7 @@ public class NotificacionJSON {
 	private Integer id;
 	private String nombre;
 	private String descripcion;
+	private String tipo;
 	private PosicionJSON posicion;
 	
 	public Integer getId() {
@@ -34,6 +35,14 @@ public class NotificacionJSON {
 		this.descripcion = descripcion;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
 	public PosicionJSON getPosicion() {
 		return posicion;
 	}

@@ -82,6 +82,7 @@ public class ContactosActivity extends GenericActivity {
 	}
 
 	private void loadListView() {
+		progressBar.show();
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute();
 	}
@@ -138,7 +139,8 @@ public class ContactosActivity extends GenericActivity {
 	    		//goToActivity(UsuarioActivity.class);
 	    	}else{
 	    		showToast("error");
-	    	}	    	
+	    	}	
+	    	progressBar.dismiss();
 	    }
 	  }
 }

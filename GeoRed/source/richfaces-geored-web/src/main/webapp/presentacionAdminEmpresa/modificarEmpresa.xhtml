@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/default.xhtml"
+<ui:composition template="/WEB-INF/templates/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -11,9 +11,17 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
 
-       <h:form id="modificarEmpresa">
+       <h:form id="modificarEmpresa" enctype="multipart/form-data">
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">        
 			
+			  <h:panelGroup id="divImagen">                                 
+						<a4j:mediaOutput element="img" rendered="modificarEmpresaBB.imagen != null" mimeType="image/png"
+                                    createContent="#{modificarEmpresaBB.paint}" value="1"
+                                    style="width:100px; height:100px;" cacheable="false">
+ 
+				</a4j:mediaOutput>
+                           
+                </h:panelGroup>
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
@@ -42,10 +50,10 @@
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
               		      
-		   <!--   <h:outputLabel for="logo" value="Logo:"/>      
+		   <h:outputLabel for="logo" value="Logo:"/>      
 			  <rich:fileUpload listWidth="240px" listHeight="100px" style="width:240px; height:120px;"
 			    uploadData="#{modificarEmpresaBB.logoData}" fileUploadListener="#{modificarEmpresaBB.logoListener}"/>
-			  <rich:message for="logo" errorClass="invalid"/>-->  
+			  <rich:message for="logo" errorClass="invalid"/>  
 		      		      
 		      	      
 		     

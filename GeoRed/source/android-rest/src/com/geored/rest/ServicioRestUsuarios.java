@@ -248,7 +248,7 @@ public class ServicioRestUsuarios extends ServicioRest {
 	public static List<Categoria> getCategorias() throws RestBlowUpException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
 		HttpResponse response;
-		response = rest(Metodos.POST, URL_CATEGORIAS);
+		response = rest(Metodos.GET	, URL_CATEGORIAS);
 		if (response.getStatusLine().getStatusCode() == OK) {
 			String asciiContent;
 			try {
