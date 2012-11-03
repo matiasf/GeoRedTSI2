@@ -1,6 +1,9 @@
 package com.geored.gui;
 
+import java.util.List;
+
 import com.geored.rest.data.Categoria;
+import com.geored.rest.data.Mensaje;
 
 import com.geored.rest.R;
 import android.app.Activity;
@@ -14,11 +17,22 @@ import android.widget.TextView;
 
 public class CategoriaAdapter extends ArrayAdapter<Categoria>{
 
-	 Context context; 
+	    Context context; 
 	    int layoutResourceId;    
-	    Categoria data[] = null;
+	    //Categoria data[] = null;
+	    List<Categoria>  data = null;
 	    
-	    public CategoriaAdapter(Context context, int layoutResourceId, Categoria[] data) {
+	    public void add(Categoria xxx)
+	    {
+	        data.add(xxx);
+	        notifyDataSetChanged();
+	    }
+	    
+	    public Categoria get(int pos){
+	    	return data.get(pos);
+	    }
+	    
+	    public CategoriaAdapter(Context context, int layoutResourceId, List<Categoria> data) {
 	        super(context, layoutResourceId, data);
 	        this.layoutResourceId = layoutResourceId;
 	        this.context = context;
@@ -36,8 +50,8 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria>{
 	            row = inflater.inflate(layoutResourceId, parent, false);
 	            
 	            holder = new CategoriaHolder();
-	            holder.txtNombre = (CheckBox)row.findViewById(R.id.categoriacheckBox);
-	            holder.txtTexto = (TextView)row.findViewById(R.id.txtTexto);
+	            holder.chk= (CheckBox)row.findViewById(R.id.categoriacheckBox);
+	            holder.txt= (TextView)row.findViewById(R.id.txtNombreCategoria);
 	            
 	            row.setTag(holder);
 	        }
@@ -46,17 +60,17 @@ public class CategoriaAdapter extends ArrayAdapter<Categoria>{
 	            holder = (CategoriaHolder)row.getTag();
 	        }
 	        
-	        Categoria categoria = data[position];
-	        holder.txtNombre.setText(categoria.getNombre());
-	        holder.txtTexto.setText(categoria.getDescripcion());
+	        Categoria categoria = data.get(position);
+	        holder.chk.setText(categoria.getNombre());
+	        holder.txt.setText(categoria.getDescripcion());
 	        
 	        return row;
 	    }
 	    
 	    static class CategoriaHolder
 	    {
-	    	CheckBox txtNombre;
-	        TextView txtTexto;
+	    	CheckBox chk;
+	        TextView txt;
 	    }
 	
 
