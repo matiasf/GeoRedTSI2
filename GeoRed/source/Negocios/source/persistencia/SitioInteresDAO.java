@@ -20,5 +20,5 @@ public interface SitioInteresDAO {
 	
 	public List<SitioInteres> obtenerParaUsuario(int id);
 	
-	
+	public long cantCheckInSitio(int idSitio);
 }

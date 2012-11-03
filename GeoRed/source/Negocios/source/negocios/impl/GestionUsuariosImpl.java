@@ -17,7 +17,6 @@ import negocios.excepciones.EntidadNoExiste;
 import negocios.impl.eventosExternos.GoogleCalendarFeed;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
-import persistencia.CheckIn;
 import persistencia.CheckInDAO;
 import persistencia.Empresa;
 import persistencia.EmpresaDAO;
@@ -332,6 +331,11 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	@Override
 	public int altaImagen(Imagen imagen) {
 		return imagenDAO.insertar(imagen).getId();	
+	}
+
+	@Override
+	public List<Oferta> obtenerOfertasLocalUsuario(int idLocal, int idUsuario) {
+		return ofertaDAO.ofertasRelacionadas(idLocal, idUsuario);
 	}
 
 }

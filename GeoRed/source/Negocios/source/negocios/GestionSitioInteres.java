@@ -27,4 +27,6 @@ public interface GestionSitioInteres {
 	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
 	
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
+	
+	public long cantCheckInsSitio(int idSitio);
 }

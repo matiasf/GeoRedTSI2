@@ -12,6 +12,7 @@ import persistencia.Categoria;
 import persistencia.Imagen;
 import persistencia.Invitacion;
 import persistencia.Notificacion;
+import persistencia.Oferta;
 import persistencia.Pago;
 import persistencia.Usuario;
 
@@ -180,4 +181,12 @@ public interface GestionUsuarios {
 	 * @return el id de la imagen
 	 */
 	public int altaImagen(Imagen imagen);
+	
+	/**
+	 * Obtiene las ofertas de un local para un usuario
+	 * @param idLocal el local al que se le piden las ofertas
+	 * @param idUsuario el usuario que esta buscando las oferas
+	 * @return Las ofertas que pertencen al local y compartenn una categoria con usuario
+	 */
+	public List<Oferta> obtenerOfertasLocalUsuario(int idLocal, int idUsuario);
 }
