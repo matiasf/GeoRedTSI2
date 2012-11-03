@@ -1,5 +1,8 @@
 package com.geored.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestGCM;
@@ -7,9 +10,14 @@ import com.geored.rest.data.Mensaje;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
+import com.google.android.gcm.GCMRegistrar;
 
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,11 +26,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChatActivity extends GenericActivity {
 
 	private ListView listView1;
 	private Button enviarButton;
+	//private List<Mensaje> data; 
+	
+	private final static String SENDER_ID = "786328023735";
+	private final static String EXTRA_MESSAGE = "message";
+	AsyncTask<Void, Void, Void> mRegisterTask;
 	
 	protected void loadVista() {
     	setContentView(R.layout.activity_chat);
@@ -36,17 +50,10 @@ public class ChatActivity extends GenericActivity {
             
         }
         
-        Mensaje mensaje_data[] = new Mensaje[]
-                {
-                //  new Mensaje(1,"uno"),
-        		//  new Mensaje(2,"dos"),
-        		//  new Mensaje(3, "tres"),
-        		//  new Mensaje(4, "cuatro")
-                    
-                };
-                
+        List<Mensaje> data = new ArrayList<Mensaje>();
+        
         MensajeAdapter adapter = new MensajeAdapter(this, 
-                        R.layout.activity_chat_item, mensaje_data);
+                        R.layout.activity_chat_item, data);
                 
                 
         listView1 = (ListView)findViewById(R.id.chatlistView);
@@ -54,9 +61,12 @@ public class ChatActivity extends GenericActivity {
         //View header = (View)getLayoutInflater().inflate(R.layout.activity_chat_header_row, null);
         //listView1.addHeaderView(header);
         
-        
+
         View footer = (View)getLayoutInflater().inflate(R.layout.activity_chat_footer_row, null);
         listView1.addFooterView(footer);
+        
+        
+        
         
         enviarButton = (Button)findViewById(R.id.enviarButton);
         enviarButton.setOnClickListener(new Button.OnClickListener() { 
@@ -64,46 +74,86 @@ public class ChatActivity extends GenericActivity {
         			progressBar.show();
         			String text = ((EditText) findViewById(R.id.txtTextoEnviar)).getText().toString();
         			EnviarAsyncTask task = new EnviarAsyncTask();
-        			task.execute(new String[] { text, "2" });
+        			task.execute(new String[] { text, "10" });
         			//enviarMensaje(); 
         		}
         	});
                 
         listView1.setAdapter(adapter);
+        
+        
+        GCMRegistrar.checkDevice(this);
+		GCMRegistrar.checkManifest(this);
+		final String regId = GCMRegistrar.getRegistrationId(this);
+		if (regId.equals("")) {
+			GCMRegistrar.register(this, SENDER_ID);
+		} else {
+			Log.i("Info", "Already registered");
+			mRegisterTask = new AsyncTask<Void, Void, Void>() {
+				@Override
+				protected Void doInBackground(Void... params) {
+					try {
+						ServicioRestGCM.registrar(regId);
+						
+					} catch (RestBlowUpException e) {
+						Log.e("Error", "Rest blow up!", e);
+					} catch (UnauthorizedException e) {
+						Log.w("Warning", "Unautorized!", e);
+					}
+					return null;
+				}				
+			};
+			mRegisterTask.execute();
+		}
+		registerReceiver(mHandleMessageReceiver, new IntentFilter(
+				"com.google.android.gcm.demo.app.DISPLAY_MESSAGE"));
+
+        
     }
 	
-	private String enviarMensaje(String mensaje, String id) throws RestBlowUpException, UnauthorizedException, NotFoundException {
+	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String newMessage = intent.getExtras().getString(EXTRA_MESSAGE);
+			Toast.makeText(ChatActivity.this, newMessage, Toast.LENGTH_LONG)
+					.show();
+		}
+	};
+	
+	private Mensaje enviarMensaje(String mensaje, String id) throws RestBlowUpException, UnauthorizedException{
 		
 			Mensaje msj = new Mensaje(Integer.parseInt(id), mensaje);
 			ServicioRestGCM.enviarMensaje(msj);
 			
-			return "Exito";
+			return msj;
 	}
 	
-	private class EnviarAsyncTask extends AsyncTask<String, Void, String> {
+	private class EnviarAsyncTask extends AsyncTask<String, Void, Mensaje> {
 		@Override
-		protected String doInBackground(String... params) {
+		protected Mensaje doInBackground(String... params) {
 			try{
 				return enviarMensaje(params[0], params[1]);
 			} catch (RestBlowUpException e) {
 				Log.e("Error", "Rest blow up!", e);
-				return "Rest blow up!";
+				return null;
 			} catch (UnauthorizedException e) {
 				Log.w("Warning", "Unautorized!", e);
-				return "Unautorized!";
+				return null;
 			}catch(Exception ex){
 				showToast("error al mandar el mensaje");
-				return "Error";
+				return null;
 			}
 		}
 	
 	    @Override
-	    protected void onPostExecute(String result) {
-	    	if (result.equals("Exito")){
+	    protected void onPostExecute(Mensaje result) {
+	    	if (result != null){
 	    		showToast("mensaje enviado");
 	    	}else{
-	    		showToast(result);
+	    		showToast("error al enviar el mensaje");
 	    	}
+	    	//((MensajeAdapter)listView1.getAdapter()).add(result);
+	    	//((MensajeAdapter)listView1.getAdapter()).notifyDataSetChanged();
 	    	progressBar.dismiss();
 	    }
 	}
