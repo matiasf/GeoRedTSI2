@@ -11,15 +11,15 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
 <br />
-       <h:form id="alta" enctype="multipart/form-data">
+       <h:form id="alta" enctype="multipart/form-data" style="width:400px">
        
-          <rich:panel id="newPanel" styleClass=".form" header="Oferta" headerClass="header" style="width:400px">
+          <rich:panel id="newPanel" styleClass=".form" header="Evento" headerClass="header" style="width:400px">
           
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell" style="width:400px">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaOfertaBB.nombre}">
+		      <h:inputText id="name" value="#{altaEventoBB.nombre}">
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
@@ -28,26 +28,20 @@
 		      <h:inputTextarea id="descripcion"
                     maxlength="200"
                     cols="34" rows="10"
-                    value="#{altaOfertaBB.descripcion}"
+                    value="#{altaEventoBB.descripcion}"
                     ></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
-              
-              <h:outputLabel for="costo" value="Costo:"/>
-		      <h:inputText id="costo" value="#{altaOfertaBB.costo}">
-		         <rich:validator/>
-		      </h:inputText>
-		      <rich:message for="costo" errorClass="invalid"/>
 		      
-		      <h:outputLabel for="name" value="Local:"/>
-		      <h:selectOneMenu value="#{altaOfertaBB.objectSelected}" style="width:200px;">
-				  <f:selectItem itemLabel="Seleccione Local" itemValue="-1" />
-				  <f:selectItems value="#{altaOfertaBB.objects}"/>				  
+		      <h:outputLabel for="name" value="Ubicación:"/>
+		      <h:selectOneMenu value="#{altaEventoBB.objectSelected}" style="width:200px;">
+				  <f:selectItem itemLabel="Seleccione Ubicación" itemValue="-1" />
+				  <f:selectItems value="#{altaEventoBB.objects}"/>				  
 				</h:selectOneMenu>				
 		      <rich:message for="name" errorClass="invalid"/>
               
               <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
               <a4j:outputPanel id="fechaComienzo" layout="block">
-                    <rich:calendar value="#{altaOfertaBB.fechaComienzo}"
+                    <rich:calendar value="#{altaEventoBB.fechaComienzo}"
                         locale="en/US"
                         popup="true"
                         datePattern="d/M/yy HH:mm"
@@ -57,7 +51,7 @@
             	
               <h:outputLabel for="fechaFin" value="Fecha Fin:" />
               <a4j:outputPanel id="fechaFin" layout="block">
-                    <rich:calendar value="#{altaOfertaBB.fechaFin}"
+                    <rich:calendar value="#{altaEventoBB.fechaFin}"
                         locale="en/US"
                         popup="true"
                         datePattern="d/M/yy HH:mm"
@@ -65,9 +59,11 @@
             	</a4j:outputPanel>
               <rich:message for="fechaFin" errorClass="invalid"/>
               
+              
+              
               <h:outputLabel for="imagen" value="Imagen:"/>      
 			  <rich:fileUpload id="imagen" listWidth="220px" listHeight="100px" style="width:200px; height:120px;"
-			    uploadData="#{altaOfertaBB.logoData}" fileUploadListener="#{altaOfertaBB.logoListener}"
+			    uploadData="#{altaEventoBB.logoData}" fileUploadListener="#{altaEventoBB.logoListener}"
 			    maxFilesQuantity="1"/>
 			  <rich:message for="imagen" errorClass="invalid"/>
               
@@ -75,19 +71,16 @@
               
 		   </h:panelGrid>
 		   
-		   <rich:panel style="width:360px;">
-				<rich:pickList value="#{altaOfertaBB.nombresCategoriaSelected}" listHeight="100px" listWidth="100px">		            
-		            <f:selectItems value="#{altaOfertaBB.nombresCategoria}"/>
+			<rich:panel style="width:360px;">
+				<rich:pickList value="#{altaEventoBB.nombresCategoriaSelected}" listHeight="100px" listWidth="100px">		            
+		            <f:selectItems value="#{altaEventoBB.nombresCategoria}"/>
         		</rich:pickList>
 			</rich:panel>
-		   
-
-
 			
 			<div id="botones">
-				<a4j:commandButton id="cancelar" action="#{altaOfertaBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{altaEventoBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="alta" action="#{altaOfertaBB.alta}" value="Dar de alta"
+                <a4j:commandButton id="alta" action="#{altaEventoBB.alta}" value="Dar de alta"
                                    styleClass="boton" />
                                    
                 <rich:messages globalOnly="true"/>

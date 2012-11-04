@@ -25,6 +25,7 @@ public class Oferta implements Serializable {
 	private float costo;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar comienzo;
+	private float valoracion;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar fin;
@@ -109,5 +110,12 @@ public class Oferta implements Serializable {
 	}
 	public void setCategorias(Collection<Categoria> categorias) {
 		this.categorias = categorias;
-	}   
+	}
+	public float getValoracion() {
+		return valoracion;
+	}
+	public void setValoracion(float valoracion) {
+		this.valoracion = valoracion;
+	}
+
 }

@@ -52,10 +52,9 @@
               		      
 		   <h:outputLabel for="logo" value="Logo:"/>      
 			  <rich:fileUpload listWidth="240px" listHeight="100px" style="width:240px; height:120px;"
-			    uploadData="#{modificarEmpresaBB.logoData}" fileUploadListener="#{modificarEmpresaBB.logoListener}"/>
-			  <rich:message for="logo" errorClass="invalid"/>  
-		      		      
-		      	      
+			    uploadData="#{modificarEmpresaBB.logoData}" fileUploadListener="#{modificarEmpresaBB.logoListener}"
+			    maxFilesQuantity="1"/>
+			  <rich:message for="logo" errorClass="invalid"/>
 		     
 
 		   </h:panelGrid>

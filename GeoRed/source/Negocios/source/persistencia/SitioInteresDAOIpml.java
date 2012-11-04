@@ -1,5 +1,6 @@
 package persistencia;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -25,6 +26,25 @@ public class SitioInteresDAOIpml extends BaseDAO<SitioInteres> implements
 			"SELECT count(c.id) " +
 			"FROM SitioInteres si JOIN si.checkIns c " +
 			"WHERE si.id = :idSitio";
+	
+	private static final String cantCheckInsDesdeQuery = 
+			"SELECT count(c.id) " +
+			"FROM SitioInteres si JOIN si.checkIns c " +
+			"WHERE si.id = :idSitio " +
+			"	AND c.fecha >= :fecha";
+	
+	private static final String cantCheckInsHastaQuery = 
+			"SELECT count(c.id) " +
+			"FROM SitioInteres si JOIN si.checkIns c " +
+			"WHERE si.id = :idSitio " +
+			"	AND c.fecha <= :fecha";
+	
+	private static final String cantCheckInsEntreQuery = 
+			"SELECT count(c.id) " +
+			"FROM SitioInteres si JOIN si.checkIns c " +
+			"WHERE si.id = :idSitio " +
+			"	AND c.fecha >= :inicio " +
+			"	AND c.fecha <= :fin";
 
 	@Override
 	public SitioInteres buscarPorId(int id) {
@@ -49,6 +69,34 @@ public class SitioInteresDAOIpml extends BaseDAO<SitioInteres> implements
 	public long cantCheckInSitio(int idSitio) {
 		TypedQuery<Long> query = em.createQuery(cantCheckInsQuery, Long.class);
 		query.setParameter("idSitio", idSitio);
+		Long ret = query.getSingleResult();
+		return ret;
+	}
+
+	@Override
+	public long cantCheckInSitioDesde(int idSitio, Calendar fecha) {
+		TypedQuery<Long> query = em.createQuery(cantCheckInsDesdeQuery, Long.class);
+		query.setParameter("idSitio", idSitio);
+		query.setParameter("fecha", fecha);
+		Long ret = query.getSingleResult();
+		return ret;
+	}
+
+	@Override
+	public long cantCheckInSitioHasta(int idSitio, Calendar fecha) {
+		TypedQuery<Long> query = em.createQuery(cantCheckInsHastaQuery, Long.class);
+		query.setParameter("idSitio", idSitio);
+		query.setParameter("fecha", fecha);
+		Long ret = query.getSingleResult();
+		return ret;
+	}
+
+	@Override
+	public long cantCheckInSitioEntre(int idSitio, Calendar inicio, Calendar fin) {
+		TypedQuery<Long> query = em.createQuery(cantCheckInsEntreQuery, Long.class);
+		query.setParameter("idSitio", idSitio);
+		query.setParameter("inicio", inicio);
+		query.setParameter("fin", fin);
 		Long ret = query.getSingleResult();
 		return ret;
 	}

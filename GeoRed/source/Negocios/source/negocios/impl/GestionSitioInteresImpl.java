@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -93,8 +94,21 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 	}
 
 	@Override
-	public long cantCheckInsSitio(int idSitio) {
-		return sitioInteresDAO.cantCheckInSitio(idSitio);
+	public long cantCheckInsSitio(int idSitio, Calendar inicio, Calendar fin) {
+		long ret = 0;
+		if ((inicio == null) && (fin == null)) {
+			ret = sitioInteresDAO.cantCheckInSitio(idSitio); 
+		}
+		else if (fin == null) {
+			ret = sitioInteresDAO.cantCheckInSitioDesde(idSitio, inicio);
+		}
+		else if (inicio == null) {
+			ret = sitioInteresDAO.cantCheckInSitioHasta(idSitio, fin);
+		}
+		else {
+			ret = sitioInteresDAO.cantCheckInSitioEntre(idSitio, inicio, fin);
+		}
+		return ret;
 	}
 
 	@Override

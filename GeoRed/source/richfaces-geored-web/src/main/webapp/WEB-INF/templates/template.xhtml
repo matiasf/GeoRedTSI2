@@ -28,20 +28,20 @@
 		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
 		        iconCollapsedTopGroup="chevronDown">
 		        <rich:panelMenuGroup label="Empresas">
-		            <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}" reRender="content">
+		            <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}">
 		                <f:param name="current" value="Alta Empresa"/>
 		            </rich:panelMenuItem>		            
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Sitios">
-		            <rich:panelMenuItem label="Alta Sitio" action="#{menuBB.altaSitioInteres}" reRender="content">
+		            <rich:panelMenuItem label="Alta Sitio" action="#{menuBB.altaSitioInteres}">
 		                <f:param name="current" value="Alta Sitio"/>
 		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Modificar Sitio" action="#{menuBB.modificarSitioInteres}" reRender="content">
+		            <rich:panelMenuItem label="Modificar Sitio" action="#{menuBB.modificarSitioInteres}">
 		                <f:param name="current" value="Modificar Sitio"/>
 		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Baja Sitio" action="#{menuBB.bajaSitioInteres}" reRender="content">
+		           <!-- <rich:panelMenuItem label="Baja Sitio" action="#{menuBB.bajaSitioInteres}" reRender="content">
 		                <f:param name="current" value="Baja Sitio"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem> --> 
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Eventos">
 		            <rich:panelMenuItem label="Alta Evento" action="#{menuBB.updateCurrent}" reRender="content">
@@ -58,18 +58,18 @@
 		            <rich:panelMenuItem label="Alta Categoria" action="#{menuBB.updateCurrent}" reRender="content">
 		                    <f:param name="current" value="Alta Categoria"/>
 		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Modificar Categoria" action="#{menuBB.updateCurrent}" reRender="content">
+		            <!--  <rich:panelMenuItem label="Modificar Categoria" action="#{menuBB.updateCurrent}" reRender="content">
 		                    <f:param name="current" value="Modificar Categoria"/>
 		            </rich:panelMenuItem>
 		            <rich:panelMenuItem label="Baja Categoria" action="#{menuBB.updateCurrent}" reRender="content">
 		                    <f:param name="current" value="Baja Categoria"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem> --> 
 		       	</rich:panelMenuGroup>
 		       	<rich:panelMenuGroup label="Reportes">
-		            <rich:panelMenuItem label="Reporte Check in" action="#{menuBB.updateCurrent}" reRender="content">
+		            <rich:panelMenuItem label="Reporte Check in" action="#{menuBB.reporteCheckIn}" reRender="content">
 		                    <f:param name="current" value="Reporte Check in"/>
 		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Reporte ofertas" action="#{menuBB.updateCurrent}" reRender="content">
+		            <rich:panelMenuItem label="Reporte ofertas" action="#{menuBB.reporteOferta}" reRender="content">
 		                    <f:param name="current" value="Reporte ofertas"/>
 		            </rich:panelMenuItem>		            
 		       	</rich:panelMenuGroup>

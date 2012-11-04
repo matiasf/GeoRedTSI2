@@ -66,9 +66,12 @@ public class ModificarCategoriaBB {
     	Categoria categoria = new Categoria();
     	categoria.setId(this.objectSelected);
     	categoria.setNombre(this.nombre);
-    	categoria.setDescripcion(this.descripcion);    
+    	categoria.setDescripcion(this.descripcion);
+    	ge.mo
     	ge.modificiarSitioInteres(categoria);
     	*/
+    	
+    	
     	
     	retorno = "exito";   	    		
     	

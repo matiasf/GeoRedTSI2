@@ -3,10 +3,12 @@ package persistencia;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,6 +33,9 @@ public class Evento implements Notificacion {
 	private double latitud;
 	
 	private double longitud;
+	
+	@OneToOne(cascade={CascadeType.ALL})
+	private Imagen foto; 
 
 	public int getId() {
 		return id;
@@ -96,6 +101,14 @@ public class Evento implements Notificacion {
 		this.longitud = longitud;
 	}
 	
+
+	public Imagen getFoto() {
+		return foto;
+	}
+
+	public void setFoto(Imagen foto) {
+		this.foto = foto;
+	}
 	
 	
 }
