@@ -19,7 +19,7 @@
 		 <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
               <a4j:outputPanel id="fechaComienzo" layout="block">
-                    <rich:calendar value="#{altaOfertaBB.fechaComienzo}"
+                    <rich:calendar value="#{reporteCheckInBB.fechaComienzo}"
                         locale="en/US"
                         popup="true"
                         datePattern="d/M/yy HH:mm"
@@ -41,7 +41,7 @@
 			<h:panelGrid columns="2">
 				<a4j:commandButton id="cancelar" action="#{reporteCheckInBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="modificarEmpresa" action="#{reporteCheckInBB.continuar}" value="Modificar"
+                <a4j:commandButton id="modificarEmpresa" action="#{reporteCheckInBB.continuar}" value="Reporte"
                                    styleClass="boton" />                                 
                 
              </h:panelGrid>
