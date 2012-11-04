@@ -342,4 +342,9 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		return ofertaDAO.ofertasRelacionadas(idLocal, idUsuario);
 	}
 
+	@Override
+	public Usuario obtenerUsario(int idUsuario) {
+		return usuarioDAO.buscarPorId(idUsuario);
+	}
+
 }
