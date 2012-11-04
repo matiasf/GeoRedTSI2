@@ -64,7 +64,7 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 				String idDevice;
 				for (Usuario usuario : listTmp) {
 					idDevice = gestionDevices.getDevice(usuario.getId());
-					if (idDevice != null && idDevice.isEmpty()) {
+					if (idDevice != null && !idDevice.isEmpty()) {
 						onLine.add(usuario);
 					}
 				}
@@ -202,7 +202,7 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
-		return null;
+		return new ArrayList<CategoriaJSON>();
 	}
 	
 	@Override
