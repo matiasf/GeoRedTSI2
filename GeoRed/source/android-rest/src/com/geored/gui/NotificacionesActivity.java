@@ -123,9 +123,9 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 
 		Posicion[] posiciones = new Posicion[1];
 		posiciones[0] = new Posicion();
-		posiciones[0].setDistancia((float) 100);
-		posiciones[0].setLatitud((float) lat);
-		posiciones[0].setLongitud((float) lon);
+		posiciones[0].setDistancia((double) 100);
+		posiciones[0].setLatitud((double) lat);
+		posiciones[0].setLongitud((double) lon);
 
 		task.execute(posiciones);
 	}

@@ -51,11 +51,11 @@ public class ChatActivity extends GenericActivity {
         data = new ArrayList<Mensaje>();        
         adapter = new MensajeAdapter(this, R.layout.activity_chat_item, data);
         listView = (ListView)findViewById(R.id.chatlistView);
-        View footer = (View)getLayoutInflater().inflate(R.layout.activity_chat_footer_row, null);
+        View footer = (View) getLayoutInflater().inflate(R.layout.activity_chat_footer_row, null);
         listView.addFooterView(footer);
         enviarButton = (Button)findViewById(R.id.enviarButton);
         enviarButton.setOnClickListener(new Button.OnClickListener() { 
-        	public void onClick (View v){
+        	public void onClick (View v) {
     			progressBar.show();
     			String text = ((EditText) findViewById(R.id.txtTextoEnviar)).getText().toString();
     			EnviarAsyncTask task = new EnviarAsyncTask();
