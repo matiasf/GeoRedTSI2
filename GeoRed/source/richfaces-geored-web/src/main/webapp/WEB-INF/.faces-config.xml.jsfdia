@@ -285,4 +285,20 @@
     TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#presentacionAdminSistema#reporteOferta.xhtml"
+  PATH="/presentacionAdminSistema/reporteOferta.xhtml"
+  SHAPE="320,625,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#presentacionAdminSistema#reporteOferta.xhtml:0"
+   NAME="item" PATH="/presentacionAdminSistema/reporteOferta.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cancelar::#presentacionAdminSistema#menu.xhtml" NAME="output"
+    PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="exito::#presentacionAdminSistema#menu.xhtml"
+    NAME="output1" PATH="/presentacionAdminSistema/menu.xhtml"
+    TARGET="rules:#presentacionAdminSistema#menu.xhtml" TITLE="exito" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
