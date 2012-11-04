@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
-import persistencia.Pago;
 import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
@@ -21,6 +20,7 @@ import com.geored.servicios.impl.gcm.GestionDevices;
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.OfertaJSON;
 import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
@@ -64,9 +64,9 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 				String idDevice;
 				for (Usuario usuario : listTmp) {
 					idDevice = gestionDevices.getDevice(usuario.getId());
-//					if (idDevice != null && idDevice.isEmpty()) {
+					if (idDevice != null && !idDevice.isEmpty()) {
 						onLine.add(usuario);
-//					}
+					}
 				}
 				return convertidorEntityJSON.convert(onLine);
 			} catch (EntidadNoExiste e) {
@@ -202,7 +202,7 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
-		return null;
+		return new ArrayList<CategoriaJSON>();
 	}
 	
 	@Override
@@ -236,6 +236,18 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		else{
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
+	}
+	
+	@Override
+	public List<OfertaJSON> getOfertasLocal(final String userToken, final HttpServletResponse response, final Integer idLocal) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken));
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
 	}
 
 }

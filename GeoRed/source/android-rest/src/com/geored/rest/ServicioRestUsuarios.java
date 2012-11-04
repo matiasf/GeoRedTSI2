@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.rest.data.Categoria;
 import com.geored.rest.data.Invitacion;
 import com.geored.rest.data.Notificacion;
+import com.geored.rest.data.Oferta;
 import com.geored.rest.data.Pago;
 import com.geored.rest.data.Posicion;
 import com.geored.rest.data.Usuario;
@@ -313,6 +314,29 @@ public class ServicioRestUsuarios extends ServicioRest {
 		}
 		else if (response.getStatusLine().getStatusCode() == NOT_FOUND) {
 			throw new NotFoundException();
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}
+	}
+	
+	public static List<Oferta> getOfertas(final Integer idLocal) throws RestBlowUpException, UnauthorizedException {
+		ObjectMapper mapper = new ObjectMapper();
+		HttpResponse response;
+		response = rest(Metodos.GET, URL_OFERTAS + "/" + idLocal);
+		if (response.getStatusLine().getStatusCode() == OK || response.getStatusLine().getStatusCode() == NOT_CONTENT) {
+			String asciiContent;
+			try {
+				asciiContent = Utils.getASCIIContentFromEntity(response.getEntity());
+				List<Oferta> wrapper = mapper.readValue(asciiContent, new TypeReference<List<Oferta>>() {});
+				return wrapper;
+			} catch (Exception e) {
+				Log.e("FATAL ERROR", e.getMessage(), e);
+				throw new RestBlowUpException(e.getMessage());
+			}
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();

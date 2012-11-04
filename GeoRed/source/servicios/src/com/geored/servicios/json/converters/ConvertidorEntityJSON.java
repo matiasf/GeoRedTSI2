@@ -10,6 +10,7 @@ import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.CheckInJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.OfertaJSON;
 import com.geored.servicios.json.PagoJSON;
 import com.geored.servicios.json.PosicionJSON;
 import com.geored.servicios.json.UsuarioJSON;
@@ -20,6 +21,7 @@ import persistencia.Evento;
 import persistencia.Invitacion;
 import persistencia.Local;
 import persistencia.Notificacion;
+import persistencia.Oferta;
 import persistencia.Pago;
 import persistencia.SitioInteres;
 import persistencia.Usuario;
@@ -104,6 +106,24 @@ public class ConvertidorEntityJSON {
 		return categoriaJSON;
 	}
 	
+	private CheckInJSON convertir(CheckIn checkin) {
+		CheckInJSON checkinJSON = new CheckInJSON();
+		checkinJSON.setComentario(checkin.getComentario());
+		checkinJSON.setId(checkin.getId());
+		return checkinJSON;
+	}
+	
+	private OfertaJSON convertir(Oferta oferta) {
+		OfertaJSON ofertaJSON = new OfertaJSON();
+		ofertaJSON.setId(oferta.getId());
+		ofertaJSON.setNombre(oferta.getNombre());
+		ofertaJSON.setCosto(oferta.getCosto());
+		ofertaJSON.setDescripcion(oferta.getDescripcion());
+		ofertaJSON.setComienzo(oferta.getComienzo().getTime());
+		ofertaJSON.setFin(oferta.getFin().getTime());
+		return ofertaJSON;
+	}
+	
 	public CheckIn convertir(CheckInJSON checkInJSON) {
 		CheckIn checkIn = new CheckIn();
 		checkIn.setFecha(GregorianCalendar.getInstance());
@@ -135,15 +155,21 @@ public class ConvertidorEntityJSON {
 			else if (s instanceof Invitacion) {
 				tt.add((T)convertir((Invitacion)s));
 			}
-			else if (s instanceof UsuarioJSON) {
-				tt.add((T)convertir((UsuarioJSON)s));
-			}
 			else if (s instanceof SitioInteres || s instanceof Local || s instanceof Evento) {
 				tt.add((T)convertir((Notificacion)s));
 			}
 			else if (s instanceof Categoria) {
 				tt.add((T)convertir((Categoria)s));
 			}
+			else if (s instanceof CheckIn) {
+				tt.add((T)convertir((CheckIn)s));
+			}
+			else if (s instanceof Oferta) {
+				tt.add((T)convertir((Oferta)s));
+			}
+			else if (s instanceof UsuarioJSON) {
+				tt.add((T)convertir((UsuarioJSON)s));
+			}			
 		}
 		return tt;
 	}

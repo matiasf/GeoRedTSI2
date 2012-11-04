@@ -11,8 +11,6 @@ import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 
 public class GCMIntentService extends GCMBaseIntentService {
-	
-	private final static String EXTRA_MESSAGE = "message";
 
 	@Override
 	protected void onError(Context context, String errorId) {
@@ -33,6 +31,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Log.i(TAG, "Device registered: regId = " + regId);
 		try {
 			ServicioRestGCM.registrar(regId);
+			GCMRegistrar.setRegisteredOnServer(context, true);
 		} 
 		catch (RestBlowUpException e) {
 			GCMRegistrar.unregister(context);
@@ -50,21 +49,22 @@ public class GCMIntentService extends GCMBaseIntentService {
 		if (GCMRegistrar.isRegisteredOnServer(context)) {
 			try {
 				ServicioRestGCM.desregistrar();
+				GCMRegistrar.setRegisteredOnServer(context, false);
 			} catch (RestBlowUpException e) {
-				GCMRegistrar.unregister(context);
 				Log.w("Warning", e.getMessage(), e);
 			} catch (UnauthorizedException e) {
-				GCMRegistrar.unregister(context);
 				Log.w("Warning", e.getMessage(), e);
 			}
-		} else {
+		} 
+		else {
 			Log.i(TAG, "Ignoring unregister callback");
 		}
 	}
 
 	static void displayMessage(Context context, Mensaje mensaje) {
 		Intent intent = new Intent("com.google.android.gcm.demo.app.DISPLAY_MESSAGE");
-		intent.putExtra(EXTRA_MESSAGE, mensaje.getIdUsuario() + ": " + mensaje.getMessage());
+		intent.putExtra("mensaje", mensaje.getMessage());
+		intent.putExtra("idUsuario", mensaje.getIdUsuario());
 		context.sendBroadcast(intent);
 	}
 

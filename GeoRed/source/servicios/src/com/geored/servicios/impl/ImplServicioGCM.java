@@ -55,7 +55,7 @@ public class ImplServicioGCM implements ServicioGCM {
 			try {
 				response.setStatus(Response.Status.OK.getStatusCode());
 				Message message = new Message.Builder().addData("mensaje", mensaje.getMessage()).
-						addData("idUsuario", gestionTokens.getIdUsuario(userToken).toString()).build();
+						addData("idUsuario", gestionTokens.getIdUsuario(userToken).toString()).delayWhileIdle(false).timeToLive(5).build();
 				String idDevice = gestionDevices.getDevice(mensaje.getIdUsuario());
 				if (idDevice != null) {
 					sender.send(message, idDevice, RETRY_ATTEMPS);
