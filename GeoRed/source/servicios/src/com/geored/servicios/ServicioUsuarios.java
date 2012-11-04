@@ -95,11 +95,12 @@ public interface ServicioUsuarios {
 	@POST
 	@Path("ofertas/{idOferta}")
 	void comprarOferta(@HeaderParam("Security-Token") final String userToken, @Context HttpServletResponse response, 
-			@PathParam("{idOferta}") final Integer idOferta, final PagoJSON pago);
+			@PathParam("idOferta") final Integer idOferta, final PagoJSON pago);
 
 	@GET
 	@Path("ofertas/{idLocal}")
+	@Produces("application/json")
 	List<OfertaJSON> getOfertasLocal(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
-			@PathParam("{idLocal}") final Integer idLocal);
+			@PathParam("idLocal") final Integer idLocal);
 
 }

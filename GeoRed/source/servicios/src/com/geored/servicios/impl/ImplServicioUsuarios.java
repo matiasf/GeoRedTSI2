@@ -207,8 +207,9 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
 			try {
-				return convertidorEntityJSON.convert(gestionUsuarios.getNotificaciones(gestionTokens.getIdUsuario(userToken),
+				List<NotificacionJSON> notificaciones = convertidorEntityJSON.convert(gestionUsuarios.getNotificaciones(gestionTokens.getIdUsuario(userToken),
 						posicion.getLatitud(), posicion.getLongitud(), posicion.getDistancia()));
+				return notificaciones;
 			} catch (EntidadNoExiste e) {
 				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
 			}

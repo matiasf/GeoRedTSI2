@@ -233,7 +233,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
 				ret.addAll(sitio.getCheckIns());
-				if (!sitio.getGoogleCalendarId().isEmpty()) {
+				if (sitio.getGoogleCalendarId() != null && !sitio.getGoogleCalendarId().isEmpty()) {
 					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
 					gcf.setCalendarId(sitio.getGoogleCalendarId());
 					try {

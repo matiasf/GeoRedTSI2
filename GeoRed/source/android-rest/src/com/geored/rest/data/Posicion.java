@@ -2,31 +2,31 @@ package com.geored.rest.data;
 
 public class Posicion {
 	
-	Float latitud;
-	Float longitud;
-	Float distancia;
+	Double latitud;
+	Double longitud;
+	Double distancia;
 	
-	public Float getLatitud() {
+	public Double getLatitud() {
 		return latitud;
 	}
 	
-	public void setLatitud(Float latitud) {
+	public void setLatitud(Double latitud) {
 		this.latitud = latitud;
 	}
 	
-	public Float getLongitud() {
+	public Double getLongitud() {
 		return longitud;
 	}
 	
-	public void setLongitud(Float longitud) {
+	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
 	
-	public Float getDistancia() {
+	public Double getDistancia() {
 		return distancia;
 	}
 	
-	public void setDistancia(Float distancia) {
+	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
 

@@ -31,7 +31,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
-public class NotificacionesActivity extends MapActivity implements LocationListener {
+public class NotificacionesActivity extends MapActivity implements
+		LocationListener {
 
 	private LocationManager locManager;
 	private MapController controller;
@@ -123,9 +124,9 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 
 		Posicion[] posiciones = new Posicion[1];
 		posiciones[0] = new Posicion();
-		posiciones[0].setDistancia((float) 100);
-		posiciones[0].setLatitud((float) lat);
-		posiciones[0].setLongitud((float) lon);
+		posiciones[0].setDistancia((double) 100);
+		posiciones[0].setLatitud((double) lat);
+		posiciones[0].setLongitud((double) lon);
 
 		task.execute(posiciones);
 	}
@@ -227,7 +228,8 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 		protected List<Notificacion> doInBackground(Posicion... posicions) {
 			List<Notificacion> notificaciones;
 			try {
-				notificaciones = ServicioRestUsuarios.getNotificaciones(posicions[0]);
+				notificaciones = ServicioRestUsuarios
+						.getNotificaciones(posicions[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
@@ -255,7 +257,8 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 
 		private void loadNotifications(List<Notificacion> result) {
 			try {
-				 Drawable drawable = NotificacionesActivity.this.getResources().getDrawable(R.drawable.marker);
+				Drawable drawable = NotificacionesActivity.this.getResources()
+						.getDrawable(R.drawable.marker);
 				SitioDInteresItemizedOverlay itemizedoverlay = new SitioDInteresItemizedOverlay(
 						drawable, NotificacionesActivity.this);
 
@@ -266,24 +269,26 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 					Iterator<Notificacion> it = result.iterator();
 					while (it.hasNext()) {
 						Notificacion noty = (Notificacion) it.next();
-						strs.add(noty.getId());
+						if (noty.getPosicion() != null) {
+							strs.add(noty.getId());
 
-						itemizedoverlay.hashNotificaciones.put(noty.getId(),
-								noty);
+							itemizedoverlay.hashNotificaciones.put(
+									noty.getId(), noty);
 
-						GeoPoint point = new GeoPoint((int) (noty.getPosicion()
-								.getLatitud() * 1E6), (int) (noty.getPosicion()
-								.getLongitud() * 1E6));
-						OverlayItem o = new OverlayItem(point,
-								noty.getNombre(), noty.getId());
+							GeoPoint point = new GeoPoint(
+									(int) (noty.getPosicion().getLatitud() * 1E6),
+									(int) (noty.getPosicion().getLongitud() * 1E6));
+							OverlayItem o = new OverlayItem(point,
+									noty.getNombre(), noty.getId());
 
-						// itemizedoverlay.clear();
-						itemizedoverlay.addOverlay(o);
+							// itemizedoverlay.clear();
+							itemizedoverlay.addOverlay(o);
 
-						// add the overlay item
-						// mapView.getOverlays().clear();
-						mapView.getOverlays().add(itemizedoverlay);
-						mapView.invalidate();
+							// add the overlay item
+							// mapView.getOverlays().clear();
+							mapView.getOverlays().add(itemizedoverlay);
+							mapView.invalidate();
+						}
 					}
 
 				} else {

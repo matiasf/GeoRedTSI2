@@ -177,6 +177,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.geored.gui.OfertasActivity"
+            android:label="@string/rest_ofertas" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.geored.gui.map.MapsDemo"
             android:label="@string/rest_test" >
             <intent-filter>
