@@ -111,9 +111,9 @@ public class UsuarioActivity extends GenericActivity implements
 
 		Posicion[] posiciones = new Posicion[1];
 		posiciones[0] = new Posicion();
-		posiciones[0].setDistancia((float) 100);
-		posiciones[0].setLatitud((float) lat);
-		posiciones[0].setLongitud((float) lon);
+		posiciones[0].setDistancia((double) 100);
+		posiciones[0].setLatitud((double) lat);
+		posiciones[0].setLongitud((double) lon);
 
 		task.execute(posiciones);
 	}
@@ -223,6 +223,10 @@ public class UsuarioActivity extends GenericActivity implements
 
 	public void showBuscarContactos(View clickedButton) {
 		goToActivity(BuscarContactosActivity.class);
+	}
+	
+	public void showOfertaTest(View clickedButton) {
+		goToActivity(OfertasActivity.class);
 	}
 
 	@Override

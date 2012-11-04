@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 
 	private static final String obtenerOfertasUsrQuery = 
-		"SELECT o " +
+		"SELECT DISTINCT o " +
 		"FROM Oferta o JOIN o.categorias oc " +
 		"WHERE EXISTS ( " +
 		"	SELECT c FROM Usuario u JOIN u.categorias c " +

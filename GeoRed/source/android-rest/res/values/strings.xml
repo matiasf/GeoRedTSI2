@@ -48,7 +48,10 @@
 	<string name="sitioDInteres">Sitios de Interes</string>
 	<string name="notificacionesLocal">Noticias Locales</string>
 	<string name="BuscarContactos">Buscar Contactos</string>
+	<string name="ofertas">Ofertas</string>
+	<string name="rest_ofertas">rest_ofertas</string>
 	
+	<string name="sacar_foto">Sacar Foto</string>
 	
 		
 	

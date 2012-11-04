@@ -60,6 +60,6 @@ public class Main extends GenericActivity {
     }    
     
     public void showCategoria(View clickedButton) {
-        goToActivity(CategoriasActivity.class);
+        goToActivity(CheckInActivity.class);
     }
 }
