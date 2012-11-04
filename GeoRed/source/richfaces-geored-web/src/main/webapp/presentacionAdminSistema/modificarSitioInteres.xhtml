@@ -20,7 +20,7 @@
 
 	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
        <h:form id="form">
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header" style="width:400px;">
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
@@ -51,6 +51,11 @@
 
 		   </h:panelGrid>
 		   
+		   <rich:panel style="width:360px;">
+				<rich:pickList value="#{modificarSitioInteresBB.nombresCategoriaSelected}" showButtonsLabel="false" listHeight="100px" listWidth="100px">		            
+		            <f:selectItems value="#{modificarSitioInteresBB.nombresCategoria}"/>
+        		</rich:pickList>
+			</rich:panel>   
 
 			
 			<h:panelGrid columns="2">

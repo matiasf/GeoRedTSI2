@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import persistencia.Categoria;
 import persistencia.Empresa;
 import persistencia.SitioInteres;
 
@@ -31,11 +32,19 @@ public class ModificarSitioInteresBB {
 	
 	private Object[] logoData;
 	
+	private List<Categoria> categorias;
+	private List<Categoria> categoriasSelected;
+	private List<String> nombresCategoria;
+	private List<String> nombresCategoriaSelected;
+	
 	private int sitioSelected;
 	private List<SelectItem> sitios;
 	
 	@EJB
 	private GestionSitioInteres gs;
+	
+	@EJB
+	private GestionEmpresas ge;
 	
     public ModificarSitioInteresBB() {    	
         System.out.println("altaSIBean instantiated");        
@@ -62,13 +71,28 @@ public class ModificarSitioInteresBB {
     	String retorno = "";
     	
     	System.out.println("sitio seleccionado" + this.sitioSelected);
-        //**** LOGICA            	    	
+                    	    	
         SitioInteres sitioInteres = gs.obtenerSitioInteres(this.sitioSelected);//??
     	this.setNombre(sitioInteres.getNombre());
     	this.setLatitud(sitioInteres.getLatitud());
     	this.setLongitud(sitioInteres.getLongitud());
-    	this.setDescripcion(sitioInteres.getDescripcion());   	    	
-    	//LOGICA *******/
+    	this.setDescripcion(sitioInteres.getDescripcion());
+    	
+    	this.categoriasSelected = new LinkedList<Categoria>();
+    	
+    	List<Categoria> aux = ge.obtenerCategoriasDeSitioInteres(sitioInteres.getId());
+    	this.categorias = ge.obtenerCategorias();
+    	
+    	this.nombresCategoriaSelected = new LinkedList<String>();
+    	
+    	for(Categoria c : aux){
+    		for(Categoria cate : this.categorias){
+    			if (c.equals(cate.getNombre())){    				
+    				this.nombresCategoriaSelected.add(cate.getNombre());
+    			}
+    		}
+    	}  	
+    	
         this.exito = true;
         
         return "modificar";
@@ -83,6 +107,15 @@ public class ModificarSitioInteresBB {
     	sitioInteres.setDescripcion(this.descripcion);
     	sitioInteres.setLatitud(this.latitud);
     	sitioInteres.setLongitud(this.longitud);
+    	this.categoriasSelected = new LinkedList<Categoria>();
+    	for(String s : this.nombresCategoriaSelected){
+    		for(Categoria cate : this.categorias){
+    			if (s.equals(cate.getNombre())){
+    				this.categoriasSelected.add(cate);
+    			}
+    		}
+    	}
+    	sitioInteres.setCategorias(this.categoriasSelected);
     	gs.modifciarSitioInteres(sitioInteres);
     	retorno = "exito";   	    		
     	
@@ -195,5 +228,26 @@ public class ModificarSitioInteresBB {
 
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
+	}
+	
+	public List<String> getNombresCategoria() {
+		this.nombresCategoria = new LinkedList<String>();
+		this.categorias = ge.obtenerCategorias();
+		for(Categoria cate : this.categorias){
+			nombresCategoria.add(cate.getNombre());
+		}
+		return nombresCategoria;
+	}
+
+	public void setNombresCategoria(List<String> nombresCategoria) {
+		this.nombresCategoria = nombresCategoria;
+	}
+
+	public List<String> getNombresCategoriaSelected() {		
+		return nombresCategoriaSelected;
+	}
+
+	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
+		this.nombresCategoriaSelected = nombresCategoriaSelected;
 	}
 }
