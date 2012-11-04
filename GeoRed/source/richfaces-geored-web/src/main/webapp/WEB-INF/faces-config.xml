@@ -39,6 +39,11 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
+  <managed-bean-name>altaEventoBB</managed-bean-name>
+  <managed-bean-class>javaBB.AltaEventoBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
   <managed-bean-name>altaCategoriaBB</managed-bean-name>
   <managed-bean-class>javaBB.AltaCategoriaBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
@@ -214,6 +219,18 @@
   <navigation-case>
    <from-outcome>exito</from-outcome>
    <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/altaEvento.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
  

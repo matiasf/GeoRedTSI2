@@ -21,6 +21,7 @@ import org.richfaces.model.UploadedFile;
 
 import persistencia.Categoria;
 import persistencia.Empresa;
+import persistencia.Evento;
 import persistencia.Imagen;
 import persistencia.Local;
 import persistencia.Oferta;
@@ -31,9 +32,9 @@ import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
 import negocios.excepciones.EntidadNoExiste;
 
-@ManagedBean(name = "altaOferta", eager = true)
+@ManagedBean(name = "altaEvento", eager = true)
 @SessionScoped
-public class AltaOfertaBB {
+public class AltaEventoBB {
 	
 	private String nombre;
 	private String descripcion;
@@ -46,11 +47,10 @@ public class AltaOfertaBB {
 	private List<Categoria> categorias;
 	private List<Categoria> categoriasSelected;
 	private List<String> nombresCategoria;
-	private List<String> nombresCategoriaSelected;	
+	private List<String> nombresCategoriaSelected;
 	
-	private List<Local> locales;
 	
-	private float costo;
+	private List<SitioInteres> sitios;
 	
 	private int objectSelected;
 	private List<SelectItem> objects;
@@ -58,11 +58,14 @@ public class AltaOfertaBB {
 	private boolean exito;
 	
 	@EJB
+	private GestionSitioInteres gs;
+	
+	@EJB
 	private GestionEmpresas ge;
 	
 	
-    public AltaOfertaBB() {    	
-        System.out.println("altaOfertaBean instantiated");        
+    public AltaEventoBB() {    	
+        System.out.println("altaEventoBean instantiated");        
         this.exito = true;        
     }
     
@@ -71,17 +74,19 @@ public class AltaOfertaBB {
     public String alta() {
     	String retorno = "";
     	
-    	Oferta oferta = new Oferta();
-    	oferta.setNombre(this.nombre);
-    	oferta.setDescripcion(this.descripcion);
+    	Evento evento = new Evento();
+    	evento.setNombre(this.nombre);
+    	evento.setDescripcion(this.descripcion);
     	Calendar cal = Calendar.getInstance();
-    	cal.setTime(this.fechaComienzo);    	
-    	oferta.setComienzo(cal);
+    	cal.setTime(this.fechaComienzo);
+    	evento.setInicio(cal);    	
     	Calendar cal2 = Calendar.getInstance();
     	cal2.setTime(this.fechaFin);    	
-    	oferta.setFin(cal2);
-    	oferta.setFoto(this.imagen);    	
-    	oferta.setCosto(this.costo);
+    	evento.setFin(cal2);
+    	
+    	SitioInteres sitio = gs.obtenerSitioInteres(this.objectSelected);
+    	evento.setLatitud(sitio.getLatitud());
+    	evento.setLongitud(sitio.getLongitud());
     	
     	this.categoriasSelected = new LinkedList<Categoria>();
     	for(String s : this.nombresCategoriaSelected){
@@ -92,29 +97,21 @@ public class AltaOfertaBB {
     		}
     	}
     	
-    	oferta.setCategorias(this.categoriasSelected);
+    	evento.setCategorias(this.categoriasSelected);
+    	
+    	//evento.setFoto(this.imagen);
+    	
     	
     	try {
-    		FacesContext context = FacesContext.getCurrentInstance();
-    		HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-    		String mailEmpresa = (String) session.getAttribute("mailEmpresa");
-        	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);
-        	this.locales = ge.obtenerLocalesDeEmpresa(empresa.getId());
-        	for(Local loc : this.locales){
-        		if (loc.getId() == this.objectSelected){
-        			oferta.setLocal(loc);
-        			break;        	
-        		}
-        	}
-    		ge.agregarOferta(this.objectSelected, oferta);
+    		ge.altaEvento(evento);    		
     		this.setExito(true); 
+    		
+    		FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().remove("altaOfertaBB");
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
-    	} catch (EntidadNoExiste e) {
-    		retorno = "revento";
-		}
+    	} 
     	
     	return retorno;
     }
@@ -213,20 +210,11 @@ public class AltaOfertaBB {
 	}
 
 	public List<SelectItem> getObjects() {
-		this.objects = new LinkedList<SelectItem>();
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession)context.getExternalContext().getSession(true);
-		String mailEmpresa = (String) session.getAttribute("mailEmpresa");
-    	Empresa empresa = ge.obtenerEmpresaPorMail(mailEmpresa);
-    	try {
-			this.locales = ge.obtenerLocalesDeEmpresa(empresa.getId());
-			for(Local loc : this.locales){
-	        	this.objects.add(new SelectItem(loc.getId(), loc.getNombre()));
-	        }
-		} catch (EntidadNoExiste e) {
-			
-			e.printStackTrace();
-		}    	
+		this.objects = new LinkedList<SelectItem>();		
+		this.sitios = gs.obtenerTodosSitiosInteres();    	
+		for(SitioInteres s : this.sitios){
+	       	this.objects.add(new SelectItem(s.getId(), s.getNombre()));
+	    }		    	
 		return objects;
 	}
 
@@ -234,22 +222,31 @@ public class AltaOfertaBB {
 		this.objects = objects;
 	}
 
-	public float getCosto() {
-		return costo;
+	public List<SitioInteres> getSitios() {
+		return sitios;
 	}
 
-	public void setCosto(float costo) {
-		this.costo = costo;
+	public void setSitios(List<SitioInteres> sitios) {
+		this.sitios = sitios;
 	}
 
-	public List<Local> getLocales() {
-		return locales;
+	public List<Categoria> getCategorias() {
+		this.categorias = ge.obtenerCategorias();
+		return categorias;
 	}
 
-	public void setLocales(List<Local> locales) {
-		this.locales = locales;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
-	
+
+	public List<Categoria> getCategoriasSelected() {
+		return categoriasSelected;
+	}
+
+	public void setCategoriasSelected(List<Categoria> categoriasSelected) {
+		this.categoriasSelected = categoriasSelected;
+	}
+
 	public List<String> getNombresCategoria() {
 		this.nombresCategoria = new LinkedList<String>();
 		this.categorias = ge.obtenerCategorias();
@@ -271,5 +268,4 @@ public class AltaOfertaBB {
 	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
 		this.nombresCategoriaSelected = nombresCategoriaSelected;
 	}
-	
 }
