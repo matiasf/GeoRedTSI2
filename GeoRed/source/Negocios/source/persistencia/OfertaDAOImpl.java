@@ -35,19 +35,19 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 			"SELECT count(p.id) " +
 			"FROM Oferta o JOIN o.pagos p " +
 			"WHERE o.id = :idOferta " +
-			"	AND o.fecha >= :fecha";
+			"	AND p.fecha >= :fecha";
 	
 	private static final String obtenerPagosHastaQuery = 
 			"SELECT count(p.id) " +
 			"FROM Oferta o JOIN o.pagos p " +
 			"WHERE o.id = :idOferta " +
-			"	AND o.fecha <= :fecha";
+			"	AND p.fecha <= :fecha";
 	
 	private static final String obtenerPagosEntreQuery = 
 			"SELECT count(p.id) " +
 			"FROM Oferta o JOIN o.pagos p " +
 			"WHERE o.id = :idOferta " +
-			"	AND o.fecha BETWEEN :inicio AND :fin";
+			"	AND p.fecha BETWEEN :inicio AND :fin";
 	
 	@Override
 	public Oferta buscarPorId(int id) {

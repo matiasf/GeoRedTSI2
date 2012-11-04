@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import persistencia.CheckIn;
 import persistencia.Empresa;
 import persistencia.Oferta;
+import persistencia.Pago;
 import persistencia.SitioInteres;
 import persistencia.Usuario;
 
@@ -45,6 +46,9 @@ public class ReporteOfertaBB {
 	@EJB
 	private GestionEmpresas ge;
 	
+	@EJB
+	private GestionUsuarios gu;
+	
     public ReporteOfertaBB() {    	
         System.out.println("ReporteOfertaBB instantiated");        
         
@@ -72,14 +76,13 @@ public class ReporteOfertaBB {
     	
     	
     	this.datos = new LinkedList<DatoReporteOferta>();
-    	//FIXME
-    	//this.ofertas = ge.ob
     	this.ofertas = new LinkedList<Oferta>();
+    	this.ofertas = ge.obenerTodasLasOfertas();
     	    	    	
     	int k = 1;
     	for(Oferta o : this.ofertas){		
     		DatoReporteOferta dato = new DatoReporteOferta(o.getId(), o.getNombre(), o.getDescripcion(), 
-    				6, 7.6);
+    				(int) ge.obtenerCantPagosDeOferta(o.getId(), cal, cal2), o.getValoracion());
     		k++;
     		this.datos.add(dato);
     	}	
@@ -89,40 +92,42 @@ public class ReporteOfertaBB {
     }
     
     public String continuar() {
-    	String retorno = "reporte";    	
+    	String retorno = "reporte";
     	
-    	/*
-    	List<Usuario> list = gu.buscarUsuario("usuario2");
+    	/*List<Usuario> list = gu.buscarUsuario("usuario2");
     	Usuario user2 = list.get(0);
     	
-    	SitioInteres sitio7 = gs.obtenerSitioInteres(7);
+    	Oferta oferta = new Oferta();
+    	oferta.setNombre("ganga");
+    	oferta.setDescripcion("desc");
+    	oferta.setCosto(2123);
+    	oferta.setValoracion(valoracion)
     	
     	
-    	GregorianCalendar dia1 = new GregorianCalendar(2012, 03, 25);
-    	GregorianCalendar dia2 = new GregorianCalendar(2012, 03, 26);
-    	GregorianCalendar dia3 = new GregorianCalendar(2012, 03, 27);
+    	GregorianCalendar dia1 = new GregorianCalendar(2012, 01, 25);
+    	GregorianCalendar dia2 = new GregorianCalendar(2012, 05, 26);
+    	GregorianCalendar dia3 = new GregorianCalendar(2012, 07, 27);
     	
-    	CheckIn check = new CheckIn();
-    	check.setUsuario(user2);
-    	check.setSitioInteres(sitio7);
-    	check.setFecha(dia1);    	
+    	Pago pago = new Pago();    
+    	pago.setUsuario(user2);
+    	pago.setFecha(dia1);
     	
-    	//hoy.add(GregorianCalendar.DATE, -7);
-    	CheckIn check2 = new CheckIn();
-    	check2.setUsuario(user2);
-    	check2.setSitioInteres(sitio7);
-    	check2.setFecha(dia2);
+    	Pago pago2 = new Pago();    
+    	pago2.setUsuario(user2);
+    	pago2.setFecha(dia2);
     	
-    	//hoy.add(GregorianCalendar.DATE, -15);
-    	CheckIn check3 = new CheckIn();
-    	check3.setUsuario(user2);
-    	check3.setSitioInteres(sitio7);
-    	check3.setFecha(dia3);
+    	Pago pago3 = new Pago();    
+    	pago3.setUsuario(user2);
+    	pago3.setFecha(dia3);
+    	
+    	
     	
     	try {
-			gs.hacerCheckIn(user2.getId(), sitio7.getId(), check);
-			gs.hacerCheckIn(user2.getId(), sitio7.getId(), check2);
-	    	gs.hacerCheckIn(user2.getId(), sitio7.getId(), check3);
+    		gu.comprarOferta(user2.getId(), 15, pago);
+    		gu.comprarOferta(user2.getId(), 15, pago2);
+    		gu.comprarOferta(user2.getId(), 15, pago3);
+    		
+			
 		} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
