@@ -80,14 +80,10 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	}
 
 	@Override
-	public UsuarioJSON getContacto(final String userToken, final HttpServletResponse response, final int idContacto) {
+	public UsuarioJSON getUsuario(final String userToken, final HttpServletResponse response) {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
-			try {
-				return convertidorEntityJSON.convertir(gestionUsuarios.getContacto(gestionTokens.getIdUsuario(userToken), idContacto));
-			} catch (EntidadNoExiste e) {
-				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
-			}
+			return convertidorEntityJSON.convertir(gestionUsuarios.obtenerUsario(gestionTokens.getIdUsuario(userToken)));
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
@@ -242,7 +238,7 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	public List<OfertaJSON> getOfertasLocal(final String userToken, final HttpServletResponse response, final Integer idLocal) {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
-			gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken));
+			return convertidorEntityJSON.convert(gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken)));
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());

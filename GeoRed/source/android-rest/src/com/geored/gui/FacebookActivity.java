@@ -19,7 +19,7 @@ import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
 public class FacebookActivity extends GenericActivity {
-	static final String URL_PREFIX_FRIENDS = "https://graph.facebook.com/me/friends?access_token=";
+	//static final String URL_PREFIX_FRIENDS = "https://graph.facebook.com/me/friends?access_token=";
 	TextView textInstructionsOrLink;
 	Button buttonLoginLogout;
 	Session.StatusCallback statusCallback = new SessionStatusCallback();
@@ -78,8 +78,7 @@ public class FacebookActivity extends GenericActivity {
 	private void updateView() {
 		Session session = Session.getActiveSession();
 		if (session.isOpened()) {
-			textInstructionsOrLink.setText(URL_PREFIX_FRIENDS
-					+ session.getAccessToken());
+			textInstructionsOrLink.setText("Bienvenido a Geored.uy, usted se a autenticado por Facebook, estamos chequeando esta sea una cuenta valida.");
 			buttonLoginLogout.setText(R.string.logout);
 			buttonLoginLogout.setOnClickListener(new OnClickListener() {
 				public void onClick(View view) {

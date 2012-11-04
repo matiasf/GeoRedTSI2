@@ -15,9 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.Session;
 import com.geored.gui.map.MapsDemo;
 import com.geored.rest.Main;
 import com.geored.rest.R;
+import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestGCM;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.TestServicios;
@@ -162,8 +164,27 @@ public class UsuarioActivity extends GenericActivity implements
 	}
 
 	public void showLogin(View clickedButton) {
+		Session session = Session.getActiveSession();
+		if (session != null && !session.isClosed()) {
+			session.closeAndClearTokenInformation();
+		}
 		GCMRegistrar.unregister(this);
-		goToActivity(Main.class);
+		AsyncTask<Void, Void, Void> logoutTask = new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				try {
+					ServicioRestAutenticacion.logout();
+					goToActivity(Main.class);
+				} catch (RestBlowUpException e) {
+					Log.e("ERROR", e.getMessage(), e);
+				} catch (UnauthorizedException e) {
+					Log.w("Warning", "Ya estaba deslogueado: " + e.getMessage(), e);
+					goToActivity(Main.class);
+				}
+				return null;
+			}
+		};		
+		logoutTask.execute();
 	}
 
 	/** Switches to the SpinnerActivity when the associated button is clicked. */
