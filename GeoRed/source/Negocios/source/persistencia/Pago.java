@@ -2,6 +2,8 @@ package persistencia;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Calendar;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,9 @@ public class Pago implements Serializable {
 	private int id;
 	private int evaluacion;
 	private String comentario;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fecha;
+	
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
@@ -52,5 +57,12 @@ public class Pago implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	public Calendar getFecha() {
+		return fecha;
+	}
+	public void setFecha(Calendar fecha) {
+		this.fecha = fecha;
+	}
+	
    
 }

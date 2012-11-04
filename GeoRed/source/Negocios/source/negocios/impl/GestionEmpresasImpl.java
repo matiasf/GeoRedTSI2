@@ -160,4 +160,28 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		
 	}
 
+	@Override
+	public List<Oferta> obenerTodasLasOfertas() {
+		return ofertaDAO.obtenerTodas();
+	}
+
+	@Override
+	public long obtenerCantPagosDeOferta(int idOferta, Calendar desde,
+			Calendar hasta) {
+		long ret = 0;
+		if ((desde == null) && (hasta == null)) {
+			ret = ofertaDAO.obtenerCantPagos(idOferta);
+		}
+		else if (desde == null) {
+			ret = ofertaDAO.obtenerCantPagosHasta(idOferta, hasta);
+		}
+		else if (hasta == null) {
+			ret = ofertaDAO.obtenerCantPagosDesde(idOferta, desde);
+		}
+		else {
+			ret = ofertaDAO.obtenerCantPagosEntre(idOferta, desde, hasta);
+		}
+		return ret;
+	}
+
 }

@@ -1,5 +1,6 @@
 package persistencia;
 
+import java.util.Calendar;
 import java.util.List;
 
 @javax.ejb.Local
@@ -15,5 +16,15 @@ public interface OfertaDAO {
 	
 	public float promedioValoraciones(int idOferta);
 
+	public List<Oferta> obtenerTodas();
+	
+	public long obtenerCantPagos(int idOferta);
+	
+	public long obtenerCantPagosDesde(int idOferta, Calendar fecha);
+	
+	public long obtenerCantPagosHasta(int idOferta, Calendar fecha);
+	
+	public long obtenerCantPagosEntre(int idOferta, Calendar desde, Calendar hasta);
+	
 	public void flush();
 }

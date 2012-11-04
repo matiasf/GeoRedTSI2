@@ -173,6 +173,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago)
 			throws EntidadNoExiste {
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
+		pago.setFecha(Calendar.getInstance());
 		if (usuario == null) {
 			String msg = "El usuario con id " + idUsuario + " no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
