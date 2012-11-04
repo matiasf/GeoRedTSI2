@@ -94,8 +94,15 @@ public class ReporteOfertaBB {
     public String continuar() {
     	String retorno = "reporte";
     	
-    	List<Usuario> list = gu.buscarUsuario("usuario2");
+    	/*List<Usuario> list = gu.buscarUsuario("usuario2");
     	Usuario user2 = list.get(0);
+    	
+    	Oferta oferta = new Oferta();
+    	oferta.setNombre("ganga");
+    	oferta.setDescripcion("desc");
+    	oferta.setCosto(2123);
+    	oferta.setValoracion(valoracion)
+    	
     	
     	GregorianCalendar dia1 = new GregorianCalendar(2012, 01, 25);
     	GregorianCalendar dia2 = new GregorianCalendar(2012, 05, 26);
@@ -125,7 +132,7 @@ public class ReporteOfertaBB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
+    	*/
     	
         return retorno;
     }
