@@ -49,6 +49,8 @@ public interface GestionEmpresas {
 	
 	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
 	
+	public List<Oferta> obenerTodasLasOfertas();
 	
+	public long obtenerCantPagosDeOferta(int idOferta, Calendar desde, Calendar hasta);
 	
 }

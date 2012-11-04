@@ -189,4 +189,11 @@ public interface GestionUsuarios {
 	 * @return Las ofertas que pertencen al local y compartenn una categoria con usuario
 	 */
 	public List<Oferta> obtenerOfertasLocalUsuario(int idLocal, int idUsuario);
+	
+	/**
+	 * Obtiene un usuario
+	 * @param idUsuario Id del usuario
+	 * @return el usuario que tiene el id en cuestion
+	 */
+	public Usuario obtenerUsario(int idUsuario);
 }

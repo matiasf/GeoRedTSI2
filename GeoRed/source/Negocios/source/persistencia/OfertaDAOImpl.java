@@ -1,5 +1,6 @@
 package persistencia;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -22,7 +23,31 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 			"FROM Oferta o " +
 			"	JOIN o.pagos p " +
 			"	WHERE o.id = :idOferta";
-
+	
+	private static final String obtenerTodasQuery = "SELECT o FROM Oferta o";
+	
+	private static final String obtenerPagosQuery = 
+			"SELECT count(p.id) " +
+			"FROM Oferta o JOIN o.pagos p " +
+			"WHERE o.id = :idOferta";
+	
+	private static final String obtenerPagosDesdeQuery = 
+			"SELECT count(p.id) " +
+			"FROM Oferta o JOIN o.pagos p " +
+			"WHERE o.id = :idOferta " +
+			"	AND o.fecha >= :fecha";
+	
+	private static final String obtenerPagosHastaQuery = 
+			"SELECT count(p.id) " +
+			"FROM Oferta o JOIN o.pagos p " +
+			"WHERE o.id = :idOferta " +
+			"	AND o.fecha <= :fecha";
+	
+	private static final String obtenerPagosEntreQuery = 
+			"SELECT count(p.id) " +
+			"FROM Oferta o JOIN o.pagos p " +
+			"WHERE o.id = :idOferta " +
+			"	AND o.fecha BETWEEN :inicio AND :fin";
 	
 	@Override
 	public Oferta buscarPorId(int id) {
@@ -43,6 +68,45 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 		TypedQuery<Double> query = em.createQuery(obtenerPromedioValoracion, Double.class);
 		query.setParameter("idOferta", idOferta);
 		return query.getSingleResult().floatValue();
+	}
+
+	@Override
+	public List<Oferta> obtenerTodas() {
+		TypedQuery<Oferta> query = em.createQuery(obtenerTodasQuery, Oferta.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public long obtenerCantPagos(int idOferta) {
+		TypedQuery<Long> query = em.createQuery(obtenerPagosQuery, Long.class);
+		query.setParameter("idOferta", idOferta);
+		return query.getSingleResult();
+	}
+
+	@Override
+	public long obtenerCantPagosDesde(int idOferta, Calendar fecha) {
+		TypedQuery<Long> query = em.createQuery(obtenerPagosDesdeQuery, Long.class);
+		query.setParameter("idOferta", idOferta);
+		query.setParameter("fecha", fecha);
+		return query.getSingleResult();
+	}
+
+	@Override
+	public long obtenerCantPagosHasta(int idOferta, Calendar fecha) {
+		TypedQuery<Long> query = em.createQuery(obtenerPagosHastaQuery, Long.class);
+		query.setParameter("idOferta", idOferta);
+		query.setParameter("fecha", fecha);
+		return query.getSingleResult();
+	}
+
+	@Override
+	public long obtenerCantPagosEntre(int idOferta, Calendar desde,
+			Calendar hasta) {
+		TypedQuery<Long> query = em.createQuery(obtenerPagosEntreQuery, Long.class);
+		query.setParameter("idOferta", idOferta);
+		query.setParameter("inicio", desde);
+		query.setParameter("fin", hasta);
+		return query.getSingleResult();
 	}
 
 
