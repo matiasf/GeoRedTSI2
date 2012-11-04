@@ -227,8 +227,7 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 		protected List<Notificacion> doInBackground(Posicion... posicions) {
 			List<Notificacion> notificaciones;
 			try {
-				notificaciones = ServicioRestUsuarios
-						.getNotificaciones(posicions[0]);
+				notificaciones = ServicioRestUsuarios.getNotificaciones(posicions[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
@@ -249,17 +248,16 @@ public class NotificacionesActivity extends MapActivity implements LocationListe
 				loadNotifications(result);
 				// goToActivity(UsuarioActivity.class);
 			} else {
-				showToast("error");
+				showToast("error al traer las notificaciones");
 			}
 			progressBar.dismiss();
 		}
 
 		private void loadNotifications(List<Notificacion> result) {
 			try {
-				// Drawable drawable =
-				// NotificacionesActivity.this.getResources().getDrawable(R.drawable.marker);
+				 Drawable drawable = NotificacionesActivity.this.getResources().getDrawable(R.drawable.marker);
 				SitioDInteresItemizedOverlay itemizedoverlay = new SitioDInteresItemizedOverlay(
-						null, NotificacionesActivity.this);
+						drawable, NotificacionesActivity.this);
 
 				itemizedoverlay.hashNotificaciones.clear();
 				List<String> strs = new ArrayList<String>();
