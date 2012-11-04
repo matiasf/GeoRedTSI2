@@ -268,8 +268,7 @@ public class UsuarioActivity extends GenericActivity implements
 		protected List<Notificacion> doInBackground(Posicion... posicions) {
 			List<Notificacion> notificaciones;
 			try {
-				notificaciones = ServicioRestUsuarios
-						.getNotificaciones(posicions[0]);
+				notificaciones = ServicioRestUsuarios.getNotificaciones(posicions[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
