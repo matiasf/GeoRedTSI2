@@ -1,6 +1,7 @@
 package negocios;
 
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface GestionSitioInteres {
 	
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
 	
-	public long cantCheckInsSitio(int idSitio);
+	public long cantCheckInsSitio(int idSitio, Calendar inicio, Calendar fin);
 	
 	public List<CheckIn> obtenerCheckInsAmigosLocal(int idUsuario, int idSitio);
 }

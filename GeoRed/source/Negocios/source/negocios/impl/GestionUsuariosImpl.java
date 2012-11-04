@@ -184,6 +184,10 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		}
 		Pago pagoIns = pagoDAO.insertar(pago);
 		oferta.getPagos().add(pagoIns);
+		pagoDAO.flush();
+		ofertaDAO.flush();
+		float prom = ofertaDAO.promedioValoraciones(idOferta);
+		oferta.setValoracion(prom);
 	}
 
 	@Override

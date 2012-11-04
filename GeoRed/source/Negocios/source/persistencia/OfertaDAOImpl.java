@@ -16,6 +16,12 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 		"		WHERE c =  oc AND " +
 		"		u.id = :userId) " +
 		"	AND o.local.id = :localId";
+	
+	private static final String obtenerPromedioValoracion = 
+			"SELECT AVG(p.evaluacion) " +
+			"FROM Oferta o " +
+			"	JOIN o.pagos p " +
+			"	WHERE o.id = :idOferta";
 
 	
 	@Override
@@ -31,5 +37,14 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 		query.setParameter("localId", idLocal);
 		return query.getResultList();
 	}
+
+	@Override
+	public float promedioValoraciones(int idOferta) {
+		TypedQuery<Double> query = em.createQuery(obtenerPromedioValoracion, Double.class);
+		query.setParameter("idOferta", idOferta);
+		return query.getSingleResult().floatValue();
+	}
+
+
 
 }

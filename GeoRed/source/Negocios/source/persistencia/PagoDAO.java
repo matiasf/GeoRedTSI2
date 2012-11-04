@@ -9,4 +9,6 @@ public interface PagoDAO {
 	
 	public Pago buscarPorId(int id);
 
+	public void flush();
+
 }
