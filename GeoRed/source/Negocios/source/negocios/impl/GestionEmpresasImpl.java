@@ -135,6 +135,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public List<Categoria> obtenerCategorias() {
 		return categoriaDAO.obtenerTodos();
 	}
+	
+	@Override
+	public List<Categoria> obtenerCategoriasDeSitioInteres(int idServicio) {
+		return categoriaDAO.obtenerCategoriasDeSitioInteres(idServicio);
+	}
 
 	@Override
 	public int altaEvento(Evento evento) {
@@ -145,7 +150,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public List<Evento> obtenerEventos(Calendar desdeFecha) {
 		return eventoDAO.obtenerEventos(desdeFecha);
 	}
-
+	
 	@Override
 	public void agregarCategoriasOferta(int idOferta,
 			Collection<Integer> idCategorias) {

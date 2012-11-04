@@ -1,23 +1,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible" />
 
-    
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.19"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/sacar_foto_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showSacarFoto"
+        android:text="@string/sacar_foto" />
+
     <Button
         android:id="@+id/check_in_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/check_in"
         android:onClick="showCheckin"
-        />
+        android:text="@string/check_in" />
 
 </LinearLayout>

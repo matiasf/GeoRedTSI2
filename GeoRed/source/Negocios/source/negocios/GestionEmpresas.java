@@ -43,6 +43,8 @@ public interface GestionEmpresas {
 	
 	public List<Categoria> obtenerCategorias();
 	
+	public List<Categoria> obtenerCategoriasDeSitioInteres(int idServicio);
+	
 	public int altaEvento(Evento evento);
 	
 	public List<Evento> obtenerEventos(Calendar desdeFecha);
