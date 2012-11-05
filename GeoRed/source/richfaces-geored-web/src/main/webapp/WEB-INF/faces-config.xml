@@ -22,7 +22,12 @@
   <managed-bean-name>reporteCheckInBB</managed-bean-name>
   <managed-bean-class>javaBB.ReporteCheckInBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
- </managed-bean> 
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>reporte</managed-bean-name>
+  <managed-bean-class>javaBB.Reporte</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>  
  <managed-bean>
   <managed-bean-name>reporteOfertaBB</managed-bean-name>
   <managed-bean-class>javaBB.ReporteOfertaBB</managed-bean-class>

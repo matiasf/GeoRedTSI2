@@ -1,10 +1,13 @@
 package javaBB;
 
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.swing.JOptionPane;
 
 import persistencia.CheckIn;
 import persistencia.Empresa;
@@ -25,6 +29,7 @@ import negocios.GestionEmpresas;
 import negocios.GestionSitioInteres;
 import negocios.GestionUsuarios;
 import negocios.excepciones.EntidadNoExiste;
+
 
 @ManagedBean(name = "reporteOferta")
 @SessionScoped
@@ -90,6 +95,16 @@ public class ReporteOfertaBB {
 
     	
     }
+    
+    public void generarReporte(){
+    /*    try{
+             gs.generarReporte();
+              
+          }catch(Exception ex){
+              ex.printStackTrace();
+              JOptionPane.showMessageDialog(null,"Se produjo un error al leer el archivo .jasper");
+          }        */
+  }
     
     public String continuar() {
     	String retorno = "reporte";

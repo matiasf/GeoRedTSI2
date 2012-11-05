@@ -11,10 +11,15 @@
                 
 <ui:define name="content">
 	<h:outputStylesheet name="app.css" library="css"/>
-   <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
+	<h:outputScript target="head" name="jscharts.js" library="js"/>
+   <h:outputScript target="head" name="cargarGrafica.js" library="js"/>   
+   <h:outputScript target="body">   			   			
+   			armarLaTorta();
+   </h:outputScript>    
+   
+  
 
-
-
+		<div id="chartcontainer" style="width:400px;"></div>
        <h:form id="formReporte" >
            <rich:panel id="newEmpresaPanel" styleClass=".form" header="Ofertas" headerClass="header" style="width:400px">
 		
@@ -71,6 +76,7 @@
 				
 				<a4j:commandButton id="cancelar" action="#{reporteOfertaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
+
                 <a4j:commandButton id="alta" action="#{reporteOfertaBB.finalizar}" value="Aceptar"
                                    styleClass="boton" />
                                    
