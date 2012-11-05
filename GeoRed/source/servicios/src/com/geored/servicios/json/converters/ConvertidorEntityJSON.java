@@ -92,7 +92,7 @@ public class ConvertidorEntityJSON {
 			notifiacionJSON = new NotificacionJSON();
 			notifiacionJSON.setId(checkIn.getId());
 			notifiacionJSON.setDescripcion(checkIn.getComentario());
-			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString());
+			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString() + ":" + checkIn.getSitioInteres().getId());
 			notifiacionJSON.setNombre(checkIn.getUsuario().getNombre());
 		}
 		return notifiacionJSON;
