@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
@@ -25,11 +27,18 @@ import com.geored.rest.exception.UnauthorizedException;
 
 public class OfertasActivity extends GenericActivity {
 	
+	private String value;
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);	     
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_compras, menu);
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_compras, menu);
+		Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            value = extras.getString("ofertas_id");
+            
+        }
 	}
 	
 	@Override
@@ -74,7 +83,7 @@ public class OfertasActivity extends GenericActivity {
 	private void loadListView() {
 		progressBar.show();
 		OfertasAsyncTask task = new OfertasAsyncTask();
-		task.execute();
+		task.execute(new String[] { value });
 	}
 	
 	private void loadListView(List<Oferta> ofertas) {
@@ -99,7 +108,8 @@ public class OfertasActivity extends GenericActivity {
 		protected List<Oferta> doInBackground(String... params) {
 			List<Oferta> ofertas = new ArrayList<Oferta>();
 			try {
-				ofertas = ServicioRestUsuarios.getOfertas(16);
+				//ofertas = ServicioRestUsuarios.getOfertas(16);
+				ofertas = ServicioRestUsuarios.getOfertas(Integer.parseInt(params[0]));
 			} catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);
 			} catch (UnauthorizedException e) {
