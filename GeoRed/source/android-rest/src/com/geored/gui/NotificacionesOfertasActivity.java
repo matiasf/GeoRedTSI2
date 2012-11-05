@@ -31,7 +31,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
-public class NotificacionesActivity extends MapActivity implements
+public class NotificacionesOfertasActivity extends MapActivity implements
 		LocationListener {
 
 	private LocationManager locManager;
@@ -257,10 +257,10 @@ public class NotificacionesActivity extends MapActivity implements
 
 		private void loadNotifications(List<Notificacion> result) {
 			try {
-				Drawable drawable = NotificacionesActivity.this.getResources()
-						.getDrawable(R.drawable.marker);
-				SitioDInteresItemizedOverlay itemizedoverlay = new SitioDInteresItemizedOverlay(
-						drawable, NotificacionesActivity.this);
+				Drawable drawable = NotificacionesOfertasActivity.this.getResources()
+						.getDrawable(R.drawable.markerblue);
+				OfertasItemizedOverlay itemizedoverlay = new OfertasItemizedOverlay(
+						drawable, NotificacionesOfertasActivity.this);
 
 				itemizedoverlay.hashNotificaciones.clear();
 				List<String> strs = new ArrayList<String>();
@@ -269,7 +269,7 @@ public class NotificacionesActivity extends MapActivity implements
 					Iterator<Notificacion> it = result.iterator();
 					while (it.hasNext()) {
 						Notificacion noty = (Notificacion) it.next();
-						if (noty.getPosicion() != null && noty.getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) {
+						if (noty.getPosicion() != null && noty.getTipo().equalsIgnoreCase("LOCAL")) {
 							strs.add(noty.getId());
 
 							itemizedoverlay.hashNotificaciones.put(

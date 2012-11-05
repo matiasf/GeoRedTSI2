@@ -50,8 +50,8 @@
         android:id="@+id/notificaciones_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="showNotificaciones"
-        android:text="@string/notificaciones" />
+        android:onClick="showNotificacionesLocales"
+        android:text="@string/notificacionesLocales" />
 
     <Button
         android:id="@+id/logout_button"
