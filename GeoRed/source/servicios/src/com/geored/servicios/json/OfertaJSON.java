@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OfertaJSON {
 	
 	private Integer id;
+	private Integer idImagen;
 	private String nombre;
 	private String descripcion;
 	private Float costo;
@@ -60,6 +61,14 @@ public class OfertaJSON {
 	
 	public void setFin(Date fin) {
 		this.fin = fin;
+	}
+
+	public Integer getIdImagen() {
+		return idImagen;
+	}
+
+	public void setIdImagen(Integer idImagen) {
+		this.idImagen = idImagen;
 	}
 	
 }

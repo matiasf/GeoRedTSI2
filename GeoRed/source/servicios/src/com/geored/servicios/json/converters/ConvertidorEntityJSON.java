@@ -121,6 +121,9 @@ public class ConvertidorEntityJSON {
 		ofertaJSON.setDescripcion(oferta.getDescripcion());
 		ofertaJSON.setComienzo(oferta.getComienzo().getTime());
 		ofertaJSON.setFin(oferta.getFin().getTime());
+		if (oferta.getFoto() != null) {
+			ofertaJSON.setIdImagen(oferta.getFoto().getId());
+		}
 		return ofertaJSON;
 	}
 	

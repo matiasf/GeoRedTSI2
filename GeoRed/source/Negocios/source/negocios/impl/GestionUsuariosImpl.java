@@ -184,6 +184,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			throw new EntidadNoExiste(idOferta, msg);
 		}
 		Pago pagoIns = pagoDAO.insertar(pago);
+		pagoIns.setUsuario(usuario);
 		oferta.getPagos().add(pagoIns);
 		pagoDAO.flush();
 		ofertaDAO.flush();
