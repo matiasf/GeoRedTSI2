@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
 import com.geored.rest.R;
+import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Usuario;
 
 public class GenericActivity extends Activity {
@@ -17,7 +18,9 @@ public class GenericActivity extends Activity {
 	
 	protected String usuarioId;
 	protected Hashtable<String, Usuario>  hashUsuarios = new Hashtable<String,Usuario> ();
-    	
+	
+	static public Hashtable<String, Notificacion>  hashNotificaciones = new Hashtable<String,Notificacion> ();
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
