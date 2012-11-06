@@ -18,6 +18,11 @@ public class CategoriaDAOImpl extends BaseDAO<Categoria> implements CategoriaDAO
 			"FROM Oferta e JOIN e.categorias c " +
 			"WHERE e.id = :id";
 	
+	private static final String categoriasEventoQuery = 
+			"SELECT c " +
+			"FROM Evento e JOIN e.categorias c " +
+			"WHERE e.id = :id";
+	
 	@Override
 	public Categoria buscarPorId(int id) {
 		Categoria ret = em.find(Categoria.class, id);
@@ -44,5 +49,11 @@ public class CategoriaDAOImpl extends BaseDAO<Categoria> implements CategoriaDAO
 		query.setParameter("id", idOferta);
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Categoria> obtenerCategoriasDeEvento(int idEvento) {
+		TypedQuery<Categoria> query = em.createQuery(categoriasEventoQuery, Categoria.class);
+		query.setParameter("id", idEvento);
+		return query.getResultList();	}
 
 }

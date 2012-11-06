@@ -6,6 +6,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import persistencia.Empresa;
 
@@ -16,23 +18,27 @@ import negocios.GestionEmpresas;
 @SessionScoped
 public class LoginBB {
 	
+	@Size(min=1, message="El campo mail es obligatorio")
 	private String mail;
+	@Size(min=1, message="Debe ingresar su password")
 	private String password;
 	
 	private Empresa empresaSession;
+	
+	private boolean error;
+	private String msgError;
 	
 	@EJB
 	private GestionEmpresas ge;
 	
     public LoginBB() {
-    	
+    	error = false;
         System.out.println("WelcomeBean instantiated");
     }
     
     /* logica y navegación*/
     public String login() {
     	String retorno = "";
-    	
     	
     	boolean logAdm = this.mail.equals("admin");    	
     	if(logAdm){
@@ -65,7 +71,13 @@ public class LoginBB {
     		context.getExternalContext().getSessionMap().remove("altaLocalBB");
     	} 
     	//LOGICA *******/
-    		
+		error = !(logEmp || logAdm);
+		if (error) {
+			msgError = "El usuario o password son incorectos";
+		}
+		else {
+			msgError = "";
+		}
     	
         return retorno;
     }
@@ -94,4 +106,22 @@ public class LoginBB {
 	public void setEmpresaSession(Empresa empresaSession) {
 		this.empresaSession = empresaSession;
 	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
+	public String getMsgError() {
+		return msgError;
+	}
+
+	public void setMsgError(String msgError) {
+		this.msgError = msgError;
+	}
+	
+	
 }

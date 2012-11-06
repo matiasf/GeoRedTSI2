@@ -48,7 +48,6 @@ public class ModificarOfertaBB {
 	private UploadedFile uploadedFile;
 	
 	private HashMap<String, Categoria> categorias;
-	private List<Categoria> categoriasSelected;
 	private List<String> nombresCategoria;
 	private List<String> nombresCategoriaSelected;
 	
@@ -114,9 +113,10 @@ public class ModificarOfertaBB {
 		this.costo = oferta.getCosto();
 		this.fechaComienzo = oferta.getComienzo().getTime();
 		this.fechaFin = oferta.getFin().getTime();
+		this.valoracion = oferta.getValoracion();
+		
 		this.categorias = new HashMap<String, Categoria>();
 		this.todasCategorias = new HashMap<String, Categoria>();
-		this.valoracion = oferta.getValoracion();
 		List<Categoria> todas = ge.obtenerCategorias();
 		List<Categoria> pertenecen = ge.obtenerCategoriasOferta(ofertaSelected);
 		this.complementoCats = new HashMap<String, Categoria>();
@@ -263,14 +263,6 @@ public class ModificarOfertaBB {
 
 	public void setCategorias(HashMap<String, Categoria> categorias) {
 		this.categorias = categorias;
-	}
-
-	public List<Categoria> getCategoriasSelected() {
-		return categoriasSelected;
-	}
-
-	public void setCategoriasSelected(List<Categoria> categoriasSelected) {
-		this.categoriasSelected = categoriasSelected;
 	}
 
 	public List<String> getNombresCategoria() {

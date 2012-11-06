@@ -247,4 +247,43 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		
 	}
 
+	@Override
+	public List<Categoria> obtenerCategoriasEvento(int idEvento) {
+		return categoriaDAO.obtenerCategoriasDeEvento(idEvento);
+	}
+
+	@Override
+	public void agregarCategoriasEvento(int idEvento,
+			Collection<Integer> idCategorias) {
+		Evento evento = eventoDAO.buscarPorId(idEvento);
+		if (evento != null) {
+			for (Integer idCat : idCategorias) {
+				Categoria cat = categoriaDAO.buscarPorId(idCat);
+				if (evento != null) {
+					if (!evento.getCategorias().contains(cat)) {
+						evento.getCategorias().add(cat);
+					}
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void borrarCategoriasEvento(int idEvento,
+			Collection<Integer> idCategorias) {
+	
+		Evento evento = eventoDAO.buscarPorId(idEvento);
+		if (evento != null) {
+			for (Integer idCat : idCategorias) {
+				Categoria cat = categoriaDAO.buscarPorId(idCat);
+				if (evento != null) {
+					if (evento.getCategorias().contains(cat)) {
+						evento.getCategorias().remove(cat);
+					}
+				}
+			}
+		}	
+	}
+
 }

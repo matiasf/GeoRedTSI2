@@ -18,5 +18,7 @@ public interface CategoriaDAO {
 	public List<Categoria> obtenerCategoriaOferta(int idOferta);
 
 	public List<Categoria> obtenerCategoriasDeSitioInteres(int idServicio);
+	
+	public List<Categoria> obtenerCategoriasDeEvento(int idEvento);
 
 }

@@ -3,9 +3,12 @@ package javaBB;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,10 +50,13 @@ public class ModificarEventoBB {
 	
 	private Imagen imagen;	
 	
-	private List<Categoria> categorias;
-	private List<Categoria> categoriasSelected;
+	private HashMap<String, Categoria> categorias;
 	private List<String> nombresCategoria;
 	private List<String> nombresCategoriaSelected;
+	
+	private HashMap<String, Categoria> complementoCats;
+	private HashMap<String, Categoria> todasCategorias;
+
 	
 	
 	private List<SitioInteres> sitios;
@@ -100,22 +106,31 @@ public class ModificarEventoBB {
         	evento.setLongitud(sitio.getLongitud());	
     	}
     	
-    	this.categoriasSelected = new LinkedList<Categoria>();
-    	for(String s : this.nombresCategoriaSelected){
-    		for(Categoria cate : this.categorias){
-    			if (s.equals(cate.getNombre())){
-    				this.categoriasSelected.add(cate);
-    			}
-    		}
-    	}
-    	
-    	evento.setCategorias(this.categoriasSelected);
-    	
     	evento.setFoto(this.imagen);
     	
     	
     	try {
-    		ge.modificarEvento(evento);    		
+    		ge.modificarEvento(evento);    	
+    		
+    		
+    		
+    		Collection<Integer> aLevantar = new ArrayList<Integer>();
+    		Collection<Integer> aBorrar = new ArrayList<Integer>();
+    		
+    		for (String nombre : nombresCategoriaSelected) {
+    			aLevantar.add(todasCategorias.get(nombre).getId());
+    		}
+    		
+    		for (String nombre : nombresCategoria) {
+    			if (categorias.containsKey(nombre)) {
+    				aBorrar.add(categorias.get(nombre).getId());
+    			}
+    		}
+    		
+    		ge.borrarCategoriasEvento(evento.getId(), aBorrar);
+    		ge.agregarCategoriasEvento(evento.getId(), aLevantar);
+    		
+    		
     		this.setExito(true); 
     		
     		FacesContext context = FacesContext.getCurrentInstance();
@@ -143,23 +158,26 @@ public class ModificarEventoBB {
     	this.longitud = (float) evento.getLongitud();
     	this.imagen = evento.getFoto();
     	
-    	//FIXME bug conocido para todos los modificar con categoria
-    	//las categorias de la instancia no aparecen a la derecha
-    	
-    	/*this.categoriasSelected = new LinkedList<Categoria>();
-    	
-    	List<Categoria> aux = ge.obtenerCategoriasDeSitioInteres(sitioInteres.getId());
-    	this.categorias = ge.obtenerCategorias();
-    	
-    	this.nombresCategoriaSelected = new LinkedList<String>();
-    	
-    	for(Categoria c : aux){
-    		for(Categoria cate : this.categorias){
-    			if (c.equals(cate.getNombre())){    				
-    				this.nombresCategoriaSelected.add(cate.getNombre());
-    			}
-    		}
-    	} */ 	
+    	this.categorias = new HashMap<String, Categoria>();
+		this.todasCategorias = new HashMap<String, Categoria>();
+    	List<Categoria> todas = ge.obtenerCategorias();
+		List<Categoria> pertenecen = ge.obtenerCategoriasEvento(eventoSelected);
+    	this.complementoCats = new HashMap<String, Categoria>();
+		this.nombresCategoria = new LinkedList<String>();
+		this.nombresCategoriaSelected = new LinkedList<String>();
+		
+		for (Categoria categoria : pertenecen) {
+			this.categorias.put(categoria.getNombre(), categoria);
+			this.nombresCategoriaSelected.add(categoria.getNombre());
+		}
+		
+		for (Categoria categoria : todas) {
+			this.nombresCategoria.add(categoria.getNombre());
+			this.todasCategorias.put(categoria.getNombre(), categoria);
+			if (!this.categorias.containsKey(categoria.getNombre())) {
+				this.complementoCats.put(categoria.getNombre(), categoria);
+			}
+		}	
     	
         this.exito = true;
         
@@ -281,29 +299,15 @@ public class ModificarEventoBB {
 		this.sitios = sitios;
 	}
 
-	public List<Categoria> getCategorias() {
-		this.categorias = ge.obtenerCategorias();
+	public HashMap<String, Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<Categoria> categorias) {
+	public void setCategorias(HashMap<String, Categoria> categorias) {
 		this.categorias = categorias;
 	}
 
-	public List<Categoria> getCategoriasSelected() {
-		return categoriasSelected;
-	}
-
-	public void setCategoriasSelected(List<Categoria> categoriasSelected) {
-		this.categoriasSelected = categoriasSelected;
-	}
-
 	public List<String> getNombresCategoria() {
-		this.nombresCategoria = new LinkedList<String>();
-		this.categorias = ge.obtenerCategorias();
-		for(Categoria cate : this.categorias){
-			nombresCategoria.add(cate.getNombre());
-		}
 		return nombresCategoria;
 	}
 
@@ -312,7 +316,6 @@ public class ModificarEventoBB {
 	}
 
 	public List<String> getNombresCategoriaSelected() {
-		this.nombresCategoriaSelected = new LinkedList<String>();
 		return nombresCategoriaSelected;
 	}
 
@@ -357,4 +360,22 @@ public class ModificarEventoBB {
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
+
+	public HashMap<String, Categoria> getComplementoCats() {
+		return complementoCats;
+	}
+
+	public void setComplementoCats(HashMap<String, Categoria> complementoCats) {
+		this.complementoCats = complementoCats;
+	}
+
+	public HashMap<String, Categoria> getTodasCategorias() {
+		return todasCategorias;
+	}
+
+	public void setTodasCategorias(HashMap<String, Categoria> todasCategorias) {
+		this.todasCategorias = todasCategorias;
+	}
+	
+	
 }

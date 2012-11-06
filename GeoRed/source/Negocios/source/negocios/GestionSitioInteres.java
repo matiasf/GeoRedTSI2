@@ -9,6 +9,7 @@ import javax.ejb.Local;
 
 import negocios.excepciones.EntidadNoExiste;
 
+import persistencia.Categoria;
 import persistencia.CheckIn;
 import persistencia.SitioInteres;
 
@@ -31,8 +32,13 @@ public interface GestionSitioInteres {
 	
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
 	
+	public void borrarCategoriasSitio(int idSitio, Collection<Integer> idCataegorias);
+	
 	public long cantCheckInsSitio(int idSitio, Calendar inicio, Calendar fin);
 	
 	public List<CheckIn> obtenerCheckInsAmigosLocal(int idUsuario, int idSitio);
+	
+	
+	
 }
 
