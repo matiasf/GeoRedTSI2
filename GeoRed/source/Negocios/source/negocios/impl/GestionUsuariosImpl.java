@@ -234,11 +234,10 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
 				List<CheckIn> checkInAmigos = checkInDAO.getCheckInAmigosLocal(idUsuario, sitio.getId());
-				if (sitio.getGoogleCalendarId() != null && !sitio.getGoogleCalendarId().isEmpty()) {
 				for (CheckIn checkIn : checkInAmigos) {
 					ret.add(checkIn);
 				}
-				if (!sitio.getGoogleCalendarId().isEmpty()) {
+				if (sitio.getGoogleCalendarId() != null && !sitio.getGoogleCalendarId().isEmpty()) {
 					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
 					gcf.setCalendarId(sitio.getGoogleCalendarId());
 					try {
