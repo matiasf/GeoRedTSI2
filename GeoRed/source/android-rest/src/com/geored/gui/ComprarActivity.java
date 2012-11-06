@@ -93,7 +93,7 @@ public class ComprarActivity extends GenericActivity {
 				pago.setComentario(((EditText) findViewById(R.id.valorText)).getText().toString());
 				pago.setEvaluacion(Integer.valueOf(((EditText) findViewById(R.id.comentarText)).getText().toString()));
 				ServicioRestUsuarios.comprarOferta(Integer.valueOf(idOferta), pago);
-				goToActivity(NotificacionesActivity.class);
+				goToActivity(NotificacionesOfertasActivity.class);
 			} 
 			catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);
