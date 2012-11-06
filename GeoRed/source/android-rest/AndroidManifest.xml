@@ -88,6 +88,28 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.geored.gui.NotificacionesOfertasActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+		<activity
+            android:name="com.geored.gui.NotificacionesEventosActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name="com.geored.gui.NotificacionesActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait" >
@@ -178,6 +200,15 @@
         </activity>
         <activity
             android:name="com.geored.gui.OfertasActivity"
+            android:label="@string/rest_ofertas" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.geored.gui.ComprarActivity"
             android:label="@string/rest_ofertas" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

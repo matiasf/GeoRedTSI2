@@ -93,8 +93,7 @@ public class UsuarioActivity extends GenericActivity implements
 							+ "\n" + "Longitude: " + location.getLongitude(),
 					Toast.LENGTH_LONG).show();
 
-			showNotificaciones((int) (location.getLatitude() * 1E6),
-					(int) (location.getLongitude() * 1E6));
+			showNotificaciones(location.getLatitude(),location.getLongitude());
 		} else {
 
 			Toast.makeText(
@@ -228,7 +227,15 @@ public class UsuarioActivity extends GenericActivity implements
 	public void showOfertaTest(View clickedButton) {
 		goToActivity(OfertasActivity.class);
 	}
-
+	
+	public void showNotificacionesLocales(View clickedButton) {
+		goToActivity(NotificacionesOfertasActivity.class);
+	}	
+	
+	public void showNotificacionesEventos(View clickedButton) {
+		goToActivity(NotificacionesEventosActivity.class);
+	}
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		if (location != null) {
@@ -238,9 +245,7 @@ public class UsuarioActivity extends GenericActivity implements
 					"Current location:\nLatitude: " + location.getLatitude()
 							+ "\n" + "Longitude: " + location.getLongitude(),
 					Toast.LENGTH_LONG).show();
-			showNotificaciones((int) (location.getLatitude() * 1E6),
-					(int) (location.getLongitude() * 1E6));
-
+			showNotificaciones(location.getLatitude(), location.getLongitude());
 		} else {
 
 			Toast.makeText(
@@ -272,8 +277,7 @@ public class UsuarioActivity extends GenericActivity implements
 		protected List<Notificacion> doInBackground(Posicion... posicions) {
 			List<Notificacion> notificaciones;
 			try {
-				notificaciones = ServicioRestUsuarios
-						.getNotificaciones(posicions[0]);
+				notificaciones = ServicioRestUsuarios.getNotificaciones(posicions[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
@@ -302,11 +306,37 @@ public class UsuarioActivity extends GenericActivity implements
 			try {
 				Button button = (Button) findViewById(R.id.notificacionesSitio_button);
 				String texto = getString(R.string.sitioDInteres);
+				
+				Button buttonOfertas = (Button) findViewById(R.id.notificaciones_button);
+				String textoOfertas = getString(R.string.notificacionesLocales);
+				
+				Button buttonEventos = (Button) findViewById(R.id.notificacionesEventos_button);
+				String textoEventos = getString(R.string.notificacionesEventos);
 
 				if (result != null && result.size() > 0) {
-					button.setText(texto + " (" + result.size() + ")");
+					int contadorSitioInteres = 0; 
+					int contadorEventos = 0;
+					int contadorLocal = 0;
+					int contadorCheckIn = 0;
+					for(int i=0; i < result.size() ;i++ ){
+						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
+						
+						if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
+							contadorSitioInteres++;
+						if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
+							contadorEventos++;
+						if (result.get(i).getTipo().equalsIgnoreCase("LOCAL")) 
+							contadorLocal++;
+						if (result.get(i).getTipo().equalsIgnoreCase("CHECK_IN")) 
+							contadorCheckIn++;
+					}
+					button.setText(texto + " (" + contadorSitioInteres + ")");
+					buttonOfertas.setText(textoOfertas + " (" + contadorLocal + ")");
+					buttonEventos.setText(textoEventos + " (" + contadorEventos + ")");
 				} else {
 					button.setText(texto + " (0)");
+					buttonOfertas.setText(textoOfertas + " (0)");
+					buttonEventos.setText(textoEventos + " (0)");
 				}
 			} catch (Exception ex) {
 				showToast(ex.getMessage());
