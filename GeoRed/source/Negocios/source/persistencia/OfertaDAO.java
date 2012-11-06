@@ -26,5 +26,7 @@ public interface OfertaDAO {
 	
 	public long obtenerCantPagosEntre(int idOferta, Calendar desde, Calendar hasta);
 	
+	public List<Oferta> obtenerOfertasLocal(int idLocal);
+	
 	public void flush();
 }

@@ -14,4 +14,6 @@ public interface CategoriaDAO {
 	public Categoria buscarPorId(int id);
 	
 	public List<Categoria> obtenerTodos();
+	
+	public List<Categoria> obtenerCategoriaOferta(int idOferta);
 }
