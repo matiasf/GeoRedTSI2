@@ -127,12 +127,21 @@ public class UsuarioActivity extends GenericActivity implements
 
 		String bestProvider = locManager.getBestProvider(criteria, true);
 		locManager.requestLocationUpdates(bestProvider, 0, 0, this);
+		
 	}
 
 	@Override
 	protected void onRestart(){
 		super.onRestart();
-		
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+		criteria.setCostAllowed(false);
+
+		String bestProvider = locManager.getBestProvider(criteria, true);
+		Location location = locManager.getLastKnownLocation(bestProvider);
+
+		showNotificaciones(location.getLatitude(),location.getLongitude());
 	}
 	
 	@Override
