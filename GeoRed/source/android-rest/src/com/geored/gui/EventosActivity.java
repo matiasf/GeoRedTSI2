@@ -30,7 +30,7 @@ public class EventosActivity extends GenericActivity {
 	
 	@Override
 	protected void loadVista() {
-		setContentView(R.layout.activity_comprar);
+		setContentView(R.layout.activity_eventos);
 		loadListView();
 	}
 	
@@ -42,8 +42,8 @@ public class EventosActivity extends GenericActivity {
 		String fin = extras.getString("eventoFin");
 		((TextView) findViewById(R.id.textViewNombre)).setText(nombre);
 		((TextView) findViewById(R.id.textViewDescripcion)).setText(descripcion);
-		((TextView) findViewById(R.id.textViewComienzo)).setText(comienzo);
-		((TextView) findViewById(R.id.textViewFin)).setText(fin);
+		/*((TextView) findViewById(R.id.textViewComienzo)).setText(comienzo);
+		((TextView) findViewById(R.id.textViewFin)).setText(fin);*/
 		if (Integer.valueOf(getIntent().getExtras().getString("eventoId")) != 0) {
 			progressBar.show();
 			EventoAsyncTask task = new EventoAsyncTask();

@@ -21,7 +21,7 @@ import persistencia.Evento;
 
 public class GoogleCalendarFeed {
 	
-	private final static String BASEURL = "http://www.google.com/calendar/feeds/%1/public/full?futureevents=true&orderby=starttime&sortorder=ascending&max-results=15"; 
+	private final static String BASEURL = "http://www.google.com/calendar/feeds/%1/public/full?futureevents=true&orderby=starttime&sortorder=ascending"; 
 	
 	static final String ENTRY = "entry";
 	static final String WHEN = "when";
