@@ -27,6 +27,8 @@ public interface GestionEmpresas {
 	
 	public void agregarLocal(int idEmpresa, Local local) throws EntidadNoExiste;
 	
+	public void modificarLocal(Local local);
+	
 	public Empresa obtenerEmpresa(int id);
 	
 	public Empresa obtenerEmpresaPorMail(String mail);
@@ -52,6 +54,8 @@ public interface GestionEmpresas {
 	public List<Evento> obtenerEventos(Calendar desdeFecha);
 	
 	public Evento obtenerEvento(int idEvento);
+	
+	public Local obtenerLocal(int idLocal);
 	
 	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
 	
