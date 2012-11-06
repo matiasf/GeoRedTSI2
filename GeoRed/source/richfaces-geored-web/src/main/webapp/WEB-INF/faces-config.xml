@@ -24,11 +24,6 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
-  <managed-bean-name>reporte</managed-bean-name>
-  <managed-bean-class>javaBB.Reporte</managed-bean-class>
-  <managed-bean-scope>session</managed-bean-scope>
- </managed-bean>  
- <managed-bean>
   <managed-bean-name>reporteOfertaBB</managed-bean-name>
   <managed-bean-class>javaBB.ReporteOfertaBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
@@ -36,6 +31,11 @@
  <managed-bean>
   <managed-bean-name>modificarSitioInteresBB</managed-bean-name>
   <managed-bean-class>javaBB.ModificarSitioInteresBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>modificarLocalBB</managed-bean-name>
+  <managed-bean-class>javaBB.ModificarLocalBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
@@ -76,6 +76,11 @@
  <managed-bean>
   <managed-bean-name>modificarCategoriaBB</managed-bean-name>
   <managed-bean-class>javaBB.ModificarCategoriaBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>modificarEventoBB</managed-bean-name>
+  <managed-bean-class>javaBB.ModificarEventoBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  
@@ -225,6 +230,7 @@
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
+
  
  <navigation-rule>
   <from-view-id>/presentacionAdminEmpresa/altaLocal.xhtml</from-view-id>
@@ -264,6 +270,30 @@
  
  <navigation-rule>
   <from-view-id>/presentacionAdminEmpresa/modificarOferta.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+  <navigation-rule>
+  <from-view-id>/presentacionAdminEmpresa/modificarLocal0.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificar</from-outcome>
+   <to-view-id>/presentacionAdminEmpresa/modificarLocal.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminEmpresa/modificarLocal.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminEmpresa/menu.xhtml</to-view-id>
@@ -335,6 +365,29 @@
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/modificarCategoria.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarEvento0.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/modificarEvento.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarEvento.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>

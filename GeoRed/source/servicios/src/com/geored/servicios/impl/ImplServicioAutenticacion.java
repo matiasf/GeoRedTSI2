@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.servicios.ServicioAutenticacion;
 import com.geored.servicios.impl.auth.GestionTokens;
+import com.geored.servicios.impl.gcm.GestionDevices;
 import com.geored.servicios.json.FacebookUserJSON;
 
 @Local
@@ -31,11 +32,13 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 	@EJB
 	GestionTokens gestionTokens;
 
+	@EJB
+	GestionDevices gestionDevices;
+
 	@Override
 	public Response login(final String usuario, final String password) {
 		int idUsuario = gestionUsuarios.checkLogin(usuario, password);
 		if (idUsuario >= 0) {
-			gestionTokens.obtenerToken(idUsuario);
 			return Response.status(Response.Status.OK).entity(gestionTokens.obtenerToken(idUsuario) + ":" + idUsuario).build();
 		}
 		else {
@@ -85,6 +88,7 @@ public class ImplServicioAutenticacion implements ServicioAutenticacion {
 	@Override
 	public Response logout(final String userToken) {
 		if (gestionTokens.validarToken(userToken)) {
+			gestionDevices.removeDevice(gestionTokens.getIdUsuario(userToken));
 			gestionTokens.removeToken(userToken);
 			return Response.status(Response.Status.OK).build();
 		}

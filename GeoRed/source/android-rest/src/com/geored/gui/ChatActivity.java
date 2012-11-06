@@ -58,6 +58,11 @@ public class ChatActivity extends GenericActivity {
         	public void onClick (View v) {
     			progressBar.show();
     			String text = ((EditText) findViewById(R.id.txtTextoEnviar)).getText().toString();
+				Mensaje mensaje = new Mensaje();
+				mensaje.setIdUsuario(0);
+				mensaje.setMessage(text);
+				data.add(mensaje);
+				adapter.notifyDataSetChanged();
     			EnviarAsyncTask task = new EnviarAsyncTask();
     			task.execute(new String[] { text, value }); 
         	}
@@ -80,7 +85,7 @@ public class ChatActivity extends GenericActivity {
 		
 		@Override
 		protected Mensaje doInBackground(String... params) {
-			try{
+			try {
 				return enviarMensaje(params[0], params[1]);
 			}
 			catch (RestBlowUpException e) {

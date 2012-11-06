@@ -34,13 +34,13 @@ import negocios.excepciones.EntidadNoExiste;
 
 @ManagedBean(name = "altaEvento", eager = true)
 @SessionScoped
-public class AltaEventoBB {
+public class ModificarEventoBB {
 	
 	private String nombre;
 	private String descripcion;
 	
-	private float latitud;
-	private float longitud;
+	private double latitud;
+	private double longitud;
 	
 	private Date fechaComienzo;
 	private Date fechaFin;
@@ -58,6 +58,9 @@ public class AltaEventoBB {
 	private int objectSelected;
 	private List<SelectItem> objects;
 	
+	private int eventoSelected;
+	private List<SelectItem> eventos;
+	
 	private boolean exito;
 	
 	@EJB
@@ -67,17 +70,18 @@ public class AltaEventoBB {
 	private GestionEmpresas ge;
 	
 	
-    public AltaEventoBB() {    	
-        System.out.println("altaEventoBean instantiated");        
+    public ModificarEventoBB() {    	
+        System.out.println("modificarEventoBean instantiated");        
         this.exito = true;        
     }
     
     /* logica y navegación*/
     
-    public String alta() {
+    public String modificar() {
     	String retorno = "";
     	
     	Evento evento = new Evento();
+    	evento.setId(this.eventoSelected);
     	evento.setNombre(this.nombre);
     	evento.setDescripcion(this.descripcion);
     	Calendar cal = Calendar.getInstance();
@@ -96,7 +100,6 @@ public class AltaEventoBB {
         	evento.setLongitud(sitio.getLongitud());	
     	}
     	
-    	
     	this.categoriasSelected = new LinkedList<Categoria>();
     	for(String s : this.nombresCategoriaSelected){
     		for(Categoria cate : this.categorias){
@@ -112,11 +115,11 @@ public class AltaEventoBB {
     	
     	
     	try {
-    		ge.altaEvento(evento);    		
+    		ge.modificarEvento(evento);    		
     		this.setExito(true); 
     		
     		FacesContext context = FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().remove("altaEventoBB");
+            context.getExternalContext().getSessionMap().remove("modificarEventoBB");
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
@@ -124,6 +127,45 @@ public class AltaEventoBB {
     	
     	return retorno;
     }
+    
+    public String selecciono() {    	
+    	String retorno = "";
+    	
+    	System.out.println("evento seleccionado" + this.eventoSelected);
+                    	    	
+        Evento evento = ge.obtenerEvento(this.eventoSelected);
+        
+    	this.setNombre(evento.getNombre());
+    	this.setDescripcion(evento.getDescripcion());
+    	this.fechaComienzo = evento.getInicio().getTime();
+    	this.fechaFin = evento.getFin().getTime();
+    	this.latitud = (float) evento.getLatitud();
+    	this.longitud = (float) evento.getLongitud();
+    	this.imagen = evento.getFoto();
+    	
+    	//FIXME bug conocido para todos los modificar con categoria
+    	//las categorias de la instancia no aparecen a la derecha
+    	
+    	/*this.categoriasSelected = new LinkedList<Categoria>();
+    	
+    	List<Categoria> aux = ge.obtenerCategoriasDeSitioInteres(sitioInteres.getId());
+    	this.categorias = ge.obtenerCategorias();
+    	
+    	this.nombresCategoriaSelected = new LinkedList<String>();
+    	
+    	for(Categoria c : aux){
+    		for(Categoria cate : this.categorias){
+    			if (c.equals(cate.getNombre())){    				
+    				this.nombresCategoriaSelected.add(cate.getNombre());
+    			}
+    		}
+    	} */ 	
+    	
+        this.exito = true;
+        
+        return "modificar";
+    }
+    
     
     public void logoListener(FileUploadEvent event) throws Exception{
     	UploadedFile uploadedFile = event.getUploadedFile();
@@ -278,19 +320,41 @@ public class AltaEventoBB {
 		this.nombresCategoriaSelected = nombresCategoriaSelected;
 	}
 
-	public float getLatitud() {
+	public int getEventoSelected() {
+		return eventoSelected;
+	}
+
+	public void setEventoSelected(int eventoSelected) {
+		this.eventoSelected = eventoSelected;
+	}
+
+	public List<SelectItem> getEventos() {
+		GregorianCalendar dia = new GregorianCalendar(1900, 01, 01);		 
+		this.eventos = new LinkedList<SelectItem>();
+        List<Evento> aux = ge.obtenerEventos(dia);
+        for (Evento e : aux){
+        	this.eventos.add(new SelectItem(e.getId(), e.getNombre()));
+        }		
+		return eventos;
+	}
+
+	public void setEventos(List<SelectItem> eventos) {
+		this.eventos = eventos;
+	}
+
+	public double getLatitud() {
 		return latitud;
 	}
 
-	public void setLatitud(float latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
 
-	public float getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
 
-	public void setLongitud(float longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
 }

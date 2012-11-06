@@ -21,6 +21,7 @@ import negocios.GestionSitioInteres;
 public class AltaSitioInteresBB {
 	
 	private String nombre;
+	private String calendario;
 	
 	
 	private String descripcion;
@@ -58,6 +59,7 @@ public class AltaSitioInteresBB {
 
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
+    	sitioInteres.setGoogleCalendarId(this.calendario);
     	sitioInteres.setDescripcion(this.descripcion);
     	sitioInteres.setLatitud(this.latitud);
     	sitioInteres.setLongitud(this.longitud);
@@ -177,6 +179,30 @@ public class AltaSitioInteresBB {
 
 	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
 		this.nombresCategoriaSelected = nombresCategoriaSelected;
+	}
+
+	public String getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(String calendario) {
+		this.calendario = calendario;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<Categoria> getCategoriasSelected() {
+		return categoriasSelected;
+	}
+
+	public void setCategoriasSelected(List<Categoria> categoriasSelected) {
+		this.categoriasSelected = categoriasSelected;
 	}
 	
 }

@@ -17,6 +17,7 @@ import negocios.excepciones.EntidadNoExiste;
 import negocios.impl.eventosExternos.GoogleCalendarFeed;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
+import persistencia.CheckIn;
 import persistencia.CheckInDAO;
 import persistencia.Empresa;
 import persistencia.EmpresaDAO;
@@ -232,7 +233,10 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		for (SitioInteres sitio : sitios) {
 			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
-				ret.addAll(sitio.getCheckIns());
+				List<CheckIn> checkInAmigos = checkInDAO.getCheckInAmigosLocal(idUsuario, sitio.getId());
+				for (CheckIn checkIn : checkInAmigos) {
+					ret.add(checkIn);
+				}
 				if (sitio.getGoogleCalendarId() != null && !sitio.getGoogleCalendarId().isEmpty()) {
 					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
 					gcf.setCalendarId(sitio.getGoogleCalendarId());

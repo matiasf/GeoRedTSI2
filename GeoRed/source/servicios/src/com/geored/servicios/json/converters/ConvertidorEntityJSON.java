@@ -92,7 +92,7 @@ public class ConvertidorEntityJSON {
 			notifiacionJSON = new NotificacionJSON();
 			notifiacionJSON.setId(checkIn.getId());
 			notifiacionJSON.setDescripcion(checkIn.getComentario());
-			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString());
+			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString() + ":" + checkIn.getSitioInteres().getId());
 			notifiacionJSON.setNombre(checkIn.getUsuario().getNombre());
 		}
 		return notifiacionJSON;
@@ -121,6 +121,9 @@ public class ConvertidorEntityJSON {
 		ofertaJSON.setDescripcion(oferta.getDescripcion());
 		ofertaJSON.setComienzo(oferta.getComienzo().getTime());
 		ofertaJSON.setFin(oferta.getFin().getTime());
+		if (oferta.getFoto() != null) {
+			ofertaJSON.setIdImagen(oferta.getFoto().getId());
+		}
 		return ofertaJSON;
 	}
 	
