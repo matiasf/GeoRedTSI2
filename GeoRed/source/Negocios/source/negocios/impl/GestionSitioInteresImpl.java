@@ -117,6 +117,18 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 		}
 		
 	}
+	
+	@Override
+	public void borrarCategoriasSitio(int idSitio, Collection<Integer> idCategorias) {
+		SitioInteres sitio = sitioInteresDAO.buscarPorId(idSitio);
+		for (Integer idCategoria : idCategorias) {
+			Categoria cat = categoriaDAO.buscarPorId(idCategoria);
+			if (sitio.getCategorias().contains(cat)) {
+				sitio.getCategorias().remove(cat);
+			}
+		}
+		
+	}
 
 	@Override
 	public long cantCheckInsSitio(int idSitio, Calendar inicio, Calendar fin) {

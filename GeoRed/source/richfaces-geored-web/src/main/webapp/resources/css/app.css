@@ -34,6 +34,17 @@
 	color: #990100;
 }
 
+.mensajeError {
+	display: block;	
+	font-size: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 22px;
+	text-align: left;
+	color: #FF4040;
+}
+
+
 .botones {
     margin-top:10px;
     margin-bottom:10px;

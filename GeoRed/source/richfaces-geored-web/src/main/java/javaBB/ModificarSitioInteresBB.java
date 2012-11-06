@@ -1,5 +1,8 @@
 package javaBB;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.validation.constraints.Size;
 
 import persistencia.Categoria;
 import persistencia.Empresa;
@@ -33,11 +37,14 @@ public class ModificarSitioInteresBB {
 	
 	private Object[] logoData;
 	
-	private List<Categoria> categorias;
-	private List<Categoria> categoriasSelected;
+	private HashMap<String, Categoria> categorias;
 	private List<String> nombresCategoria;
 	private List<String> nombresCategoriaSelected;
 	
+	private HashMap<String, Categoria> complementoCats;
+	private HashMap<String, Categoria> todasCategorias;
+
+	@Size(min=1, message = "Debe seleccionar un sitio")
 	private int sitioSelected;
 	private List<SelectItem> sitios;
 	
@@ -50,14 +57,6 @@ public class ModificarSitioInteresBB {
     public ModificarSitioInteresBB() {    	
         System.out.println("altaSIBean instantiated");        
         
-        /*SitioInteres sit = new SitioInteres();
-        sit.setId(1);
-        sit.setNombre("nombre");
-        
-        sitios = new LinkedList<SelectItem>();
-        sitios.add(new SelectItem(1, "Sitio 1"));
-        sitios.add(new SelectItem(2, "Sitio 2"));
-        sitios.add(new SelectItem(3, "Sitio 3"));*/    
         
         sitios = new LinkedList<SelectItem>();
         
@@ -80,20 +79,26 @@ public class ModificarSitioInteresBB {
     	this.setLongitud(sitioInteres.getLongitud());
     	this.setDescripcion(sitioInteres.getDescripcion());
     	
-    	this.categoriasSelected = new LinkedList<Categoria>();
-    	
-    	List<Categoria> aux = ge.obtenerCategoriasDeSitioInteres(sitioInteres.getId());
-    	this.categorias = ge.obtenerCategorias();
-    	
-    	this.nombresCategoriaSelected = new LinkedList<String>();
-    	
-    	for(Categoria c : aux){
-    		for(Categoria cate : this.categorias){
-    			if (c.equals(cate.getNombre())){    				
-    				this.nombresCategoriaSelected.add(cate.getNombre());
-    			}
-    		}
-    	}  	
+		this.categorias = new HashMap<String, Categoria>();
+		this.todasCategorias = new HashMap<String, Categoria>();
+		List<Categoria> todas = ge.obtenerCategorias();
+		List<Categoria> pertenecen = ge.obtenerCategoriasDeSitioInteres(sitioSelected);
+		this.complementoCats = new HashMap<String, Categoria>();
+		this.nombresCategoria = new LinkedList<String>();
+		this.nombresCategoriaSelected = new LinkedList<String>();
+
+		for (Categoria categoria : pertenecen) {
+			this.categorias.put(categoria.getNombre(), categoria);
+			this.nombresCategoriaSelected.add(categoria.getNombre());
+		}
+		
+		for (Categoria categoria : todas) {
+			this.todasCategorias.put(categoria.getNombre(), categoria);
+			this.nombresCategoria.add(categoria.getNombre());
+			if (!this.categorias.containsKey(categoria.getNombre())) {
+				this.complementoCats.put(categoria.getNombre(), categoria);
+			}
+		} 
     	
         this.exito = true;
         
@@ -110,16 +115,25 @@ public class ModificarSitioInteresBB {
     	sitioInteres.setDescripcion(this.descripcion);
     	sitioInteres.setLatitud(this.latitud);
     	sitioInteres.setLongitud(this.longitud);
-    	this.categoriasSelected = new LinkedList<Categoria>();
-    	for(String s : this.nombresCategoriaSelected){
-    		for(Categoria cate : this.categorias){
-    			if (s.equals(cate.getNombre())){
-    				this.categoriasSelected.add(cate);
-    			}
-    		}
-    	}
-    	sitioInteres.setCategorias(this.categoriasSelected);
+    	
     	gs.modifciarSitioInteres(sitioInteres);
+    	
+    	Collection<Integer> aLevantar = new ArrayList<Integer>();
+		Collection<Integer> aBorrar = new ArrayList<Integer>();
+    	
+    	for (String nombre : nombresCategoriaSelected) {
+			aLevantar.add(todasCategorias.get(nombre).getId());
+		}
+		
+		for (String nombre : nombresCategoria) {
+			if (categorias.containsKey(nombre)) {
+				aBorrar.add(categorias.get(nombre).getId());
+			}
+		}
+		
+		gs.borrarCategoriasSitio(sitioInteres.getId(), aBorrar);
+		gs.agregarCategoriaSitio(sitioInteres.getId(), aLevantar);
+    	
     	retorno = "exito";   	    		
     	
     	FacesContext context = FacesContext.getCurrentInstance(); 
@@ -234,11 +248,6 @@ public class ModificarSitioInteresBB {
 	}
 	
 	public List<String> getNombresCategoria() {
-		this.nombresCategoria = new LinkedList<String>();
-		this.categorias = ge.obtenerCategorias();
-		for(Categoria cate : this.categorias){
-			nombresCategoria.add(cate.getNombre());
-		}
 		return nombresCategoria;
 	}
 
@@ -263,4 +272,36 @@ public class ModificarSitioInteresBB {
 	public void setCalendario(String calendario) {
 		this.calendario = calendario;
 	}
+
+
+	public HashMap<String, Categoria> getCategorias() {
+		return categorias;
+	}
+
+
+	public void setCategorias(HashMap<String, Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+
+	public HashMap<String, Categoria> getComplementoCats() {
+		return complementoCats;
+	}
+
+
+	public void setComplementoCats(HashMap<String, Categoria> complementoCats) {
+		this.complementoCats = complementoCats;
+	}
+
+
+	public HashMap<String, Categoria> getTodasCategorias() {
+		return todasCategorias;
+	}
+
+
+	public void setTodasCategorias(HashMap<String, Categoria> todasCategorias) {
+		this.todasCategorias = todasCategorias;
+	}
+	
+	
 }

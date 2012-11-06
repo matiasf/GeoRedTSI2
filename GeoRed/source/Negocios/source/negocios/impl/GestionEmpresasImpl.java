@@ -46,7 +46,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	}
 
 	@Override
-	public void agregarEmpresa(Empresa empresa) throws MessagingException, IOException, NamingException {
+	public void agregarEmpresa(Empresa empresa) throws MessagingException {
 		empresaDAO.insertar(empresa);
 		String asunto = "Bienvenido a GeoredUy";
 		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";
@@ -245,6 +245,45 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Categoria> obtenerCategoriasEvento(int idEvento) {
+		return categoriaDAO.obtenerCategoriasDeEvento(idEvento);
+	}
+
+	@Override
+	public void agregarCategoriasEvento(int idEvento,
+			Collection<Integer> idCategorias) {
+		Evento evento = eventoDAO.buscarPorId(idEvento);
+		if (evento != null) {
+			for (Integer idCat : idCategorias) {
+				Categoria cat = categoriaDAO.buscarPorId(idCat);
+				if (evento != null) {
+					if (!evento.getCategorias().contains(cat)) {
+						evento.getCategorias().add(cat);
+					}
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void borrarCategoriasEvento(int idEvento,
+			Collection<Integer> idCategorias) {
+	
+		Evento evento = eventoDAO.buscarPorId(idEvento);
+		if (evento != null) {
+			for (Integer idCat : idCategorias) {
+				Categoria cat = categoriaDAO.buscarPorId(idCat);
+				if (evento != null) {
+					if (evento.getCategorias().contains(cat)) {
+						evento.getCategorias().remove(cat);
+					}
+				}
+			}
+		}	
 	}
 
 }

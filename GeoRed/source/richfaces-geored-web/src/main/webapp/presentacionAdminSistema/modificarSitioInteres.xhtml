@@ -1,84 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="/WEB-INF/templates/template.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:my="http://java.sun.com/jsf/composite/components">
-                
-                
-<ui:define name="content">
-   <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
-   <h:outputScript target="body"> 	
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+
+
+	<ui:define name="content">
+		<h:outputScript target="head" name="cargarMapa.js" library="js" />
+		<h:outputScript target="body"> 	
    			initializeConPunto();
    </h:outputScript>
-   
-		<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres.jsf" style="color:black;">Recargar</a>   
-       
 
-	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
-       <h:form id="form">
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header" style="width:400px;">
-			
-		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
-		         <rich:validator/>
-		      </h:inputText>
-		      <rich:message for="name" errorClass="invalid"/>
-		      
-		      <h:outputLabel for="calendario" value="Calendario"/>
-		      <h:inputText id="calendario" value="#{modificarSitioInteresBB.calendario}">
-		         <rich:validator/>
-		      </h:inputText>
-		      <rich:message for="calendario" errorClass="invalid"/>
-		
-		     <h:outputLabel for="coordX" value="Latitud"/>
-		      <h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}">
-		      <rich:validator/>		         
-		      </h:inputText>
-		      <rich:message for="coordX" errorClass="invalid"/>
-		      
-		      <h:outputLabel for="coordY" value="Longitud"/>
-		      <h:inputText id="coordY" value="#{modificarSitioInteresBB.longitud}">
-		      <rich:validator/>		         
-		      </h:inputText>
-		      <rich:message for="coordY" errorClass="invalid"/>
-		      
-		      <h:outputLabel for="descripcion" value="Descripcion:" />      
-		      <h:inputTextarea
-                    maxlength="200"
-                    cols="34" rows="10"
-                    value="#{modificarSitioInteresBB.descripcion}"
-                    id="description"></h:inputTextarea>
-              <rich:message for="descripcion" errorClass="invalid"/>
-
-		   </h:panelGrid>
-		   
-		   <rich:panel style="width:360px;">
-				<rich:pickList value="#{modificarSitioInteresBB.nombresCategoriaSelected}" showButtonsLabel="false" listHeight="100px" listWidth="100px">		            
-		            <f:selectItems value="#{modificarSitioInteresBB.nombresCategoria}"/>
-        		</rich:pickList>
-			</rich:panel>   
-
-			
-			<h:panelGrid columns="2">
-				<a4j:commandButton id="cancelar" action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
-                                   styleClass="boton" />
-                <a4j:commandButton id="altaLocal" action="#{modificarSitioInteresBB.modificarSitioInteres}" value="Modificar"
-                                   styleClass="boton" />
-                                   
-                <rich:messages globalOnly="true"/>
-             </h:panelGrid>
-
-			</rich:panel>
+		<a
+			href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres.jsf"
+			style="color: black;">Recargar</a>
 
 
-       </h:form>
-       
-         
-       
-    </ui:define>
+		<div id="map_canvas" style="width: 400px; height: 400px"></div>
+		<h:form id="form">
+			<rich:panel id="newEmpresaPanel" styleClass=".form"
+				header="Sitio Interes" headerClass="header" style="width:400px;">
+
+				<h:panelGrid columns="3" columnClasses="titleCell">
+					<h:outputLabel for="name" value="Nombre" />
+					<h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
+						<rich:validator />
+					</h:inputText>
+					<rich:message for="name" errorClass="invalid" />
+
+					<h:outputLabel for="calendario" value="Calendario" />
+					<h:inputText id="calendario"
+						value="#{modificarSitioInteresBB.calendario}">
+						<rich:validator />
+					</h:inputText>
+					<rich:message for="calendario" errorClass="invalid" />
+
+					<h:outputLabel for="coordX" value="Latitud" />
+					<h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}">
+						<rich:validator />
+					</h:inputText>
+					<rich:message for="coordX" errorClass="invalid" />
+
+					<h:outputLabel for="coordY" value="Longitud" />
+					<h:inputText id="coordY"
+						value="#{modificarSitioInteresBB.longitud}">
+						<rich:validator />
+					</h:inputText>
+					<rich:message for="coordY" errorClass="invalid" />
+
+					<h:outputLabel for="descripcion" value="Descripcion:" />
+					<h:inputTextarea maxlength="200" cols="34" rows="10"
+						value="#{modificarSitioInteresBB.descripcion}" id="description"></h:inputTextarea>
+					<rich:message for="descripcion" errorClass="invalid" />
+
+				</h:panelGrid>
+
+				<rich:panel style="width:360px;">
+					<rich:pickList
+						value="#{modificarSitioInteresBB.nombresCategoriaSelected}"
+						listHeight="100px" listWidth="100px">
+						<f:selectItems value="#{modificarSitioInteresBB.nombresCategoria}" />
+					</rich:pickList>
+				</rich:panel>
+
+
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="cancelar"
+							action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
+							styleClass="boton" />
+						<a4j:commandButton id="altaLocal"
+							action="#{modificarSitioInteresBB.modificarSitioInteres}"
+							value="Modificar" styleClass="boton" />
+
+						<rich:messages globalOnly="true" />
+					</h:panelGrid>
+
+				</rich:panel>
+		</h:form>
+
+
+
+	</ui:define>
 </ui:composition>

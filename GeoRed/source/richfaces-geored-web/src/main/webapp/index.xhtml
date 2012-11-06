@@ -26,13 +26,15 @@
 						      <rich:message for="email" errorClass="invalid"/>
 						
 						      <h:outputLabel for="password" value="Password:"/>
-						      <h:inputSecret required="true" id="password" value="#{loginBB.password}" />						         
-						      <rich:message for="phoneNumber" errorClass="invalid"/>
+						      <h:inputSecret id="password" value="#{loginBB.password}" />						         
+						      <rich:message for="password" errorClass="invalid"/>
 						   </h:panelGrid>
-
+				<div class="mensajeError">
+					<h:outputText value="#{loginBB.msgError}" rendered="#{loginBB.error}" />
+				</div>
              
 	             <div class="botones">
-							<a4j:commandButton id="login" action="#{loginBB.login}" value="Login"
+							<h:commandButton id="login" action="#{loginBB.login}" value="Login"
                                    styleClass="boton" />
 						</div>				
                 

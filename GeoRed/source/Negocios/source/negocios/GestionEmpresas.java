@@ -72,4 +72,12 @@ public interface GestionEmpresas {
 	public List<Categoria> obtenerCategoriasOferta(int idOferta);
 	
 	public void modificarOferta(Oferta oferta);
+	
+	public List<Categoria> obtenerCategoriasEvento(int idEvento);
+	
+	public void agregarCategoriasEvento(int idEvento, Collection<Integer> idCategorias);
+	
+	public void borrarCategoriasEvento(int idEvento, Collection<Integer> idCategorias);
+
+	List<Oferta> obtenerOfertasDeLocal(int idLocal);
 }
