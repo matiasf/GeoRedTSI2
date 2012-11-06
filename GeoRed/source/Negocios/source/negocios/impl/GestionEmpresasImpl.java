@@ -1,5 +1,6 @@
 package negocios.impl;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
+import javax.naming.NamingException;
 
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
@@ -21,6 +23,7 @@ import persistencia.OfertaDAO;
 import negocios.GestionEmpresas;
 import negocios.excepciones.EntidadNoExiste;
 import negocios.impl.mailSender.MailSender;
+import negocios.impl.mailSender.MailSender2;
 
 @Stateless
 public class GestionEmpresasImpl implements GestionEmpresas {
@@ -43,7 +46,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	}
 
 	@Override
-	public void agregarEmpresa(Empresa empresa) throws MessagingException {
+	public void agregarEmpresa(Empresa empresa) throws MessagingException, IOException, NamingException {
 		empresaDAO.insertar(empresa);
 		String asunto = "Bienvenido a GeoredUy";
 		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";
@@ -207,6 +210,41 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 			ret = ofertaDAO.obtenerCantPagosEntre(idOferta, desde, hasta);
 		}
 		return ret;
+	}
+
+	@Override
+	public List<Oferta> obtenerOfertasDeLocal(int idLocal) {
+		return ofertaDAO.obtenerOfertasLocal(idLocal);
+	}
+
+	@Override
+	public Oferta obtenerOferta(int idOferta) {
+		return ofertaDAO.buscarPorId(idOferta);
+	}
+
+	@Override
+	public List<Categoria> obtenerCategoriasOferta(int idOferta) {
+		return categoriaDAO.obtenerCategoriaOferta(idOferta);
+	}
+
+	@Override
+	public void modificarOferta(Oferta oferta) {
+		ofertaDAO.modificar(oferta);
+	}
+
+	@Override
+	public void borrarCategoriasOferta(int idOferta,
+			Collection<Integer> idCategorias) {
+		Oferta oferta = ofertaDAO.buscarPorId(idOferta);
+		if (oferta != null) {
+			for (Integer id : idCategorias) {
+				Categoria categoria  = categoriaDAO.buscarPorId(id);
+				if ((categoria != null && (oferta.getCategorias().contains(categoria)))) {
+					oferta.getCategorias().remove(categoria);
+				}
+			}
+		}
+		
 	}
 
 }

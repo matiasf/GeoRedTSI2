@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:outputStylesheet name="app.css" library="css" />
+		<h:outputScript target="head" name="showMessage.js" library="js" />
+
+		<h:form id="modificarOferta">
+			<rich:panel id="newSitioInteresPanel" styleClass=".form"
+				header="Oferta" headerClass="header">
+
+
+				<h:panelGrid columns="2" columnClasses="titleCell">
+					<rich:column>
+						<h:outputLabel for="name" value="Local:" colspan="2" />
+						<h:selectOneMenu value="#{modificarOfertaBB.localSelected}"
+							style="width:200px;"
+							valueChangeListener="#{modificarOfertaBB.localChanged}">
+							<f:selectItem itemLabel="Seleccione sitio" itemValue="-1" />
+							<f:selectItems value="#{modificarOfertaBB.localesSelect}" />
+							<a4j:ajax event="valueChange" render="ofertaSelect"
+								execute="@this" />
+						</h:selectOneMenu>
+					</rich:column>
+					<rich:column>
+						<a4j:outputPanel id="ofertaSelect">
+							<h:outputLabel for="name" value="Oferta:" colspan="2" />
+							<h:selectOneMenu value="#{modificarOfertaBB.ofertaSelected}"
+								style="width:200px;">
+								<f:selectItem itemLabel="Seleccione oferta" itemValue="-1" />
+								<f:selectItems value="#{modificarOfertaBB.ofertasSelect}" />
+							</h:selectOneMenu>
+						</a4j:outputPanel>
+					</rich:column>
+
+					<rich:message for="name" errorClass="invalid" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<h:commandButton id="cancelar"
+						action="#{modificarOfertaBB.cancelar}" value="Cancelar"
+						styleClass="boton" />
+					<h:commandButton id="modificarEmpresa"
+						action="#{modificarOfertaBB.seleccionarLocal}" value="Modificar"
+						styleClass="boton" />
+
+				</h:panelGrid>
+
+			</rich:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

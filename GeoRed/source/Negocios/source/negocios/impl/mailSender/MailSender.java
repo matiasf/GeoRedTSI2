@@ -19,9 +19,7 @@ public class MailSender {
 	private static final String PASSSWORD_PROP = "password";
 	private static final String SMTP_SERVER_PROP = "servidorSMTP";
 	private static final String PORT_PROP = "puertoEnvio";
-	
-	
-	
+
 	String mailReceptor = null;
 	String asunto = null;
 	String cuerpo = null;
@@ -36,7 +34,8 @@ public class MailSender {
 		Properties props = new Properties();
 		Properties mailProps = new Properties();
 		try {
-			mailProps.load(this.getClass().getResourceAsStream("/META-INF/adminMail.properties"));
+			mailProps.load(this.getClass().getResourceAsStream(
+					"/META-INF/adminMail.properties"));
 			String miCorreo = mailProps.getProperty(MAIL_ADMIN_PROP);
 			String servidorSMTP = mailProps.getProperty(SMTP_SERVER_PROP);
 			String puertoEnvio = mailProps.getProperty(PORT_PROP);
@@ -72,11 +71,13 @@ public class MailSender {
 		public PasswordAuthentication getPasswordAuthentication() {
 			Properties mailProps = new Properties();
 			try {
-				mailProps.load(this.getClass().getResourceAsStream("/META-INF/adminMail.properties"));
+				mailProps.load(this.getClass().getResourceAsStream(
+						"/META-INF/adminMail.properties"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 			String miCorreo = mailProps.getProperty(MAIL_ADMIN_PROP);
 			String password = mailProps.getProperty(PASSSWORD_PROP);
 			return new PasswordAuthentication(miCorreo, password);

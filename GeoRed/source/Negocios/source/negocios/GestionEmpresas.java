@@ -1,10 +1,12 @@
 package negocios;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.naming.NamingException;
 
 import negocios.excepciones.EntidadNoExiste;
 
@@ -57,10 +59,17 @@ public interface GestionEmpresas {
 	
 	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
 	
+	public void borrarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
+	
 	public List<Oferta> obenerTodasLasOfertas();
 	
 	public long obtenerCantPagosDeOferta(int idOferta, Calendar desde, Calendar hasta);
 
 	void modificarEvento(Evento evento);
 	
+	public Oferta obtenerOferta(int idOferta);
+	
+	public List<Categoria> obtenerCategoriasOferta(int idOferta);
+	
+	public void modificarOferta(Oferta oferta);
 }
