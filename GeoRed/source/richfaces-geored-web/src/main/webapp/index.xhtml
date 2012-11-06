@@ -23,7 +23,7 @@
 					<h:outputLabel for="email" value="Email:" />
 					<h:inputText id="email" value="#{loginBB.mail}">
 					</h:inputText>
-
+					<rich:message for="email" errorClass="invalid" />
 
 					<h:outputLabel for="password" value="Password:" />
 					<h:inputSecret id="password" value="#{loginBB.password}" />
