@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="/WEB-INF/templates/default.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:my="http://java.sun.com/jsf/composite/components">
-    <ui:define name="content">
-        <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:outputStylesheet name="app.css" library="css" />
+		<h:outputScript target="head" name="showMessage.js" library="js" />
 
-        <h1>Welcome to Geored, pelao!</h1>
+		<h1>Welcome to Geored, pelao!</h1>
 
 
 
-       <h:form id="reg">
-          <rich:panel id="newMemberPanel" styleClass=".form" header="Login" headerClass="header">
+		<h:form id="reg">
+			<rich:panel id="newMemberPanel" styleClass=".form" header="Login"
+				headerClass="header">
 
-						<h:panelGrid columns="3" columnClasses="titleCell">
-						      <h:outputLabel for="email" value="Email:"/>
-						      <h:inputText id="email" value="#{loginBB.mail}">
-						         <rich:validator/>
-						      </h:inputText>
-						      <rich:message for="email" errorClass="invalid"/>
-						
-						      <h:outputLabel for="password" value="Password:"/>
-						      <h:inputSecret id="password" value="#{loginBB.password}" />						         
-						      <rich:message for="password" errorClass="invalid"/>
-						   </h:panelGrid>
+				<h:panelGrid columns="3" columnClasses="titleCell">
+					<h:outputLabel for="email" value="Email:" />
+					<h:inputText id="email" value="#{loginBB.mail}">
+					</h:inputText>
+
+
+					<h:outputLabel for="password" value="Password:" />
+					<h:inputSecret id="password" value="#{loginBB.password}" />
+					<rich:message for="password" errorClass="invalid" />
+				</h:panelGrid>
 				<div class="mensajeError">
-					<h:outputText value="#{loginBB.msgError}" rendered="#{loginBB.error}" />
+					<h:outputText value="#{loginBB.msgError}"
+						rendered="#{loginBB.error}" />
 				</div>
-             
-	             <div class="botones">
-							<h:commandButton id="login" action="#{loginBB.login}" value="Login"
-                                   styleClass="boton" />
-						</div>				
-                
-          
 
-          </rich:panel>
-          <br />
-          
+				<div class="botones">
+					<h:commandButton id="login" action="#{loginBB.login}" value="Login"
+						styleClass="boton" />
+				</div>
 
-       </h:form>
-    </ui:define>
+			</rich:panel>
+			<br />
+
+		</h:form>
+	</ui:define>
 </ui:composition>
