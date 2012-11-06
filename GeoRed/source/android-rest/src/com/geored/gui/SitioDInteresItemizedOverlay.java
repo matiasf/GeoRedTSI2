@@ -53,7 +53,7 @@ public class SitioDInteresItemizedOverlay extends ItemizedOverlay {
       //dialog.setMessage(item.getSnippet());
       
       // Setting Positive "Yes" Button
-      dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+      dialog.setPositiveButton("CHECKIN", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog,int which) {
           // Write your code here to invoke YES event
         	  hashNotificaciones.get(id);
@@ -67,12 +67,16 @@ public class SitioDInteresItemizedOverlay extends ItemizedOverlay {
       });
 
       // Setting Negative "NO" Button
-      dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+      dialog.setNegativeButton("VER", new DialogInterface.OnClickListener() {
     	  
           public void onClick(DialogInterface dialog, int which) {
           // Write your code here to invoke NO event
         	  
-          dialog.cancel();
+        	  hashNotificaciones.get(id);
+        	  
+        	  Intent intent = new Intent(mContext, CheckInsInfoActivity.class);
+        	  intent.putExtra("sitioDinteres_id",id);
+              mContext.startActivity(intent);
           }
       });
 

@@ -53,12 +53,12 @@ public class EventosItemizedOverlay extends ItemizedOverlay {
       //dialog.setMessage(item.getSnippet());
       
       // Setting Positive "Yes" Button
-      dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+      dialog.setPositiveButton("VER", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog,int which) {
           // Write your code here to invoke YES event
         	  hashNotificaciones.get(id);
         	  
-        	  Intent intent = new Intent(mContext, CheckInActivity.class);
+        	  Intent intent = new Intent(mContext, EventosActivity.class);
         	  intent.putExtra("Eventos_id",id);
               mContext.startActivity(intent);
 
