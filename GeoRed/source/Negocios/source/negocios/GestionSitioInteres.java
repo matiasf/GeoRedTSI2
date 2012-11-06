@@ -25,6 +25,8 @@ public interface GestionSitioInteres {
 	
 	public List<SitioInteres> obtenerTodosSitiosInteres();
 	
+	//public void generarReporte();
+	
 	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
 	
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
@@ -33,3 +35,4 @@ public interface GestionSitioInteres {
 	
 	public List<CheckIn> obtenerCheckInsAmigosLocal(int idUsuario, int idSitio);
 }
+

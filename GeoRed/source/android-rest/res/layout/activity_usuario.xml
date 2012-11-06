@@ -50,14 +50,28 @@
         android:id="@+id/notificaciones_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="showNotificaciones"
-        android:text="@string/notificaciones" />
+        android:onClick="showNotificacionesLocales"
+        android:text="@string/notificacionesLocales" />
 
+    <Button
+        android:id="@+id/notificacionesEventos_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showNotificacionesEventos"
+        android:text="@string/notificacionesEventos" />
+    
     <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showLogin"
         android:text="@string/logout" />
+
+    <Button
+        android:id="@+id/oferta_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showOfertaTest"
+        android:text="@string/ofertas" />
 
 </LinearLayout>

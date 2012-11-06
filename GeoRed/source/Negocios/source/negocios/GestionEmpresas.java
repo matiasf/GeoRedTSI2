@@ -21,7 +21,7 @@ public interface GestionEmpresas {
 	
 	public boolean chechLogin(String email, String password);
 	
-	public void agregarEmpresa(Empresa empresa) throws MessagingException, IOException, NamingException;
+	public void agregarEmpresa(Empresa empresa) throws MessagingException;
 	
 	public Empresa modifciarEmpresa(Empresa empresa) throws EntidadNoExiste;
 	
@@ -45,9 +45,13 @@ public interface GestionEmpresas {
 	
 	public List<Categoria> obtenerCategorias();
 	
+	public List<Categoria> obtenerCategoriasDeSitioInteres(int idServicio);
+	
 	public int altaEvento(Evento evento);
 	
 	public List<Evento> obtenerEventos(Calendar desdeFecha);
+	
+	public Evento obtenerEvento(int idEvento);
 	
 	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
 	
@@ -57,7 +61,7 @@ public interface GestionEmpresas {
 	
 	public long obtenerCantPagosDeOferta(int idOferta, Calendar desde, Calendar hasta);
 
-	public List<Oferta> obtenerOfertasDeLocal(int idLocal);
+	void modificarEvento(Evento evento);
 	
 	public Oferta obtenerOferta(int idOferta);
 	

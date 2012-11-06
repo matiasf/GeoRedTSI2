@@ -10,8 +10,15 @@
     <ui:define name="content">
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
+        <h:outputScript target="head" name="cargarMapa.js" library="js"/>
+   
+   <h:outputScript target="body">
+   			initialize();
+   </h:outputScript>
 <br />
-       <h:form id="alta" enctype="multipart/form-data" style="width:400px">
+
+		<div id="map_canvas" style="width:400px; height:400px"> </div>
+       <h:form id="form" enctype="multipart/form-data" style="width:400px">
        
           <rich:panel id="newPanel" styleClass=".form" header="Evento" headerClass="header" style="width:400px">
           
@@ -32,7 +39,7 @@
                     ></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
 		      
-		      <h:outputLabel for="name" value="Ubicación:"/>
+		      <h:outputLabel for="name" value="Sitio Interes:"/>
 		      <h:selectOneMenu value="#{altaEventoBB.objectSelected}" style="width:200px;">
 				  <f:selectItem itemLabel="Seleccione Ubicación" itemValue="-1" />
 				  <f:selectItems value="#{altaEventoBB.objects}"/>				  
@@ -83,6 +90,9 @@
                 <a4j:commandButton id="alta" action="#{altaEventoBB.alta}" value="Dar de alta"
                                    styleClass="boton" />
                                    
+                <h:inputHidden id="coordX" value="#{altaEventoBB.latitud}"></h:inputHidden>
+                <h:inputHidden id="coordY" value="#{altaEventoBB.longitud}"></h:inputHidden>  
+                                 
                 <rich:messages globalOnly="true"/>
              </div>
 

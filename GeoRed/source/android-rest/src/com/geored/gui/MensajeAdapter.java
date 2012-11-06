@@ -27,8 +27,8 @@ public class MensajeAdapter extends ArrayAdapter<Mensaje> {
 		this.data = data;
 	}
 
-	public void add(Mensaje xxx) {
-		data.add(xxx);
+	public void add(Mensaje mensaje) {
+		data.add(mensaje);
 		notifyDataSetChanged();
 	}
 
@@ -53,7 +53,7 @@ public class MensajeAdapter extends ArrayAdapter<Mensaje> {
 		return row;
 	}
 
-	static class MensajeHolder {
+	private static class MensajeHolder {
 		TextView txtNombre;
 		TextView txtTexto;
 	}

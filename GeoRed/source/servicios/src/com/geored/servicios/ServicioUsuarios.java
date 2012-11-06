@@ -24,6 +24,11 @@ import com.geored.servicios.json.UsuarioJSON;
 public interface ServicioUsuarios {
 
 	@GET
+	@Path("usuario")
+	@Produces("application/json")
+	UsuarioJSON getUsuario(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response);
+
+	@GET
 	@Path("contactos/buscar/{query}")
 	@Produces("application/json")
 	List<UsuarioJSON> buscarContactos(@HeaderParam("Security-Token") final String userToken, 
@@ -32,17 +37,8 @@ public interface ServicioUsuarios {
 	@GET
 	@Path("contactos")
 	@Produces("application/json")
-	List<UsuarioJSON> getContactos(
-			@HeaderParam("Security-Token") final String userToken,
+	List<UsuarioJSON> getContactos(@HeaderParam("Security-Token") final String userToken,
 			@Context final HttpServletResponse response);
-
-	@GET
-	@Path("contactos/{idContacto}")
-	@Produces("application/json")
-	UsuarioJSON getContacto(
-			@HeaderParam("Security-Token") final String userToken,
-			@Context final HttpServletResponse response,
-			@PathParam("idContacto") final int idContacto);
 
 	@GET
 	@Path("invitaciones")
@@ -99,11 +95,12 @@ public interface ServicioUsuarios {
 	@POST
 	@Path("ofertas/{idOferta}")
 	void comprarOferta(@HeaderParam("Security-Token") final String userToken, @Context HttpServletResponse response, 
-			@PathParam("{idOferta}") final Integer idOferta, final PagoJSON pago);
+			@PathParam("idOferta") final Integer idOferta, final PagoJSON pago);
 
 	@GET
 	@Path("ofertas/{idLocal}")
+	@Produces("application/json")
 	List<OfertaJSON> getOfertasLocal(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
-			@PathParam("{idLocal}") final Integer idLocal);
+			@PathParam("idLocal") final Integer idLocal);
 
 }

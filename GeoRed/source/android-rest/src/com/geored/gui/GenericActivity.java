@@ -46,7 +46,7 @@ public class GenericActivity extends Activity {
     protected void goToActivity(Class<? extends Activity> activityClass) {
         Intent newActivity = new Intent(this, activityClass);
         
-        newActivity.putExtra("user_id",usuarioId);
+        newActivity.putExtra("user_id", usuarioId);
         
         startActivity(newActivity);
     }

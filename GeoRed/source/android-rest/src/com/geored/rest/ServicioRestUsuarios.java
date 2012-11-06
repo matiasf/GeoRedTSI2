@@ -83,9 +83,9 @@ public class ServicioRestUsuarios extends ServicioRest {
 		}
 	}
 	
-	public static Usuario getContacto(String idUsuario) throws RestBlowUpException, NotFoundException, UnauthorizedException {
+	public static Usuario getUsuario() throws RestBlowUpException, NotFoundException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
-		HttpResponse response = rest(Metodos.GET, URL_CONTACTOS + "/" + idUsuario);
+		HttpResponse response = rest(Metodos.GET, URL_USUARIO);
 		if (response.getStatusLine().getStatusCode() == OK) {
 			String asciiContent;
 			try {

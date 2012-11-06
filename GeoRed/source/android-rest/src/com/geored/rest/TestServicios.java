@@ -1,16 +1,19 @@
 package com.geored.rest;
 
-import java.util.List;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.geored.rest.data.Categoria;
+import com.geored.rest.data.Imagen;
 import com.geored.rest.data.Usuario;
 
 public class TestServicios extends Activity implements OnClickListener {
@@ -35,11 +38,20 @@ public class TestServicios extends Activity implements OnClickListener {
 			Usuario usuario = new Usuario();
 			usuario.setNombre("trollencio");
 			try {
-				ServicioRestUsuarios.registrarUsuario("trollencio", usuario);
-				ServicioRestAutenticacion.login("trollencio", "trollencio");
-				List<Categoria> categorias = ServicioRestUsuarios.getCategorias();
-				return "Hay " + categorias.size() + " categorias!";
+				//ServicioRestUsuarios.registrarUsuario("trollencio", usuario);
+				//ServicioRestAutenticacion.login("trollencio", "trollencio");
+				//List<Categoria> categorias = ServicioRestUsuarios.getCategorias();
+				FileInputStream input = new FileInputStream("/mnt/sdcard/Pictures/icon.png");
+				byte [] buffer = new byte[1024];
+				ByteArrayOutputStream output = new ByteArrayOutputStream();
+				while (input.read(buffer) > 0) {
+					output.write(buffer);
+				}
+				Imagen imagen = ServicioRestImagenes.subirImagen(output.toByteArray());
+				ServicioRestImagenes.bajarImagen(imagen.getId());
+				return "Hay Imagenes!";
 			} catch (Exception e) {
+				Log.i("Info", "Exploto el test", e);
 				return "Error: " + e.getMessage();
 			}
 		}	

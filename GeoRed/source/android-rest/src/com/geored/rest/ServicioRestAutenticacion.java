@@ -15,7 +15,6 @@ public class ServicioRestAutenticacion extends ServicioRest {
 	final private static String URL_LOGOUT = SERVICIO_REST_AUTENTICACION_URL
 			+ "/logout";
 
-
 	public static String login(String nombre, String password) throws RestBlowUpException, UnauthorizedException {
 		HttpResponse response = rest(Metodos.POST, URL_LOGIN + "/" + nombre + "/" + password, null, false);
 		if (response.getStatusLine().getStatusCode() == OK) {
@@ -60,19 +59,10 @@ public class ServicioRestAutenticacion extends ServicioRest {
 		}
 	}
 	
-	public static String logout(String accessToken) throws RestBlowUpException, UnauthorizedException {
+	public static void logout() throws RestBlowUpException, UnauthorizedException {
 		HttpResponse response = rest(Metodos.POST, URL_LOGOUT);
 		if (response.getStatusLine().getStatusCode() == OK) {
-			String idUsuario;
-			try {				
-				String sResponse = Utils.getASCIIContentFromEntity(response.getEntity());
-				String token = sResponse.split(":")[0];
-				idUsuario = sResponse.split(":")[1];
-				setSecurityToken(token);
-			} catch (Exception e) {
-				throw new RestBlowUpException(e.getMessage());
-			}
-			return idUsuario;
+			return;
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();

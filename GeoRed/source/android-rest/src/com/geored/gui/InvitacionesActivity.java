@@ -75,7 +75,7 @@ public class InvitacionesActivity extends GenericActivity {
     		progressBar.show();
 			String id = hashUsuarios.get(idItem).getId();
 			AceptarInvitacionAsyncTask task = new AceptarInvitacionAsyncTask();
-			task.execute(new String[] { id});
+			task.execute(new String[] { id });
     	}else{
     		showToast("error antes de llamar al invitacion Aceptada");
     	}

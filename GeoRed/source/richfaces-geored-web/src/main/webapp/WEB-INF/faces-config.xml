@@ -22,7 +22,12 @@
   <managed-bean-name>reporteCheckInBB</managed-bean-name>
   <managed-bean-class>javaBB.ReporteCheckInBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
- </managed-bean> 
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>reporte</managed-bean-name>
+  <managed-bean-class>javaBB.Reporte</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>  
  <managed-bean>
   <managed-bean-name>reporteOfertaBB</managed-bean-name>
   <managed-bean-class>javaBB.ReporteOfertaBB</managed-bean-class>
@@ -71,6 +76,11 @@
  <managed-bean>
   <managed-bean-name>modificarCategoriaBB</managed-bean-name>
   <managed-bean-class>javaBB.ModificarCategoriaBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>modificarEventoBB</managed-bean-name>
+  <managed-bean-class>javaBB.ModificarEventoBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  
@@ -197,6 +207,19 @@
  </navigation-rule>
  
  <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/reporteOferta0.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>reporte</from-outcome>
+   <to-view-id>/presentacionAdminSistema/reporteOferta.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ 
+ <navigation-rule>
   <from-view-id>/presentacionAdminSistema/reporteOferta.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
@@ -317,6 +340,29 @@
  </navigation-rule>
  <navigation-rule>
   <from-view-id>/presentacionAdminSistema/modificarCategoria.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>exito</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarEvento0.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>cancelar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>modificar</from-outcome>
+   <to-view-id>/presentacionAdminSistema/modificarEvento.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/presentacionAdminSistema/modificarEvento.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>cancelar</from-outcome>
    <to-view-id>/presentacionAdminSistema/menu.xhtml</to-view-id>

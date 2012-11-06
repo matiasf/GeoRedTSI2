@@ -1,10 +1,14 @@
 package javaBB;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import persistencia.Categoria;
 import persistencia.Empresa;
 import persistencia.SitioInteres;
 
@@ -17,6 +21,7 @@ import negocios.GestionSitioInteres;
 public class AltaSitioInteresBB {
 	
 	private String nombre;
+	private String calendario;
 	
 	
 	private String descripcion;
@@ -26,10 +31,18 @@ public class AltaSitioInteresBB {
 	
 	private Object[] logoData;
 	
+	private List<Categoria> categorias;
+	private List<Categoria> categoriasSelected;
+	private List<String> nombresCategoria;
+	private List<String> nombresCategoriaSelected;
+	
 	private boolean exito;
 	
 	@EJB
 	private GestionSitioInteres gs;
+	
+	@EJB
+	private GestionEmpresas ge;
 	
 	
     public AltaSitioInteresBB() {    	
@@ -46,9 +59,22 @@ public class AltaSitioInteresBB {
 
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setNombre(this.nombre);
+    	sitioInteres.setGoogleCalendarId(this.calendario);
     	sitioInteres.setDescripcion(this.descripcion);
     	sitioInteres.setLatitud(this.latitud);
-    	sitioInteres.setLongitud(this.longitud);    	
+    	sitioInteres.setLongitud(this.longitud);
+    	
+    	this.categoriasSelected = new LinkedList<Categoria>();
+    	for(String s : this.nombresCategoriaSelected){
+    		for(Categoria cate : this.categorias){
+    			if (s.equals(cate.getNombre())){
+    				this.categoriasSelected.add(cate);
+    			}
+    		}
+    	}
+    	
+    	sitioInteres.setCategorias(this.categoriasSelected);
+    	
     	gs.agregarSitioInteres(sitioInteres);
     	retorno = "exito";   	
 
@@ -132,4 +158,51 @@ public class AltaSitioInteresBB {
 	public void setLongitud(float longitud) {
 		this.longitud = longitud;
 	}
+	
+	public List<String> getNombresCategoria() {
+		this.nombresCategoria = new LinkedList<String>();
+		this.categorias = ge.obtenerCategorias();
+		for(Categoria cate : this.categorias){
+			nombresCategoria.add(cate.getNombre());
+		}
+		return nombresCategoria;
+	}
+
+	public void setNombresCategoria(List<String> nombresCategoria) {
+		this.nombresCategoria = nombresCategoria;
+	}
+
+	public List<String> getNombresCategoriaSelected() {
+		this.nombresCategoriaSelected = new LinkedList<String>();
+		return nombresCategoriaSelected;
+	}
+
+	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
+		this.nombresCategoriaSelected = nombresCategoriaSelected;
+	}
+
+	public String getCalendario() {
+		return calendario;
+	}
+
+	public void setCalendario(String calendario) {
+		this.calendario = calendario;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<Categoria> getCategoriasSelected() {
+		return categoriasSelected;
+	}
+
+	public void setCategoriasSelected(List<Categoria> categoriasSelected) {
+		this.categoriasSelected = categoriasSelected;
+	}
+	
 }

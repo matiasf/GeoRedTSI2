@@ -6,15 +6,6 @@ import java.util.List;
 
 import javax.ejb.Singleton;
 
-import com.geored.servicios.json.CategoriaJSON;
-import com.geored.servicios.json.CheckInJSON;
-import com.geored.servicios.json.InvitacionJSON;
-import com.geored.servicios.json.NotificacionJSON;
-import com.geored.servicios.json.OfertaJSON;
-import com.geored.servicios.json.PagoJSON;
-import com.geored.servicios.json.PosicionJSON;
-import com.geored.servicios.json.UsuarioJSON;
-
 import persistencia.Categoria;
 import persistencia.CheckIn;
 import persistencia.Evento;
@@ -25,6 +16,15 @@ import persistencia.Oferta;
 import persistencia.Pago;
 import persistencia.SitioInteres;
 import persistencia.Usuario;
+
+import com.geored.servicios.json.CategoriaJSON;
+import com.geored.servicios.json.CheckInJSON;
+import com.geored.servicios.json.InvitacionJSON;
+import com.geored.servicios.json.NotificacionJSON;
+import com.geored.servicios.json.OfertaJSON;
+import com.geored.servicios.json.PagoJSON;
+import com.geored.servicios.json.PosicionJSON;
+import com.geored.servicios.json.UsuarioJSON;
 
 
 @Singleton
@@ -92,7 +92,7 @@ public class ConvertidorEntityJSON {
 			notifiacionJSON = new NotificacionJSON();
 			notifiacionJSON.setId(checkIn.getId());
 			notifiacionJSON.setDescripcion(checkIn.getComentario());
-			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString());
+			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString() + ":" + checkIn.getSitioInteres().getId());
 			notifiacionJSON.setNombre(checkIn.getUsuario().getNombre());
 		}
 		return notifiacionJSON;
@@ -106,12 +106,12 @@ public class ConvertidorEntityJSON {
 		return categoriaJSON;
 	}
 	
-	private CheckInJSON convertir(CheckIn checkin) {
+	/*private CheckInJSON convertir(CheckIn checkin) {
 		CheckInJSON checkinJSON = new CheckInJSON();
 		checkinJSON.setComentario(checkin.getComentario());
 		checkinJSON.setId(checkin.getId());
 		return checkinJSON;
-	}
+	}*/
 	
 	private OfertaJSON convertir(Oferta oferta) {
 		OfertaJSON ofertaJSON = new OfertaJSON();
@@ -121,6 +121,9 @@ public class ConvertidorEntityJSON {
 		ofertaJSON.setDescripcion(oferta.getDescripcion());
 		ofertaJSON.setComienzo(oferta.getComienzo().getTime());
 		ofertaJSON.setFin(oferta.getFin().getTime());
+		if (oferta.getFoto() != null) {
+			ofertaJSON.setIdImagen(oferta.getFoto().getId());
+		}
 		return ofertaJSON;
 	}
 	
@@ -155,15 +158,16 @@ public class ConvertidorEntityJSON {
 			else if (s instanceof Invitacion) {
 				tt.add((T)convertir((Invitacion)s));
 			}
-			else if (s instanceof SitioInteres || s instanceof Local || s instanceof Evento) {
+			else if (s instanceof SitioInteres || s instanceof Local || s instanceof Evento || s instanceof CheckIn) {
 				tt.add((T)convertir((Notificacion)s));
 			}
 			else if (s instanceof Categoria) {
 				tt.add((T)convertir((Categoria)s));
 			}
-			else if (s instanceof CheckIn) {
+			/*FIXME:No se para que se usaba esto
+			 * else if (s instanceof CheckIn) {
 				tt.add((T)convertir((CheckIn)s));
-			}
+			}*/
 			else if (s instanceof Oferta) {
 				tt.add((T)convertir((Oferta)s));
 			}

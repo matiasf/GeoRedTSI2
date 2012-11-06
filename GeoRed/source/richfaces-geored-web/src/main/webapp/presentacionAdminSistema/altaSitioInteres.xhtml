@@ -19,7 +19,7 @@
 
 	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
        <h:form id="form">
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Local" headerClass="header">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header" style="width:400px;"  >
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre"/>
@@ -27,6 +27,12 @@
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="calendario" value="Calendario"/>
+		      <h:inputText id="calendario" value="#{altaSitioInteresBB.calendario}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="calendario" errorClass="invalid"/>
 		
 		     <h:outputLabel for="coordX" value="Latitud"/>
 		      <h:inputText id="coordX" value="#{altaSitioInteresBB.latitud}">
@@ -49,6 +55,12 @@
               <rich:message for="descripcion" errorClass="invalid"/>
 
 		   </h:panelGrid>
+		   
+		   <rich:panel style="width:360px;">
+				<rich:pickList value="#{altaSitioInteresBB.nombresCategoriaSelected}" listHeight="100px" listWidth="100px">		            
+		            <f:selectItems value="#{altaSitioInteresBB.nombresCategoria}"/>
+        		</rich:pickList>
+			</rich:panel>
 		   
 
 			

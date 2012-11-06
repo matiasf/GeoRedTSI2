@@ -1,11 +1,15 @@
 package negocios.impl;
 
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.swing.JOptionPane;
 
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
@@ -61,6 +65,27 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 	public List<SitioInteres> obtenerTodosSitiosInteres() {
 		return sitioInteresDAO.obtenerTodos();
 	}
+	
+	/*
+	@Override
+	public void generarReporte() {		
+		try{
+      	  InputStream jasperIS = getClass().getResourceAsStream("/META-INF/reportes/holaMundo.jasper");
+      	  System.out.println(jasperIS);
+      	  Map<String, Object> mapa = new HashMap<String, Object>(); 
+      	  	System.setProperty("java.awt.headless", "true");
+      		System.out.println(java.awt.GraphicsEnvironment.isHeadless());
+      		
+      		
+            JasperPrint print = JasperFillManager.fillReport(jasperIS,mapa,new JREmptyDataSource());
+            JasperViewer jviewer = new JasperViewer(print,false);
+            jviewer.setVisible(true);
+            
+        }catch(Exception ex){
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Se produjo un error al leer el archivo .jasper");
+        }    
+	}*/
 
 	@Override
 	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste {

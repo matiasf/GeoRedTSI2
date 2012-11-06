@@ -39,6 +39,9 @@ public class AltaEventoBB {
 	private String nombre;
 	private String descripcion;
 	
+	private float latitud;
+	private float longitud;
+	
 	private Date fechaComienzo;
 	private Date fechaFin;
 	
@@ -84,9 +87,15 @@ public class AltaEventoBB {
     	cal2.setTime(this.fechaFin);    	
     	evento.setFin(cal2);
     	
-    	SitioInteres sitio = gs.obtenerSitioInteres(this.objectSelected);
-    	evento.setLatitud(sitio.getLatitud());
-    	evento.setLongitud(sitio.getLongitud());
+    	if (this.objectSelected == -1){
+    		evento.setLatitud(this.latitud);
+    		evento.setLongitud(this.longitud);
+    	} else {
+    		SitioInteres sitio = gs.obtenerSitioInteres(this.objectSelected);
+        	evento.setLatitud(sitio.getLatitud());
+        	evento.setLongitud(sitio.getLongitud());	
+    	}
+    	
     	
     	this.categoriasSelected = new LinkedList<Categoria>();
     	for(String s : this.nombresCategoriaSelected){
@@ -99,7 +108,7 @@ public class AltaEventoBB {
     	
     	evento.setCategorias(this.categoriasSelected);
     	
-    	//evento.setFoto(this.imagen);
+    	evento.setFoto(this.imagen);
     	
     	
     	try {
@@ -107,7 +116,7 @@ public class AltaEventoBB {
     		this.setExito(true); 
     		
     		FacesContext context = FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().remove("altaOfertaBB");
+            context.getExternalContext().getSessionMap().remove("altaEventoBB");
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
@@ -267,5 +276,21 @@ public class AltaEventoBB {
 
 	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
 		this.nombresCategoriaSelected = nombresCategoriaSelected;
+	}
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
 	}
 }
