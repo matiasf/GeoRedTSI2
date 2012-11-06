@@ -54,6 +54,13 @@
         android:text="@string/notificacionesLocales" />
 
     <Button
+        android:id="@+id/notificacionesEventos_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showNotificacionesEventos"
+        android:text="@string/notificacionesEventos" />
+    
+    <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

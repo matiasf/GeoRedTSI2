@@ -230,6 +230,10 @@ public class UsuarioActivity extends GenericActivity implements
 	
 	public void showNotificacionesLocales(View clickedButton) {
 		goToActivity(NotificacionesOfertasActivity.class);
+	}	
+	
+	public void showNotificacionesEventos(View clickedButton) {
+		goToActivity(NotificacionesEventosActivity.class);
 	}
 	
 	@Override
@@ -305,6 +309,9 @@ public class UsuarioActivity extends GenericActivity implements
 				
 				Button buttonOfertas = (Button) findViewById(R.id.notificaciones_button);
 				String textoOfertas = getString(R.string.notificacionesLocales);
+				
+				Button buttonEventos = (Button) findViewById(R.id.notificacionesEventos_button);
+				String textoEventos = getString(R.string.notificacionesEventos);
 
 				if (result != null && result.size() > 0) {
 					int contadorSitioInteres = 0; 
@@ -325,9 +332,11 @@ public class UsuarioActivity extends GenericActivity implements
 					}
 					button.setText(texto + " (" + contadorSitioInteres + ")");
 					buttonOfertas.setText(textoOfertas + " (" + contadorLocal + ")");
+					buttonEventos.setText(textoEventos + " (" + contadorEventos + ")");
 				} else {
 					button.setText(texto + " (0)");
 					buttonOfertas.setText(textoOfertas + " (0)");
+					buttonEventos.setText(textoEventos + " (0)");
 				}
 			} catch (Exception ex) {
 				showToast(ex.getMessage());

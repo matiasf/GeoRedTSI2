@@ -57,6 +57,11 @@ public class OfertasActivity extends GenericActivity {
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_ofertas);
+		Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            value = extras.getString("ofertas_id");
+            
+        }
 		loadListView();
 		registerForContextMenu(getListView());
 	}
