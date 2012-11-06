@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:text="@string/location_test"
         android:onClick="showGPSLocation"
+        android:visibility="invisible"
         />
 
         <Button
@@ -55,6 +56,7 @@
         android:layout_height="wrap_content"
         android:text="Check-IN"
         android:onClick="showCategoria"
+        android:visibility="invisible"
         />
     
 </LinearLayout>
