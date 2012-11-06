@@ -79,5 +79,5 @@ public interface GestionEmpresas {
 	
 	public void borrarCategoriasEvento(int idEvento, Collection<Integer> idCategorias);
 
-	List<Oferta> obtenerOfertasDeLocal(int idLocal);
+	public List<Oferta> obtenerOfertasDeLocal(int idLocal);
 }

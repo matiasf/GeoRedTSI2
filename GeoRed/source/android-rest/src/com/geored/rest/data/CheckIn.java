@@ -4,6 +4,8 @@ public class CheckIn {
 	
 	private Integer id;
 	private String comentario;
+	private String userName;
+	private Integer idImagen;
 	
 	public Integer getId() {
 		return id;
@@ -19,6 +21,22 @@ public class CheckIn {
 	
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Integer getIdImagen() {
+		return idImagen;
+	}
+
+	public void setIdImagen(Integer idImagen) {
+		this.idImagen = idImagen;
 	}
 
 }

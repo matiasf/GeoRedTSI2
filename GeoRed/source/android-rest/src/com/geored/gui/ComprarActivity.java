@@ -46,8 +46,14 @@ public class ComprarActivity extends GenericActivity {
 		ImagenAsyncTask task = new ImagenAsyncTask();
 		Bundle extras = getIntent().getExtras();
 		idOferta = extras.getString("idOferta");
-		String[] params = new String[]{extras.getString("idImagen")};
-		task.execute(params);
+		String idImagen = extras.getString("idImagen");
+		if (idImagen != null && !idImagen.isEmpty()) {
+			String[] params = new String[]{extras.getString("idImagen")};
+			task.execute(params);
+		}
+		else {
+			progressBar.dismiss();
+		}
 	}
 	
 	private void loadListView(Bitmap bitmap) {
@@ -93,7 +99,7 @@ public class ComprarActivity extends GenericActivity {
 				pago.setComentario(((EditText) findViewById(R.id.valorText)).getText().toString());
 				pago.setEvaluacion(Integer.valueOf(((EditText) findViewById(R.id.comentarText)).getText().toString()));
 				ServicioRestUsuarios.comprarOferta(Integer.valueOf(idOferta), pago);
-				goToActivity(NotificacionesActivity.class);
+				goToActivity(NotificacionesOfertasActivity.class);
 			} 
 			catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);

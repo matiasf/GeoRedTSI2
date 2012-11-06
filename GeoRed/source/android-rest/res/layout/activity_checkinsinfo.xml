@@ -8,11 +8,11 @@
         android:id="@+id/nombreCategoriatextView"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:text="Categorias"
+        android:text="Checkins de Amigos"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
-        android:id="@+id/categoriaslistView"
+        android:id="@+id/checkInslistView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.43" >

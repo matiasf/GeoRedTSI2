@@ -1,5 +1,7 @@
 package com.geored.rest;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -7,7 +9,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 
@@ -65,11 +69,23 @@ public class ServicioRestImagenes extends ServicioRest {
 
 	private static HttpResponse rest(Metodos metodo, String url, byte[] content, Boolean secure) {
 		try {
-			HttpPost request = null;
-			request = new HttpPost(url);
+			HttpPost request = new HttpPost(url);
 			if (content != null) {
-				ByteArrayEntity entry = new ByteArrayEntity(content);
-				request.setEntity(entry);
+				File tmpUpload = File.createTempFile("tmpUpload", "jpg");
+				FileOutputStream outputStream = new FileOutputStream(tmpUpload);
+				outputStream.write(content);
+				outputStream.close();
+			    FileBody bin = new FileBody(tmpUpload);
+			    StringBody header = new StringBody("upload-file");
+
+			    MultipartEntity reqEntity = new MultipartEntity();
+			    reqEntity.addPart("header", header);
+			    reqEntity.addPart("payload", bin);
+			    request.setEntity(reqEntity);
+
+			    HttpClient httpclient = new DefaultHttpClient();
+			    HttpResponse response = httpclient.execute(request); 
+			    return response;
 			}
 			if (request != null) {
 				if (secure)

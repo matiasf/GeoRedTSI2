@@ -19,6 +19,7 @@ import persistencia.Usuario;
 
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.CheckInJSON;
+import com.geored.servicios.json.EventoJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.OfertaJSON;
@@ -106,13 +107,6 @@ public class ConvertidorEntityJSON {
 		return categoriaJSON;
 	}
 	
-	/*private CheckInJSON convertir(CheckIn checkin) {
-		CheckInJSON checkinJSON = new CheckInJSON();
-		checkinJSON.setComentario(checkin.getComentario());
-		checkinJSON.setId(checkin.getId());
-		return checkinJSON;
-	}*/
-	
 	private OfertaJSON convertir(Oferta oferta) {
 		OfertaJSON ofertaJSON = new OfertaJSON();
 		ofertaJSON.setId(oferta.getId());
@@ -125,6 +119,19 @@ public class ConvertidorEntityJSON {
 			ofertaJSON.setIdImagen(oferta.getFoto().getId());
 		}
 		return ofertaJSON;
+	}
+	
+	public EventoJSON convertir(Evento evento) {
+		EventoJSON eventoJSON = new EventoJSON();
+		eventoJSON.setId(evento.getId());
+		eventoJSON.setFin(evento.getFin().getTime());
+		eventoJSON.setInicio(evento.getInicio().getTime());
+		eventoJSON.setDescripcion(evento.getDescripcion());
+		eventoJSON.setNombre(evento.getNombre());
+		if (evento.getFoto() != null) {
+			eventoJSON.setIdImagen(evento.getFoto().getId());
+		}
+		return eventoJSON;
 	}
 	
 	public CheckIn convertir(CheckInJSON checkInJSON) {
@@ -148,6 +155,20 @@ public class ConvertidorEntityJSON {
 		return pago;
 	}
 	
+	public List<CheckInJSON> convertBajo(List<CheckIn> checkIns) {
+		List<CheckInJSON> checkInJSONs = new ArrayList<CheckInJSON>();
+		CheckInJSON checkInJSON;
+		for (CheckIn checkIn : checkIns) {
+			checkInJSON = new CheckInJSON();
+			checkInJSON.setComentario(checkIn.getComentario());
+			checkInJSON.setId(checkIn.getId());
+			checkInJSON.setIdImagen(checkIn.getFoto() != null ? checkIn.getFoto().getId() : null);
+			checkInJSON.setUserName(checkIn.getUsuario().getNombre());
+			checkInJSONs.add(checkInJSON);
+		}
+		return checkInJSONs;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T, S> List<T> convert(List<S> ss) {
 		List<T> tt = new ArrayList<T>();
@@ -164,10 +185,6 @@ public class ConvertidorEntityJSON {
 			else if (s instanceof Categoria) {
 				tt.add((T)convertir((Categoria)s));
 			}
-			/*FIXME:No se para que se usaba esto
-			 * else if (s instanceof CheckIn) {
-				tt.add((T)convertir((CheckIn)s));
-			}*/
 			else if (s instanceof Oferta) {
 				tt.add((T)convertir((Oferta)s));
 			}

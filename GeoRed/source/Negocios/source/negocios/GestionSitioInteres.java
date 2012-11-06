@@ -28,7 +28,7 @@ public interface GestionSitioInteres {
 	
 	//public void generarReporte();
 	
-	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste;
+	public void hacerCheckIn(int idUsuario, int idSitioInteres, Integer idImagen, CheckIn checkIn) throws EntidadNoExiste;
 	
 	public void agregarCategoriaSitio(int idSitio, Collection<Integer> idCategorias);
 	

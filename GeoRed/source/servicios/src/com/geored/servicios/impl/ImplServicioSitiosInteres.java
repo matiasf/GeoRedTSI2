@@ -35,7 +35,7 @@ public class ImplServicioSitiosInteres implements ServicioSitiosInteres {
 		if (gestionTokens.validarToken(userToken)) {
 			try {
 				response.setStatus(Response.Status.OK.getStatusCode());
-				gestionSitioInteres.hacerCheckIn(gestionTokens.getIdUsuario(userToken), idSitioInteres,
+				gestionSitioInteres.hacerCheckIn(gestionTokens.getIdUsuario(userToken), idSitioInteres, checkInJSON.getIdImagen(),
 						convertidorEntityJSON.convertir(checkInJSON));
 			} catch (EntidadNoExiste e) {
 				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
@@ -50,7 +50,7 @@ public class ImplServicioSitiosInteres implements ServicioSitiosInteres {
 	public List<CheckInJSON> getCheckIns(final String userToken, final HttpServletResponse response, final Integer idSitioInteres) {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
-			return convertidorEntityJSON.convert(gestionSitioInteres.obtenerCheckInsAmigosLocal(gestionTokens.getIdUsuario(userToken), idSitioInteres));	
+			return convertidorEntityJSON.convertBajo(gestionSitioInteres.obtenerCheckInsAmigosLocal(gestionTokens.getIdUsuario(userToken), idSitioInteres));	
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
