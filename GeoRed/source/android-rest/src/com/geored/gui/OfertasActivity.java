@@ -13,8 +13,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Oferta;
@@ -30,12 +28,6 @@ public class OfertasActivity extends GenericActivity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.activity_contactos, menu);
-		
-		Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            value = extras.getString("ofertas_id");
-            
-        }
 	}
 	
 	/*@Override
@@ -56,6 +48,11 @@ public class OfertasActivity extends GenericActivity {
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_ofertas);
+		Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            value = extras.getString("ofertas_id");
+            
+        }
 		loadListView();
 		registerForContextMenu(getListView());
 	}
