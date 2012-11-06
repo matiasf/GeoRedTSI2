@@ -21,17 +21,18 @@
        <h:form id="form" enctype="multipart/form-data" style="width:400px">
        
           <rich:panel id="newPanel" styleClass=".form" header="Evento" headerClass="header" style="width:400px">
-          
-			<h:panelGroup id="divImagen">                                 
-						<a4j:mediaOutput element="img" rendered="#{modificarEvento.imagen != null}" mimeType="image/png"
-                                    createContent="#{modificarEventoBB.paint}" value="1"
-                                    style="width:100px; height:100px;" cacheable="false">
- 
-				</a4j:mediaOutput>
-                           
-                </h:panelGroup>
-			
-		   <h:panelGrid columns="3" columnClasses="titleCell" style="width:400px">
+
+				<h:panelGroup id="divImagen">
+					<a4j:mediaOutput element="img"
+						rendered="#{modificarEventoBB.imagen != null}" mimeType="image/png"
+						createContent="#{modificarEventoBB.paint}" value="1"
+						style="width:100px; height:100px;" cacheable="false">
+
+					</a4j:mediaOutput>
+
+				</h:panelGroup>
+
+				<h:panelGrid columns="3" columnClasses="titleCell" style="width:400px">
 		      <h:outputLabel for="name" value="Nombre"/>
 		      <h:inputText id="name" value="#{modificarEventoBB.nombre}">
 		         <rich:validator/>
