@@ -1,26 +1,24 @@
 package negocios.impl;
 
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.swing.JOptionPane;
 
+import negocios.GestionSitioInteres;
+import negocios.excepciones.EntidadNoExiste;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
 import persistencia.CheckIn;
 import persistencia.CheckInDAO;
+import persistencia.Imagen;
+import persistencia.ImagenDAO;
 import persistencia.SitioInteres;
 import persistencia.SitioInteresDAO;
 import persistencia.Usuario;
 import persistencia.UsuarioDAO;
-import negocios.GestionSitioInteres;
-import negocios.excepciones.EntidadNoExiste;
 
 @Stateless
 public class GestionSitioInteresImpl implements GestionSitioInteres {
@@ -36,6 +34,9 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 	
 	@EJB
 	private CategoriaDAO categoriaDAO;
+	
+	@EJB
+	private ImagenDAO imagenDAO;
 	
 	@Override
 	public void agregarSitioInteres(SitioInteres sitioInteres) {
@@ -88,7 +89,7 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 	}*/
 
 	@Override
-	public void hacerCheckIn(int idUsuario, int idSitioInteres, CheckIn checkIn) throws EntidadNoExiste {
+	public void hacerCheckIn(int idUsuario, int idSitioInteres, Integer idImagen, CheckIn checkIn) throws EntidadNoExiste {
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
 		if (usuario == null) {
 			String msg = "No existe el usuario con id " + idUsuario;
@@ -99,8 +100,16 @@ public class GestionSitioInteresImpl implements GestionSitioInteres {
 			String msg = "No existe el sitio de interes con id " + idSitioInteres;
 			throw new EntidadNoExiste(idSitioInteres, msg);
 		}
+		if (idImagen != null) {
+			Imagen imagen = imagenDAO.buscarPorId(idImagen);
+			if (imagen == null) {
+				String msg = "No existe la imagen con id " + idImagen;
+				throw new EntidadNoExiste(idImagen, msg);
+			}
+			checkIn.setFoto(imagen);
+		}
 		checkIn.setSitioInteres(sitio);
-		checkIn.setUsuario(usuario);
+		checkIn.setUsuario(usuario);		
 		CheckIn checkInInsertado = checkInDAO.insertar(checkIn);
 		usuario.getCheckIns().add(checkInInsertado);
 		sitio.getCheckIns().add(checkInInsertado);

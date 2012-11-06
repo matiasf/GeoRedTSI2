@@ -46,7 +46,7 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	}
 
 	@Override
-	public void agregarEmpresa(Empresa empresa) throws MessagingException, IOException, NamingException {
+	public void agregarEmpresa(Empresa empresa) throws MessagingException {
 		empresaDAO.insertar(empresa);
 		String asunto = "Bienvenido a GeoredUy";
 		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";

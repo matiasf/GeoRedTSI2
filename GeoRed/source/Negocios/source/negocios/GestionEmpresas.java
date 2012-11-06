@@ -1,15 +1,12 @@
 package negocios;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.naming.NamingException;
 
 import negocios.excepciones.EntidadNoExiste;
-
 import persistencia.Categoria;
 import persistencia.Empresa;
 import persistencia.Evento;
@@ -72,4 +69,6 @@ public interface GestionEmpresas {
 	public List<Categoria> obtenerCategoriasOferta(int idOferta);
 	
 	public void modificarOferta(Oferta oferta);
+
+	public List<Oferta> obtenerOfertasDeLocal(int idLocal);
 }

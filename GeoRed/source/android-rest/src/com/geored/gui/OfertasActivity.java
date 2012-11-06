@@ -17,7 +17,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
@@ -69,7 +68,7 @@ public class OfertasActivity extends GenericActivity {
 	protected void goToActivity(Class<? extends Activity> activityClass, Integer idOferta, Integer idImagen) {
         Intent newActivity = new Intent(OfertasActivity.this, activityClass);
         newActivity.putExtra("idOferta", idOferta.toString());
-        newActivity.putExtra("idImagen", idImagen.toString());
+        newActivity.putExtra("idImagen", idImagen != null ? idImagen.toString() : null);
         startActivity(newActivity);
     }
 
@@ -113,7 +112,6 @@ public class OfertasActivity extends GenericActivity {
 		protected List<Oferta> doInBackground(String... params) {
 			List<Oferta> ofertas = new ArrayList<Oferta>();
 			try {
-				//ofertas = ServicioRestUsuarios.getOfertas(16);
 				ofertas = ServicioRestUsuarios.getOfertas(Integer.parseInt(params[0]));
 			} catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);

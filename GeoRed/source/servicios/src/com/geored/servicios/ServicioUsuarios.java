@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import com.geored.servicios.json.CategoriaJSON;
+import com.geored.servicios.json.EventoJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.OfertaJSON;
@@ -102,5 +103,11 @@ public interface ServicioUsuarios {
 	@Produces("application/json")
 	List<OfertaJSON> getOfertasLocal(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
 			@PathParam("idLocal") final Integer idLocal);
+	
+	@GET
+	@Path("evento/{idEvento}")
+	@Produces("application/json")
+	EventoJSON getEvento(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			@PathParam("idEvento") final Integer idEvento);
 
 }

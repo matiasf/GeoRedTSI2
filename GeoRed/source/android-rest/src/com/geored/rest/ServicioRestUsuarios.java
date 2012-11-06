@@ -9,6 +9,7 @@ import android.util.Log;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.geored.rest.data.Categoria;
+import com.geored.rest.data.Evento;
 import com.geored.rest.data.Invitacion;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Oferta;
@@ -37,6 +38,8 @@ public class ServicioRestUsuarios extends ServicioRest {
 			+ "/notificaciones";
 	final private static String URL_OFERTAS = SERVICIO_REST_USUARIOS_URL
 			+ "/ofertas";
+	final private static String URL_EVENTO = SERVICIO_REST_USUARIOS_URL
+			+ "/evento";
 	
 	public static List<Usuario> buscarContactos(String query) throws RestBlowUpException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -337,6 +340,27 @@ public class ServicioRestUsuarios extends ServicioRest {
 				Log.e("FATAL ERROR", e.getMessage(), e);
 				throw new RestBlowUpException(e.getMessage());
 			}
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}
+	}
+	
+	public static Evento getEvento(String idEvento) throws RestBlowUpException, UnauthorizedException {
+		ObjectMapper mapper = new ObjectMapper();
+		HttpResponse response = rest(Metodos.GET, URL_EVENTO + "/" + idEvento);
+		if (response.getStatusLine().getStatusCode() == OK) {
+			String asciiContent;
+			try {
+				asciiContent = Utils.getASCIIContentFromEntity(response.getEntity());
+				Evento wrapper = mapper.readValue(asciiContent, new TypeReference<Evento>() {});
+				return wrapper;
+			} catch (Exception e) {
+				throw new RestBlowUpException(e.getMessage());
+			}			
 		}
 		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
 			throw new UnauthorizedException();

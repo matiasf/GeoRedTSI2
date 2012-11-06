@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
+import negocios.GestionEmpresas;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
@@ -18,6 +19,7 @@ import com.geored.servicios.ServicioUsuarios;
 import com.geored.servicios.impl.auth.GestionTokens;
 import com.geored.servicios.impl.gcm.GestionDevices;
 import com.geored.servicios.json.CategoriaJSON;
+import com.geored.servicios.json.EventoJSON;
 import com.geored.servicios.json.InvitacionJSON;
 import com.geored.servicios.json.NotificacionJSON;
 import com.geored.servicios.json.OfertaJSON;
@@ -33,6 +35,9 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	@EJB
 	GestionUsuarios gestionUsuarios;
 
+	@EJB
+	GestionEmpresas gestionEmpresas;
+	
 	@EJB
 	GestionTokens gestionTokens;
 	
@@ -240,6 +245,18 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
 			return convertidorEntityJSON.convert(gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken)));
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
+		return null;
+	}
+	
+	@Override
+	public EventoJSON getEvento(final String userToken, final HttpServletResponse response, final Integer idEvento) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());
+			return convertidorEntityJSON.convertir(gestionEmpresas.obtenerEvento(idEvento));
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());

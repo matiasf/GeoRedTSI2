@@ -59,7 +59,7 @@ public class SitioDInteresItemizedOverlay extends ItemizedOverlay {
         	  hashNotificaciones.get(id);
         	  
         	  Intent intent = new Intent(mContext, CheckInActivity.class);
-        	  intent.putExtra("sitioDinteres_id",id);
+        	  intent.putExtra("sitioDinteres_id", id);
               mContext.startActivity(intent);
 
 
@@ -75,7 +75,7 @@ public class SitioDInteresItemizedOverlay extends ItemizedOverlay {
         	  hashNotificaciones.get(id);
         	  
         	  Intent intent = new Intent(mContext, CheckInsInfoActivity.class);
-        	  intent.putExtra("sitioDinteres_id",id);
+        	  intent.putExtra("sitioDinteres_id", id);
               mContext.startActivity(intent);
           }
       });
