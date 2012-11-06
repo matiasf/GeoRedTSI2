@@ -70,6 +70,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 		Local localManaged = localDAO.insertar(local);
 		empresa.getLocales().add(localManaged);
 	}
+	
+	@Override
+	public void modificarLocal(Local local){		
+		localDAO.modificar(local);		
+	}
 
 	@Override
 	public Empresa obtenerEmpresa(int id) {
@@ -159,6 +164,11 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	@Override
 	public Evento obtenerEvento(int idEvento) {
 		return eventoDAO.buscarPorId(idEvento);
+	}
+	
+	@Override
+	public Local obtenerLocal(int idLocal) {
+		return localDAO.buscarPorId(idLocal);
 	}
 	
 	@Override
