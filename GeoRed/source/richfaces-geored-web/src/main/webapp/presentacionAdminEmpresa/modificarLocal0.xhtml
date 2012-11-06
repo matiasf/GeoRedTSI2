@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/template.xhtml"
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -9,26 +9,25 @@
                 xmlns:my="http://java.sun.com/jsf/composite/components">
     <ui:define name="content">
         <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>
-        	
+        <h:outputScript target="head" name="showMessage.js" library="js"/> 	
 
-       <h:form id="modificar">
-          <rich:panel id="newCategoriaPanel" styleClass=".form" header="Evento" headerClass="header">        
+       <h:form id="modificarEmpresa">
+          <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Local" headerClass="header">        
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
 		      <h:outputLabel for="name" value="Nombre:"/>
-		      <h:selectOneMenu value="#{modificarEventoBB.eventoSelected}" style="width:200px;">
-				  <f:selectItem itemLabel="Seleccione Evento" itemValue="-1" />
-				  <f:selectItems value="#{modificarEventoBB.eventos}"/>				  
+		      <h:selectOneMenu value="#{modificarLocalBB.objectSelected}" style="width:200px;">
+				  <f:selectItem itemLabel="Seleccione local" itemValue="-1" />
+				  <f:selectItems value="#{modificarLocalBB.objects}"/>				  
 				</h:selectOneMenu>				
 		      <rich:message for="name" errorClass="invalid"/>     
 		   </h:panelGrid>
 			
 			<h:panelGrid columns="2">
-				<h:commandButton id="cancelar" action="#{modificarEventoBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{modificarLocalBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <h:commandButton id="modificar" action="#{modificarEventoBB.selecciono}" value="Modificar"
+                <a4j:commandButton id="modificarEmpresa" action="#{modificarLocalBB.selecciono}" value="Modificar"
                                    styleClass="boton" />                                 
                 
              </h:panelGrid>

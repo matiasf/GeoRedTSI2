@@ -49,6 +49,11 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 			"WHERE o.id = :idOferta " +
 			"	AND p.fecha BETWEEN :inicio AND :fin";
 	
+	private static final String obtenerOfertasLocal = 
+			"SELECT o " +
+			"FROM Local l JOIN l.ofertas o " +
+			"WHERE l.id = :idLocal";
+	
 	@Override
 	public Oferta buscarPorId(int id) {
 		Oferta ret = em.find(Oferta.class, id);
@@ -109,6 +114,11 @@ public class OfertaDAOImpl extends BaseDAO<Oferta> implements OfertaDAO {
 		return query.getSingleResult();
 	}
 
-
+	@Override
+	public List<Oferta> obtenerOfertasLocal(int idLocal) {
+		TypedQuery<Oferta> query = em.createQuery(obtenerOfertasLocal, Oferta.class);
+		query.setParameter("idLocal", idLocal);
+		return query.getResultList();
+	}
 
 }
