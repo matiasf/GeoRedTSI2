@@ -49,10 +49,14 @@ public interface GestionEmpresas {
 	
 	public List<Evento> obtenerEventos(Calendar desdeFecha);
 	
+	public Evento obtenerEvento(int idEvento);
+	
 	public void agregarCategoriasOferta(int idOferta, Collection<Integer> idCategorias);
 	
 	public List<Oferta> obenerTodasLasOfertas();
 	
 	public long obtenerCantPagosDeOferta(int idOferta, Calendar desde, Calendar hasta);
+
+	void modificarEvento(Evento evento);
 	
 }

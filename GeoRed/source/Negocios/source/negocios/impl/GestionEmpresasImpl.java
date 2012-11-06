@@ -145,10 +145,20 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public int altaEvento(Evento evento) {
 		return eventoDAO.insertar(evento).getId();
 	}
+	
+	@Override
+	public void modificarEvento(Evento evento) {
+		eventoDAO.modificar(evento);
+	}
 
 	@Override
 	public List<Evento> obtenerEventos(Calendar desdeFecha) {
 		return eventoDAO.obtenerEventos(desdeFecha);
+	}
+	
+	@Override
+	public Evento obtenerEvento(int idEvento) {
+		return eventoDAO.buscarPorId(idEvento);
 	}
 	
 	@Override

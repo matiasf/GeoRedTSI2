@@ -27,6 +27,12 @@
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
+		      
+		      <h:outputLabel for="calendario" value="Calendario"/>
+		      <h:inputText id="calendario" value="#{altaSitioInteresBB.calendario}">
+		         <rich:validator/>
+		      </h:inputText>
+		      <rich:message for="calendario" errorClass="invalid"/>
 		
 		     <h:outputLabel for="coordX" value="Latitud"/>
 		      <h:inputText id="coordX" value="#{altaSitioInteresBB.latitud}">

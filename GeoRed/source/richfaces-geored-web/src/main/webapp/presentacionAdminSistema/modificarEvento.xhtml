@@ -9,24 +9,31 @@
                 xmlns:my="http://java.sun.com/jsf/composite/components">
     <ui:define name="content">
         <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>	
-        <h:outputScript target="head" name="cargarMapa.js" library="js"/>
-   
-   <h:outputScript target="body">
-   			initialize();
-   </h:outputScript>
+        <h:outputScript target="head" name="showMessage.js" library="js"/>
+        <h:outputScript target="head" name="cargarMapa.js" library="js"/>   
+		   <h:outputScript target="body"> 	
+		   			initializeConPunto();
+		   </h:outputScript>
+        	
 <br />
-
+		<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarEvento.jsf" style="color:black;">Recargar</a>
 		<div id="map_canvas" style="width:400px; height:400px"> </div>
        <h:form id="form" enctype="multipart/form-data" style="width:400px">
        
           <rich:panel id="newPanel" styleClass=".form" header="Evento" headerClass="header" style="width:400px">
           
-			
+			<h:panelGroup id="divImagen">                                 
+						<a4j:mediaOutput element="img" rendered="#{modificarEvento.imagen != null}" mimeType="image/png"
+                                    createContent="#{modificarEventoBB.paint}" value="1"
+                                    style="width:100px; height:100px;" cacheable="false">
+ 
+				</a4j:mediaOutput>
+                           
+                </h:panelGroup>
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell" style="width:400px">
 		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaEventoBB.nombre}">
+		      <h:inputText id="name" value="#{modificarEventoBB.nombre}">
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
@@ -35,20 +42,20 @@
 		      <h:inputTextarea id="descripcion"
                     maxlength="200"
                     cols="34" rows="10"
-                    value="#{altaEventoBB.descripcion}"
+                    value="#{modificarEventoBB.descripcion}"
                     ></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
 		      
 		      <h:outputLabel for="name" value="Sitio Interes:"/>
-		      <h:selectOneMenu value="#{altaEventoBB.objectSelected}" style="width:200px;">
-				  <f:selectItem itemLabel="Seleccione Ubicación" itemValue="-1" />
-				  <f:selectItems value="#{altaEventoBB.objects}"/>				  
+		      <h:selectOneMenu value="#{modificarEventoBB.objectSelected}" style="width:200px;">
+				  <f:selectItem itemLabel="Ninguno" itemValue="-1" />
+				  <f:selectItems value="#{modificarEventoBB.objects}"/>				  
 				</h:selectOneMenu>				
 		      <rich:message for="name" errorClass="invalid"/>
               
               <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
               <a4j:outputPanel id="fechaComienzo" layout="block">
-                    <rich:calendar value="#{altaEventoBB.fechaComienzo}"
+                    <rich:calendar value="#{modificarEventoBB.fechaComienzo}"
                         locale="en/US"
                         popup="true"
                         datePattern="d/M/yy HH:mm"
@@ -58,7 +65,7 @@
             	
               <h:outputLabel for="fechaFin" value="Fecha Fin:" />
               <a4j:outputPanel id="fechaFin" layout="block">
-                    <rich:calendar value="#{altaEventoBB.fechaFin}"
+                    <rich:calendar value="#{modificarEventoBB.fechaFin}"
                         locale="en/US"
                         popup="true"
                         datePattern="d/M/yy HH:mm"
@@ -70,7 +77,7 @@
               
               <h:outputLabel for="imagen" value="Imagen:"/>      
 			  <rich:fileUpload id="imagen" listWidth="220px" listHeight="100px" style="width:200px; height:120px;"
-			    uploadData="#{altaEventoBB.logoData}" fileUploadListener="#{altaEventoBB.logoListener}"
+			    uploadData="#{modificarEventoBB.logoData}" fileUploadListener="#{modificarEventoBB.logoListener}"
 			    maxFilesQuantity="1"/>
 			  <rich:message for="imagen" errorClass="invalid"/>
               
@@ -79,20 +86,20 @@
 		   </h:panelGrid>
 		   
 			<rich:panel style="width:360px;">
-				<rich:pickList value="#{altaEventoBB.nombresCategoriaSelected}" listHeight="100px" listWidth="100px">		            
-		            <f:selectItems value="#{altaEventoBB.nombresCategoria}"/>
+				<rich:pickList value="#{modificarEventoBB.nombresCategoriaSelected}" listHeight="100px" listWidth="100px">		            
+		            <f:selectItems value="#{modificarEventoBB.nombresCategoria}"/>
         		</rich:pickList>
 			</rich:panel>
 			
 			<div id="botones">
-				<a4j:commandButton id="cancelar" action="#{altaEventoBB.cancelar}" value="Cancelar"
+				<a4j:commandButton id="cancelar" action="#{modificarEventoBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="alta" action="#{altaEventoBB.alta}" value="Dar de alta"
+                <a4j:commandButton id="alta" action="#{modificarEventoBB.modificar}" value="Modificar"
                                    styleClass="boton" />
                                    
-                <h:inputHidden id="coordX" value="#{altaEventoBB.latitud}"></h:inputHidden>
-                <h:inputHidden id="coordY" value="#{altaEventoBB.longitud}"></h:inputHidden>  
-                                 
+                 <h:inputHidden id="coordX" value="#{modificarEventoBB.latitud}"></h:inputHidden>
+                <h:inputHidden id="coordY" value="#{modificarEventoBB.longitud}"></h:inputHidden>
+                                   
                 <rich:messages globalOnly="true"/>
              </div>
 

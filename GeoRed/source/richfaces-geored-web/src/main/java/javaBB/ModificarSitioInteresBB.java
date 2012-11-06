@@ -25,6 +25,7 @@ public class ModificarSitioInteresBB {
 	private boolean exito;
 	
 	private String nombre;
+	private String calendario;
 	private String descripcion;
 	private double latitud;
 	private double longitud;
@@ -74,6 +75,7 @@ public class ModificarSitioInteresBB {
                     	    	
         SitioInteres sitioInteres = gs.obtenerSitioInteres(this.sitioSelected);//??
     	this.setNombre(sitioInteres.getNombre());
+    	this.setCalendario(sitioInteres.getGoogleCalendarId());
     	this.setLatitud(sitioInteres.getLatitud());
     	this.setLongitud(sitioInteres.getLongitud());
     	this.setDescripcion(sitioInteres.getDescripcion());
@@ -104,6 +106,7 @@ public class ModificarSitioInteresBB {
     	SitioInteres sitioInteres = new SitioInteres();
     	sitioInteres.setId(this.sitioSelected);
     	sitioInteres.setNombre(this.nombre);
+    	sitioInteres.setGoogleCalendarId(this.calendario);
     	sitioInteres.setDescripcion(this.descripcion);
     	sitioInteres.setLatitud(this.latitud);
     	sitioInteres.setLongitud(this.longitud);
@@ -249,5 +252,15 @@ public class ModificarSitioInteresBB {
 
 	public void setNombresCategoriaSelected(List<String> nombresCategoriaSelected) {
 		this.nombresCategoriaSelected = nombresCategoriaSelected;
+	}
+
+
+	public String getCalendario() {
+		return calendario;
+	}
+
+
+	public void setCalendario(String calendario) {
+		this.calendario = calendario;
 	}
 }
