@@ -1,62 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="/WEB-INF/templates/template.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:my="http://java.sun.com/jsf/composite/components">
-    <ui:define name="content">
-        <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+	<ui:define name="content">
+		<h:outputStylesheet name="app.css" library="css" />
+		<h:outputScript target="head" name="showMessage.js" library="js" />
 
-        <h1>Menu principal</h1>
+		<div class="mensajeExitoGral">
+			<h:outputText value="#{statusBB.exitoMsg}"
+				rendered="#{statusBB.exito}" />
+		</div>
+		<div class="mensajeError">
+			<h:outputText value="#{statusBB.errorMsg}"
+				rendered="#{statusBB.error}" />
+		</div>
+
+		<h1>Menu principal</h1>
 
 
 
-       <h:form id="menu">
-       
-       		<a href="#{menuBB.contextyurl}/" style="color:black;">Chau</a>
-			
-			<br /><br />
+		<h:form id="menu">
 
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEmpresa.jsf" style="color:black;">Alta Empresa</a>
-			
-			<br /><br />
-			
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/altaSitioInteres.jsf" style="color:black;">Alta Sitio Interes</a>
+			<a href="#{menuBB.contextyurl}/" style="color: black;">Chau</a>
+
 			<br />
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres0.jsf" style="color:black;">Modificar Sitio Interes</a>
+			<br />
+
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEmpresa.jsf"
+				style="color: black;">Alta Empresa</a>
+
+			<br />
+			<br />
+
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/altaSitioInteres.jsf"
+				style="color: black;">Alta Sitio Interes</a>
+			<br />
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres0.jsf"
+				style="color: black;">Modificar Sitio Interes</a>
 			<!--<br />
 			 <a href="#{menuBB.contextyurl}/presentacionAdminSistema/bajaSitioInteres0.jsf" style="color:black;">Baja Sitio Interes</a> -->
 
-			<br /><br />			
-			
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEvento.jsf" style="color:black;">Alta Evento</a>
 			<br />
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarEvento0.jsf" style="color:black;">Modificar Evento</a>
+			<br />
+
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEvento.jsf"
+				style="color: black;">Alta Evento</a>
+			<br />
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarEvento0.jsf"
+				style="color: black;">Modificar Evento</a>
 			<!-- <br />
 			 <a href="#{menuBB.contextyurl}/presentacionAdminSistema/bajaSitioInteres0.jsf" style="color:black;">Baja Sitio Interes</a> -->
-			
-			<br /><br />
-			
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/altaCategoria.jsf" style="color:black;">Alta Categoría</a>
+
+			<br />
+			<br />
+
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/altaCategoria.jsf"
+				style="color: black;">Alta Categoría</a>
 			<!-- <br />
 			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarCategoria0.jsf" style="color:black;">Modificar Categoría</a>
 			<br />
 			 <a href="#{menuBB.contextyurl}/presentacionAdminSistema/bajaSitioInteres0.jsf" style="color:black;">Baja Sitio Interes</a> -->
-			
-			<br /><br />
-			
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteCheckIn0.jsf" style="color:black;">Reporte CheckIn</a>
+
 			<br />
-			<a href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteOferta0.jsf" style="color:black;">Reporte Oferta</a>
 			<br />
-			
-			<br /><br />
+
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteCheckIn0.jsf"
+				style="color: black;">Reporte CheckIn</a>
+			<br />
+			<a
+				href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteOferta0.jsf"
+				style="color: black;">Reporte Oferta</a>
+			<br />
+
+			<br />
+			<br />
 
 
-       </h:form>
-    </ui:define>
+		</h:form>
+	</ui:define>
 </ui:composition>

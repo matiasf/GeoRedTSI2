@@ -127,8 +127,23 @@ public class UsuarioActivity extends GenericActivity implements
 
 		String bestProvider = locManager.getBestProvider(criteria, true);
 		locManager.requestLocationUpdates(bestProvider, 0, 0, this);
+		
 	}
 
+	@Override
+	protected void onRestart(){
+		super.onRestart();
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+		criteria.setCostAllowed(false);
+
+		String bestProvider = locManager.getBestProvider(criteria, true);
+		Location location = locManager.getLastKnownLocation(bestProvider);
+
+		showNotificaciones(location.getLatitude(),location.getLongitude());
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -233,6 +248,7 @@ public class UsuarioActivity extends GenericActivity implements
 	}	
 	
 	public void showNotificacionesEventos(View clickedButton) {
+		
 		goToActivity(NotificacionesEventosActivity.class);
 	}
 	
@@ -320,15 +336,16 @@ public class UsuarioActivity extends GenericActivity implements
 					int contadorCheckIn = 0;
 					for(int i=0; i < result.size() ;i++ ){
 						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
-						
-						if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
-							contadorSitioInteres++;
-						if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
-							contadorEventos++;
-						if (result.get(i).getTipo().equalsIgnoreCase("LOCAL")) 
-							contadorLocal++;
-						if (result.get(i).getTipo().equalsIgnoreCase("CHECK_IN")) 
-							contadorCheckIn++;
+						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
+							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
+								contadorSitioInteres++;
+							if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
+								contadorEventos++;
+							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL")) 
+								contadorLocal++;
+							if (result.get(i).getTipo().equalsIgnoreCase("CHECK_IN")) 
+								contadorCheckIn++;
+						}						
 					}
 					button.setText(texto + " (" + contadorSitioInteres + ")");
 					buttonOfertas.setText(textoOfertas + " (" + contadorLocal + ")");

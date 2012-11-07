@@ -56,15 +56,16 @@ public class AltaEmpresaBB {
     		FacesContext context = FacesContext.getCurrentInstance();
     		HttpServletRequest request = ((HttpServletRequest)context.getExternalContext().getRequest());
     		this.exito = true;
-    		request.setAttribute("exito", true);
-    		
+    		request.setAttribute("exito", true);    		
         	context.getExternalContext().getSessionMap().remove("altaEmpresaBB");
+        	
+        	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha dado de alta la empresa " + empresa.getNombre());
+        	
         	retorno = "exito";
     	} catch (Exception e){
-    		FacesContext context = FacesContext.getCurrentInstance();
-    		HttpServletRequest request = ((HttpServletRequest)context.getExternalContext().getRequest());
-    		request.setAttribute("error", true);
-    		request.setAttribute("msjError", e.getMessage());
     		this.setError(true);
     		this.msjError = e.getMessage();
     		retorno = "revente";    		    		
@@ -86,6 +87,12 @@ public class AltaEmpresaBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

@@ -61,6 +61,10 @@ public class AltaLocalBB {
 			retorno = "exito";
 			context.getExternalContext().getSessionMap().remove("altaLocalBB");        
 			
+			StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha dado de alta el local " + local.getNombre());
 			
 		} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
@@ -84,6 +88,11 @@ public class AltaLocalBB {
     	String retorno = "";
     	FacesContext context = FacesContext.getCurrentInstance(); 
         context.getExternalContext().getSessionMap().remove("altaLocalBB");
+        StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

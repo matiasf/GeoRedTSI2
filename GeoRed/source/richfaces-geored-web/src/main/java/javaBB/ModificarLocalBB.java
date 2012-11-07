@@ -70,7 +70,10 @@ public class ModificarLocalBB {
 		retorno = "exito";
 		context.getExternalContext().getSessionMap().remove("modificarLocalBB");       
 			
-			
+		StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        statusBB.setExito(true);
+        statusBB.setError(false);
+        statusBB.setExitoMsg("Se modifico el local " + local.getNombre());	
 		 
     	
         return retorno;
@@ -107,6 +110,12 @@ public class ModificarLocalBB {
     	String retorno = "";
     	FacesContext context = FacesContext.getCurrentInstance(); 
         context.getExternalContext().getSessionMap().remove("modificarLocalBB");
+        
+        StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

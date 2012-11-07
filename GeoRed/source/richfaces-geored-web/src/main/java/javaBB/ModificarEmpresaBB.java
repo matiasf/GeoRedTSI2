@@ -91,6 +91,11 @@ public class ModificarEmpresaBB {
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
     		context.getExternalContext().getSessionMap().remove("altaEmpresaBB");
     		
+    		StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha modifico la empresa " + empresa.getNombre());
+    		
     		
     	} catch (EntidadNoExiste e) {
 			// TODO Auto-generated catch block
@@ -134,6 +139,12 @@ public class ModificarEmpresaBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

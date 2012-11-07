@@ -117,8 +117,19 @@ public class AltaEventoBB {
     		
     		FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().remove("altaEventoBB");
+            
+            StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha dado de alta el evento " + evento.getNombre());
+            
             retorno = "exito";
     	} catch (Exception e){
+    		FacesContext context = FacesContext.getCurrentInstance();
+    		StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(false);
+            statusBB.setError(true);
+            statusBB.setExitoMsg(e.getMessage());
     		retorno = "revento";
     	} 
     	
@@ -153,6 +164,12 @@ public class AltaEventoBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

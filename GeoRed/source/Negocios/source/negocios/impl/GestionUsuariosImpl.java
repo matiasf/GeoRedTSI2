@@ -245,7 +245,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 						for (Evento evento : eventos) {
 							if (evento.getInicio().before(now) && evento.getFin().after(now)) {
 								evento.setLatitud(sitio.getLatitud());
-								evento.setLongitud(longitud);
+								evento.setLongitud(sitio.getLongitud());
 								ret.add(evento);	
 							}
 							

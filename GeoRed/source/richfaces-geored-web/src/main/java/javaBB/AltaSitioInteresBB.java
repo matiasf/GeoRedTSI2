@@ -81,6 +81,11 @@ public class AltaSitioInteresBB {
     	this.setExito(true);
     	FacesContext context = FacesContext.getCurrentInstance(); 
         context.getExternalContext().getSessionMap().remove("ModificarSitioInteresBB");
+        
+        StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        statusBB.setExito(true);
+        statusBB.setError(false);
+        statusBB.setExitoMsg("Se ha dado de alta el sitio de interes " + sitioInteres.getNombre());
     	
         return retorno;
     }
@@ -102,6 +107,12 @@ public class AltaSitioInteresBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

@@ -83,6 +83,14 @@
   <managed-bean-class>javaBB.ModificarEventoBB</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>statusBB</managed-bean-name>
+  <managed-bean-class>javaBB.StatusBB</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+
+ 
+ 
  
  <navigation-rule>
   <from-view-id>/index.xhtml</from-view-id>
