@@ -270,6 +270,9 @@ public class NotificacionesActivity extends MapActivity implements
 					while (it.hasNext()) {
 						Notificacion noty = (Notificacion) it.next();
 						if (noty.getPosicion() != null && noty.getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) {
+							
+							GenericActivity.hashNotificaciones.put(noty.getId(), noty);
+							
 							strs.add(noty.getId());
 
 							itemizedoverlay.hashNotificaciones.put(
