@@ -147,6 +147,11 @@ public class ModificarSitioInteresBB {
 		context.getExternalContext().getSessionMap()
 				.remove("modificarSitioInteresBB");
 
+		StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        statusBB.setExito(true);
+        statusBB.setError(false);
+        statusBB.setExitoMsg("Se modifico el sitio de interes " + sitioInteres.getNombre());
+		
 		return retorno;
 	}
 
@@ -167,6 +172,12 @@ public class ModificarSitioInteresBB {
 		String retorno = "";
 
 		// removerBB
+		FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
 		retorno = "cancelar";
 
 		return retorno;

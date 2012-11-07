@@ -45,6 +45,10 @@ public class AltaCategoriaBB {
     		this.setExito(true);
         	FacesContext context = FacesContext.getCurrentInstance(); 
             context.getExternalContext().getSessionMap().remove("altaCategoriaBB");
+            StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha dado de alta la categoria " + categoria.getNombre());
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
@@ -61,6 +65,13 @@ public class AltaCategoriaBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+        
+        StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "finalizar";   		
     	
         return retorno;

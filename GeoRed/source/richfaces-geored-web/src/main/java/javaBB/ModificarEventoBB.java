@@ -135,6 +135,11 @@ public class ModificarEventoBB {
     		
     		FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().remove("modificarEventoBB");
+            StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha modificado el evento " + evento.getNombre());
+
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
@@ -213,6 +218,12 @@ public class ModificarEventoBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;

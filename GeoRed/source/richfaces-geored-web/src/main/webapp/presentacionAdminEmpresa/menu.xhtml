@@ -12,6 +12,13 @@
         <h:outputScript target="head" name="showMessage.js" library="js"/>
 
         <h1>Menu principal</h1>
+
+		<div class="mensajeExito">
+			<h:outputText value="#{statusBB.exitoMsg}" rendered="#{statusBB.exito}"/>
+		</div>
+		<div class="mensajeError">
+			<h:outputText value="#{statusBB.errorMsg}" rendered="#{statusBB.error}"/>
+		</div>
         
          <h:outputText value="Alta exitosa" styleClass="mensajeExito" rendered="#{menuBB.aExito}" />
          <h:outputText value="Baja exitosa" styleClass="mensajeExito" rendered="#{menuBB.bExito}" />

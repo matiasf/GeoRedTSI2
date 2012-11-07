@@ -180,6 +180,10 @@ public class ModificarOfertaBB {
 		FacesContext context = FacesContext.getCurrentInstance(); 
         context.getExternalContext().getSessionMap().remove("modificarSitioInteresBB");
         
+        StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        statusBB.setExito(true);
+        statusBB.setError(false);
+        statusBB.setExitoMsg("Se modifico la oferta " + oferta.getNombre());
         
 		return "exito";
 	}
@@ -205,6 +209,12 @@ public class ModificarOfertaBB {
 	public String cancelar() {
     	String retorno = "";
     	
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	//removerBB
     	retorno = "cancelar";   		
     	

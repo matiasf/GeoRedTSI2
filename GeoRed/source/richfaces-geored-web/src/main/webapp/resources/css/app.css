@@ -25,13 +25,22 @@
    padding: 6px 4px;
 }
 
-.mensajeExito {
+.mensajeExitoGral {
 	display: block;	
-	font-size: 22px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	text-align: center;
-	color: #990100;
+	font-size: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+	color: #268E00;
+}
+.
+mensajeExitoGral {
+	display: block;	
+	font-size: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+	color: #FF4040;
 }
 
 .mensajeError {

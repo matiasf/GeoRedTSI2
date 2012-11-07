@@ -109,6 +109,12 @@ public class AltaOfertaBB {
     		ge.agregarOferta(this.objectSelected, oferta);
     		this.setExito(true); 
             context.getExternalContext().getSessionMap().remove("altaOfertaBB");
+            
+            StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+            statusBB.setExito(true);
+            statusBB.setError(false);
+            statusBB.setExitoMsg("Se ha dado de alta el la oferta " + oferta.getNombre());
+            
             retorno = "exito";
     	} catch (Exception e){
     		retorno = "revento";
@@ -147,6 +153,12 @@ public class AltaOfertaBB {
     	String retorno = "";
     	
     	//removerBB
+    	FacesContext context = FacesContext.getCurrentInstance(); 
+    	StatusBB statusBB = (StatusBB) context.getExternalContext().getSessionMap().get("statusBB");
+        if (statusBB != null) {
+        	statusBB.setExito(false);
+        	statusBB.setError(false);
+        }
     	retorno = "cancelar";   		
     	
         return retorno;
