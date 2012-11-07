@@ -19,13 +19,13 @@
 			<rich:panel id="newMemberPanel" styleClass=".form" header="Login"
 				headerClass="header">
 
-				<h:panelGrid columns="3" columnClasses="titleCell">
-					<h:outputLabel for="email" value="Email:" />
+				<h:panelGrid columns="2" columnClasses="titleCell">
+					<h:outputLabel for="email" value="Email:" style="padding-left: 110px;" />
 					<h:inputText id="email" value="#{loginBB.mail}">
 					</h:inputText>
 
 
-					<h:outputLabel for="password" value="Password:" />
+					<h:outputLabel for="password" value="Password:" style="padding-left: 110px" />
 					<h:inputSecret id="password" value="#{loginBB.password}" />
 					<rich:message for="password" errorClass="invalid" />
 				</h:panelGrid>

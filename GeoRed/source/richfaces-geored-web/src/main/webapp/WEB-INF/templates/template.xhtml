@@ -9,15 +9,16 @@
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
    <h:outputStylesheet name="screen.css" library="css"/>
+   <h:outputStylesheet name="app.css" library="css"/>
    <h:outputStylesheet name="mapa.css" library="css"/>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
     </script>
 </h:head>
-<h:body>
-   <div id="container">
+<h:body style="background-color: #CCCCCC;">
+   <div id="container" style="width: 900px">
       <div>
-         <h:graphicImage name="tsileodef.png" library="gfx"/>
+         <h:graphicImage name="tsileodefv2.png" library="gfx"/>
       </div>
       <div>
       <div id="menuizquierdo" style="float: left; width: 25%; margin: 1px;">
@@ -27,51 +28,81 @@
 		        iconExpandedGroup="disc" iconCollapsedGroup="disc" 
 		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
 		        iconCollapsedTopGroup="chevronDown">
+		        <rich:panelMenuGroup label="Home">           	            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/menu.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Home</a>
+		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Empresas">
-		            <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}">
+		          <!--   <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}">
 		                <f:param name="current" value="Alta Empresa"/>
-		            </rich:panelMenuItem>		            
+		            </rich:panelMenuItem>--> 
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEmpresa.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Empresa</a>		            
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Sitios">
-		            <rich:panelMenuItem label="Alta Sitio" action="#{menuBB.altaSitioInteres}">
+		            <!-- <rich:panelMenuItem label="Alta Sitio" action="#{menuBB.altaSitioInteres}">
 		                <f:param name="current" value="Alta Sitio"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem>		            
 		            <rich:panelMenuItem label="Modificar Sitio" action="#{menuBB.modificarSitioInteres}">
 		                <f:param name="current" value="Modificar Sitio"/>
 		            </rich:panelMenuItem>
-		           <!-- <rich:panelMenuItem label="Baja Sitio" action="#{menuBB.bajaSitioInteres}" reRender="content">
-		                <f:param name="current" value="Baja Sitio"/>
-		            </rich:panelMenuItem> --> 
+		            -->
+		            
+					<a	href="#{menuBB.contextyurl}/presentacionAdminSistema/altaSitioInteres.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Sitio</a>
+					  <br />
+					  <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres0.jsf"
+					  style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Modificar Sitio</a>
+
+
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Eventos">
-		            <rich:panelMenuItem label="Alta Evento" action="#{menuBB.updateCurrent}" reRender="content">
+		            <!--  <rich:panelMenuItem label="Alta Evento" action="#{menuBB.updateCurrent}">
 		                    <f:param name="current" value="Alta Evento"/>
-		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Modificar Evento" action="#{menuBB.updateCurrent}" reRender="content">
+		            </rich:panelMenuItem>		            
+		            <rich:panelMenuItem label="Modificar Evento" action="#{menuBB.updateCurrent}">
 		                    <f:param name="current" value="Modificar Evento"/>
-		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Baja Evento" action="#{menuBB.updateCurrent}" reRender="content">
-		                    <f:param name="current" value="Baja Evento"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem>-->
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/altaEvento.jsf"
+           		            style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Evento</a>
+					  <br />
+					  <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarEvento0.jsf"
+					  		style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Modificar Evento</a>
+											
+						
+		            
+		           
 	            </rich:panelMenuGroup>
 	            <rich:panelMenuGroup label="Categorias">
-		            <rich:panelMenuItem label="Alta Categoria" action="#{menuBB.updateCurrent}" reRender="content">
+		            <!--  <rich:panelMenuItem label="Alta Categoria" action="#{menuBB.updateCurrent}" reRender="content">
 		                    <f:param name="current" value="Alta Categoria"/>
-		            </rich:panelMenuItem>
-		            <!--  <rich:panelMenuItem label="Modificar Categoria" action="#{menuBB.updateCurrent}" reRender="content">
-		                    <f:param name="current" value="Modificar Categoria"/>
-		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Baja Categoria" action="#{menuBB.updateCurrent}" reRender="content">
-		                    <f:param name="current" value="Baja Categoria"/>
-		            </rich:panelMenuItem> --> 
+		            </rich:panelMenuItem>-->
+		           <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/altaCategoria.jsf"
+		            style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Categoria</a>
+					   
 		       	</rich:panelMenuGroup>
 		       	<rich:panelMenuGroup label="Reportes">
-		            <rich:panelMenuItem label="Reporte Check in" action="#{menuBB.reporteCheckIn}" reRender="content">
+		            <!-- <rich:panelMenuItem label="Reporte Check in" action="#{menuBB.reporteCheckIn}" reRender="content">
 		                    <f:param name="current" value="Reporte Check in"/>
 		            </rich:panelMenuItem>
 		            <rich:panelMenuItem label="Reporte ofertas" action="#{menuBB.reporteOferta}" reRender="content">
 		                    <f:param name="current" value="Reporte ofertas"/>
-		            </rich:panelMenuItem>		            
+		            </rich:panelMenuItem> -->
+		            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteCheckIn0.jsf"
+		            style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Reporte Check in</a>
+					   <br />
+					  <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteOferta0.jsf"
+		            style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Reporte Oferta</a>		            
 		       	</rich:panelMenuGroup>
 		    </rich:panelMenu>    
 	    </h:panelGrid>

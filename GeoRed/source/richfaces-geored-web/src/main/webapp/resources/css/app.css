@@ -7,6 +7,25 @@
     padding: 8px;
 }
 
+.link1{
+	font-size: 12px;
+	text-align: center;
+	font-style: normal;
+	font-variant: normal;
+	padding-left: 45px;
+	text-decoration: none;	
+}
+
+.link2{   
+	color: blue;
+	font-variant: normal;
+	font-size: 12px;
+	text-align: center;
+	font-style:italic;
+	padding-left: 45px;
+	text-decoration: none;	
+}
+
 .rf-pp-hdr-cntrls a {
     padding: 2px 2px 2px 8px;
 }

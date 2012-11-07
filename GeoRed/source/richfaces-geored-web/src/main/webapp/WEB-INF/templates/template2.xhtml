@@ -9,15 +9,16 @@
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
    <h:outputStylesheet name="screen.css" library="css"/>
+   <h:outputStylesheet name="app.css" library="css"/>
    <h:outputStylesheet name="mapa.css" library="css"/>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
     </script>
 </h:head>
-<h:body onload="initialize()">
-   <div id="container">
+<h:body style="background-color: #CCCCCC;">
+   <div id="container" style="width: 900px">
       <div>
-         <h:graphicImage name="tsileodef.png" library="gfx"/>
+         <h:graphicImage name="tsileodefv2.png" library="gfx"/>
       </div>
       <div>
       <div id="menuizquierdo" style="float: left; width: 25%; margin: 1px;">
@@ -27,24 +28,39 @@
 		        iconExpandedGroup="disc" iconCollapsedGroup="disc" 
 		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
 		        iconCollapsedTopGroup="chevronDown">
+		        <rich:panelMenuGroup label="Home">           	            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminEmpresa/menu.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Home</a>
+		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Empresas">
-		            <rich:panelMenuItem label="Modificar Empresa" action="#{menuBB.modificarEmpresa}" reRender="content">
+		            <!--  <rich:panelMenuItem label="Modificar Empresa" action="#{menuBB.modificarEmpresa}" reRender="content">
 		                <f:param name="current" value="Modificar Empresa"/>
-		            </rich:panelMenuItem>		            
+		            </rich:panelMenuItem>	-->	            
+		            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminEmpresa/modificarEmpresa.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Modificar Empresa</a>
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Locales">
-		            <rich:panelMenuItem label="Alta Local" action="#{menuBB.altaLocal}" reRender="content">
+		            <!--  <rich:panelMenuItem label="Alta Local" action="#{menuBB.altaLocal}" reRender="content">
 		                <f:param name="current" value="Alta Local"/>
 		            </rich:panelMenuItem>
 		            <rich:panelMenuItem label="Modificar Local" action="#{menuBB.modificarLocal}" reRender="content">
 		                <f:param name="current" value="Modificar Local"/>
-		            </rich:panelMenuItem>
-		            <rich:panelMenuItem label="Baja Local" action="#{menuBB.bajaLocal}" reRender="content">
-		                <f:param name="current" value="Baja Local"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem>-->
+		            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminEmpresa/altaLocal.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Local</a>
+					  <br />
+					  <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarLocal0.jsf"
+					  style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Modificar Local</a>
+		            
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Ofertas">
-		            <rich:panelMenuItem label="Alta Oferta" action="#{menuBB.altaOferta}" reRender="content">
+		            <!-- <rich:panelMenuItem label="Alta Oferta" action="#{menuBB.altaOferta}" reRender="content">
 		                    <f:param name="current" value="Alta Oferta"/>
 		            </rich:panelMenuItem>
 		            <rich:panelMenuItem label="Modificar Oferta" action="#{menuBB.modificarOferta}" reRender="content">
@@ -52,7 +68,15 @@
 		            </rich:panelMenuItem>
 		            <rich:panelMenuItem label="Baja Oferta" action="#{menuBB.bajaOferta}" reRender="content">
 		                    <f:param name="current" value="Baja Oferta"/>
-		            </rich:panelMenuItem>
+		            </rich:panelMenuItem> -->
+		            
+		            <a	href="#{menuBB.contextyurl}/presentacionAdminEmpresa/altaOferta.jsf"
+		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Alta Oferta</a>
+					  <br />
+					  <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarOferta0.jsf"
+					  style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Modificar Oferta</a>
 	            </rich:panelMenuGroup>	            
 		    </rich:panelMenu>    
 	    </h:panelGrid>
