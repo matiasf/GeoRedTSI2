@@ -18,5 +18,7 @@ public interface LocalDAO {
 	public void borrar(int id);
 	
 	public void borrar(Local entidad);
+	
+	public List<Local> obtenerTodos();
 
 }

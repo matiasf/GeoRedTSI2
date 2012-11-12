@@ -28,6 +28,7 @@ import persistencia.ImagenDAO;
 import persistencia.Invitacion;
 import persistencia.InvitacionDAO;
 import persistencia.Local;
+import persistencia.LocalDAO;
 import persistencia.Notificacion;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
@@ -43,34 +44,37 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 
 	@EJB
 	private UsuarioDAO usuarioDAO;
-	
+
 	@EJB
 	private InvitacionDAO invitacionDAO;
-	
+
 	@EJB
 	private OfertaDAO ofertaDAO;
-	
+
 	@EJB
 	private PagoDAO pagoDAO;
-	
+
 	@EJB
 	private SitioInteresDAO sitioInteresDAO;
-	
+
 	@EJB
 	private CategoriaDAO categoriaDAO;
-	
+
 	@EJB
 	private ImagenDAO imagenDAO;
-	
+
 	@EJB
 	private EmpresaDAO empresaDAO;
-	
+
 	@EJB
 	private CheckInDAO checkInDAO;
-	
+
 	@EJB
 	private EventoDAO eventoDAO;
 	
+	@EJB
+	private LocalDAO localDAO;
+
 	@Override
 	public int checkLogin(String nombre, String password) {
 		return usuarioDAO.checkLogin(nombre, password);
@@ -100,7 +104,8 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public Usuario getContacto(int idUsuario, int idContacto) throws EntidadNoExiste {
+	public Usuario getContacto(int idUsuario, int idContacto)
+			throws EntidadNoExiste {
 		if (!usuarioDAO.existe(idUsuario)) {
 			String msg = "El usuario " + idUsuario + "no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
@@ -113,7 +118,8 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public void invitarContacto(int idUsuario, int idContacto) throws EntidadNoExiste, ContactoYaExiste {
+	public void invitarContacto(int idUsuario, int idContacto)
+			throws EntidadNoExiste, ContactoYaExiste {
 		Usuario remitente = usuarioDAO.buscarPorId(idUsuario);
 		if (remitente == null) {
 			String msg = "El usuario " + idUsuario + "no existe";
@@ -125,8 +131,8 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			throw new EntidadNoExiste(idContacto, msg);
 		}
 		if (usuarioDAO.obtenerContacto(idUsuario, idContacto) != null) {
-			String msg = "El usuario " + contacto.getNombre() + 
-					" ya es contacto de " + remitente.getNombre();
+			String msg = "El usuario " + contacto.getNombre()
+					+ " ya es contacto de " + remitente.getNombre();
 			throw new ContactoYaExiste(msg);
 		}
 		Invitacion invitacion = new Invitacion();
@@ -136,29 +142,34 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public List<Invitacion> getInvitaciones(int idUsuario) throws EntidadNoExiste {
+	public List<Invitacion> getInvitaciones(int idUsuario)
+			throws EntidadNoExiste {
 		if (!usuarioDAO.existe(idUsuario)) {
 			String msg = "El usuario " + idUsuario + "no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
-		
+
 		return invitacionDAO.getInvitacionesPorUsuario(idUsuario);
 	}
 
 	@Override
-	public void aceptarInvitacion(int idUsuario, int idContacto) throws EntidadNoExiste, ContactoYaExiste {
+	public void aceptarInvitacion(int idUsuario, int idContacto)
+			throws EntidadNoExiste, ContactoYaExiste {
 		Usuario remitente = usuarioDAO.buscarPorId(idContacto);
 		Usuario contacto = this.getContacto(idUsuario, idContacto);
 		if (contacto != null) {
-			String msg = "El usuario " + contacto.getNombre() + 
-					" ya es contacto de " + remitente.getNombre();
+			String msg = "El usuario " + contacto.getNombre()
+					+ " ya es contacto de " + remitente.getNombre();
 			throw new ContactoYaExiste(msg);
 		}
 		contacto = usuarioDAO.buscarPorId(idUsuario);
-		Invitacion invitacion = invitacionDAO.getInvitacionPorContactoRmte(idUsuario, idContacto);
+		Invitacion invitacion = invitacionDAO.getInvitacionPorContactoRmte(
+				idUsuario, idContacto);
 		if (invitacion == null) {
 			EntidadNoExiste e = new EntidadNoExiste();
-			e.setMensaje("No existe una invitacion para el usuario " + contacto.getNombre() + " del usuario " + remitente.getNombre());
+			e.setMensaje("No existe una invitacion para el usuario "
+					+ contacto.getNombre() + " del usuario "
+					+ remitente.getNombre());
 			throw e;
 		}
 		remitente.getContactos().add(contacto);
@@ -168,7 +179,6 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		usuarioDAO.flush();
 		invitacionDAO.borrar(invitacion.getId());
 	}
-
 
 	@Override
 	public void comprarOferta(int idUsuario, int idOferta, Pago pago)
@@ -193,62 +203,66 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public List<Notificacion> getNotificaciones(final int idUsuario, 
-			final double latitud, 
-			final double longitud, 
-			final double distancia) throws EntidadNoExiste {
-		
+	public List<Notificacion> getNotificaciones(final int idUsuario,
+			final double latitud, final double longitud, final double distancia)
+			throws EntidadNoExiste {
+
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
 		if (usuario == null) {
 			String msg = "El usuario " + idUsuario + " no existe";
 			throw new EntidadNoExiste(idUsuario, msg);
 		}
-		List<Notificacion> ret = getNotSitio(idUsuario, latitud, longitud, distancia);
+		List<Notificacion> ret = getNotSitio(idUsuario, latitud, longitud,
+				distancia);
 		ret.addAll(getNotLocales(idUsuario, latitud, longitud, distancia));
-		ret.addAll(getNotiEventosInternos(idUsuario, latitud, longitud, distancia));
+		ret.addAll(getNotiEventosInternos(idUsuario, latitud, longitud,
+				distancia));
 		return ret;
 	}
-	
-	private List<Notificacion> getNotiEventosInternos(final int idUsuario, 
-			final double latitud, 
-			final double longitud, 
-			final double distancia) {
-		List<Evento> eventos = eventoDAO.obtenerEventosNotificacion(Calendar.getInstance());
+
+	private List<Notificacion> getNotiEventosInternos(final int idUsuario,
+			final double latitud, final double longitud, final double distancia) {
+		List<Evento> eventos = eventoDAO.obtenerEventosNotificacion(Calendar
+				.getInstance());
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (Evento evento : eventos) {
-			if (this.distanciaEntrePuntos(latitud, longitud, evento.getLatitud(), evento.getLongitud()) <= distancia) {
+			if (this.distanciaEntrePuntos(latitud, longitud,
+					evento.getLatitud(), evento.getLongitud()) <= distancia) {
 				ret.add(evento);
 			}
 		}
 		return ret;
 	}
-	
-	private List<Notificacion> getNotSitio(final int idUsuario, 
-			final double latitud, 
-			final double longitud, 
-			final double distancia) {
-		List<SitioInteres> sitios = sitioInteresDAO.obtenerParaUsuario(idUsuario);
+
+	private List<Notificacion> getNotSitio(final int idUsuario,
+			final double latitud, final double longitud, final double distancia) {
+		List<SitioInteres> sitios = sitioInteresDAO
+				.obtenerParaUsuario(idUsuario);
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		Calendar now = Calendar.getInstance();
 		for (SitioInteres sitio : sitios) {
-			if (this.distanciaEntrePuntos(latitud, longitud, sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
+			if (this.distanciaEntrePuntos(latitud, longitud,
+					sitio.getLatitud(), sitio.getLongitud()) <= distancia) {
 				ret.add(sitio);
-				List<CheckIn> checkInAmigos = checkInDAO.getCheckInAmigosLocal(idUsuario, sitio.getId());
+				List<CheckIn> checkInAmigos = checkInDAO.getCheckInAmigosLocal(
+						idUsuario, sitio.getId());
 				for (CheckIn checkIn : checkInAmigos) {
 					ret.add(checkIn);
 				}
-				if (sitio.getGoogleCalendarId() != null && !sitio.getGoogleCalendarId().isEmpty()) {
+				if (sitio.getGoogleCalendarId() != null
+						&& !sitio.getGoogleCalendarId().isEmpty()) {
 					GoogleCalendarFeed gcf = new GoogleCalendarFeed();
 					gcf.setCalendarId(sitio.getGoogleCalendarId());
 					try {
 						List<Evento> eventos = gcf.obtenerEventos();
 						for (Evento evento : eventos) {
-							if (evento.getInicio().before(now) && evento.getFin().after(now)) {
+							if (evento.getInicio().before(now)
+									&& evento.getFin().after(now)) {
 								evento.setLatitud(sitio.getLatitud());
 								evento.setLongitud(sitio.getLongitud());
-								ret.add(evento);	
+								ret.add(evento);
 							}
-							
+
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -265,43 +279,45 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 		}
 		return ret;
 	}
-	
-	private List<Notificacion> getNotLocales(final int idUsuario, 
-			final double latitud, 
-			final double longitud, 
-			final double distancia) {
+
+	private List<Notificacion> getNotLocales(final int idUsuario,
+			final double latitud, final double longitud, final double distancia) {
 		List<Empresa> empresas = empresaDAO.obtenerTodas();
 		List<Notificacion> ret = new ArrayList<Notificacion>();
 		for (Empresa empresa : empresas) {
 			for (Local local : empresa.getLocales()) {
-				if (this.distanciaEntrePuntos(latitud, longitud, local.getLatitud(), local.getLongitud()) <= distancia) {
+				if (this.distanciaEntrePuntos(latitud, longitud,
+						local.getLatitud(), local.getLongitud()) <= distancia) {
 					ret.add(local);
 				}
 			}
 		}
 		return ret;
 	}
-	
-	private double distanciaEntrePuntos(double lat1, double long1, double lat2, double long2) {
-		double earthRadius = 6371;
-	    double dLat = Math.toRadians(lat2-lat1);
-	    double dLng = Math.toRadians(long2-long1);
-	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-	               Math.sin(dLng/2) * Math.sin(dLng/2);
-	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-	    double dist = earthRadius * c;
 
-	    return dist;
+	private double distanciaEntrePuntos(double lat1, double long1, double lat2,
+			double long2) {
+		double earthRadius = 6371;
+		double dLat = Math.toRadians(lat2 - lat1);
+		double dLng = Math.toRadians(long2 - long1);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(Math.toRadians(lat1))
+				* Math.cos(Math.toRadians(lat2)) * Math.sin(dLng / 2)
+				* Math.sin(dLng / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double dist = earthRadius * c;
+
+		return dist;
 	}
-	
+
 	@Override
 	public List<Usuario> buscarUsuario(String nombre) {
 		return usuarioDAO.buscarUsuarios(nombre);
 	}
 
 	@Override
-	public void agregarCategorias(int idUsuario, Collection<Integer> idCategorias) {
+	public void agregarCategorias(int idUsuario,
+			Collection<Integer> idCategorias) {
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
 		for (Integer idCat : idCategorias) {
 			Categoria cat = categoriaDAO.buscarPorId(idCat);
@@ -310,7 +326,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 			}
 		}
 	}
-	
+
 	@Override
 	public void borrarCategorias(int idUsuario, Collection<Integer> idCategorias) {
 		Usuario usuario = usuarioDAO.buscarPorId(idUsuario);
@@ -326,7 +342,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	public Imagen obtenerImagen(int id) {
 		return imagenDAO.buscarPorId(id);
 	}
-	
+
 	@Override
 	public List<Categoria> obtenerCategorias() {
 		return categoriaDAO.obtenerTodos();
@@ -339,7 +355,7 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 
 	@Override
 	public int altaImagen(Imagen imagen) {
-		return imagenDAO.insertar(imagen).getId();	
+		return imagenDAO.insertar(imagen).getId();
 	}
 
 	@Override
@@ -350,6 +366,34 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	@Override
 	public Usuario obtenerUsario(int idUsuario) {
 		return usuarioDAO.buscarPorId(idUsuario);
+	}
+
+	@Override
+	public List<SitioInteres> getSitioInteresIntegracion(double latitud,
+			double longitud, double radio) {
+		List<SitioInteres> todos = sitioInteresDAO.obtenerTodos();
+		List<SitioInteres> ret = new ArrayList();
+
+		for (SitioInteres sitioInteres : todos) {
+			if (this.distanciaEntrePuntos(latitud, longitud,
+					sitioInteres.getLatitud(), sitioInteres.getLongitud()) <= radio) {
+				ret.add(sitioInteres);
+			}
+		}
+		return ret;
+	}
+
+	@Override
+	public List<Oferta> getOfertasIntegracion(double latitud, double longitud,
+			double radio) {
+		List<Local> locales = localDAO.obtenerTodos();
+		List<Oferta> ret = new ArrayList<Oferta>();
+		for (Local local : locales) {
+			if (this.distanciaEntrePuntos(latitud, longitud, local.getLatitud(), local.getLongitud()) <= radio) {
+				ret.addAll(local.getOfertas());
+			}
+		}
+		return ret;
 	}
 
 }

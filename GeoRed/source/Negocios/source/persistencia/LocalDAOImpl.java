@@ -13,6 +13,8 @@ public class LocalDAOImpl extends BaseDAO<Local> implements LocalDAO {
 		"WHERE e.id = :idEmpresa " +
 		"	AND l MEMBER OF e.locales";
 	
+	private static final String todosLocalesQuery = "SELECT l FROM Local l";
+	
 	
 	@Override
 	public Local buscarPorId(int id) {
@@ -24,6 +26,12 @@ public class LocalDAOImpl extends BaseDAO<Local> implements LocalDAO {
 	public List<Local> getLocalesPorEmpresa(int idEmpresa) {
 		TypedQuery<Local> query = em.createQuery(getLocalesEmpresaQuery, Local.class);
 		query.setParameter("idEmpresa", idEmpresa);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Local> obtenerTodos() {
+		TypedQuery<Local> query = em.createQuery(todosLocalesQuery, Local.class);
 		return query.getResultList();
 	}
 
