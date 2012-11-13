@@ -384,16 +384,15 @@ public class GestionUsuariosImpl implements GestionUsuarios {
 	}
 
 	@Override
-	public List<Oferta> getOfertasIntegracion(double latitud, double longitud,
+	public List<Local> getOfertasIntegracion(double latitud, double longitud,
 			double radio) {
 		List<Local> locales = localDAO.obtenerTodos();
-		List<Oferta> ret = new ArrayList<Oferta>();
 		for (Local local : locales) {
 			if (this.distanciaEntrePuntos(latitud, longitud, local.getLatitud(), local.getLongitud()) <= radio) {
-				ret.addAll(local.getOfertas());
+				local.getOfertas();
 			}
 		}
-		return ret;
+		return locales;
 	}
 
 }

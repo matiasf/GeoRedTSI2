@@ -200,5 +200,5 @@ public interface GestionUsuarios {
 	
 	public List<SitioInteres> getSitioInteresIntegracion(double latitud, double longitud, double radio);
 	
-	public List<Oferta> getOfertasIntegracion(double latitud, double longitud, double radio);
+	public List<persistencia.Local> getOfertasIntegracion(double latitud, double longitud,double radio);
 }
