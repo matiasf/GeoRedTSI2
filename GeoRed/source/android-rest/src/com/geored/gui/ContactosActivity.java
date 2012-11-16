@@ -31,6 +31,12 @@ public class ContactosActivity extends GenericActivity {
 		loadListView();
 		registerForContextMenu(getListView());
 	}
+	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent); 
+	}
 
 	private void setListAdapter(ArrayAdapter<Usuario> adapter) {
 		getListView().setAdapter(adapter);

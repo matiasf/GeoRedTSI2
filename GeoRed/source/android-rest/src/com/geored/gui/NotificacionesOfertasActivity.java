@@ -42,6 +42,14 @@ public class NotificacionesOfertasActivity extends MapActivity implements
 	private ProgressDialog progressBar;
 
 	@Override
+    public void onBackPressed()
+    {
+        Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent); 
+        return;
+    } 
+	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notificaciones);

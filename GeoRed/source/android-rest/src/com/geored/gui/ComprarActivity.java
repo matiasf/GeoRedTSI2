@@ -35,6 +35,10 @@ public class ComprarActivity extends GenericActivity {
 		task.execute();
 	}
 	
+	protected void goToPreviousActivity(){	
+		
+	}
+	
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_comprar);

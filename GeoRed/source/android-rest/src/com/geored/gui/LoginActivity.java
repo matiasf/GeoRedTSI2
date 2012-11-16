@@ -1,10 +1,12 @@
 package com.geored.gui;
 
+import com.geored.rest.Main;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,12 @@ public class LoginActivity extends GenericActivity {
 
 	protected void loadVista() {
 		setContentView(R.layout.activity_login);
+	}
+	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,Main.class);
+        startActivity(setIntent); 
 	}
 
 	public void showLogin(View clickedButton) {

@@ -7,6 +7,7 @@ import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,12 @@ public class ModificarUsuarioActivity extends RegistrarActivity {
 		if (extras != null) {
 			objectToScreen();
 		}
+	}
+	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent); 
 	}
 
 	private void objectToScreen() {

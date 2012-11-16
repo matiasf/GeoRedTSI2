@@ -17,5 +17,7 @@
 <!-- NOTE: this file should NOT be checked into version control systems. -->
 <resources>
     <string name="maps_api_key">0ymX-PEtANNGdRPoqF3J4BjZFV52z1gp_hKc6PQ</string>
+    <string name="berchoMapaKey">0ymX-PEtANNESGeElLxN1BzCzblal6Ty5uWRvWg</string>
+    <string name="vectorMapaKey">0ZIsUuP3HZ9_VY_MfPz0kv35qYoyN71U9UjaYqw</string>
 </resources>
 

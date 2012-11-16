@@ -14,6 +14,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Settings;
 import com.facebook.android.R;
+import com.geored.rest.Main;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
@@ -24,6 +25,12 @@ public class FacebookActivity extends GenericActivity {
 	Button buttonLoginLogout;
 	Session.StatusCallback statusCallback = new SessionStatusCallback();
 
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,Main.class);
+        startActivity(setIntent); 
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

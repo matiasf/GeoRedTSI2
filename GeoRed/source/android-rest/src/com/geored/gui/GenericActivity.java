@@ -38,6 +38,15 @@ public class GenericActivity extends Activity {
         }
     }
     
+    public void onBackPressed()
+    {
+    	goToPreviousActivity();
+        //Intent setIntent = new Intent(this,xxxxx.class);
+        //startActivity(setIntent); 
+        return;
+    } 
+    
+    protected void goToPreviousActivity(){	}
     protected void loadVista() {	}
 
 	@Override

@@ -42,6 +42,12 @@ public class ChatActivity extends GenericActivity {
 		}
 	};
 	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,ContactosActivity.class);
+        startActivity(setIntent); 
+	}
+	
 	protected void loadVista() {
     	setContentView(R.layout.activity_chat);    	
     	Bundle extras = getIntent().getExtras();

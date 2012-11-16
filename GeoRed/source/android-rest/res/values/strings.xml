@@ -32,7 +32,7 @@
     
     <string name="edicionUsuario">Edicion de Usuario</string>
     
-    <string name="Contactos">Contactos</string>
+    <string name="Contactos">Chat</string>
 	<string name="Contacto">Contacto</string>
 	<string name="Invitaciones">Invitaciones</string>
 	<string name="InvitarContacto">Invitar Contacto</string>
@@ -61,7 +61,7 @@
 	<string name="notificacionesEventos">Eventos</string>
 	
 	
-	
+
 		
 	
 </resources>

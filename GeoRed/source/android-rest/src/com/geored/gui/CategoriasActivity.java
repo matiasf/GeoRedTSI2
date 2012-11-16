@@ -5,12 +5,14 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.geored.rest.Main;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Categoria;
@@ -26,6 +28,8 @@ public class CategoriasActivity extends GenericActivity {
 	private CategoriaAdapter adapter;
 	protected Hashtable<String, Categoria> hashCategorias = new Hashtable<String, Categoria>();
 
+
+	
 	protected void loadVista() {
 		setContentView(R.layout.activity_categorias);
 		data = new ArrayList<Categoria>();
