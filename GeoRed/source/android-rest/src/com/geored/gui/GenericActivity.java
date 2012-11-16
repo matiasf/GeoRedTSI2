@@ -46,7 +46,7 @@ public class GenericActivity extends Activity {
         return;
     } 
     
-    protected void goToPreviousActivity(){	}
+    protected void goToPreviousActivity(){	super.onBackPressed(); }
     protected void loadVista() {	}
 
 	@Override
