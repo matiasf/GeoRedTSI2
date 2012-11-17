@@ -40,4 +40,6 @@ function armarLaTorta() {
 	myChart.setPieUnitsColor('#9B9B9B');
 	myChart.setPieValuesColor('#6A0000');
 	myChart.draw();
+	
+	document.getElementById("chartcontainer").style.display = "block";
 }

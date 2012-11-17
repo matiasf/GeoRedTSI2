@@ -148,8 +148,8 @@ public class ReporteOfertaBB {
 			e.printStackTrace();
 		}
     	*/
-    	
-        return retorno;
+    	return "/presentacionAdminSistema/reporteOferta.xhtml";
+        //return retorno;
     }
     
     public String finalizar() {

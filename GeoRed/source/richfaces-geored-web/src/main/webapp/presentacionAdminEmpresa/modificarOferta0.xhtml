@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/template.xhtml"
+<ui:composition template="/WEB-INF/templates/template2.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -11,14 +11,14 @@
 		<h:outputStylesheet name="app.css" library="css" />
 		<h:outputScript target="head" name="showMessage.js" library="js" />
 
-		<h:form id="modificarOferta">
+		<h:form id="modificarOferta" style="width:450px">
 			<rich:panel id="newSitioInteresPanel" styleClass=".form"
-				header="Oferta" headerClass="header">
+				header="Oferta" headerClass="header" style="width:450px">
 
 
 				<h:panelGrid columns="2" columnClasses="titleCell">
 					<rich:column>
-						<h:outputLabel for="name" value="Local:" colspan="2" />
+						<h:outputLabel for="name" value="Local:" colspan="2" styleClass="campoLabel" />
 						<h:selectOneMenu value="#{modificarOfertaBB.localSelected}"
 							style="width:200px;"
 							valueChangeListener="#{modificarOfertaBB.localChanged}">
@@ -28,6 +28,7 @@
 								execute="@this" />
 						</h:selectOneMenu>
 					</rich:column>
+					
 					<rich:column>
 						<a4j:outputPanel id="ofertaSelect">
 							<h:outputLabel for="name" value="Oferta:" colspan="2" />
@@ -42,7 +43,7 @@
 					<rich:message for="name" errorClass="invalid" />
 				</h:panelGrid>
 
-				<h:panelGrid columns="2">
+				<div id="botones" style="padding-left: 70px">
 					<h:commandButton id="cancelar"
 						action="#{modificarOfertaBB.cancelar}" value="Cancelar"
 						styleClass="boton" />
@@ -50,7 +51,7 @@
 						action="#{modificarOfertaBB.seleccionarLocal}" value="Modificar"
 						styleClass="boton" />
 
-				</h:panelGrid>
+				</div>
 
 			</rich:panel>
 

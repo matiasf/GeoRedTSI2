@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/template2.xhtml"
+<ui:composition template="/WEB-INF/templates/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -19,13 +19,15 @@
 		<a
 			href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarEvento.jsf"
 			style="color: black;">Recargar</a>
-		<div id="map_canvas" style="width: 400px; height: 400px"></div>
-		<h:form id="form" enctype="multipart/form-data" style="width:400px">
+		<div id="mostrador" style="cursor: pointer;" onclick="mostrarOcultar()">Ocultar mapa</div>
+	   	<div id="map_canvas" style="width:450px; height:400px"> </div>
+        <h:form id="form" enctype="multipart/form-data" style="width:450px">
+		
 
 			<rich:panel id="newPanel" styleClass=".form" header="Evento"
-				headerClass="header" style="width:400px">
+				headerClass="header" style="width:450px">
 
-				<h:panelGroup id="divImagen">
+				<h:panelGroup id="divImagen" style="padding-left: 70px">
 					<a4j:mediaOutput element="img"
 						rendered="#{modificarEventoBB.imagen != null}"
 						mimeType="image/png" createContent="#{modificarEventoBB.paint}"
@@ -35,20 +37,19 @@
 
 				</h:panelGroup>
 
-				<h:panelGrid columns="3" columnClasses="titleCell"
-					style="width:400px">
-					<h:outputLabel for="name" value="Nombre" />
-					<h:inputText id="name" value="#{modificarEventoBB.nombre}">
+				<h:panelGrid columns="3" columnClasses="titleCell">
+					<h:outputLabel for="name" value="Nombre" styleClass="campoLabel"/>
+					<h:inputText id="name" value="#{modificarEventoBB.nombre}" styleClass="campoInput">
 						<rich:validator />
 					</h:inputText>
 					<rich:message for="name" errorClass="invalid" />
 
-					<h:outputLabel for="descripcion" value="Descripcion:" />
-					<h:inputTextarea id="descripcion" maxlength="200" cols="34"
+					<h:outputLabel for="descripcion" value="Descripcion:" styleClass="campoLabel"/>
+					<h:inputTextarea id="descripcion" maxlength="200" cols="30"
 						rows="10" value="#{modificarEventoBB.descripcion}"></h:inputTextarea>
 					<rich:message for="descripcion" errorClass="invalid" />
 
-					<h:outputLabel for="name" value="Sitio Interes:" />
+					<h:outputLabel for="name" value="Sitio Interes:" styleClass="campoLabel"/>
 					<h:selectOneMenu value="#{modificarEventoBB.objectSelected}"
 						style="width:200px;">
 						<f:selectItem itemLabel="Ninguno" itemValue="-1" />
@@ -56,7 +57,7 @@
 					</h:selectOneMenu>
 					<rich:message for="name" errorClass="invalid" />
 
-					<h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
+					<h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" styleClass="campoLabel"/>
 					<a4j:outputPanel id="fechaComienzo" layout="block">
 						<rich:calendar value="#{modificarEventoBB.fechaComienzo}"
 							locale="en/US" popup="true" datePattern="d/M/yy HH:mm"
@@ -65,7 +66,7 @@
 					</a4j:outputPanel>
 					<rich:message for="fechaComienzo" errorClass="invalid" />
 
-					<h:outputLabel for="fechaFin" value="Fecha Fin:" />
+					<h:outputLabel for="fechaFin" value="Fecha Fin:" styleClass="campoLabel"/>
 					<a4j:outputPanel id="fechaFin" layout="block">
 						<rich:calendar value="#{modificarEventoBB.fechaFin}"
 							locale="en/US" popup="true" datePattern="d/M/yy HH:mm"
@@ -76,7 +77,7 @@
 
 
 
-					<h:outputLabel for="imagen" value="Imagen:" />
+					<h:outputLabel for="imagen" value="Imagen:" styleClass="campoLabel"/>
 					<rich:fileUpload id="imagen" listWidth="220px" listHeight="100px"
 						style="width:200px; height:120px;"
 						uploadData="#{modificarEventoBB.logoData}"
@@ -96,7 +97,7 @@
 					</rich:pickList>
 				</rich:panel>
 
-				<div id="botones">
+				<div id="botones" style="padding-left: 70px">
 					<a4j:commandButton id="cancelar"
 						action="#{modificarEventoBB.cancelar}" value="Cancelar"
 						styleClass="boton" />

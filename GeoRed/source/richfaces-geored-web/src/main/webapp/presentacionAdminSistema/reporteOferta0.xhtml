@@ -9,15 +9,14 @@
                 xmlns:my="http://java.sun.com/jsf/composite/components">
     <ui:define name="content">
         <h:outputStylesheet name="app.css" library="css"/>
-        <h:outputScript target="head" name="showMessage.js" library="js"/>
-        <h:outputScript target="head" name="cargarMapa.js" library="js"/> 	
+        <h:outputScript target="head" name="showMessage.js" library="js"/>         
 
-       <h:form id="modificarEmpresa">
+       <h:form id="form" style="width:400px">
           <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Oferta" headerClass="header">        
 			
 			
 		 <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" />
+		      <h:outputLabel for="fechaComienzo" value="Fecha Comienzo:" styleClass="campoLabel" />
               <a4j:outputPanel id="fechaComienzo" layout="block">
                     <rich:calendar value="#{reporteOfertaBB.fechaComienzo}"
                         locale="en/US"
@@ -27,7 +26,7 @@
             	</a4j:outputPanel>
              <rich:message for="fechaComienzo" errorClass="invalid"/>
             	
-              <h:outputLabel for="fechaFin" value="Fecha Fin:" />
+              <h:outputLabel for="fechaFin" value="Fecha Fin:" styleClass="campoLabel" />
               <a4j:outputPanel id="fechaFin" layout="block">
                     <rich:calendar value="#{reporteOfertaBB.fechaFin}"
                         locale="en/US"
@@ -38,13 +37,13 @@
               <rich:message for="fechaFin" errorClass="invalid"/>
 		   </h:panelGrid>
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 70px">
 				<a4j:commandButton id="cancelar" action="#{reporteOfertaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-                <a4j:commandButton id="reporte" action="#{reporteOfertaBB.continuar}" value="Reporte"
-                                   styleClass="boton" />                                 
+                <a4j:commandButton id="continar" action="#{reporteOfertaBB.continuar}" value="Continuar"
+                                   styleClass="boton" />
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 

@@ -93,7 +93,8 @@ public class ModificarLocalBB {
     	
         this.exito = true;
         
-        return "modificar";
+        return "/presentacionAdminEmpresa/modificarLocal.jsf";
+        //return "modificar";
     }
     
     public String finalizar() {

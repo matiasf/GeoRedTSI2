@@ -12,13 +12,13 @@
 		<h:outputScript target="head" name="showMessage.js" library="js" />
 		<h:outputScript target="head" name="cargarMapa.js" library="js" />
 
-		<h:form id="modificarEmpresa">
+		<h:form id="modificarEmpresa" style="width:400px">
 			<rich:panel id="newSitioInteresPanel" styleClass=".form"
 				header="Sitio interes" headerClass="header">
 
 
 				<h:panelGrid columns="3" columnClasses="titleCell">
-					<h:outputLabel for="name" value="Nombre:" />
+					<h:outputLabel for="name" value="Nombre:" styleClass="campoLabel"/>
 					<h:selectOneMenu id="name"
 						value="#{modificarSitioInteresBB.sitioSelected}"
 						style="width:200px;">
@@ -34,7 +34,7 @@
 				</div>
 
 
-				<h:panelGrid columns="2">
+				<div id="botones" style="padding-left: 70px">
 					<h:commandButton id="cancelar"
 						action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
 						styleClass="boton" />
@@ -42,7 +42,7 @@
 						action="#{modificarSitioInteresBB.seleccionoSitioInteres}"
 						value="Modificar" styleClass="boton" />
 
-				</h:panelGrid>
+				</div>
 
 			</rich:panel>
 
