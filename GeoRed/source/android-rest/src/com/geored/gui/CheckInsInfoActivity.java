@@ -24,10 +24,7 @@ public class CheckInsInfoActivity extends GenericActivity {
 
 	protected Hashtable<String, CheckIn> hashChks = new Hashtable<String, CheckIn>();
 
-	protected void goToPreviousActivity(){	
-		
-	}
-	
+
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_checkinsinfo);
