@@ -32,7 +32,7 @@ import com.geored.servicios.json.UsuarioJSON;
 public class ConvertidorEntityJSON {
 	
 	public enum TipoNotifiacion {
-		SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
+		SITIO_DE_INTERES, SITIO_DE_INTERES_INTEGRACION, EVENTO, LOCAL, LOCAL_INTEGRACION, CHECK_IN
 	}
 	
 	public UsuarioJSON convertir(Usuario usuario) {
@@ -55,7 +55,7 @@ public class ConvertidorEntityJSON {
 		if (notificacion instanceof SitioInteres) {
 			SitioInteres sitioInteres = (SitioInteres)notificacion;
 			notifiacionJSON = new NotificacionJSON();
-			notifiacionJSON.setId(sitioInteres.getId());
+			notifiacionJSON.setId(String.valueOf(sitioInteres.getId()));
 			notifiacionJSON.setDescripcion(sitioInteres.getDescripcion());
 			notifiacionJSON.setTipo(TipoNotifiacion.SITIO_DE_INTERES.toString());
 			notifiacionJSON.setNombre(sitioInteres.getNombre());
@@ -67,7 +67,7 @@ public class ConvertidorEntityJSON {
 		else if (notificacion instanceof Evento) {
 			Evento evento = (Evento)notificacion;
 			notifiacionJSON = new NotificacionJSON();
-			notifiacionJSON.setId(evento.getId());
+			notifiacionJSON.setId(String.valueOf(evento.getId()));
 			notifiacionJSON.setDescripcion(evento.getDescripcion());
 			notifiacionJSON.setTipo(TipoNotifiacion.EVENTO.toString());
 			notifiacionJSON.setNombre(evento.getNombre());
@@ -79,7 +79,7 @@ public class ConvertidorEntityJSON {
 		else if (notificacion instanceof Local) {
 			Local local = (Local)notificacion;
 			notifiacionJSON = new NotificacionJSON();
-			notifiacionJSON.setId(local.getId());
+			notifiacionJSON.setId(String.valueOf(local.getId()));
 			notifiacionJSON.setDescripcion(local.getDescripcion());
 			notifiacionJSON.setTipo(TipoNotifiacion.LOCAL.toString());
 			notifiacionJSON.setNombre(local.getNombre());
@@ -91,7 +91,7 @@ public class ConvertidorEntityJSON {
 		else if (notificacion instanceof CheckIn) {
 			CheckIn checkIn = (CheckIn)notificacion;
 			notifiacionJSON = new NotificacionJSON();
-			notifiacionJSON.setId(checkIn.getId());
+			notifiacionJSON.setId(String.valueOf(checkIn.getId()));
 			notifiacionJSON.setDescripcion(checkIn.getComentario());
 			notifiacionJSON.setTipo(TipoNotifiacion.CHECK_IN.toString() + ":" + checkIn.getSitioInteres().getId());
 			notifiacionJSON.setNombre(checkIn.getUsuario().getNombre());

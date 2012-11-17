@@ -333,18 +333,15 @@ public class UsuarioActivity extends GenericActivity implements
 					int contadorSitioInteres = 0; 
 					int contadorEventos = 0;
 					int contadorLocal = 0;
-					int contadorCheckIn = 0;
 					for(int i=0; i < result.size() ;i++ ){
 						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
 						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
-							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
+							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
 								contadorSitioInteres++;
 							if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
 								contadorEventos++;
-							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL")) 
+							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL") || result.get(i).getTipo().equalsIgnoreCase("LOCAL_INTEGRACION")) 
 								contadorLocal++;
-							if (result.get(i).getTipo().equalsIgnoreCase("CHECK_IN")) 
-								contadorCheckIn++;
 						}						
 					}
 					button.setText(texto + " (" + contadorSitioInteres + ")");
