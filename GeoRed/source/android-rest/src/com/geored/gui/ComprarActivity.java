@@ -35,9 +35,6 @@ public class ComprarActivity extends GenericActivity {
 		task.execute();
 	}
 	
-	protected void goToPreviousActivity(){	
-		
-	}
 	
 	@Override
 	protected void loadVista() {
