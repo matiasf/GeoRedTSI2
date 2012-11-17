@@ -32,6 +32,10 @@ public class CheckInActivity extends GenericActivity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private Uri fileUri;
 
+	protected void goToPreviousActivity(){	
+		
+	}
+	
 	@Override
 	protected void loadVista() {
 		setContentView(R.layout.activity_checkin);

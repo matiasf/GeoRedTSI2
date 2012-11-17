@@ -3,6 +3,7 @@ package com.geored.gui;
 
 import java.util.List;
 
+import com.geored.rest.Main;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
 import com.geored.rest.ServicioRestUsuarios;
@@ -12,6 +13,7 @@ import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +27,12 @@ public class RegistrarActivity extends GenericActivity {
 		//task.execute(new String[] { "" });
 		
 		
+	}
+	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,Main.class);
+        startActivity(setIntent); 
 	}
 	
 	public void showRegistrar(View clickedButton) {

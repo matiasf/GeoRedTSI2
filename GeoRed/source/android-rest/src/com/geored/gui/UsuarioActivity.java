@@ -3,6 +3,7 @@ package com.geored.gui;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -50,6 +51,12 @@ public class UsuarioActivity extends GenericActivity implements
 			return null;
 		}
 	};
+	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent); 
+	}
 
 	@Override
 	protected void loadVista() {

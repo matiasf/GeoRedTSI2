@@ -27,6 +27,12 @@ import android.view.View;
 
 public class InvitacionesActivity extends GenericActivity {
 	
+	@Override
+	protected void goToPreviousActivity(){	
+        Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent); 
+	}
+	
 	protected void loadVista() {
 		setContentView(R.layout.activity_invitaciones);
 		loadListView();
