@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.Session;
@@ -26,6 +27,7 @@ import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.TestServicios;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Posicion;
+import com.geored.rest.exception.ConflictException;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
@@ -257,6 +259,29 @@ public class UsuarioActivity extends GenericActivity implements
 	public void showNotificacionesEventos(View clickedButton) {
 		
 		goToActivity(NotificacionesEventosActivity.class);
+	}
+	
+	public void enviarInvitacionExterna(View clickedButton) {
+		final AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				final String email = ((EditText)findViewById(R.id.editTextEnvioInvitacion)).getText().toString();
+				try {
+					ServicioRestUsuarios.enviarInvitacionExterna(email);
+				} 
+				catch (RestBlowUpException e) {
+					Log.e("ERROR", e.getMessage(), e);
+				} 
+				catch (UnauthorizedException e) {
+					Log.w("Warining", e.getMessage());
+				} 
+				catch (ConflictException e) {
+					Log.w("Warning", e.getMessage());
+				}
+				return null;
+			}
+		};
+		asyncTask.execute();
 	}
 	
 	@Override

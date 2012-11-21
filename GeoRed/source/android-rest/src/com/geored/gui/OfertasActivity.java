@@ -27,34 +27,30 @@ import com.geored.rest.exception.UnauthorizedException;
 public class OfertasActivity extends GenericActivity {
 	
 	private String value;
-	private boolean externo;
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+		boolean externo = extras.getBoolean("externo");
+        if (extras != null && !externo) {
         	MenuInflater inflater = getMenuInflater();
     		inflater.inflate(R.menu.activity_compras, menu);
             value = extras.getString("ofertas_id");
-            externo = Boolean.valueOf(extras.getString("externo"));
         }
 	}
 	
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		if (!externo) {
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-			Oferta oferta = (Oferta) getListAdapter().getItem(info.position);
-			switch (item.getItemId()) {
-				case R.id.menu_comprar:
-					goToActivity(ComprarActivity.class, oferta.getId(), oferta.getIdImagen());
-					return true;
-				default:
-					return super.onContextItemSelected(item);
-			}
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		Oferta oferta = (Oferta) getListAdapter().getItem(info.position);
+		switch (item.getItemId()) {
+			case R.id.menu_comprar:
+				goToActivity(ComprarActivity.class, oferta.getId(), oferta.getIdImagen());
+				return true;
+			default:
+				return super.onContextItemSelected(item);
 		}
-		return super.onContextItemSelected(item);
 	}
 	
 	@Override

@@ -26,30 +26,33 @@ import com.geored.servicios.json.converters.ConvertidorEntityJSON;
 @Stateless
 public class GestionIntegracion {
 	
-	private final String INTEGRACION_URL = "https://grupo11-georeduuy.rhcloud.com/ClienteWS/rest/IntegracionWS/";
+	private final String[] INTEGRACION_URLs = new String[]{"https://grupo11-georeduuy.rhcloud.com/ClienteWS/rest/IntegracionWS/", 
+			"http://georeduy-uy.rhcloud.com/GeoRed_MobileWS/rest/integracion/"};
 	
 	public List<NotificacionJSON> getSitioInteresIntegracion(final Double latitud, final Double longitud,
 			final Double distancia) {
 		try {
-			final String json = getJSONRespone(INTEGRACION_URL + "obtenerSitiosInteresIntegracion/" + latitud + "/" + longitud + "/" + "100");
-			ObjectMapper mapper = new ObjectMapper();
-			List<SitiosInteresIntegracionJSON> sitiosInteres = mapper.readValue(json, new TypeReference<List<SitiosInteresIntegracionJSON>>(){});
 			List<NotificacionJSON> notificaciones = new ArrayList<NotificacionJSON>();
 			NotificacionJSON notificacion;
 			PosicionJSON posicion;
-			for (SitiosInteresIntegracionJSON sitioInteresJSON : sitiosInteres) {
-				notificacion = new NotificacionJSON();
-				notificacion.setId(sitioInteresJSON.getIdSitioInteres().toString() + "-externa");
-				notificacion.setNombre(sitioInteresJSON.getNombre());
-				notificacion.setDescripcion(sitioInteresJSON.getDescripcion());
-				notificacion.setTipo(ConvertidorEntityJSON.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString());
-				posicion = new PosicionJSON();
-				posicion.setDistancia(Double.valueOf("100"));
-				posicion.setLatitud(sitioInteresJSON.getLatitud().doubleValue());
-				posicion.setLongitud(sitioInteresJSON.getLongitud().doubleValue());
-				notificacion.setPosicion(posicion);
-				notificaciones.add(notificacion);
-			}
+			for (String INTEGRACION_URL : INTEGRACION_URLs) {
+				final String json = getJSONRespone(INTEGRACION_URL + "obtenerSitiosInteresIntegracion/" + latitud + "/" + longitud + "/" + "100");
+				ObjectMapper mapper = new ObjectMapper();
+				List<SitiosInteresIntegracionJSON> sitiosInteres = mapper.readValue(json, new TypeReference<List<SitiosInteresIntegracionJSON>>(){});
+				for (SitiosInteresIntegracionJSON sitioInteresJSON : sitiosInteres) {
+					notificacion = new NotificacionJSON();
+					notificacion.setId(sitioInteresJSON.getIdSitioInteres().toString() + "-externa");
+					notificacion.setNombre(sitioInteresJSON.getNombre());
+					notificacion.setDescripcion(sitioInteresJSON.getDescripcion());
+					notificacion.setTipo(ConvertidorEntityJSON.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString());
+					posicion = new PosicionJSON();
+					posicion.setDistancia(Double.valueOf("100"));
+					posicion.setLatitud(sitioInteresJSON.getLatitud().doubleValue());
+					posicion.setLongitud(sitioInteresJSON.getLongitud().doubleValue());
+					notificacion.setPosicion(posicion);
+					notificaciones.add(notificacion);
+				}
+			}			
 			return notificaciones;
 		} catch (JsonParseException e) {
 			e.printStackTrace();
@@ -63,18 +66,20 @@ public class GestionIntegracion {
 	
 	public List<NotificacionJSON> getLocalesIntegracion(final Double latitud, final Double longitud, final Double distancia) {
 		try {
-			final String json = getJSONRespone(INTEGRACION_URL + "obtenerOfertasIntegracion/" + latitud + "/" + longitud + "/" + "100");
-			ObjectMapper mapper = new ObjectMapper();
-			List<OfertasIntegracionJSON> ofertas = mapper.readValue(json, new TypeReference<List<OfertasIntegracionJSON>>(){});
 			HashMap<Integer, List<OfertasIntegracionJSON>> locales = new HashMap<Integer, List<OfertasIntegracionJSON>>();
-			for (OfertasIntegracionJSON ofertasJSON : ofertas) {
-				if (!locales.containsKey(ofertasJSON.getIdLocal())) {
-					List<OfertasIntegracionJSON> eOfertas = new ArrayList<OfertasIntegracionJSON>();
-					eOfertas.add(ofertasJSON);
-					locales.put(ofertasJSON.getIdLocal(), eOfertas);
-				}
-				else {
-					locales.get(ofertasJSON.getIdLocal()).add(ofertasJSON);
+			for (String INTEGRACION_URL : INTEGRACION_URLs) {
+				final String json = getJSONRespone(INTEGRACION_URL + "obtenerOfertasIntegracion/" + latitud + "/" + longitud + "/" + "100");
+				ObjectMapper mapper = new ObjectMapper();
+				List<OfertasIntegracionJSON> ofertas = mapper.readValue(json, new TypeReference<List<OfertasIntegracionJSON>>(){});
+				for (OfertasIntegracionJSON ofertasJSON : ofertas) {
+					if (!locales.containsKey(ofertasJSON.getIdLocal())) {
+						List<OfertasIntegracionJSON> eOfertas = new ArrayList<OfertasIntegracionJSON>();
+						eOfertas.add(ofertasJSON);
+						locales.put(ofertasJSON.getIdLocal(), eOfertas);
+					}
+					else {
+						locales.get(ofertasJSON.getIdLocal()).add(ofertasJSON);
+					}
 				}
 			}
 			List<NotificacionJSON> localesNot = new ArrayList<NotificacionJSON>();
@@ -107,29 +112,34 @@ public class GestionIntegracion {
 	public List<OfertaJSON> getOfertasIntegracion(final Double latitud, final Double longitud, final Double distancia, 
 			final Integer idLocal) {
 		try {
-			final String json = getJSONRespone(INTEGRACION_URL + "obtenerOfertasIntegracion/" + latitud + "/" + longitud + "/" + "100");
-			ObjectMapper mapper = new ObjectMapper();
-			List<OfertasIntegracionJSON> ofertas = mapper.readValue(json, new TypeReference<List<OfertasIntegracionJSON>>(){});
 			HashMap<Integer, List<OfertasIntegracionJSON>> locales = new HashMap<Integer, List<OfertasIntegracionJSON>>();
-			for (OfertasIntegracionJSON ofertasJSON : ofertas) {
-				if (!locales.containsKey(ofertasJSON.getIdLocal())) {
-					List<OfertasIntegracionJSON> eOfertas = new ArrayList<OfertasIntegracionJSON>();
-					eOfertas.add(ofertasJSON);
-					locales.put(ofertasJSON.getIdLocal(), eOfertas);
-				}
-				else {
-					locales.get(ofertasJSON.getIdLocal()).add(ofertasJSON);
+			for (String INTEGRACION_URL : INTEGRACION_URLs) {
+				final String json = getJSONRespone(INTEGRACION_URL + "obtenerOfertasIntegracion/" + latitud + "/" + longitud + "/" + "100");
+				ObjectMapper mapper = new ObjectMapper();
+				List<OfertasIntegracionJSON> ofertas = mapper.readValue(json, new TypeReference<List<OfertasIntegracionJSON>>(){});
+				
+				for (OfertasIntegracionJSON ofertasJSON : ofertas) {
+					if (!locales.containsKey(ofertasJSON.getIdLocal())) {
+						List<OfertasIntegracionJSON> eOfertas = new ArrayList<OfertasIntegracionJSON>();
+						eOfertas.add(ofertasJSON);
+						locales.put(ofertasJSON.getIdLocal(), eOfertas);
+					}
+					else {
+						locales.get(ofertasJSON.getIdLocal()).add(ofertasJSON);
+					}
 				}
 			}
 			List<OfertaJSON> ofertasJSON = new ArrayList<OfertaJSON>();
 			OfertaJSON oferta;
-			for (OfertasIntegracionJSON ofertaInt : locales.get(idLocal)) {
-				oferta = new OfertaJSON();
-				oferta.setId(ofertaInt.getIdOferta());
-				oferta.setNombre(ofertaInt.getNombre());
-				oferta.setDescripcion(ofertaInt.getDescripcion());
-				oferta.setCosto(ofertaInt.getCosto());
-				ofertasJSON.add(oferta);
+			if (locales.containsKey(idLocal)) {
+				for (OfertasIntegracionJSON ofertaInt : locales.get(idLocal)) {
+					oferta = new OfertaJSON();
+					oferta.setId(ofertaInt.getIdOferta());
+					oferta.setNombre(ofertaInt.getNombre());
+					oferta.setDescripcion(ofertaInt.getDescripcion());
+					oferta.setCosto(ofertaInt.getCosto());
+					ofertasJSON.add(oferta);
+				}
 			}
 			return ofertasJSON;
 		} catch (JsonParseException e) {

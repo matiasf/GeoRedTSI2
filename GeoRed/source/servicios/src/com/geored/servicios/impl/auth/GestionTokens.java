@@ -11,7 +11,7 @@ public class GestionTokens {
 	
 	private HashMap<String, Integer> tokens = new HashMap<String, Integer>();
 	
-	public String obtenerToken(Integer idUsuario) {
+	public synchronized String obtenerToken(Integer idUsuario) {
 		for (Entry<String, Integer> entry : tokens.entrySet()) {
 			if (entry.getValue().equals(idUsuario)) {
 				tokens.remove(entry.getKey());

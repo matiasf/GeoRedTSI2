@@ -40,6 +40,8 @@ public class ServicioRestUsuarios extends ServicioRest {
 			+ "/ofertas";
 	final private static String URL_EVENTO = SERVICIO_REST_USUARIOS_URL
 			+ "/evento";
+	final private static String URL_INVITACION_EXTERNA = SERVICIO_REST_USUARIOS_URL
+			+ "/invitacionExterna";
 	
 	public static List<Usuario> buscarContactos(String query) throws RestBlowUpException, UnauthorizedException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -368,6 +370,22 @@ public class ServicioRestUsuarios extends ServicioRest {
 		else {
 			throw new RestBlowUpException();
 		}
+	}
+
+	public static void enviarInvitacionExterna(String email) throws RestBlowUpException, UnauthorizedException, ConflictException {
+		HttpResponse response = rest(Metodos.POST, URL_INVITACION_EXTERNA + "/" + email);
+		if (response.getStatusLine().getStatusCode() == OK || response.getStatusLine().getStatusCode() == NOT_CONTENT) {
+			return;
+		}
+		else if (response.getStatusLine().getStatusCode() == CONFLICT) {
+			throw new ConflictException();
+		}
+		else if (response.getStatusLine().getStatusCode() == UNAUTHORIZED) {
+			throw new UnauthorizedException();
+		}
+		else {
+			throw new RestBlowUpException();
+		}	
 	}
 
 }

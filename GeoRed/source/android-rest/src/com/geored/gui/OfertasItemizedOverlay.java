@@ -2,6 +2,7 @@ package com.geored.gui;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,20 +51,20 @@ public class OfertasItemizedOverlay extends ItemizedOverlay {
 		OverlayItem item = mOverlays.get(index);
 		final String id = item.getSnippet();
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		Notificacion notificacion = hashNotificaciones.get(id);
 		dialog.setTitle(item.getTitle());
-
-		// Setting Positive "Yes" Button
+		dialog.setMessage(notificacion.getDescripcion());
+		final boolean externo = notificacion.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL_INTEGRACION.toString());
+		// Setting Positive "YES" Button
 		dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// Write your code here to invoke YES event
-				Notificacion notificacion = hashNotificaciones.get(id);
 				Intent intent = new Intent(mContext, OfertasActivity.class);
 				intent.putExtra("ofertas_id", id);
-				intent.putExtra("externo", notificacion.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL_INTEGRACION.toString()));
+				intent.putExtra("externo", externo);
 				mContext.startActivity(intent);
 			}
 		});
-
 		// Setting Negative "NO" Button
 		dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
@@ -71,7 +72,6 @@ public class OfertasItemizedOverlay extends ItemizedOverlay {
 				dialog.cancel();
 			}
 		});
-
 		dialog.show();
 		return true;
 	}

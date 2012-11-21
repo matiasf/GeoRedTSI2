@@ -49,12 +49,14 @@ public class GoogleCalendarFeed {
 		
 		List<Evento> ret = new ArrayList<Evento>();
 		Evento evento = null;		
+		boolean inEntry = false;
 		while (eventReader.hasNext()) {
 			XMLEvent event = eventReader.nextEvent();
 
 			if (event.isStartElement()) {
 				StartElement element = event.asStartElement();
 				if (element.getName().getLocalPart() == ENTRY) {
+					inEntry = true;
 					event = eventReader.nextEvent();
 					evento = new Evento();
 					continue;
@@ -76,20 +78,21 @@ public class GoogleCalendarFeed {
 						}
 					}
 				}
-				if ((element.getName().getPrefix() == GD) && (element.getName().getLocalPart() == TITLE)) {
+				if (element.getName().getLocalPart() == TITLE && inEntry) {
 					event = eventReader.nextEvent();
 					evento.setNombre(event.asCharacters().getData());
 					continue;
 				}
-				if ((element.getName().getPrefix() == GD) && (element.getName().getLocalPart() == CONTENT)) {
+				if (element.getName().getLocalPart() == CONTENT && inEntry) {
 					event = eventReader.nextEvent();
-					evento.setDescripcion(event.asCharacters().getData());
+					evento.setDescripcion("Evento externo");
 					continue;
 				}
 			}
 			
 			if (event.isEndElement()) { 
 				if ((event.asEndElement().getName().getLocalPart() == ENTRY) && (evento != null)){
+					inEntry = false;
 					ret.add(evento);
 					evento = null;
 					continue;

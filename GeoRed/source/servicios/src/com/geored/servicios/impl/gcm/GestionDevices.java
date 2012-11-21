@@ -30,7 +30,7 @@ public class GestionDevices {
 		devices.remove(idUsuario);
 	}
 	
-	public void setPosicion(final Integer idUsuario, final PosicionJSON posicion) {
+	public void putPosicion(final Integer idUsuario, final PosicionJSON posicion) {
 		devices.get(idUsuario).setPosicion(posicion);
 	}
 
