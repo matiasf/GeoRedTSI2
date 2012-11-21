@@ -12,12 +12,12 @@
         <h:outputScript target="head" name="showMessage.js" library="js"/>
         	
 
-       <h:form id="modificar">
+       <h:form id="modificar" style="width:400px">
           <rich:panel id="newCategoriaPanel" styleClass=".form" header="Evento" headerClass="header">        
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre:"/>
+		      <h:outputLabel for="name" value="Nombre:" styleClass="campoLabel"/>
 		      <h:selectOneMenu value="#{modificarEventoBB.eventoSelected}" style="width:200px;">
 				  <f:selectItem itemLabel="Seleccione Evento" itemValue="-1" />
 				  <f:selectItems value="#{modificarEventoBB.eventos}"/>				  
@@ -25,13 +25,13 @@
 		      <rich:message for="name" errorClass="invalid"/>     
 		   </h:panelGrid>
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 70px">
 				<h:commandButton id="cancelar" action="#{modificarEventoBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
                 <h:commandButton id="modificar" action="#{modificarEventoBB.selecciono}" value="Modificar"
                                    styleClass="boton" />                                 
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 

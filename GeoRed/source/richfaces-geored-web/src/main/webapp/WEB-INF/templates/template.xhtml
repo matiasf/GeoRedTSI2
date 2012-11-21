@@ -14,6 +14,20 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWCAn0DWFU3_MpTks6egTIy2mqVNoJVZU&amp;sensor=true">
     </script>
+    <script type="text/javascript">
+
+   		function palMenu(){
+    		window.location.href = "#{menuBB.contextyurl}/presentacionAdminEmpresa/menu.jsf";
+    		return;
+        }
+
+   		function chau(){
+    		window.location.href = "#{menuBB.contextyurl}/index.jsf";
+    		return;
+        }
+    	
+    
+    </script>
 </h:head>
 <h:body style="background-color: #CCCCCC;">
    <div id="container" style="width: 900px">
@@ -28,10 +42,10 @@
 		        iconExpandedGroup="disc" iconCollapsedGroup="disc" 
 		        iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" 
 		        iconCollapsedTopGroup="chevronDown">
-		        <rich:panelMenuGroup label="Home">           	            
-		            <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/menu.jsf"
+		        <rich:panelMenuGroup label="Home" onclick="palMenu()">           	            
+		          <!--    <a	href="#{menuBB.contextyurl}/presentacionAdminSistema/menu.jsf"
 		               style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
-					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Home</a>
+					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Home</a>-->
 		        </rich:panelMenuGroup>
 		        <rich:panelMenuGroup label="Empresas">
 		          <!--   <rich:panelMenuItem label="Alta Empresa" action="#{menuBB.altaEmpresa}">
@@ -104,11 +118,14 @@
 		            style="padding-left: 45px; padding-bottom: 3px; color:#243B0B;" 
 					  onmouseover="this.className='link2'" onmouseout="this.className='link1'">Reporte Oferta</a>		            
 		       	</rich:panelMenuGroup>
+		       	<rich:panelMenuGroup label="Logout" onclick="chau()">           	            
+		          
+		        </rich:panelMenuGroup>
 		    </rich:panelMenu>    
 	    </h:panelGrid>
 	    </h:form>
       </div>      
-      <div id="content" style="float: left; width: 40%; margin: 1px;">
+      <div id="content" style="float: left; width: 500px; margin: 1px; margin-left: 10px; padding-left: 50px">
          <ui:insert name="content">
             [Template content will be inserted here]
          </ui:insert>

@@ -42,6 +42,8 @@ public class LoginBB {
     	
     	boolean logAdm = this.mail.equals("admin");    	
     	if(logAdm){
+    		FacesContext context = FacesContext.getCurrentInstance();
+    		context.getExternalContext().getSessionMap().remove("loginBB");
     		retorno = "loginAdminSistema";
     	} 
     	//chequeo de admin empresa
@@ -68,7 +70,7 @@ public class LoginBB {
     		session.setAttribute("passEmpresa", empresa.getPassword());
     		session.setAttribute("descripcionEmpresa", empresa.getDescripcion());
     		retorno = "loginAdminEmpresa";    		
-    		context.getExternalContext().getSessionMap().remove("altaLocalBB");
+    		context.getExternalContext().getSessionMap().remove("loginBB");
     	} 
     	//LOGICA *******/
 		error = !(logEmp || logAdm);

@@ -18,15 +18,16 @@
 
 <a href="#{menuBB.contextyurl}/presentacionAdminSistema/reporteCheckIn.jsf" style="color:black;">Recargar</a>
 
-	   		   <div id="map_canvas" style="width:400px; height:400px"> </div>
+
+	   <div id="map_canvas" style="width:500px; height:400px"> </div>
        <h:form id="formReporte" >
-           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header" style="width:400px">
+           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Sitio Interes" headerClass="header" style="width:500px; overflow:auto">
 		
-		   <rich:dataTable id="tablaReporte" style="width:400px;"
+		   <rich:dataTable id="tablaReporte" style="width:100%; text-align:center"
                     onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                     onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
                     cellpadding="0" cellspacing="0" rowkeyVar="rowkey"
-                    width="400px" border="0" var="dato" value="#{reporteCheckInBB.datos}">
+                    width="100%" border="0" var="dato" value="#{reporteCheckInBB.datos}">
                 
                     <f:facet name="header">
                         <rich:columnGroup>
@@ -79,7 +80,7 @@
 		   </rich:dataTable>
 
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 140px">
 				
 				<a4j:commandButton id="cancelar" action="#{reporteCheckInBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
@@ -91,7 +92,7 @@
                                    
                 <rich:messages globalOnly="true"/>
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 
