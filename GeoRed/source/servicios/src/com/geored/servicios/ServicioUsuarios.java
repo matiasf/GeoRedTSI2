@@ -110,4 +110,9 @@ public interface ServicioUsuarios {
 	EventoJSON getEvento(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
 			@PathParam("idEvento") final Integer idEvento);
 
+	@POST
+	@Path("invitacionExterna/{email}")
+	void enviarInvitacionExterna(@HeaderParam("Security-Token") final String userToken, @Context final HttpServletResponse response,
+			@PathParam("email") final String email);
+
 }

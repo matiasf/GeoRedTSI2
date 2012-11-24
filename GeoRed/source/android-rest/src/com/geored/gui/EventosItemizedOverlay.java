@@ -48,14 +48,15 @@ public class EventosItemizedOverlay extends ItemizedOverlay {
 		OverlayItem item = mOverlays.get(index);
 		final String id = item.getSnippet();
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		dialog.setTitle(item.getTitle());
-		// dialog.setMessage(item.getSnippet());
+		final Notificacion notificacion = hashNotificaciones.get(id);
+		dialog.setTitle(notificacion.getNombre());
+		dialog.setMessage(notificacion.getDescripcion());
 
 		// Setting Positive "Yes" Button
 		dialog.setPositiveButton("VER", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// Write your code here to invoke YES event
-				Notificacion notificacion = hashNotificaciones.get(id);
+				
 				Intent intent = new Intent(mContext, EventosActivity.class);
 				intent.putExtra("eventoId", notificacion.getId());
 				intent.putExtra("eventoNombre", notificacion.getNombre());

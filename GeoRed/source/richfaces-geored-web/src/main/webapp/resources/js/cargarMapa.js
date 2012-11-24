@@ -125,3 +125,16 @@
   	  placeMarkers(centro);
   }
     
+    var estado = 1;
+    function mostrarOcultar() {   
+    	if (estado == 1){
+    		document.getElementById("map_canvas").style.display = "none";
+    		document.getElementById("mostrador").innerHTML = 'Mostrar mapa';
+    		estado = 0;
+    	} else {
+    		document.getElementById("map_canvas").style.display = "block";
+    		document.getElementById("mostrador").innerHTML = 'Ocultar mapa';
+    		estado = 1;
+    	}
+    }
+    

@@ -12,22 +12,21 @@
 <ui:define name="content">
 	<h:outputStylesheet name="app.css" library="css"/>
 	<h:outputScript target="head" name="jscharts.js" library="js"/>
-   <h:outputScript target="head" name="cargarGrafica.js" library="js"/>   
-   <h:outputScript target="body">   			   			
+   <h:outputScript target="head" name="cargarGrafica.js" library="js"/> 
+   <h:outputScript target="body">
    			armarLaTorta();
    </h:outputScript>    
-   
-  
 
-		<div id="chartcontainer" style="width:400px;"></div>
-       <h:form id="formReporte" >
-           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Ofertas" headerClass="header" style="width:400px">
+
+		<div id="chartcontainer" style="width:500px" ></div>		
+       	<h:form id="formReporte" >
+           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Ofertas" headerClass="header" style="width:500px">
 		
-		   <rich:dataTable id="tablaReporte" style="width:380px;"
+		   <rich:dataTable id="tablaReporte" style="width:100%; text-align: center;"
                     onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
                     onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
                     cellpadding="0" cellspacing="0" rowkeyVar="rowkey"
-                    width="400px" border="0" var="dato" value="#{reporteOfertaBB.datos}">
+                    width="100%" border="0" var="dato" value="#{reporteOfertaBB.datos}">
                 
                     <f:facet name="header">
                         <rich:columnGroup>
@@ -72,20 +71,20 @@
 		   </rich:dataTable>
 
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 140px">
 				
 				<a4j:commandButton id="cancelar" action="#{reporteOfertaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
-
-                <a4j:commandButton id="alta" action="#{reporteOfertaBB.finalizar}" value="Aceptar"
-                                   styleClass="boton" />
+                 
+                <a4j:commandButton id="graficar" onclick="armarLaTorta()" value="Graficar"
+                                   styleClass="boton" />                
                                    
                 <br />
                 <h:inputHidden id="cantDatos" value="#{reporteOfertaBB.cantDatos}"></h:inputHidden>
                                    
                 <rich:messages globalOnly="true"/>
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 

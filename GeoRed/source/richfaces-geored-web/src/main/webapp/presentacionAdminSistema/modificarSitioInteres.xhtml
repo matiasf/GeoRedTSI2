@@ -19,56 +19,57 @@
 			href="#{menuBB.contextyurl}/presentacionAdminSistema/modificarSitioInteres.jsf"
 			style="color: black;">Recargar</a>
 
-
-		<div id="map_canvas" style="width: 400px; height: 400px"></div>
-		<h:form id="form">
+		<div id="mostrador" style="cursor: pointer;" onclick="mostrarOcultar()">Ocultar mapa</div>
+		<div id="map_canvas" style="width: 450px; height: 400px"></div>
+		<h:form id="form" style="width:450px">
 			<rich:panel id="newEmpresaPanel" styleClass=".form"
-				header="Sitio Interes" headerClass="header" style="width:400px;">
+				header="Sitio Interes" headerClass="header" style="width:450px;">
 
 				<h:panelGrid columns="3" columnClasses="titleCell">
-					<h:outputLabel for="name" value="Nombre" />
-					<h:inputText id="name" value="#{modificarSitioInteresBB.nombre}">
+					<h:outputLabel for="name" value="Nombre" styleClass="campoLabel"/>
+					<h:inputText id="name" value="#{modificarSitioInteresBB.nombre}" styleClass="campoInput">
 						<rich:validator />
 					</h:inputText>
 					<rich:message for="name" errorClass="invalid" />
 
-					<h:outputLabel for="calendario" value="Calendario" />
+					<h:outputLabel for="calendario" value="Calendario" styleClass="campoLabel"/>
 					<h:inputText id="calendario"
-						value="#{modificarSitioInteresBB.calendario}">
+						value="#{modificarSitioInteresBB.calendario}" styleClass="campoInput">
 						<rich:validator />
 					</h:inputText>
 					<rich:message for="calendario" errorClass="invalid" />
 
-					<h:outputLabel for="coordX" value="Latitud" />
-					<h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}">
+					<h:outputLabel for="coordX" value="Latitud" styleClass="campoLabel"/>
+					<h:inputText id="coordX" value="#{modificarSitioInteresBB.latitud}" styleClass="campoInput">
 						<rich:validator />
 					</h:inputText>
 					<rich:message for="coordX" errorClass="invalid" />
 
-					<h:outputLabel for="coordY" value="Longitud" />
+					<h:outputLabel for="coordY" value="Longitud" styleClass="campoLabel"/>
 					<h:inputText id="coordY"
-						value="#{modificarSitioInteresBB.longitud}">
+						value="#{modificarSitioInteresBB.longitud}" styleClass="campoInput">
 						<rich:validator />
 					</h:inputText>
 					<rich:message for="coordY" errorClass="invalid" />
 
-					<h:outputLabel for="descripcion" value="Descripcion:" />
-					<h:inputTextarea maxlength="200" cols="34" rows="10"
+					<h:outputLabel for="descripcion" value="Descripcion:" styleClass="campoLabel" />
+					<h:inputTextarea maxlength="200" cols="30" rows="10"
 						value="#{modificarSitioInteresBB.descripcion}" id="description"></h:inputTextarea>
 					<rich:message for="descripcion" errorClass="invalid" />
 
 				</h:panelGrid>
 
-				<rich:panel style="width:360px;">
+				<rich:panel styleClass="campoPick">
 					<rich:pickList
 						value="#{modificarSitioInteresBB.nombresCategoriaSelected}"
 						listHeight="100px" listWidth="100px">
 						<f:selectItems value="#{modificarSitioInteresBB.nombresCategoria}" />
 					</rich:pickList>
 				</rich:panel>
+				
 
 
-					<h:panelGrid columns="2">
+					<div id="botones" style="padding-left: 70px">
 						<a4j:commandButton id="cancelar"
 							action="#{modificarSitioInteresBB.cancelar}" value="Cancelar"
 							styleClass="boton" />
@@ -77,7 +78,7 @@
 							value="Modificar" styleClass="boton" />
 
 						<rich:messages globalOnly="true" />
-					</h:panelGrid>
+					</div>
 
 				</rich:panel>
 		</h:form>

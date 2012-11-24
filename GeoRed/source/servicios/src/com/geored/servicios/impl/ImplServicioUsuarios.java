@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
@@ -13,11 +14,13 @@ import negocios.GestionEmpresas;
 import negocios.GestionUsuarios;
 import negocios.excepciones.ContactoYaExiste;
 import negocios.excepciones.EntidadNoExiste;
+import negocios.impl.mailSender.MailSender;
 import persistencia.Usuario;
 
 import com.geored.servicios.ServicioUsuarios;
 import com.geored.servicios.impl.auth.GestionTokens;
 import com.geored.servicios.impl.gcm.GestionDevices;
+import com.geored.servicios.impl.inte.GestionIntegracion;
 import com.geored.servicios.json.CategoriaJSON;
 import com.geored.servicios.json.EventoJSON;
 import com.geored.servicios.json.InvitacionJSON;
@@ -43,6 +46,9 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	
 	@EJB
 	GestionDevices gestionDevices;
+	
+	@EJB
+	GestionIntegracion gestionIntegracion;
 
 	@EJB
 	ConvertidorEntityJSON convertidorEntityJSON;
@@ -68,7 +74,7 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 				List<Usuario> onLine = new ArrayList<Usuario>();
 				String idDevice;
 				for (Usuario usuario : listTmp) {
-					idDevice = gestionDevices.getDevice(usuario.getId());
+					idDevice = gestionDevices.getIdDevice(usuario.getId());
 					if (idDevice != null && !idDevice.isEmpty()) {
 						onLine.add(usuario);
 					}
@@ -210,10 +216,15 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	public List<NotificacionJSON> getNotificaciones(final String userToken, final HttpServletResponse response,
 			final PosicionJSON posicion) {
 		if (gestionTokens.validarToken(userToken)) {
+			gestionDevices.putPosicion(gestionTokens.getIdUsuario(userToken), posicion);
 			response.setStatus(Response.Status.OK.getStatusCode());
 			try {
 				List<NotificacionJSON> notificaciones = convertidorEntityJSON.convert(gestionUsuarios.getNotificaciones(gestionTokens.getIdUsuario(userToken),
 						posicion.getLatitud(), posicion.getLongitud(), posicion.getDistancia()));
+				notificaciones.addAll(gestionIntegracion.getLocalesIntegracion(posicion.getLatitud(), posicion.getLongitud(), 
+						posicion.getDistancia()));
+				notificaciones.addAll(gestionIntegracion.getSitioInteresIntegracion(posicion.getLatitud(), posicion.getLongitud(), 
+						posicion.getDistancia()));
 				return notificaciones;
 			} catch (EntidadNoExiste e) {
 				response.setStatus(Response.Status.NOT_FOUND.getStatusCode());
@@ -244,7 +255,17 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 	public List<OfertaJSON> getOfertasLocal(final String userToken, final HttpServletResponse response, final Integer idLocal) {
 		if (gestionTokens.validarToken(userToken)) {
 			response.setStatus(Response.Status.OK.getStatusCode());
-			return convertidorEntityJSON.convert(gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken)));
+			List<OfertaJSON> ofertas = convertidorEntityJSON.convert(gestionUsuarios.obtenerOfertasLocalUsuario(idLocal, gestionTokens.getIdUsuario(userToken)));
+			PosicionJSON posicion = gestionDevices.getPosicion(gestionTokens.getIdUsuario(userToken));
+			if (posicion != null) {
+				List<OfertaJSON> ofertasExt = gestionIntegracion.getOfertasIntegracion(posicion.getLatitud(), posicion.getLongitud(), posicion.getDistancia(),
+					idLocal);
+				for (OfertaJSON ofertaJSON : ofertasExt) {
+					ofertaJSON.setId(-1);
+				}
+				ofertas.addAll(ofertasExt);
+			}
+			return ofertas;
 		}
 		else {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
@@ -262,6 +283,25 @@ public class ImplServicioUsuarios implements ServicioUsuarios {
 			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
 		}
 		return null;
+	}
+	
+	@Override
+	public void enviarInvitacionExterna(final String userToken, final HttpServletResponse response, final String email) {
+		if (gestionTokens.validarToken(userToken)) {
+			response.setStatus(Response.Status.OK.getStatusCode());			
+			try {
+				MailSender mailSender = new MailSender(email, "Invitacion a Geored-uy", "Hola, un amigo nos a dicho " +
+						"que talvez te interese unirte a Geored-uy! Cuando tengamos esto subido a Google Play te ponemos " +
+						"la URL.");
+				mailSender.send();
+			} 
+			catch (MessagingException e) {
+				response.setStatus(Response.Status.CONFLICT.getStatusCode());
+			}
+		}
+		else {
+			response.setStatus(Response.Status.UNAUTHORIZED.getStatusCode());
+		}
 	}
 
 }

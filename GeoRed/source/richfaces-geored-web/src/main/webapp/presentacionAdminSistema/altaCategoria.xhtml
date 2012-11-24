@@ -16,23 +16,23 @@
 		
         
 
-       <h:form id="altaCategoria">
+       <h:form id="altaCategoria" style="width:450px">
        
           <rich:panel id="newEmpresaPanel" styleClass=".form" header="Categoria" headerClass="header">
           
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{altaCategoriaBB.nombre}">
+		      <h:outputLabel for="name" value="Nombre" styleClass="campoLabel"/>
+		      <h:inputText id="name" value="#{altaCategoriaBB.nombre}" styleClass="campoInput">
 		         <rich:validator/>
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
 		
-		      <h:outputLabel for="descripcion" value="Descripcion:" />      
+		      <h:outputLabel for="descripcion" value="Descripcion:" styleClass="campoLabel" />      
 		      <h:inputTextarea
                     maxlength="200"
-                    cols="34" rows="10"
+                    cols="30" rows="10"
                     value="#{altaCategoriaBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
@@ -40,7 +40,7 @@
 		   </h:panelGrid>
 
 			
-			<div id="botones">
+			<div id="botones" style="padding-left: 70px">
 				<a4j:commandButton id="cancelar" action="#{altaCategoriaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
                 <a4j:commandButton id="alta" action="#{altaCategoriaBB.altaCategoria}" value="Dar de alta"

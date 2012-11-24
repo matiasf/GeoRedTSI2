@@ -11,12 +11,12 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/> 	
 
-       <h:form id="modificarEmpresa">
-          <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Local" headerClass="header">        
+       <h:form id="modificarEmpresa" style="width:400px">
+          <rich:panel id="newSitioInteresPanel" styleClass=".form" header="Local" headerClass="header" style="width:400px">        
 			
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre:"/>
+		      <h:outputLabel for="name" value="Nombre:" styleClass="campoLabel"/>
 		      <h:selectOneMenu value="#{modificarLocalBB.objectSelected}" style="width:200px;">
 				  <f:selectItem itemLabel="Seleccione local" itemValue="-1" />
 				  <f:selectItems value="#{modificarLocalBB.objects}"/>				  
@@ -24,13 +24,13 @@
 		      <rich:message for="name" errorClass="invalid"/>     
 		   </h:panelGrid>
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 70px">
 				<a4j:commandButton id="cancelar" action="#{modificarLocalBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
                 <a4j:commandButton id="modificarEmpresa" action="#{modificarLocalBB.selecciono}" value="Modificar"
                                    styleClass="boton" />                                 
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 

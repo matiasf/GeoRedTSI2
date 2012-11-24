@@ -277,7 +277,7 @@ public class NotificacionesActivity extends MapActivity implements
 					Iterator<Notificacion> it = result.iterator();
 					while (it.hasNext()) {
 						Notificacion noty = (Notificacion) it.next();
-						if (noty.getPosicion() != null && noty.getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) {
+						if (noty.getPosicion() != null && (noty.getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || noty.getTipo().equalsIgnoreCase("SITIO_DE_INTERES_INTEGRACION"))) {
 							
 							GenericActivity.hashNotificaciones.put(noty.getId(), noty);
 							

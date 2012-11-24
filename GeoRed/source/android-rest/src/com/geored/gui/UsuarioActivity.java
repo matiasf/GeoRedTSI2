@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.Session;
@@ -26,6 +27,7 @@ import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.TestServicios;
 import com.geored.rest.data.Notificacion;
 import com.geored.rest.data.Posicion;
+import com.geored.rest.exception.ConflictException;
 import com.geored.rest.exception.NotFoundException;
 import com.geored.rest.exception.RestBlowUpException;
 import com.geored.rest.exception.UnauthorizedException;
@@ -259,6 +261,29 @@ public class UsuarioActivity extends GenericActivity implements
 		goToActivity(NotificacionesEventosActivity.class);
 	}
 	
+	public void enviarInvitacionExterna(View clickedButton) {
+		final AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+			@Override
+			protected Void doInBackground(Void... params) {
+				final String email = ((EditText)findViewById(R.id.editTextEnvioInvitacion)).getText().toString();
+				try {
+					ServicioRestUsuarios.enviarInvitacionExterna(email);
+				} 
+				catch (RestBlowUpException e) {
+					Log.e("ERROR", e.getMessage(), e);
+				} 
+				catch (UnauthorizedException e) {
+					Log.w("Warining", e.getMessage());
+				} 
+				catch (ConflictException e) {
+					Log.w("Warning", e.getMessage());
+				}
+				return null;
+			}
+		};
+		asyncTask.execute();
+	}
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		if (location != null) {
@@ -340,18 +365,15 @@ public class UsuarioActivity extends GenericActivity implements
 					int contadorSitioInteres = 0; 
 					int contadorEventos = 0;
 					int contadorLocal = 0;
-					int contadorCheckIn = 0;
 					for(int i=0; i < result.size() ;i++ ){
 						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
 						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
-							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
+							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
 								contadorSitioInteres++;
 							if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
 								contadorEventos++;
-							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL")) 
+							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL") || result.get(i).getTipo().equalsIgnoreCase("LOCAL_INTEGRACION")) 
 								contadorLocal++;
-							if (result.get(i).getTipo().equalsIgnoreCase("CHECK_IN")) 
-								contadorCheckIn++;
 						}						
 					}
 					button.setText(texto + " (" + contadorSitioInteres + ")");

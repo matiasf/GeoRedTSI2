@@ -11,10 +11,10 @@
         <h:outputStylesheet name="app.css" library="css"/>
         <h:outputScript target="head" name="showMessage.js" library="js"/>	
 
-       <h:form id="modificarEmpresa" enctype="multipart/form-data">
-          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header">        
+       <h:form id="modificarEmpresa" enctype="multipart/form-data" style="width:450px">
+          <rich:panel id="newEmpresaPanel" styleClass=".form" header="Empresa" headerClass="header" style="width:450px">        
 			
-			  <h:panelGroup id="divImagen">                                 
+			  <h:panelGroup id="divImagen" style="padding-left: 70px">                                 
 						<a4j:mediaOutput element="img" rendered="#{modificarEmpresaBB.imagen != null}" mimeType="image/png"
                                     createContent="#{modificarEmpresaBB.paint}" value="1"
                                     style="width:100px; height:100px;" cacheable="false">
@@ -24,14 +24,14 @@
                 </h:panelGroup>
 			
 		   <h:panelGrid columns="3" columnClasses="titleCell">
-		      <h:outputLabel for="name" value="Nombre"/>
-		      <h:inputText id="name" value="#{modificarEmpresaBB.nombre}">
+		      <h:outputLabel for="name" value="Nombre" styleClass="campoLabel"/>
+		      <h:inputText id="name" value="#{modificarEmpresaBB.nombre}" styleClass="campoInput">
 		      <rich:validator/>		         
 		      </h:inputText>
 		      <rich:message for="name" errorClass="invalid"/>
 		
-		      <h:outputLabel for="email" value="Email:"/>
-		      <h:inputText id="email" value="#{modificarEmpresaBB.mail}">
+		      <h:outputLabel for="email" value="Email:" styleClass="campoLabel"/>
+		      <h:inputText id="email" value="#{modificarEmpresaBB.mail}" styleClass="campoInput">
 		      <rich:validator/>		
 		      </h:inputText>
 		      <rich:message for="email" errorClass="invalid"/>
@@ -42,15 +42,15 @@
 		      </h:inputText>
 		      <rich:message for="pass" errorClass="invalid"/>-->
 		      
-		      <h:outputLabel for="descripcion" value="Descripcion:" />      
+		      <h:outputLabel for="descripcion" value="Descripcion:" styleClass="campoLabel"/>      
 		      <h:inputTextarea
                     maxlength="200"
-                    cols="36" rows="10"
+                    cols="30" rows="10"
                     value="#{modificarEmpresaBB.descripcion}"
                     id="description"></h:inputTextarea>
               <rich:message for="descripcion" errorClass="invalid"/>
               		      
-		   <h:outputLabel for="logo" value="Logo:"/>      
+		   <h:outputLabel for="logo" value="Logo:" styleClass="campoLabel"/>      
 			  <rich:fileUpload listWidth="240px" listHeight="100px" style="width:240px; height:120px;"
 			    uploadData="#{modificarEmpresaBB.logoData}" fileUploadListener="#{modificarEmpresaBB.logoListener}"
 			    maxFilesQuantity="1"/>
@@ -59,13 +59,13 @@
 
 		   </h:panelGrid>
 			
-			<h:panelGrid columns="2">
+			<div id="botones" style="padding-left: 70px">
 				<a4j:commandButton id="cancelar" action="#{modificarEmpresaBB.cancelar}" value="Cancelar"
                                    styleClass="boton" />
                 <a4j:commandButton id="modificarEmpresa" action="#{modificarEmpresaBB.modificarEmpresa}" value="Modificar"
                                    styleClass="boton" />                                 
                 
-             </h:panelGrid>
+             </div>
 
 			</rich:panel>
 

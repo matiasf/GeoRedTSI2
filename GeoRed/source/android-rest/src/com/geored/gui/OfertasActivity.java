@@ -31,12 +31,12 @@ public class OfertasActivity extends GenericActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.activity_compras, menu);
 		Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+		boolean externo = extras.getBoolean("externo");
+        if (extras != null && !externo) {
+        	MenuInflater inflater = getMenuInflater();
+    		inflater.inflate(R.menu.activity_compras, menu);
             value = extras.getString("ofertas_id");
-            
         }
 	}
 	
@@ -107,12 +107,11 @@ public class OfertasActivity extends GenericActivity {
 	}
 	
 	private class OfertasAsyncTask extends AsyncTask<String, Void, List<Oferta>> {
-		
 		@Override
 		protected List<Oferta> doInBackground(String... params) {
 			List<Oferta> ofertas = new ArrayList<Oferta>();
 			try {
-				ofertas = ServicioRestUsuarios.getOfertas(Integer.parseInt(params[0]));
+				ofertas = ServicioRestUsuarios.getOfertas(Integer.parseInt(params[0].split("-")[0]));
 			} catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);
 			} catch (UnauthorizedException e) {
@@ -130,8 +129,7 @@ public class OfertasActivity extends GenericActivity {
 				showToast("Error, resultado invalido de ofertas :(");
 			}
 			progressBar.dismiss();
-		}
-		
+		}		
 	}
 	
 }

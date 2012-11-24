@@ -1,6 +1,5 @@
 package negocios.impl;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -8,8 +7,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
-import javax.naming.NamingException;
 
+import negocios.GestionEmpresas;
+import negocios.excepciones.EntidadNoExiste;
+import negocios.impl.mailSender.MailSender;
 import persistencia.Categoria;
 import persistencia.CategoriaDAO;
 import persistencia.Empresa;
@@ -20,10 +21,6 @@ import persistencia.Local;
 import persistencia.LocalDAO;
 import persistencia.Oferta;
 import persistencia.OfertaDAO;
-import negocios.GestionEmpresas;
-import negocios.excepciones.EntidadNoExiste;
-import negocios.impl.mailSender.MailSender;
-import negocios.impl.mailSender.MailSender2;
 
 @Stateless
 public class GestionEmpresasImpl implements GestionEmpresas {
@@ -49,7 +46,9 @@ public class GestionEmpresasImpl implements GestionEmpresas {
 	public void agregarEmpresa(Empresa empresa) throws MessagingException {
 		empresaDAO.insertar(empresa);
 		String asunto = "Bienvenido a GeoredUy";
-		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa";
+		String cuerpo = "Bienvenido a GeoredUy. Para acceder a la administración de su empresa ingrese ingrese con el usuario "
+				+ empresa.getMailAdmin() + " y la contraseña 1111.\nLa URL para ingresar es la siguiente " +
+				"http://georeduy-rectadeeuler.rhcloud.com/richfaces-geored-web/";
 		MailSender mailSender = new MailSender(empresa.getMailAdmin(), asunto, cuerpo);
 		mailSender.send();
 	}

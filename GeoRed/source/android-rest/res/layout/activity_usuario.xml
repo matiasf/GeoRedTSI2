@@ -67,12 +67,29 @@
         android:onClick="showLogin"
         android:text="@string/logout" />
 
+    <EditText
+        android:id="@+id/editTextEnvioInvitacion"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:ems="10"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/invitacionExternaButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="enviarInvitacionExterna"
+        android:text="@string/invitarAmigo" />
+
     <Button
         android:id="@+id/oferta_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showOfertaTest"
         android:text="@string/ofertas" 
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 </LinearLayout>
