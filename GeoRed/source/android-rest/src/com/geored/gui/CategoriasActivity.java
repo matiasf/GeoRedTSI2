@@ -5,14 +5,12 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.geored.rest.Main;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestUsuarios;
 import com.geored.rest.data.Categoria;

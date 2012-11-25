@@ -14,8 +14,12 @@ import android.widget.EditText;
 
 public class LoginActivity extends GenericActivity {
 
+	
+	private int tries = 2;
+	
 	protected void loadVista() {
 		setContentView(R.layout.activity_login);
+		tries = 0;
 	}
 	
 	@Override
@@ -24,14 +28,20 @@ public class LoginActivity extends GenericActivity {
         startActivity(setIntent); 
 	}
 
-	public void showLogin(View clickedButton) {
+	private void showLogin(){
 		String emailText = ((EditText) findViewById(R.id.emailEditText))
 				.getText().toString();
 		String passwordText = ((EditText) findViewById(R.id.passwordEditText))
 				.getText().toString();
 
+		blockGUI(R.id.login_button);
 		RegistryAsyncTask task = new RegistryAsyncTask();
 		task.execute(new String[] { emailText, passwordText });
+
+	}
+	
+	public void showLogin(View clickedButton) {
+		showLogin();
 	}
 
 	private String login(String emailText, String passwordText)
@@ -57,10 +67,16 @@ public class LoginActivity extends GenericActivity {
 	    @Override
 	    protected void onPostExecute(String result) {
 	    	if (result.equals("Exito")){
+	    		tries = 0;
 	    		goToActivity(UsuarioActivity.class);
 	    	}else{
+	    		tries++;
+	    		if (tries < 2){
+	    			showLogin();
+	    		}
 	    		showToast(result);
-	    	}	    	
+	    	}	
+	    	unBlockGUI(R.id.login_button);
 	    }
 	}
     

@@ -3,8 +3,6 @@ package com.geored.rest;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-
-import com.geored.gui.CategoriasActivity;
 import com.geored.gui.CheckInActivity;
 import com.geored.gui.FacebookActivity;
 import com.geored.gui.GenericActivity;
@@ -21,13 +19,11 @@ public class Main extends GenericActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onBackPressed()
-    {
-    	//goToPreviousActivity();
-        //Intent setIntent = new Intent(this,xxxxx.class);
-        //startActivity(setIntent); 
-        return;
-    }
+    	
+	@Override
+	protected void goToPreviousActivity(){	
+        
+	}
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

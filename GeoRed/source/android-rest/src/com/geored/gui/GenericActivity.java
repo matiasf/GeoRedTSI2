@@ -1,10 +1,13 @@
 package com.geored.gui;
 
+import java.util.Date;
 import java.util.Hashtable;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,12 +21,16 @@ public class GenericActivity extends Activity {
 	
 	protected String usuarioId;
 	protected Hashtable<String, Usuario>  hashUsuarios = new Hashtable<String,Usuario> ();
+	protected double locationRange = 0.001;
+	protected Location currentlocation; 
+	protected Date lastDate = new Date();
 	
+	static public boolean showToast = false;
 	static public Hashtable<String, Notificacion>  hashNotificaciones = new Hashtable<String,Notificacion> ();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
         progressBar = new ProgressDialog(this);
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressBar.setMessage("Por favor espere...");
@@ -35,7 +42,7 @@ public class GenericActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	usuarioId = extras.getString("user_id");        
-        }
+        }    	
     }
     
     public void onBackPressed()
@@ -64,7 +71,10 @@ public class GenericActivity extends Activity {
     }
     
     protected void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    	if (showToast)
+    		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    	
+    	Log.d("Toast", text);
     }
     
 	protected void blockGUI(int id) {
@@ -81,4 +91,21 @@ public class GenericActivity extends Activity {
 		progressBar.dismiss();
 	}
     
+
+	protected boolean searchLocation(Location location){
+		
+		boolean retVal =  currentlocation == null || (Math.abs(location.getLatitude()-currentlocation.getLatitude()) > locationRange 
+		&& Math.abs(location.getLongitude()-currentlocation.getLongitude()) > locationRange );
+		
+		Date currentDate = new Date();
+		if (!retVal){
+			retVal = Math.abs(currentDate.getMinutes() - lastDate.getMinutes()) > 0;
+			if (retVal){
+				showToast("paso un minuto");
+				lastDate = currentDate;
+			}					
+		}				
+		return retVal;
+	}
+	
 }

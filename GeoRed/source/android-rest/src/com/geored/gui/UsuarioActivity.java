@@ -1,6 +1,5 @@
 package com.geored.gui;
 
-import java.util.Date;
 import java.util.List;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.facebook.Session;
 import com.geored.gui.map.MapsDemo;
+import com.geored.gui.utils.Constantes;
 import com.geored.rest.Main;
 import com.geored.rest.R;
 import com.geored.rest.ServicioRestAutenticacion;
@@ -36,9 +36,7 @@ public class UsuarioActivity extends GenericActivity implements
 		LocationListener {
 
 	private LocationManager locManager;
-	private double locationRange = 0.001;
-	private Location currentlocation; 
-	private Date lastDate = new Date();
+
 
 	private final static String SENDER_ID = "786328023735";
 	private final AsyncTask<Void, Void, Void> serverRegisterTask = new AsyncTask<Void, Void, Void>() {
@@ -58,8 +56,8 @@ public class UsuarioActivity extends GenericActivity implements
 	
 	@Override
 	protected void goToPreviousActivity(){	
-        Intent setIntent = new Intent(this,UsuarioActivity.class);
-        startActivity(setIntent); 
+		Intent setIntent = new Intent(this,UsuarioActivity.class);
+        startActivity(setIntent);
 	}
 
 	@Override
@@ -289,20 +287,7 @@ public class UsuarioActivity extends GenericActivity implements
 		asyncTask.execute();
 	}
 	
-	private boolean searchLocation(Location location){
-		
-		boolean retVal =  currentlocation == null || (Math.abs(location.getLatitude()-currentlocation.getLatitude()) > locationRange 
-		&& Math.abs(location.getLongitude()-currentlocation.getLongitude()) > locationRange );
-		
-		Date currentDate = new Date();
-		if (!retVal){
-			retVal = Math.abs(currentDate.getMinutes() - lastDate.getMinutes()) > 0;
-			if (retVal){
-				lastDate = currentDate;
-			}					
-		}				
-		return retVal;
-	}
+
 	
 	@Override
 	public void onLocationChanged(Location location) {
@@ -391,11 +376,13 @@ public class UsuarioActivity extends GenericActivity implements
 					for(int i=0; i < result.size() ;i++ ){
 						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
 						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
-							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES_INTEGRACION")) 
+							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString()) 
+									|| result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString())) 
 								contadorSitioInteres++;
-							if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
+							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.EVENTO.toString())) 
 								contadorEventos++;
-							if (result.get(i).getTipo().equalsIgnoreCase("LOCAL") || result.get(i).getTipo().equalsIgnoreCase("LOCAL_INTEGRACION")) 
+							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL.toString()) 
+									|| result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL_INTEGRACION.toString())) 
 								contadorLocal++;
 						}						
 					}
