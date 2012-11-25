@@ -21,6 +21,14 @@ public class Main extends GenericActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onBackPressed()
+    {
+    	//goToPreviousActivity();
+        //Intent setIntent = new Intent(this,xxxxx.class);
+        //startActivity(setIntent); 
+        return;
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);

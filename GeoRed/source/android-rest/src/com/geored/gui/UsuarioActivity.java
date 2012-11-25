@@ -1,7 +1,7 @@
 package com.geored.gui;
 
+import java.util.Date;
 import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.facebook.Session;
 import com.geored.gui.map.MapsDemo;
 import com.geored.rest.Main;
@@ -37,6 +36,9 @@ public class UsuarioActivity extends GenericActivity implements
 		LocationListener {
 
 	private LocationManager locManager;
+	private double locationRange = 0.001;
+	private Location currentlocation; 
+	private Date lastDate = new Date();
 
 	private final static String SENDER_ID = "786328023735";
 	private final AsyncTask<Void, Void, Void> serverRegisterTask = new AsyncTask<Void, Void, Void>() {
@@ -90,24 +92,23 @@ public class UsuarioActivity extends GenericActivity implements
 		// manager
 		// Location location =
 		// locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		Location location = locManager.getLastKnownLocation(bestProvider);
+		currentlocation = locManager.getLastKnownLocation(bestProvider);
 
-		// if location found display as a toast the current latitude and
-		// longitude
-		if (location != null) {
+		// if location found display as a toast the current latitude and longitude
+		if (currentlocation != null) {
 
 			Toast.makeText(
 					this,
-					"Current location:\nLatitude: " + location.getLatitude()
-							+ "\n" + "Longitude: " + location.getLongitude(),
+					"Current location:\nLatitude: " + currentlocation.getLatitude()
+							+ "\n" + "Longitude: " + currentlocation.getLongitude(),
 					Toast.LENGTH_LONG).show();
 
-			showNotificaciones(location.getLatitude(),location.getLongitude());
+			showNotificaciones(currentlocation.getLatitude(),currentlocation.getLongitude());
 		} else {
-
+			
 			Toast.makeText(
 					this,
-					"Cannot fetch current location! Please turn of Internet or GPS",
+					"No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS",
 					Toast.LENGTH_LONG).show();
 		}
 
@@ -149,8 +150,12 @@ public class UsuarioActivity extends GenericActivity implements
 
 		String bestProvider = locManager.getBestProvider(criteria, true);
 		Location location = locManager.getLastKnownLocation(bestProvider);
-
-		showNotificaciones(location.getLatitude(),location.getLongitude());
+		if (location != null){
+			if (searchLocation(location)){
+				showNotificaciones(location.getLatitude(),location.getLongitude());
+				currentlocation = location;
+			}	
+		}					
 	}
 	
 	@Override
@@ -284,21 +289,39 @@ public class UsuarioActivity extends GenericActivity implements
 		asyncTask.execute();
 	}
 	
+	private boolean searchLocation(Location location){
+		
+		boolean retVal =  currentlocation == null || (Math.abs(location.getLatitude()-currentlocation.getLatitude()) > locationRange 
+		&& Math.abs(location.getLongitude()-currentlocation.getLongitude()) > locationRange );
+		
+		Date currentDate = new Date();
+		if (!retVal){
+			retVal = Math.abs(currentDate.getMinutes() - lastDate.getMinutes()) > 0;
+			if (retVal){
+				lastDate = currentDate;
+			}					
+		}				
+		return retVal;
+	}
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		if (location != null) {
+			if (searchLocation(location)){
+				this.currentlocation = location;
 
-			Toast.makeText(
-					this,
-					"Current location:\nLatitude: " + location.getLatitude()
-							+ "\n" + "Longitude: " + location.getLongitude(),
-					Toast.LENGTH_LONG).show();
-			showNotificaciones(location.getLatitude(), location.getLongitude());
+				Toast.makeText(
+						this,
+						"Current location:\nLatitude: " + location.getLatitude()
+								+ "\n" + "Longitude: " + location.getLongitude(),
+						Toast.LENGTH_LONG).show();
+				showNotificaciones(location.getLatitude(), location.getLongitude());
+			}
 		} else {
 
 			Toast.makeText(
 					this,
-					"Cannot fetch current location! Please turn of Internet or GPS",
+					"No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS",
 					Toast.LENGTH_LONG).show();
 		}
 
@@ -368,7 +391,7 @@ public class UsuarioActivity extends GenericActivity implements
 					for(int i=0; i < result.size() ;i++ ){
 						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
 						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
-							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES")) 
+							if (result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES") || result.get(i).getTipo().equalsIgnoreCase("SITIO_DE_INTERES_INTEGRACION")) 
 								contadorSitioInteres++;
 							if (result.get(i).getTipo().equalsIgnoreCase("EVENTO")) 
 								contadorEventos++;
