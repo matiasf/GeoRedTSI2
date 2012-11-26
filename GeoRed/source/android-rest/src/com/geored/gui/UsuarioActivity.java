@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.facebook.Session;
 import com.geored.gui.map.MapsDemo;
 import com.geored.gui.utils.Constantes;
@@ -37,13 +36,13 @@ public class UsuarioActivity extends GenericActivity implements
 
 	private LocationManager locManager;
 
-
 	private final static String SENDER_ID = "786328023735";
 	private final AsyncTask<Void, Void, Void> serverRegisterTask = new AsyncTask<Void, Void, Void>() {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				ServicioRestGCM.registrar(GCMRegistrar.getRegistrationId(UsuarioActivity.this));
+				ServicioRestGCM.registrar(GCMRegistrar
+						.getRegistrationId(UsuarioActivity.this));
 				GCMRegistrar.setRegisteredOnServer(UsuarioActivity.this, true);
 			} catch (RestBlowUpException e) {
 				Log.e("ERROR", e.getMessage(), e);
@@ -53,23 +52,22 @@ public class UsuarioActivity extends GenericActivity implements
 			return null;
 		}
 	};
-	
+
 	@Override
-	protected void goToPreviousActivity(){	
-		Intent setIntent = new Intent(this,UsuarioActivity.class);
-        startActivity(setIntent);
+	protected void goToPreviousActivity() {
+		Intent setIntent = new Intent(this, UsuarioActivity.class);
+		startActivity(setIntent);
 	}
 
 	@Override
 	protected void loadVista() {
 		GCMRegistrar.checkDevice(this);
 		GCMRegistrar.checkManifest(this);
-		if (GCMRegistrar.isRegistered(this)){
+		if (GCMRegistrar.isRegistered(this)) {
 			serverRegisterTask.execute();
-		}
-		else {
+		} else {
 			GCMRegistrar.register(this, SENDER_ID);
-		}		
+		}
 		setContentView(R.layout.activity_usuario);
 
 		// Use the location manager through GPS
@@ -92,22 +90,19 @@ public class UsuarioActivity extends GenericActivity implements
 		// locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		currentlocation = locManager.getLastKnownLocation(bestProvider);
 
-		// if location found display as a toast the current latitude and longitude
+		// if location found display as a toast the current latitude and
+		// longitude
 		if (currentlocation != null) {
 
-			Toast.makeText(
-					this,
-					"Current location:\nLatitude: " + currentlocation.getLatitude()
-							+ "\n" + "Longitude: " + currentlocation.getLongitude(),
-					Toast.LENGTH_LONG).show();
+			showToast("Current location:\nLatitude: "
+					+ currentlocation.getLatitude() + "\n" + "Longitude: "
+					+ currentlocation.getLongitude());
 
-			showNotificaciones(currentlocation.getLatitude(),currentlocation.getLongitude());
+			showNotificaciones(currentlocation.getLatitude(),
+					currentlocation.getLongitude());
 		} else {
-			
-			Toast.makeText(
-					this,
-					"No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS",
-					Toast.LENGTH_LONG).show();
+
+			showToast("No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS");
 		}
 
 	}
@@ -135,11 +130,11 @@ public class UsuarioActivity extends GenericActivity implements
 
 		String bestProvider = locManager.getBestProvider(criteria, true);
 		locManager.requestLocationUpdates(bestProvider, 0, 0, this);
-		
+
 	}
 
 	@Override
-	protected void onRestart(){
+	protected void onRestart() {
 		super.onRestart();
 		Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
@@ -148,14 +143,15 @@ public class UsuarioActivity extends GenericActivity implements
 
 		String bestProvider = locManager.getBestProvider(criteria, true);
 		Location location = locManager.getLastKnownLocation(bestProvider);
-		if (location != null){
-			if (searchLocation(location)){
-				showNotificaciones(location.getLatitude(),location.getLongitude());
+		if (location != null) {
+			if (searchLocation(location)) {
+				showNotificaciones(location.getLatitude(),
+						location.getLongitude());
 				currentlocation = location;
-			}	
-		}					
+			}
+		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -204,12 +200,13 @@ public class UsuarioActivity extends GenericActivity implements
 				} catch (RestBlowUpException e) {
 					Log.e("ERROR", e.getMessage(), e);
 				} catch (UnauthorizedException e) {
-					Log.w("Warning", "Ya estaba deslogueado: " + e.getMessage(), e);
+					Log.w("Warning",
+							"Ya estaba deslogueado: " + e.getMessage(), e);
 					goToActivity(Main.class);
 				}
 				return null;
 			}
-		};		
+		};
 		logoutTask.execute();
 	}
 
@@ -250,35 +247,33 @@ public class UsuarioActivity extends GenericActivity implements
 	public void showBuscarContactos(View clickedButton) {
 		goToActivity(BuscarContactosActivity.class);
 	}
-	
+
 	public void showOfertaTest(View clickedButton) {
 		goToActivity(OfertasActivity.class);
 	}
-	
+
 	public void showNotificacionesLocales(View clickedButton) {
 		goToActivity(NotificacionesOfertasActivity.class);
-	}	
-	
+	}
+
 	public void showNotificacionesEventos(View clickedButton) {
-		
+
 		goToActivity(NotificacionesEventosActivity.class);
 	}
-	
+
 	public void enviarInvitacionExterna(View clickedButton) {
 		final AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
 			@Override
 			protected Void doInBackground(Void... params) {
-				final String email = ((EditText)findViewById(R.id.editTextEnvioInvitacion)).getText().toString();
+				final String email = ((EditText) findViewById(R.id.editTextEnvioInvitacion))
+						.getText().toString();
 				try {
 					ServicioRestUsuarios.enviarInvitacionExterna(email);
-				} 
-				catch (RestBlowUpException e) {
+				} catch (RestBlowUpException e) {
 					Log.e("ERROR", e.getMessage(), e);
-				} 
-				catch (UnauthorizedException e) {
+				} catch (UnauthorizedException e) {
 					Log.w("Warining", e.getMessage());
-				} 
-				catch (ConflictException e) {
+				} catch (ConflictException e) {
 					Log.w("Warning", e.getMessage());
 				}
 				return null;
@@ -286,28 +281,22 @@ public class UsuarioActivity extends GenericActivity implements
 		};
 		asyncTask.execute();
 	}
-	
 
-	
 	@Override
 	public void onLocationChanged(Location location) {
 		if (location != null) {
-			if (searchLocation(location)){
+			if (searchLocation(location)) {
 				this.currentlocation = location;
 
-				Toast.makeText(
-						this,
-						"Current location:\nLatitude: " + location.getLatitude()
-								+ "\n" + "Longitude: " + location.getLongitude(),
-						Toast.LENGTH_LONG).show();
-				showNotificaciones(location.getLatitude(), location.getLongitude());
+				showToast("Current location:\nLatitude: "
+						+ location.getLatitude() + "\n" + "Longitude: "
+						+ location.getLongitude());
+				showNotificaciones(location.getLatitude(),
+						location.getLongitude());
 			}
 		} else {
 
-			Toast.makeText(
-					this,
-					"No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS",
-					Toast.LENGTH_LONG).show();
+			showToast("No se puede obtener la ubicacion actual! Por favor encienda Internet or GPS");
 		}
 
 	}
@@ -333,7 +322,8 @@ public class UsuarioActivity extends GenericActivity implements
 		protected List<Notificacion> doInBackground(Posicion... posicions) {
 			List<Notificacion> notificaciones;
 			try {
-				notificaciones = ServicioRestUsuarios.getNotificaciones(posicions[0]);
+				notificaciones = ServicioRestUsuarios
+						.getNotificaciones(posicions[0]);
 			} catch (RestBlowUpException e) {
 				e.printStackTrace();
 				return null;
@@ -362,33 +352,61 @@ public class UsuarioActivity extends GenericActivity implements
 			try {
 				Button button = (Button) findViewById(R.id.notificacionesSitio_button);
 				String texto = getString(R.string.sitioDInteres);
-				
+
 				Button buttonOfertas = (Button) findViewById(R.id.notificaciones_button);
 				String textoOfertas = getString(R.string.notificacionesLocales);
-				
+
 				Button buttonEventos = (Button) findViewById(R.id.notificacionesEventos_button);
 				String textoEventos = getString(R.string.notificacionesEventos);
 
 				if (result != null && result.size() > 0) {
-					int contadorSitioInteres = 0; 
+					int contadorSitioInteres = 0;
 					int contadorEventos = 0;
 					int contadorLocal = 0;
-					for(int i=0; i < result.size() ;i++ ){
-						//SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
-						if (! GenericActivity.hashNotificaciones.containsKey(result.get(i).getId())){
-							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString()) 
-									|| result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString())) 
+					for (int i = 0; i < result.size(); i++) {
+						// SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
+						if (!GenericActivity.hashNotificaciones
+								.containsKey(result.get(i).getId())) {
+							if (result
+									.get(i)
+									.getTipo()
+									.equalsIgnoreCase(
+											Constantes.TipoNotifiacion.SITIO_DE_INTERES
+													.toString())
+									|| result
+											.get(i)
+											.getTipo()
+											.equalsIgnoreCase(
+													Constantes.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION
+															.toString()))
 								contadorSitioInteres++;
-							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.EVENTO.toString())) 
+							if (result
+									.get(i)
+									.getTipo()
+									.equalsIgnoreCase(
+											Constantes.TipoNotifiacion.EVENTO
+													.toString()))
 								contadorEventos++;
-							if (result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL.toString()) 
-									|| result.get(i).getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.LOCAL_INTEGRACION.toString())) 
+							if (result
+									.get(i)
+									.getTipo()
+									.equalsIgnoreCase(
+											Constantes.TipoNotifiacion.LOCAL
+													.toString())
+									|| result
+											.get(i)
+											.getTipo()
+											.equalsIgnoreCase(
+													Constantes.TipoNotifiacion.LOCAL_INTEGRACION
+															.toString()))
 								contadorLocal++;
-						}						
+						}
 					}
 					button.setText(texto + " (" + contadorSitioInteres + ")");
-					buttonOfertas.setText(textoOfertas + " (" + contadorLocal + ")");
-					buttonEventos.setText(textoEventos + " (" + contadorEventos + ")");
+					buttonOfertas.setText(textoOfertas + " (" + contadorLocal
+							+ ")");
+					buttonEventos.setText(textoEventos + " (" + contadorEventos
+							+ ")");
 				} else {
 					button.setText(texto + " (0)");
 					buttonOfertas.setText(textoOfertas + " (0)");
