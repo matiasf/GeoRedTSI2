@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.geored.rest.R;
@@ -58,7 +59,7 @@ public class PagarPayPalActivity  extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pagarpaypal);
-		//layoutSimplePayment = 
+		layoutSimplePayment = ((LinearLayout)findViewById(R.id.layoutSimplePayment));
 		Thread libraryInitializationThread = new Thread() {
 			public void run() {
 				initLibrary();
