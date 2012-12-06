@@ -15,11 +15,9 @@ import android.widget.EditText;
 public class LoginActivity extends GenericActivity {
 
 	
-	private int tries = 2;
-	
 	protected void loadVista() {
 		setContentView(R.layout.activity_login);
-		tries = 0;
+		
 	}
 	
 	@Override

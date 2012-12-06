@@ -35,7 +35,7 @@ public class UsuarioActivity extends GenericActivity implements
 		LocationListener {
 
 	private LocationManager locManager;
-
+	
 	private final static String SENDER_ID = "786328023735";
 	private final AsyncTask<Void, Void, Void> serverRegisterTask = new AsyncTask<Void, Void, Void>() {
 		@Override
@@ -145,9 +145,9 @@ public class UsuarioActivity extends GenericActivity implements
 		Location location = locManager.getLastKnownLocation(bestProvider);
 		if (location != null) {
 			if (searchLocation(location)) {
-				showNotificaciones(location.getLatitude(),
-						location.getLongitude());
 				currentlocation = location;
+				showNotificaciones(location.getLatitude(),
+						location.getLongitude());				
 			}
 		}
 	}
@@ -186,6 +186,7 @@ public class UsuarioActivity extends GenericActivity implements
 	}
 
 	public void showLogin(View clickedButton) {
+		GenericActivity.hashNotificaciones.clear();		
 		Session session = Session.getActiveSession();
 		if (session != null && !session.isClosed()) {
 			session.closeAndClearTokenInformation();
@@ -341,9 +342,15 @@ public class UsuarioActivity extends GenericActivity implements
 		@Override
 		protected void onPostExecute(List<Notificacion> result) {
 			if (result != null) {
+				tries = 0;
 				loadNotifications(result);
 				// goToActivity(UsuarioActivity.class);
 			} else {
+				tries++;
+	    		if (tries < 2){
+	    			showNotificaciones(currentlocation.getLatitude(),
+	    					currentlocation.getLongitude());
+	    		}
 				showToast("error");
 			}
 		}
@@ -366,13 +373,13 @@ public class UsuarioActivity extends GenericActivity implements
 					for (int i = 0; i < result.size(); i++) {
 						// SITIO_DE_INTERES, EVENTO, LOCAL, CHECK_IN
 						if (!GenericActivity.hashNotificaciones
-								.containsKey(result.get(i).getId())) {
-							if (result
+								.containsKey(result.get(i).getId()+result.get(i).getTipo())) {
+							if ((result
 									.get(i)
 									.getTipo()
 									.equalsIgnoreCase(
 											Constantes.TipoNotifiacion.SITIO_DE_INTERES
-													.toString())
+													.toString()))
 									|| result
 											.get(i)
 											.getTipo()

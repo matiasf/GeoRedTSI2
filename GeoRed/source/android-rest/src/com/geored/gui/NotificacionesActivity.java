@@ -37,13 +37,17 @@ public class NotificacionesActivity extends GenericNotificacionesActivity {
 								(noty.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString())
 									|| noty.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString()))) {
 							
-							GenericActivity.hashNotificaciones.put(noty.getId(), noty);
+							
 							
 							strs.add(noty.getId());
-							if (noty.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString())) 
+							if (noty.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString())){
 								itemizedoverlay.hashNotificaciones.put(noty.getId(), noty);
-							else
-								itemizedoverlayIntegracion.hashNotificaciones.put(noty.getId(), noty);
+								GenericActivity.hashNotificaciones.put(noty.getId()+Constantes.TipoNotifiacion.SITIO_DE_INTERES.toString(), noty);
+							}else{
+								itemizedoverlayIntegracion.hashNotificaciones.put(noty.getId(), noty);	
+								GenericActivity.hashNotificaciones.put(noty.getId()+Constantes.TipoNotifiacion.SITIO_DE_INTERES_INTEGRACION.toString(), noty);
+							}
+							
 
 							GeoPoint point = new GeoPoint(
 									(int) (noty.getPosicion().getLatitud() * 1E6),

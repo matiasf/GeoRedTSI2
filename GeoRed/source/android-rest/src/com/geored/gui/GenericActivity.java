@@ -26,7 +26,9 @@ public class GenericActivity extends Activity {
 	protected Date lastDate = new Date();
 	
 	static public boolean showToast = false;
-	static public Hashtable<String, Notificacion>  hashNotificaciones = new Hashtable<String,Notificacion> ();
+	static public Hashtable<String, Notificacion> hashNotificaciones = new Hashtable<String,Notificacion> ();
+	
+	protected int tries = 2;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,8 @@ public class GenericActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	usuarioId = extras.getString("user_id");        
-        }    	
+        }  
+        tries = 0;
     }
     
     public void onBackPressed()

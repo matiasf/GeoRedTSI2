@@ -30,7 +30,7 @@ public class NotificacionesEventosActivity extends GenericNotificacionesActivity
 						Notificacion noty = (Notificacion) it.next();
 						if (noty.getPosicion() != null && noty.getTipo().equalsIgnoreCase(Constantes.TipoNotifiacion.EVENTO.toString())) {
 							
-							GenericActivity.hashNotificaciones.put(noty.getId(), noty);
+							GenericActivity.hashNotificaciones.put(noty.getId()+Constantes.TipoNotifiacion.EVENTO.toString(), noty);
 							
 							strs.add(noty.getId());
 
